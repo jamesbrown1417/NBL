@@ -1,0 +1,40 @@
+---
+title: "NBL Player Stats"
+execute:
+    echo: false
+    message: false
+    warning: false
+author: "James Brown"
+date: "2023-07-03"
+format:
+    html:
+        df-print: default
+        theme: cosmo
+        self-contained: true
+        toc: true
+        toc-depth: 3
+        fig-width: 8
+        fig-height: 6
+editor: visual
+---
+
+```{r}
+# Libraries
+library(tidyverse)
+
+# Read in data
+combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
+```
+
+# Season 2022-2023
+
+```{r}
+top_point_scorers <-
+    combined_stats_table |> 
+    filter(season == "2022-2023") |> 
+    filter(round_number |> str_detect("^[0-9]")) |> 
+    distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
+    group_by(first_name, family_name) |> 
+    summarise(ppg = mean(player_points, na.rm = TRUE)) |> 
+    arrange(desc(ppg))
+```
