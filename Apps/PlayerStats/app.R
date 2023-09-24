@@ -10,6 +10,8 @@ library(shinythemes)
 library(tidyverse)
 library(DT)
 
+`%notin%` <- Negate(`%in%`)
+
 # Data--------------------------------------------------------------------------
 combined_stats_table <- read_rds("combined_stats_table.rds")
 
@@ -33,6 +35,7 @@ display_player_stats <- function(player_name, season_name, n_games) {
         select(player_full_name,
                season,
                round_number,
+               match_time_utc,
                team = name,
                opposition = opp_name,
                home_away,
@@ -110,6 +113,50 @@ display_empirical_probabilities <-
             )
     }
 
+# Create function to analyse performance with and without a team-mate-----------
+with_without <- function(player_name, team_mate, season_name) {
+    # Full table
+    full_table <-
+    combined_stats_table |>
+        mutate(player_full_name = paste(first_name, family_name)) |>
+        filter(season == season_name)
+    
+    # Player games played
+    player_games <-
+    full_table |> 
+        filter(player_full_name == player_name) |>
+        select(match_id, round_number, name, opp_name)
+    
+    # Team mate games played
+    team_mate_games <-
+    full_table |> 
+        filter(player_full_name == team_mate) |>
+        select(match_id, round_number, name, opp_name)
+    
+    # Player with teammate
+    both <-
+    full_table |> 
+        filter(match_id %in% player_games$match_id & match_id %in% team_mate_games$match_id) |>
+        filter(player_full_name == player_name) |>
+        group_by(player_full_name) |>
+        summarise(ppg = mean(player_points), apg = mean(player_assists), rpg = mean(player_rebounds_total), games = n()) |>
+        mutate(teammate = team_mate, with_teammate = TRUE)
+        
+    
+    # Player without teammate
+    just_player <-
+        full_table |> 
+        filter(match_id %in% player_games$match_id & match_id %notin% team_mate_games$match_id) |>
+        filter(player_full_name == player_name) |> 
+        group_by(player_full_name) |>
+        summarise(ppg = mean(player_points), apg = mean(player_assists), rpg = mean(player_rebounds_total), games = n()) |>
+        mutate(teammate = team_mate, with_teammate = FALSE)
+    
+    # Combine and output
+    bind_rows(both, just_player) |>
+        relocate(teammate, with_teammate, .after =  player_full_name)
+}
+
 ##%######################################################%##
 #                                                          #
 ####                        App                         ####
@@ -144,7 +191,7 @@ ui <- fluidPage(titlePanel("Player Performance Analysis"),
             numericInput(
                 "n_games",
                 "Number of Games to Display",
-                value = 5,
+                value = 10,
                 min = 1
             ),
             selectInput(

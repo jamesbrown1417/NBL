@@ -1,0 +1,43 @@
+---
+title: "NBL Team Stats"
+execute:
+    echo: false
+    message: false
+    warning: false
+author: "James Brown"
+date: "2023-07-03"
+format:
+    html:
+        df-print: paged
+        theme: cosmo
+        self-contained: true
+        toc: true
+        toc-depth: 3
+        fig-width: 8
+        fig-height: 6
+editor: visual
+---
+
+```{r}
+# Libraries
+library(tidyverse)
+library(qreport)
+
+# Read in data
+combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
+```
+
+# Season 2022-2023
+
+```{r}
+# Get each teams season averages
+points_by_team <-
+combined_stats_table |>
+    filter(!is.na(score)) |> 
+    distinct(match_id, name, .keep_all = TRUE) |> 
+        group_by(name) |>
+    summarise(avg_points_scored = mean(score), avg_points_conceded = mean(opp_score)) |>
+    arrange(desc(avg_points_scored))
+
+```
+

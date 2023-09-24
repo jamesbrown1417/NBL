@@ -8,7 +8,7 @@ author: "James Brown"
 date: "2023-07-03"
 format:
     html:
-        df-print: default
+        df-print: paged
         theme: cosmo
         self-contained: true
         toc: true
@@ -21,6 +21,7 @@ editor: visual
 ```{r}
 # Libraries
 library(tidyverse)
+library(qreport)
 
 # Read in data
 combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
@@ -29,12 +30,69 @@ combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
 # Season 2022-2023
 
 ```{r}
+#| results: asis
+
+# Top Point Scorers
 top_point_scorers <-
     combined_stats_table |> 
     filter(season == "2022-2023") |> 
     filter(round_number |> str_detect("^[0-9]")) |> 
     distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
-    group_by(first_name, family_name) |> 
-    summarise(ppg = mean(player_points, na.rm = TRUE)) |> 
-    arrange(desc(ppg))
+    group_by(name, first_name, family_name) |> 
+    summarise(ppg = mean(player_points, na.rm = TRUE),  games_played = n()) |> 
+    arrange(desc(ppg)) |>
+    filter(games_played >= 5) |>
+    rename(player_team = name) |>
+    mutate(ppg = round(ppg, 1))
+
+# Top Assists
+top_assists <-
+    combined_stats_table |> 
+    filter(season == "2022-2023") |> 
+    filter(round_number |> str_detect("^[0-9]")) |> 
+    distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
+    group_by(name, first_name, family_name) |> 
+    summarise(apg = mean(player_assists, na.rm = TRUE),  games_played = n()) |> 
+    arrange(desc(apg)) |>
+    filter(games_played >= 5) |>
+    rename(player_team = name) |>
+    mutate(apg = round(apg, 1))
+
+
+# Top Rebounds
+top_rebounds <-
+    combined_stats_table |> 
+    filter(season == "2022-2023") |> 
+    filter(round_number |> str_detect("^[0-9]")) |> 
+    distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
+    group_by(name, first_name, family_name) |> 
+    summarise(rpg = mean(player_rebounds_total, na.rm = TRUE),  games_played = n()) |> 
+    arrange(desc(rpg)) |>
+    filter(games_played >= 5) |>
+    rename(player_team = name) |>
+    mutate(rpg = round(rpg, 1))
+
+
+# Three Points Made
+three_pointers <-
+    combined_stats_table |> 
+    filter(season == "2022-2023") |> 
+    filter(round_number |> str_detect("^[0-9]")) |> 
+    distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
+    group_by(name, first_name, family_name) |> 
+    summarise(threes_made = sum(player_three_pointers_made, na.rm = TRUE), threes_attempted =  sum(player_three_pointers_attempted, na.rm = TRUE), games_played = n()) |> 
+    mutate(three_point_percentage = round(100*(threes_made / threes_attempted), 1)) |>
+    filter(games_played >= 5) |>
+    ungroup() |>
+    arrange(desc(threes_made)) |>
+    rename(player_team = name)
+
+# Create list
+summary_list <-
+    list("Points" = top_point_scorers,
+         "Assists" = top_assists,
+         "Rebounds" = top_rebounds,
+         "Three Pointers" = three_pointers)
+
+maketabs(summary_list, wide = TRUE)
 ```
