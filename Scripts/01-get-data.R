@@ -24,9 +24,9 @@ team_box_scores <-
     relocate(ot_score, .after = p4_score) |>
     select(-c(short_name, opp_short_name, efficiency_custom, tot_eff_1:tot_eff_7, -full_score, -opp_full_score)) |>
     left_join(match_results |>
-        select(match_id, round_number, match_time_utc) |>
+        select(match_id, round_number, match_time_utc, extra_periods_used) |>
         distinct(match_id, .keep_all = TRUE)) |>
-    relocate(round_number, match_time_utc, .after = season) |>
+    relocate(round_number, match_time_utc, extra_periods_used, .after = season) |>
     arrange(desc(match_time_utc))
 
 # Player Box Scores
@@ -58,36 +58,49 @@ player_box_scores <-
 
 # Rename variables
 team_box_scores <-
- team_box_scores |>
- rename(
-    match_minutes = minutes,
-    match_points = points,
-    match_field_goals_made = field_goals_made,
-    match_field_goals_attempted = field_goals_attempted,
-    match_field_goals_percentage = field_goals_percentage,
-    match_three_pointers_made = three_pointers_made,
-    match_three_pointers_attempted = three_pointers_attempted,
-    match_three_pointers_percentage = three_pointers_percentage,
-    match_two_pointers_made = two_pointers_made,
-    match_two_pointers_attempted = two_pointers_attempted,
-    match_two_pointers_percentage = two_pointers_percentage,
-    match_free_throws_made = free_throws_made,
-    match_free_throws_attempted = free_throws_attempted,
-    match_free_throws_percentage = free_throws_percentage,
-    match_rebounds_defensive = rebounds_defensive,
-    match_rebounds_offensive = rebounds_offensive,
-    match_rebounds_total = rebounds_total,
-    match_assists = assists,
-    match_turnovers = turnovers,
-    match_steals = steals,
-    match_blocks = blocks,
-    match_blocks_received = blocks_received,
-    match_fouls_personal = fouls_personal,
-    match_fouls_received = fouls_on,
-    match_points_second_chance = points_second_chance,
-    match_points_fast_break = points_fast_break,
-    match_points_in_the_paint = points_in_the_paint
- )
+    team_box_scores |>
+    rename(
+        match_minutes = minutes,
+        match_points = points,
+        match_field_goals_made = field_goals_made,
+        match_field_goals_attempted = field_goals_attempted,
+        match_field_goals_percentage = field_goals_percentage,
+        match_three_pointers_made = three_pointers_made,
+        match_three_pointers_attempted = three_pointers_attempted,
+        match_three_pointers_percentage = three_pointers_percentage,
+        match_two_pointers_made = two_pointers_made,
+        match_two_pointers_attempted = two_pointers_attempted,
+        match_two_pointers_percentage = two_pointers_percentage,
+        match_free_throws_made = free_throws_made,
+        match_free_throws_attempted = free_throws_attempted,
+        match_free_throws_percentage = free_throws_percentage,
+        match_rebounds_defensive = rebounds_defensive,
+        match_rebounds_offensive = rebounds_offensive,
+        match_rebounds_total = rebounds_total,
+        match_assists = assists,
+        match_turnovers = turnovers,
+        match_steals = steals,
+        match_blocks = blocks,
+        match_blocks_received = blocks_received,
+        match_fouls_personal = fouls_personal,
+        match_fouls_received = fouls_on,
+        match_points_second_chance = points_second_chance,
+        match_points_fast_break = points_fast_break,
+        match_points_in_the_paint = points_in_the_paint
+    ) |>
+    select(-match_minutes) |>
+    mutate(
+        possessions = 0.5 * (
+            match_field_goals_attempted -
+                match_rebounds_offensive +
+                match_turnovers +
+                0.4 * match_free_throws_attempted
+        )
+    ) |>
+    filter(!is.na(p1_score) &
+               !is.na(p2_score) &
+               !is.na(p3_score) &
+               !is.na(p4_score))
 
  player_box_scores <-
  player_box_scores |>
@@ -120,6 +133,24 @@ team_box_scores <-
     player_points_fast_break = points_fast_break,
     player_points_in_the_paint = points_in_the_paint
  )
+
+# Create pace variable----------------------------------------------------------
+# Get vars
+home_team_match_data <-
+     team_box_scores |>
+     filter(home_away == "home") |>
+     select(match_id, home_name = name, home_possessions = possessions)
+
+away_team_match_data <-
+     team_box_scores |>
+    filter(home_away == "away") |> 
+    select(match_id, home_away, away_name = name, away_possessions = possessions)
+
+# get opp team possessions
+possessions <-
+    home_team_match_data |> 
+    left_join(away_team_match_data, by = "match_id") |> 
+    mutate(possessions = (home_possessions + away_possessions) / 2)
 
 # Combine
 combined_stats_table <-
