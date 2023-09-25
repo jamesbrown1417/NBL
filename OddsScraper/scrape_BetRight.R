@@ -3,6 +3,9 @@ library(tidyverse)
 library(rvest)
 library(httr2)
 
+# Load user functions
+source("Scripts/04-helper-functions.R")
+
 # URL to get responses
 betright_url = "https://next-api.betright.com.au/Sports/Category?categoryId=110"
 
@@ -83,6 +86,13 @@ betright_head_to_head_markets <-
     select(match, start_time, market_name, home_team, home_win, away_team, away_win) |> 
     mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
     mutate(agency = "BetRight")
+
+# Fix team names
+betright_head_to_head_markets <-
+    betright_head_to_head_markets |> 
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
 
 # Write to csv
 write_csv(betright_head_to_head_markets, "Data/scraped_odds/betright_h2h.csv")

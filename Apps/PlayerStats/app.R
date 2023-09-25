@@ -169,6 +169,7 @@ with_without <- function(player_name, team_mate, season_name) {
 ####                       UI                            ####
 #                                                          #
 ##%######################################################%##
+
 ui <- fluidPage(titlePanel("Player Performance Analysis"),
                 theme = shinytheme("united"),
     sidebarLayout(

@@ -3,6 +3,9 @@ library(tidyverse)
 library(rvest)
 library(httr2)
 
+# Load user functions
+source("Scripts/04-helper-functions.R")
+
 # URL to get responses
 tab_url = "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL?jurisdiction=NSW&numTopMarkets=5"
 
@@ -90,6 +93,13 @@ tab_head_to_head_markets <-
     select(match, start_time, market_name, home_team, home_win, away_team, away_win) |> 
     mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
     mutate(agency = "TAB")
+
+# Fix team names
+tab_head_to_head_markets <-
+    tab_head_to_head_markets |> 
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
 
 # Write to csv
 write_csv(tab_head_to_head_markets, "Data/scraped_odds/tab_h2h.csv")

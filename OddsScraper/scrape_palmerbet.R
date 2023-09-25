@@ -4,6 +4,9 @@ library(rvest)
 library(httr2)
 library(jsonlite)
 
+# Load user functions
+source("Scripts/04-helper-functions.R")
+
 # URL of website
 palmerbet_url = "https://fixture.palmerbet.online/fixtures/sports/ef7872bb-242e-4a8d-a001-b2b5c83eca05/matches?sportType=basketball&pageSize=25&channel=website"
 
@@ -126,6 +129,13 @@ palmerbet_h2h <-
     select(match, start_time, market_name, home_team, home_win, away_team, away_win) |> 
     mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
     mutate(agency = "Palmerbet")
+
+# Fix team names
+palmerbet_h2h <-
+    palmerbet_h2h |> 
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
 
 # Write as csv
 palmerbet_h2h |> 
