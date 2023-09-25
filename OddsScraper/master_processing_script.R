@@ -35,4 +35,5 @@ all_odds_files |>
 best_odds <-
     best_home |>
     left_join(best_away) |>
-    mutate(margin = round((1/home_win + 1/away_win), digits = 3))
+    mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
+    arrange(margin)

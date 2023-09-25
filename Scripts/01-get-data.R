@@ -7,6 +7,7 @@
 library(tidyverse)
 library(nblR)
 library(openxlsx)
+library(googlesheets4)
 
 #==============================================================================
 # Get Data
@@ -191,3 +192,7 @@ addStyle(wb, "Combined Stats Table", style = style, rows = 1, cols = 1:ncol(comb
 
 # Save workbook to Excel file
 saveWorkbook(wb, "Data/combined_stats_table.xlsx", overwrite = TRUE)
+
+# Google Sheets-----------------------------------------------------
+sheet <- gs4_find("https://docs.google.com/spreadsheets/d/1dmJK8doTFfJ3DtypqOPhsIGbQH3NBo2t0DluVU-FHXo/edit#gid=0")
+sheet_write(sheet, data = combined_stats_table, sheet = "combined_stats_table")
