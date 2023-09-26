@@ -140,3 +140,40 @@ palmerbet_h2h <-
 # Write as csv
 palmerbet_h2h |> 
     write_csv("Data/scraped_odds/palmerbet_h2h.csv")
+
+# Total Points------------------------------------------------------------------
+
+# Under lines
+under_lines <-
+    all_palmerbet_markets |>
+    filter(market_name == "Total Score") |> 
+    filter(str_detect(propositions, "Under")) |> 
+    mutate(total_points_line = as.numeric(str_extract(propositions, "\\d+\\.\\d+"))) |>
+    select(match, start_time, market_name, total_points_line, under_price = prices)
+
+# Over lines
+over_lines <-
+    all_palmerbet_markets |>
+    filter(market_name == "Total Score") |> 
+    filter(str_detect(propositions, "Over")) |> 
+    mutate(total_points_line = as.numeric(str_extract(propositions, "\\d+\\.\\d+"))) |>
+    select(match, start_time, market_name, total_points_line, over_price = prices)
+
+# Combine
+palmerbet_total_line_markets <-
+    under_lines |>
+    left_join(over_lines) |> 
+    select(match, start_time, market_name, total_points_line, under_price, over_price) |> 
+    mutate(margin = round((1/under_price + 1/over_price), digits = 3)) |> 
+    mutate(agency = "Palmerbet")
+
+# Fix team names
+palmerbet_total_line_markets <-
+    palmerbet_total_line_markets |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
+
+# Write to csv
+write_csv(palmerbet_total_line_markets, "Data/scraped_odds/palmerbet_total_points.csv")

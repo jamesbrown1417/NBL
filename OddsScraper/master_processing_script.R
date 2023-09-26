@@ -1,4 +1,4 @@
-# Libraries
+# Libraries and functions-------------------------------------------------------
 library(tidyverse)
 
 ##%######################################################%##
@@ -13,27 +13,55 @@ all_odds_files <-
     map(read_csv) |>
     reduce(bind_rows)
 
-# For each match, get the highest home_win
-best_home <-
+# For each match, get all home wins
+all_home <-
 all_odds_files |>
     arrange(start_time, match, desc(home_win)) |>
-    group_by(match) |>
-    slice_head(n = 1) |>
-    select(match, start_time, market_name, home_team, home_win, home_agency = agency) |>
-    ungroup()
+    select(match, start_time, market_name, home_team, home_win, home_agency = agency)
 
-# For each match, get the highest away_win
-best_away <-
+# For each match, get all away wins
+all_away <-
 all_odds_files |>
     arrange(start_time, match, desc(away_win)) |>
-    group_by(match) |>
-    slice_head(n = 1) |>
-    select(match, start_time, market_name, away_team, away_win, away_agency = agency) |>
-    ungroup()
+    select(match, start_time, market_name, away_team, away_win, away_agency = agency)
 
 # Combine
-best_odds <-
-    best_home |>
-    left_join(best_away) |>
-    mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
+all_odds_h2h <-
+    all_home |>
+    full_join(all_away, relationship = "many-to-many") |>
+    mutate(margin = (1/home_win + 1/away_win)) |> 
+    mutate(margin = round(100*(margin - 1), digits = 3)) |> 
+    arrange(margin)
+
+##%######################################################%##
+#                                                          #
+####                    Total Points                    ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_totals_files <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "total") |>
+    map(read_csv) |>
+    reduce(bind_rows) |> 
+    mutate(market_name = "Total Points")
+
+# For each match, get all unders
+all_unders <-
+    all_totals_files |>
+    arrange(start_time, match, total_points_line, desc(under_price)) |>
+    select(match, start_time, market_name, home_team, away_team, total_points_line, under_price, under_agency = agency)
+
+# For each match, get all overs
+all_overs <-
+    all_totals_files |>
+    arrange(start_time, match, total_points_line, desc(over_price)) |>
+    select(match, start_time, market_name, home_team, away_team, total_points_line, over_price, over_agency = agency)
+
+# Combine
+all_odds_totals <-
+    all_unders |>
+    full_join(all_overs, relationship = "many-to-many") |>
+    mutate(margin = (1/under_price + 1/over_price)) |> 
+    mutate(margin = round(100*(margin - 1), digits = 3)) |> 
     arrange(margin)
