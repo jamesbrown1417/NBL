@@ -1,6 +1,16 @@
 # Libraries and functions-------------------------------------------------------
 library(tidyverse)
 
+# Run all odds scraping scripts-------------------------------------------------
+source("OddsScraper/scrape_betr.R")
+source("OddsScraper/scrape_BetRight.R")
+source("OddsScraper/scrape_Palmerbet.R")
+source("OddsScraper/scrape_pointsbet.R")
+source("OddsScraper/scrape_sportsbet.R")
+source("OddsScraper/scrape_TAB.R")
+source("OddsScraper/scrape_TopSport.R")
+source("OddsScraper/scrape_bet365.R")
+
 ##%######################################################%##
 #                                                          #
 ####                    Head to Head                    ####
@@ -16,19 +26,21 @@ all_odds_files <-
 # For each match, get all home wins
 all_home <-
 all_odds_files |>
-    arrange(start_time, match, desc(home_win)) |>
-    select(match, start_time, market_name, home_team, home_win, home_agency = agency)
+    arrange(match, start_time, desc(home_win)) |>
+    select(match, start_time, market_name, home_team, home_win, home_agency = agency) |> 
+    mutate(start_time = date(start_time))
 
 # For each match, get all away wins
 all_away <-
 all_odds_files |>
-    arrange(start_time, match, desc(away_win)) |>
-    select(match, start_time, market_name, away_team, away_win, away_agency = agency)
+    arrange(match, start_time, desc(away_win)) |>
+    select(match, start_time, market_name, away_team, away_win, away_agency = agency) |> 
+    mutate(start_time = date(start_time))
 
 # Combine
 all_odds_h2h <-
     all_home |>
-    full_join(all_away, relationship = "many-to-many") |>
+    full_join(all_away, relationship = "many-to-many", by = c("match", "market_name", "start_time")) |>
     mutate(margin = (1/home_win + 1/away_win)) |> 
     mutate(margin = round(100*(margin - 1), digits = 3)) |> 
     arrange(margin)

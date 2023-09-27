@@ -1,0 +1,15 @@
+---
+title: "Your Document Title"
+output: 
+  html_document:
+    self_contained: false
+---
+
+```{mermaid}
+graph TD;
+  A[Phase 1<br/>Genetic Data] --> B[Phase 2<br/>Process Genetic Data];
+  B --> C[<div style='background-color: #ffffff; padding: 5px;'>Quality control and SNP imputation</div>];
+  C -->|Phased Genotypes| D;
+  C -->|Polygenic Scores| D;
+  C -->|Population Structure<br/>Genetic Ancestry<br/>HLA Imputation| D[Phase 3<br/>Novel Data Applications];
+```
