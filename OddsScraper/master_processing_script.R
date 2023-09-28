@@ -99,6 +99,8 @@ sheet_write(sheet, data = all_odds_totals, sheet = "Total Points")
 all_player_points <-
     list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_points") |>
     map(read_csv) |>
+    # Ignore null elements
+    keep(~nrow(.x) > 0) |>
     reduce(bind_rows) |> 
     arrange(player_name, line, desc(over_price))
 
