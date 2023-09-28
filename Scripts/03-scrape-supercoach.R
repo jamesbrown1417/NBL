@@ -31,9 +31,11 @@ get_supercoach_data <- function(player_data) {
     tibble(
         player_id = player_data$id,
         player_name = paste(player_data$first_name, player_data$last_name),
+        player_first_name = player_data$first_name,
+        player_last_name = player_data$last_name,
         player_team = player_data$team$name,
         player_team_id = player_data$team_id,
-        previous_games = player_data$previous_games,s
+        previous_games = player_data$previous_games,
         previous_average = player_data$previous_average,
         previous_total = player_data$previous_total,
         injury_suspension_status = player_data$injury_suspension_status,
@@ -52,6 +54,9 @@ extracted_data <-
     map(all_data, get_supercoach_data) |> 
     bind_rows()
 
-extracted_data |> 
-    select(player_name, player_team, supercoach_position_1, supercoach_position_2) |> 
-    write_csv("NBL_Players.csv")
+# Write out to csv
+write_csv(extracted_data, "Data/supercoach-data.csv")
+
+# Google Sheets-----------------------------------------------------
+sheet <- gs4_find("NBL Data")
+sheet_write(sheet, data = extracted_data, sheet = "supercoach_data")

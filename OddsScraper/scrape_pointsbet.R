@@ -8,6 +8,14 @@ library(tidyjson)
 # Load user functions
 source("Scripts/04-helper-functions.R")
 
+# Get player name and team data
+player_names_teams <-
+    read_csv("Data/supercoach-data.csv") |> 
+    mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
+    select(player_first_name, first_initial, player_last_name, player_team) |> 
+    mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
+    mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
+
 # URL of website
 pointsbet_url = "https://api.au.pointsbet.com/api/v2/competitions/7172/events/featured?includeLive=false"
 
@@ -30,6 +38,7 @@ away_teams <- c()
 event_names <- c()
 outcome_names <- c()
 outcome_prices <- c()
+keys <- c()
 
 # Loop through events
 for (match in events) {
@@ -43,6 +52,7 @@ for (match in events) {
             event_names <- c(event_names, market$eventName)
             outcome_names <- c(outcome_names, outcome$name)
             outcome_prices <- c(outcome_prices, outcome$price)
+            keys <- c(keys, match$key)
         }
     }
 }
@@ -96,3 +106,116 @@ pointsbet_h2h <-
 
 # Write to csv
 write_csv(pointsbet_h2h, "Data/scraped_odds/pointsbet_h2h.csv")
+
+#===============================================================================
+# Player Props
+#===============================================================================
+
+# Get unique keys
+keys <- unique(keys)
+
+# Get each match's api page
+match_urls <- paste0("https://api.au.pointsbet.com/api/mes/v3/events/", keys)
+
+# Create a function that gets the player props from each URL
+get_player_props <- function(url) {
+    # Make request and get response
+    pointsbet_response <-
+        request(url) |>
+        req_perform() |>
+        resp_body_json()
+    
+    # Match info
+    home_team <- fix_team_names(pointsbet_response$homeTeam)
+    away_team <- fix_team_names(pointsbet_response$awayTeam)
+    match <- paste(home_team, "v", away_team)
+    
+    
+    # Loop through to get prop data---------------------------------------------
+    
+    # Create empty vectors
+
+    market_names <- c()
+    outcome_names <- c()
+    outcome_types <- c()
+    outcome_prices <- c()
+
+    # Loop through events
+    for (market in pointsbet_response$fixedOddsMarkets) {
+        for (outcome in market$outcomes) {
+            # Append data to vectors
+            
+            if (!is.null(market$name)) {
+                market_names <- c(market_names, market$name)
+            } else {
+                market_names <- c(market_names, NA)
+            }
+            
+            if (!is.null(outcome$name)) {
+                outcome_names <- c(outcome_names, outcome$name)
+            } else {
+                outcome_names <- c(outcome_names, NA)
+            }
+
+            if (!is.null(outcome$outcomeType)) {
+                outcome_types <- c(outcome_types, outcome$outcomeType)
+            } else {
+                outcome_types <- c(outcome_types, NA)
+            }
+            
+            if (!is.null(outcome$price)) {
+                outcome_prices <- c(outcome_prices, outcome$price)
+            } else {
+                outcome_prices <- c(outcome_prices, NA)
+            }
+        }
+    }
+    
+    # Output tibble
+        tibble(
+            match = match,
+            home_team = home_team,
+            away_team = away_team,
+            market = market_names,
+            outcome = outcome_names,
+            outcome_type = outcome_types,
+            price = outcome_prices
+        )
+}
+
+# Map function to each URL
+pointsbet_data_player_props <- map_df(match_urls, get_player_props)
+
+#===============================================================================
+# Player Points
+#===============================================================================
+
+# Player points alternative totals----------------------------------------------
+
+# Filter list to player points
+pointsbet_player_points_lines <-
+    pointsbet_data_player_props |>
+    filter(str_detect(market, "To Get [0-9]{1,2}\\+ Points")) |>
+    mutate(line = str_extract(market, "[0-9]{1,2}")) |>
+    mutate(line = as.numeric(line) - 0.5) |>
+    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell")) |> 
+    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
+    transmute(
+        match,
+        home_team,
+        away_team,
+        market_name = "Player Points",
+        player_name = outcome,
+        player_team,
+        opposition_team,
+        line,
+        over_price = price,
+        agency = "Pointsbet")
+
+# Player points over / under----------------------------------------------------
+
+# Filter list to player points over under
+pointsbet_player_points_over_under <-
+    pointsbet_data_player_props |>
+    filter(str_detect(market, "Player Points Over/Under"))

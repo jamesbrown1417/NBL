@@ -1,5 +1,9 @@
 # Libraries and functions-------------------------------------------------------
 library(tidyverse)
+library(googlesheets4)
+
+# Authorise google sheets
+gs4_auth(email = "cuzzy.punting@gmail.com")
 
 # Run all odds scraping scripts-------------------------------------------------
 source("OddsScraper/scrape_betr.R")
@@ -45,6 +49,10 @@ all_odds_h2h <-
     mutate(margin = round(100*(margin - 1), digits = 3)) |> 
     arrange(margin)
 
+# Google Sheets-----------------------------------------------------
+sheet <- gs4_find("NBL Data")
+sheet_write(sheet, data = all_odds_h2h, sheet = "H2H")
+
 ##%######################################################%##
 #                                                          #
 ####                    Total Points                    ####
@@ -77,3 +85,52 @@ all_odds_totals <-
     mutate(margin = (1/under_price + 1/over_price)) |> 
     mutate(margin = round(100*(margin - 1), digits = 3)) |> 
     arrange(margin)
+
+# Google Sheets-----------------------------------------------------
+sheet_write(sheet, data = all_odds_totals, sheet = "Total Points")
+
+##%######################################################%##
+#                                                          #
+####                   Player Points                    ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_player_points <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_points") |>
+    map(read_csv) |>
+    reduce(bind_rows) |> 
+    arrange(player_name, line, desc(over_price))
+
+# Add to google sheets
+sheet_write(sheet, data = all_player_points, sheet = "Player Points")
+
+##%######################################################%##
+#                                                          #
+####                   Player Assists                   ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_player_assists <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_assists") |>
+    map(read_csv) |>
+    reduce(bind_rows)
+
+# Add to google sheets
+sheet_write(sheet, data = all_player_assists, sheet = "Player Assists")
+
+##%######################################################%##
+#                                                          #
+####                  Player Rebounds                   ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_player_rebounds <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_rebounds") |>
+    map(read_csv) |>
+    reduce(bind_rows)
+
+# Add to google sheets
+sheet_write(sheet, data = all_player_rebounds, sheet = "Player Rebounds")

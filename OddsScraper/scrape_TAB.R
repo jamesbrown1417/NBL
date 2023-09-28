@@ -6,6 +6,13 @@ library(httr2)
 # Load user functions
 source("Scripts/04-helper-functions.R")
 
+# Get player name and team data
+player_names_teams <-
+    read_csv("Data/supercoach-data.csv") |> 
+    mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
+    select(player_first_name, first_initial, player_last_name, player_team) |> 
+    mutate(player_name_initials = paste(first_initial, player_last_name, sep = " "))
+
 # URL to get responses
 tab_url = "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL?jurisdiction=NSW&numTopMarkets=5"
 
@@ -141,3 +148,224 @@ tab_total_line_markets <-
 
 # Write to csv
 write_csv(tab_total_line_markets, "Data/scraped_odds/tab_total_points.csv")
+
+#===============================================================================
+# Player Points
+#===============================================================================
+
+# Filter to player points markets
+player_points_markets <-
+    all_tab_markets |> 
+    filter(str_detect(market_name, "Player Points$"))
+
+# Extract player names
+player_points_markets <-
+    player_points_markets |> 
+    mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
+    mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
+    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = as.numeric(line)) |>
+    mutate(type = str_detect(prop_name, "Over|\\+")) |> 
+    mutate(type = ifelse(type, "Over", "Under")) |> 
+    mutate(line = if_else(market_name == "Alternate Player Points", line - 0.5, line))
+
+# Over lines
+over_lines <-
+    player_points_markets |> 
+    filter(type == "Over") |> 
+    mutate(market_name = "Player Points") |>
+    select(match, market_name, player_name, line, over_price = price)
+
+# Under lines
+under_lines <-
+    player_points_markets |> 
+    filter(type == "Under") |> 
+    mutate(market_name = "Player Points") |>
+    select(match, market_name, player_name, line, under_price = price)
+
+# Combine
+tab_player_points_markets <-
+    over_lines |>
+    full_join(under_lines) |> 
+    select(match, market_name, player_name, line, over_price, under_price) |> 
+    mutate(agency = "TAB")
+
+# Fix team names
+tab_player_points_markets <-
+    tab_player_points_markets |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
+
+# Add first initial for players who were not given one
+tab_player_points_markets <-
+    tab_player_points_markets |> 
+    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova"))
+
+# Separate player name into first and last name
+tab_player_points_markets <-
+    tab_player_points_markets |> 
+    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
+    mutate(first_initial = substr(first_name, 1, 1)) |> 
+    mutate(player_name = paste(first_initial, last_name)) |> 
+    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
+    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
+    mutate(player_name = paste(player_first_name, last_name)) |>
+    select(-first_initial, -first_name, -last_name, -player_first_name) |>
+    relocate(player_name, player_team, .after = market_name)
+
+# Create opposition team variable
+tab_player_points_markets <-
+    tab_player_points_markets |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+
+#===============================================================================
+# Player Assists
+#===============================================================================
+
+# Filter to player assists markets
+player_assists_markets <-
+    all_tab_markets |> 
+    filter(str_detect(market_name, "Player Assists$"))
+
+# Extract player names
+player_assists_markets <-
+    player_assists_markets |> 
+    mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
+    mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
+    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = as.numeric(line)) |>
+    mutate(type = str_detect(prop_name, "Over|\\+")) |> 
+    mutate(type = ifelse(type, "Over", "Under")) |> 
+    mutate(line = if_else(market_name == "Alternate Player Assists", line - 0.5, line))
+
+# Over lines
+over_lines <-
+    player_assists_markets |> 
+    filter(type == "Over") |> 
+    mutate(market_name = "Player Assists") |>
+    select(match, market_name, player_name, line, over_price = price)
+
+# Under lines
+under_lines <-
+    player_assists_markets |> 
+    filter(type == "Under") |> 
+    mutate(market_name = "Player Assists") |>
+    select(match, market_name, player_name, line, under_price = price)
+
+# Combine
+tab_player_assists_markets <-
+    over_lines |>
+    full_join(under_lines) |> 
+    select(match, market_name, player_name, line, over_price, under_price) |> 
+    mutate(agency = "TAB")
+
+# Fix team names
+tab_player_assists_markets <-
+    tab_player_assists_markets |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
+
+# Add first initial for players who were not given one
+tab_player_assists_markets <-
+    tab_player_assists_markets |> 
+    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova"))
+
+# Separate player name into first and last name
+tab_player_assists_markets <-
+    tab_player_assists_markets |> 
+    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
+    mutate(first_initial = substr(first_name, 1, 1)) |> 
+    mutate(player_name = paste(first_initial, last_name)) |> 
+    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
+    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
+    mutate(player_name = paste(player_first_name, last_name)) |>
+    select(-first_initial, -first_name, -last_name, -player_first_name) |>
+    relocate(player_name, player_team, .after = market_name)
+
+# Create opposition team variable
+tab_player_assists_markets <-
+    tab_player_assists_markets |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+
+#===============================================================================
+# Player Rebounds
+#===============================================================================
+
+# Filter to player rebounds markets
+player_rebounds_markets <-
+    all_tab_markets |> 
+    filter(str_detect(market_name, "Player Rebounds$"))
+
+# Extract player names
+player_rebounds_markets <-
+    player_rebounds_markets |> 
+    mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
+    mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
+    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = as.numeric(line)) |>
+    mutate(type = str_detect(prop_name, "Over|\\+")) |> 
+    mutate(type = ifelse(type, "Over", "Under")) |> 
+    mutate(line = if_else(market_name == "Alternate Player Rebounds", line - 0.5, line))
+
+# Over lines
+over_lines <-
+    player_rebounds_markets |> 
+    filter(type == "Over") |> 
+    mutate(market_name = "Player Rebounds") |>
+    select(match, market_name, player_name, line, over_price = price)
+
+# Under lines
+under_lines <-
+    player_rebounds_markets |> 
+    filter(type == "Under") |> 
+    mutate(market_name = "Player Rebounds") |>
+    select(match, market_name, player_name, line, under_price = price)
+
+# Combine
+tab_player_rebounds_markets <-
+    over_lines |>
+    full_join(under_lines) |> 
+    select(match, market_name, player_name, line, over_price, under_price) |> 
+    mutate(agency = "TAB")
+
+# Fix team names
+tab_player_rebounds_markets <-
+    tab_player_rebounds_markets |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
+
+# Add first initial for players who were not given one
+tab_player_rebounds_markets <-
+    tab_player_rebounds_markets |> 
+    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova"))
+
+# Separate player name into first and last name
+tab_player_rebounds_markets <-
+    tab_player_rebounds_markets |> 
+    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
+    mutate(first_initial = substr(first_name, 1, 1)) |> 
+    mutate(player_name = paste(first_initial, last_name)) |> 
+    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
+    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
+    mutate(player_name = paste(player_first_name, last_name)) |>
+    select(-first_initial, -first_name, -last_name, -player_first_name) |>
+    relocate(player_name, player_team, .after = market_name)
+
+# Create opposition team variable
+tab_player_rebounds_markets <-
+    tab_player_rebounds_markets |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+
+#===============================================================================
+# Write to CSV------------------------------------------------------------------
+#===============================================================================
+
+tab_player_points_markets |> write_csv("Data/scraped_odds/tab_player_points.csv")
+tab_player_assists_markets |> write_csv("Data/scraped_odds/tab_player_assists.csv")
+tab_player_rebounds_markets |> write_csv("Data/scraped_odds/tab_player_rebounds.csv")

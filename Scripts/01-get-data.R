@@ -194,5 +194,5 @@ addStyle(wb, "Combined Stats Table", style = style, rows = 1, cols = 1:ncol(comb
 saveWorkbook(wb, "Data/combined_stats_table.xlsx", overwrite = TRUE)
 
 # Google Sheets-----------------------------------------------------
-sheet <- gs4_find("https://docs.google.com/spreadsheets/d/1dmJK8doTFfJ3DtypqOPhsIGbQH3NBo2t0DluVU-FHXo/edit#gid=0")
+sheet <- gs4_find("NBL Data")
 sheet_write(sheet, data = combined_stats_table, sheet = "combined_stats_table")

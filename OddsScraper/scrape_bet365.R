@@ -1,4 +1,4 @@
-# # Libraries
+# Libraries
 library(tidyverse)
 library(rvest)
 library(httr)
@@ -6,6 +6,33 @@ library(jsonlite)
 
 # Load user functions
 source("Scripts/04-helper-functions.R")
+
+# Get schedule
+nbl_schedule <- read_rds("Data/season_schedule_2023_2024.rds")
+
+# Add current datetime
+nbl_schedule <- nbl_schedule |> 
+    mutate(current_timestamp = Sys.time()) |> 
+    mutate(home_team = fix_team_names(home_team), away_team = fix_team_names(away_team)) |> 
+    mutate(match = paste(home_team, "v", away_team, sep = " "))
+
+# Get home teams and away teams next match
+home_teams <-
+    nbl_schedule |> 
+    rename(team = home_team, opposition_team = away_team) 
+
+away_teams <-
+    nbl_schedule |> 
+    rename(team = away_team, opposition_team = home_team)
+
+# Get next match
+next_match <-
+    bind_rows(home_teams, away_teams) |>
+    arrange(team, start_time) |> 
+    filter(current_timestamp <= start_time) |> 
+    group_by(team) |>
+    slice_head(n = 1) |>
+    mutate(team = fix_team_names(team), opposition_team = fix_team_names(opposition_team))
 
 #===============================================================================
 # Use rvest to get main market information-------------------------------------#
@@ -198,8 +225,9 @@ bet365_player_points <-
     filter(Over_col_handicaps == Under_col_handicaps) |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name,
-              points_line = as.numeric(Over_col_handicaps),
+              line = as.numeric(Over_col_handicaps),
               over_price = as.numeric(Over_col_odds),
               under_price = as.numeric(Under_col_odds)) |>
     mutate(margin = round((1/over_price + 1/under_price), digits = 3)) |>
@@ -283,10 +311,11 @@ bet365_player_points_milestones <-
     filter(price != "") |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name = "Player Points",
-              points_line = as.numeric(line),
+              line = as.numeric(line),
               over_price = as.numeric(price)) |> 
-    mutate(points_line = points_line - 0.5)
+    mutate(line = line - 0.5)
 
 #===============================================================================
 # Player Assists---------------------------------------------------------------#
@@ -375,8 +404,9 @@ bet365_player_assists <-
     filter(Over_col_handicaps == Under_col_handicaps) |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name,
-              assists_line = as.numeric(Over_col_handicaps),
+              line = as.numeric(Over_col_handicaps),
               over_price = as.numeric(Over_col_odds),
               under_price = as.numeric(Under_col_odds)) |>
     mutate(margin = round((1/over_price + 1/under_price), digits = 3)) |>
@@ -460,10 +490,11 @@ bet365_player_assists_milestones <-
     filter(price != "") |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name = "Player assists",
-              assists_line = as.numeric(line),
+              line = as.numeric(line),
               over_price = as.numeric(price)) |> 
-    mutate(assists_line = assists_line - 0.5)
+    mutate(line = line - 0.5)
 
 #===============================================================================
 # Player Rebounds--------------------------------------------------------------#
@@ -552,8 +583,9 @@ bet365_player_rebounds <-
     filter(Over_col_handicaps == Under_col_handicaps) |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name,
-              rebounds_line = as.numeric(Over_col_handicaps),
+              line = as.numeric(Over_col_handicaps),
               over_price = as.numeric(Over_col_odds),
               under_price = as.numeric(Under_col_odds)) |>
     mutate(margin = round((1/over_price + 1/under_price), digits = 3)) |>
@@ -637,10 +669,11 @@ bet365_player_rebounds_milestones <-
     filter(price != "") |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name = "Player rebounds",
-              rebounds_line = as.numeric(line),
+              line = as.numeric(line),
               over_price = as.numeric(price)) |> 
-    mutate(rebounds_line = rebounds_line - 0.5)
+    mutate(line = line - 0.5)
 
 
 #===============================================================================
@@ -730,8 +763,9 @@ bet365_player_threes <-
     filter(Over_col_handicaps == Under_col_handicaps) |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name,
-              threes_line = as.numeric(Over_col_handicaps),
+              line = as.numeric(Over_col_handicaps),
               over_price = as.numeric(Over_col_odds),
               under_price = as.numeric(Under_col_odds)) |>
     mutate(margin = round((1/over_price + 1/under_price), digits = 3)) |>
@@ -824,8 +858,9 @@ bet365_player_points_assists_rebounds <-
     filter(Over_col_handicaps == Under_col_handicaps) |> 
     mutate(team_names = fix_team_names(team_names)) |>
     transmute(player_name = player_names,
+              team_name = team_names,
               market_name,
-              points_assists_rebounds_line = as.numeric(Over_col_handicaps),
+              line = as.numeric(Over_col_handicaps),
               over_price = as.numeric(Over_col_odds),
               under_price = as.numeric(Under_col_odds)) |>
     mutate(margin = round((1/over_price + 1/under_price), digits = 3)) |>
@@ -862,21 +897,31 @@ player_points <-
     list_of_scraped_data |>
     map(~.x[c("Player Points", "Player Points Milestones")]) |>
     map_df(bind_rows) |> 
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |> 
+    left_join(next_match[, c("team", "opposition_team", "match")], by = c("team_name" = "team")) |> 
+    select(match, market_name, player_name, player_team = team_name, opposition_team, line, over_price, under_price, agency) |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
+    
 
 # Map over list and get dataframes for player assists
 player_assists <- 
     list_of_scraped_data |>
     map(~.x[c("Player Assists", "Player Assists Milestones")]) |>
     map_df(bind_rows) |> 
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |> 
+    left_join(next_match[, c("team", "opposition_team", "match")], by = c("team_name" = "team")) |> 
+    select(match, market_name, player_name, player_team = team_name, opposition_team, line, over_price, under_price, agency) |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
 
 # Map over list and get dataframes for player rebounds
 player_rebounds <- 
     list_of_scraped_data |>
     map(~.x[c("Player Rebounds", "Player Rebounds Milestones")]) |>
     map_df(bind_rows) |> 
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |> 
+    left_join(next_match[, c("team", "opposition_team", "match")], by = c("team_name" = "team")) |> 
+    select(match, market_name, player_name, player_team = team_name, opposition_team, line, over_price, under_price, agency) |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
 
 # Write to CSV------------------------------------------------------------------
 
