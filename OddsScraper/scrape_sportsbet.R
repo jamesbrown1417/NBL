@@ -16,7 +16,6 @@ player_names_teams <-
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
     mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
 
-
 # Get schedule
 nbl_schedule <- read_rds("Data/season_schedule_2023_2024.rds")
 
@@ -47,9 +46,12 @@ next_match <-
 # URL of website
 sportsbet_url = "https://www.sportsbet.com.au/betting/basketball-aus-other/australian-nbl"
 
+
 #===============================================================================
 # Use rvest to get main market information-------------------------------------#
 #===============================================================================
+
+main_markets_function <- function() {
 
 # Get data from main market page
 matches <-
@@ -137,11 +139,15 @@ all_main_market_data |>
 # Write to csv
 write_csv(sportsbet_h2h, "Data/scraped_odds/sportsbet_h2h.csv")
 
+}
+
 ##%######################################################%##
 #                                                          #
 ####                    Player Props                    ####
 #                                                          #
 ##%######################################################%##
+
+player_props_function <- function() {
 
 # Get match links
 match_links <-
@@ -195,8 +201,13 @@ read_prop_url <- function(url) {
             prop_market_price = c(prop_market_price, selection$price$winPrice)
             player_id = c(player_id, selection$externalId)
             market_id = c(market_id, market$externalId)
-            handicap = c(handicap, selection$unformattedHandicap)
-            
+            if (is.null(selection$unformattedHandicap)) {
+                selection$unformattedHandicap = NA
+                handicap = c(handicap, selection$unformattedHandicap)
+            } else {
+                selection$unformattedHandicap = as.numeric(selection$unformattedHandicap)
+                handicap = c(handicap, selection$unformattedHandicap)
+            }
         }
     }
     
@@ -231,8 +242,10 @@ player_points_data <-
 player_points_data <-
     player_points_data |>
     mutate(market_name = "Player Points") |> 
-    mutate(prop_market_name = str_replace_all(prop_market_name, "Mitch", "Mitchell")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mitch", "Mitchell"))
+    mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
 
 # Get player points alternate lines---------------------------------------------
 
@@ -266,7 +279,7 @@ player_points_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -280,7 +293,7 @@ player_points_over <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         over_price,
         agency = "Sportsbet")
  
@@ -289,7 +302,7 @@ player_points_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -303,7 +316,7 @@ player_points_under <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         under_price,
         agency = "Sportsbet")
 
@@ -330,8 +343,10 @@ player_assists_data <-
 player_assists_data <-
     player_assists_data |>
     mutate(market_name = "Player Assists") |> 
-    mutate(prop_market_name = str_replace_all(prop_market_name, "Mitch", "Mitchell")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mitch", "Mitchell"))
+    mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
 
 # Get player assists alternate lines---------------------------------------------
 player_assists_alternate <-
@@ -364,7 +379,7 @@ player_assists_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -378,7 +393,7 @@ player_assists_over <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         over_price,
         agency = "Sportsbet")
 
@@ -387,7 +402,7 @@ player_assists_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -401,7 +416,7 @@ player_assists_under <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         under_price,
         agency = "Sportsbet")
 
@@ -428,8 +443,10 @@ player_rebounds_data <-
 player_rebounds_data <-
     player_rebounds_data |>
     mutate(market_name = "Player Rebounds") |> 
-    mutate(prop_market_name = str_replace_all(prop_market_name, "Mitch", "Mitchell")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mitch", "Mitchell"))
+    mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
 
 # Get player rebounds alternate lines---------------------------------------------
 player_rebounds_alternate <-
@@ -462,7 +479,7 @@ player_rebounds_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -476,7 +493,7 @@ player_rebounds_over <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         over_price,
         agency = "Sportsbet")
 
@@ -485,7 +502,7 @@ player_rebounds_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
-    # rename(handicap = line)
+    rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
@@ -499,7 +516,7 @@ player_rebounds_under <-
         player_name,
         player_team,
         opposition_team,
-        # line,
+        line,
         under_price,
         agency = "Sportsbet")
 
@@ -572,3 +589,16 @@ player_assists_alternate |>
     mutate(market_name = "Player Assists") |>
     mutate(agency = "Sportsbet") |> 
     write_csv("Data/scraped_odds/sportsbet_player_assists.csv")
+}
+
+##%######################################################%##
+#                                                          #
+####                Run functions safely                ####
+#                                                          #
+##%######################################################%##
+
+safe_main_markets <- safely(main_markets_function, otherwise = NULL)
+safe_player_props <- safely(player_props_function, otherwise = NULL)
+
+safe_main_markets()
+safe_player_props()

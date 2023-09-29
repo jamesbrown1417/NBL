@@ -16,6 +16,8 @@ player_names_teams <-
 # URL to get responses
 tab_url = "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL?jurisdiction=NSW&numTopMarkets=5"
 
+main_tab <- function() {
+
 # Make request and get response
 tab_response <-
     request(tab_url) |>
@@ -369,3 +371,11 @@ tab_player_rebounds_markets <-
 tab_player_points_markets |> write_csv("Data/scraped_odds/tab_player_points.csv")
 tab_player_assists_markets |> write_csv("Data/scraped_odds/tab_player_assists.csv")
 tab_player_rebounds_markets |> write_csv("Data/scraped_odds/tab_player_rebounds.csv")
+}
+
+#===============================================================================
+# Run safe function
+#===============================================================================
+
+safe_main_tab <- safely(main_tab)
+safe_main_tab()

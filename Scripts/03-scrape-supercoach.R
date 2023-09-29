@@ -4,6 +4,9 @@
 
 library(tidyverse)
 library(httr2)
+library(googlesheets4)
+library(googledrive)
+
 `%notin%` <- Negate(`%in%`)
 
 safe_subscript <- function(x, index) {
@@ -13,6 +16,11 @@ safe_subscript <- function(x, index) {
         return(NULL)
     }
 }
+
+# Google sheets authentification -----------------------------------------------
+options(gargle_oauth_cache = ".secrets")
+drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
+gs4_auth(token = drive_token())
 
 # Supercoach API URL
 url = "https://supercoach.dailytelegraph.com.au/2023/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=0&xredir=1"
@@ -44,6 +52,14 @@ get_supercoach_data <- function(player_data) {
         active = player_data$active,
         played_status = player_data$played_status$display,
         supercoach_price = player_data$player_stats[[1]]$price,
+        points = player_data$player_stats[[1]]$points_scored,
+        games = player_data$player_stats[[1]]$games,
+        minutes_played = player_data$player_stats[[1]]$minutes_played,
+        total_rebouds = player_data$player_stats[[1]]$total_rebounds,
+        total_assists = player_data$player_stats[[1]]$total_assists,
+        total_steals = player_data$player_stats[[1]]$total_steals,
+        total_blocks = player_data$player_stats[[1]]$total_blocks,
+        total_turnovers = player_data$player_stats[[1]]$total_turnovers,
         supercoach_position_1 = safe_subscript(player_data$positions, 1)$position,
         supercoach_position_2 = safe_subscript(player_data$positions, 2)$position
     )
@@ -52,11 +68,17 @@ get_supercoach_data <- function(player_data) {
 # Map to list
 extracted_data <-
     map(all_data, get_supercoach_data) |> 
-    bind_rows()
+    bind_rows() |> 
+    mutate(player_last_name = str_replace_all(player_last_name, "Kell III", "Kell")) |> 
+    mutate(player_name = str_replace_all(player_name, "Kell III", "Kell")) |> 
+    mutate(player_first_name = str_replace_all(player_first_name, "^Mitch", "Mitchell")) |> 
+    mutate(player_name = str_replace_all(player_name, "^Mitch", "Mitchell")) |> 
+    mutate(player_first_name = str_replace_all(player_first_name, "^Jordon", "Jordan")) |> 
+    mutate(player_name = str_replace_all(player_name, "^Jordon", "Jordan"))
 
 # Write out to csv
 write_csv(extracted_data, "Data/supercoach-data.csv")
 
-# Google Sheets-----------------------------------------------------
-sheet <- gs4_find("NBL Data")
-sheet_write(sheet, data = extracted_data, sheet = "supercoach_data")
+# # Google Sheets-----------------------------------------------------
+# sheet <- gs4_find("NBL Data")
+# sheet_write(sheet, data = extracted_data, sheet = "supercoach_data")

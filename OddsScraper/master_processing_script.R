@@ -1,9 +1,12 @@
 # Libraries and functions-------------------------------------------------------
 library(tidyverse)
 library(googlesheets4)
+library(googledrive)
 
-# Authorise google sheets
-gs4_auth(email = "cuzzy.punting@gmail.com")
+# Google sheets authentification -----------------------------------------------
+options(gargle_oauth_cache = ".secrets")
+drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
+gs4_auth(token = drive_token())
 
 # Run all odds scraping scripts-------------------------------------------------
 source("OddsScraper/scrape_betr.R")
@@ -117,6 +120,8 @@ sheet_write(sheet, data = all_player_points, sheet = "Player Points")
 all_player_assists <-
     list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_assists") |>
     map(read_csv) |>
+    # Ignore null elements
+    keep(~nrow(.x) > 0) |>
     reduce(bind_rows)
 
 # Add to google sheets
@@ -132,6 +137,8 @@ sheet_write(sheet, data = all_player_assists, sheet = "Player Assists")
 all_player_rebounds <-
     list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_rebounds") |>
     map(read_csv) |>
+    # Ignore null elements
+    keep(~nrow(.x) > 0) |>
     reduce(bind_rows)
 
 # Add to google sheets

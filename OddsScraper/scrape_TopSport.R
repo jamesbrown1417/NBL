@@ -80,6 +80,8 @@ topsport_other_markets <- paste0("https://www.topsport.com.au", topsport_other_m
 # Head to Head markets---------------------------------------------------------#
 #===============================================================================
 
+head_to_head_main <- function() {
+
 # Function to get head to head data--------------------------------------------#
 get_h2h <- function(market_table) {
     
@@ -119,7 +121,9 @@ topsport_h2h |>
 
 # Write to csv
 write_csv(topsport_h2h, "Data/scraped_odds/topsport_h2h.csv")
+}
 
+player_props_main <- function() {
 
 #===============================================================================
 # Player Points
@@ -156,6 +160,9 @@ pick_your_own_points_markets <-
 player_points_alternate <-
 map(pick_your_own_points_markets, read_topsport_html) |> 
     bind_rows() |> 
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win) |> 
     left_join(player_names_teams[c("player_name_initials", "player_last_name", "player_first_name", "player_team")], by = c("Selection" = "player_name_initials")) |> 
@@ -176,6 +183,9 @@ player_points_markets <-
 player_points_lines <-
     map(player_points_markets, read_topsport_html) |> 
     bind_rows() |> 
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -225,8 +235,11 @@ player_assists_markets <-
 
 # Map function
 player_assists_lines <-
-    map(player_assists_markets, read_topsport_html) |> 
-    bind_rows() |> 
+    map(player_assists_markets, read_topsport_html) |>
+    bind_rows() |>
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -278,6 +291,9 @@ player_rebounds_markets <-
 player_rebounds_lines <-
     map(player_rebounds_markets, read_topsport_html) |> 
     bind_rows() |> 
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -371,4 +387,17 @@ player_assists_lines |>
         "agency",
         "opposition_team"
     ) |>
-    write_csv("Data/scraped_odds/topsport_player_assists.csv")
+    write_csv("Data/scraped_odds/topsport_player_assists.csv") }
+
+##%######################################################%##
+#                                                          #
+####                   Run functions                    ####
+#                                                          #
+##%######################################################%##
+
+h2h_safe_topsport <- safely(head_to_head_main)
+player_props_safe_topsport <- safely(player_props_main)
+
+# Run functions
+h2h_safe_topsport()
+player_props_safe_topsport()

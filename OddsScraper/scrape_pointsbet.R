@@ -16,6 +16,8 @@ player_names_teams <-
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
     mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
 
+pointsbet_h2h_main <- function() {
+
 # URL of website
 pointsbet_url = "https://api.au.pointsbet.com/api/v2/competitions/7172/events/featured?includeLive=false"
 
@@ -186,6 +188,12 @@ get_player_props <- function(url) {
 # Map function to each URL
 pointsbet_data_player_props <- map_df(match_urls, get_player_props)
 
+# Fix player names
+pointsbet_data_player_props <-
+    pointsbet_data_player_props |>
+    mutate(outcome = str_replace_all(outcome, "Byrce", "Bryce")) |>
+    mutate(outcome = str_replace_all(outcome, "Jordon", "Jordan"))
+
 #===============================================================================
 # Player Points
 #===============================================================================
@@ -198,7 +206,7 @@ pointsbet_player_points_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Points")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell")) |> 
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -219,7 +227,7 @@ pointsbet_player_points_lines <-
 pointsbet_player_points_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Points Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell"))
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
 
 # Get Overs
 pointsbet_player_points_over <-
@@ -282,7 +290,7 @@ pointsbet_player_assists_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Assists")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell")) |> 
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -295,7 +303,7 @@ pointsbet_player_assists_lines <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Assistsbet")
+        agency = "Pointsbet")
 
 # Player assists over / under----------------------------------------------------
 
@@ -303,7 +311,7 @@ pointsbet_player_assists_lines <-
 pointsbet_player_assists_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Assists Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell"))
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
 
 # Get Overs
 pointsbet_player_assists_over <-
@@ -324,7 +332,7 @@ pointsbet_player_assists_over <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Assistsbet")
+        agency = "Pointsbet")
 
 # Get Unders
 pointsbet_player_assists_under <-
@@ -345,7 +353,7 @@ pointsbet_player_assists_under <-
         opposition_team,
         line,
         under_price = price,
-        agency = "Assistsbet")
+        agency = "Pointsbet")
 
 # Combine overs and unders
 pointsbet_player_assists_over_under <- 
@@ -366,7 +374,7 @@ pointsbet_player_rebounds_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Rebounds")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell")) |> 
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -379,7 +387,7 @@ pointsbet_player_rebounds_lines <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Reboundsbet")
+        agency = "Pointsbet")
 
 # Player rebounds over / under----------------------------------------------------
 
@@ -387,7 +395,7 @@ pointsbet_player_rebounds_lines <-
 pointsbet_player_rebounds_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Rebounds Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "Mitch", "Mitchell"))
+    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
 
 # Get Overs
 pointsbet_player_rebounds_over <-
@@ -408,7 +416,7 @@ pointsbet_player_rebounds_over <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Reboundsbet")
+        agency = "Pointsbet")
 
 # Get Unders
 pointsbet_player_rebounds_under <-
@@ -429,7 +437,7 @@ pointsbet_player_rebounds_under <-
         opposition_team,
         line,
         under_price = price,
-        agency = "Reboundsbet")
+        agency = "Pointsbet")
 
 # Combine overs and unders
 pointsbet_player_rebounds_over_under <- 
@@ -500,3 +508,15 @@ pointsbet_player_assists_lines |>
     mutate(market_name = "Player Assists") |>
     mutate(agency = "Pointsbet") |> 
     write_csv("Data/scraped_odds/pointsbet_player_assists.csv")
+}
+
+##%######################################################%##
+#                                                          #
+####                   Run functions                    ####
+#                                                          #
+##%######################################################%##
+
+h2h_safe_pointsbet <- safely(pointsbet_h2h_main)
+
+# Run functions
+h2h_safe_pointsbet()

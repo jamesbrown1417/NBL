@@ -8,6 +8,12 @@ library(tidyverse)
 library(nblR)
 library(openxlsx)
 library(googlesheets4)
+library(googledrive)
+
+# Google sheets authentification -----------------------------------------------
+options(gargle_oauth_cache = ".secrets")
+drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
+gs4_auth(token = drive_token())
 
 #==============================================================================
 # Get Data
@@ -158,7 +164,9 @@ combined_stats_table <-
 team_box_scores |>
     full_join(player_box_scores,
      by = c("match_id", "name"),
-      relationship = "many-to-many")
+      relationship = "many-to-many") |> 
+    mutate(first_name = str_replace(first_name, "^Mitch$", "Mitchell")) |> 
+    mutate(first_name = str_replace(first_name, "^Jordon$", "Jordan"))
 
 #==============================================================================
 # Write to Data Folder
