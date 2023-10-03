@@ -516,6 +516,7 @@ pointsbet_player_assists_lines |>
 #                                                          #
 ##%######################################################%##
 
+# This runs both the props and head to head as they use same info
 h2h_safe_pointsbet <- safely(pointsbet_h2h_main)
 
 # Run functions

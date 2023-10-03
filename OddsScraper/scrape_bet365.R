@@ -38,6 +38,8 @@ next_match <-
 # Use rvest to get main market information-------------------------------------#
 #===============================================================================
 
+get_head_to_head <- function() {
+
 # Read scraped HTML from the BET365_HTML Folder
 scraped_file <- list.files("Data/BET365_HTML", full.names = TRUE, pattern = "h2h")[[1]]
 
@@ -118,6 +120,7 @@ bet365_h2h <-
 
 # Write to csv
 write_csv(bet365_h2h, "Data/scraped_odds/bet365_h2h.csv")
+}
 
 ##%######################################################%##
 #                                                          #
@@ -127,6 +130,8 @@ write_csv(bet365_h2h, "Data/scraped_odds/bet365_h2h.csv")
 
 # Read scraped HTML from the BET365_HTML Folder
 scraped_files_player <- list.files("Data/BET365_HTML", full.names = TRUE, pattern = "player")
+
+get_player_props <- function() {
 
 # Main Function
 main <- function(scraped_file) {
@@ -928,3 +933,12 @@ player_rebounds <-
 player_points |> write_csv("Data/scraped_odds/bet365_player_points.csv")
 player_assists |> write_csv("Data/scraped_odds/bet365_player_assists.csv")
 player_rebounds |> write_csv("Data/scraped_odds/bet365_player_rebounds.csv")
+}
+
+# Create safe version of functions-----------------------------------------------
+get_head_to_head_safe <- safely(get_head_to_head, otherwise = NULL)
+get_player_props_safe <- safely(get_player_props, otherwise = NULL)
+
+# Run functions-----------------------------------------------------------------
+tryCatch(get_head_to_head(), error = function(e) print("Error in get_head_to_head()"))
+tryCatch(get_player_props(), error = function(e) print("Error in get_player_props()"))

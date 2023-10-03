@@ -57,16 +57,16 @@ main_markets_function <- function() {
 matches <-
     sportsbet_url |> 
     read_html() |>
-    html_nodes(".multiMarketCouponContainer_f234ak7")
+    html_nodes(".White_fqa53j6")
     
 # Function to get team names
 get_team_names <- function(match) {
     team_names <-
         match |>
-        html_nodes(".participantText_fivg86r") |>
+        html_nodes(".caption_f4zed5e") |>
         html_text()
     
-    # Home team
+    # Home team and Away Team
     home_team <- team_names[1]
     away_team <- team_names[2]
     
@@ -153,7 +153,7 @@ player_props_function <- function() {
 match_links <-
 sportsbet_url |> 
     read_html() |>
-    html_nodes(".linkMultiMarket_fcmecz0") |> 
+    html_nodes(".link_ft4u1lp") |> 
     html_attr("href")
 
 # Get match IDs from links

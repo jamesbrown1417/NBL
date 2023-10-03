@@ -64,10 +64,10 @@ all_tab_markets <-
 all_tab_markets <-
 all_tab_markets |>
     unnest_wider(col = propositions, names_sep = "_") |>
-    select(match,
-           round,
-           start_time,
-           market_name,
+    select(any_of(c("match",
+           "round",
+           "start_time",
+           "market_name")),
            prop_name = propositions_name,
            price = propositions_returnWin)
 
