@@ -71,8 +71,8 @@ extracted_data <-
     bind_rows() |> 
     mutate(player_last_name = str_replace_all(player_last_name, "Kell III", "Kell")) |> 
     mutate(player_name = str_replace_all(player_name, "Kell III", "Kell")) |> 
-    mutate(player_first_name = str_replace_all(player_first_name, "^Mitch", "Mitchell")) |> 
-    mutate(player_name = str_replace_all(player_name, "^Mitch", "Mitchell")) |> 
+    mutate(player_first_name = str_replace_all(player_first_name, "^Mitch$", "Mitchell")) |> 
+    mutate(player_name = str_replace_all(player_name, "^Mitch ", "Mitchell ")) |> 
     mutate(player_first_name = str_replace_all(player_first_name, "^Jordon", "Jordan")) |> 
     mutate(player_name = str_replace_all(player_name, "^Jordon", "Jordan"))
 

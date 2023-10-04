@@ -13,6 +13,9 @@ library(tidyverse)
 library(rvest)
 `%notin%` <- Negate(`%in%`)
 
+# Load user functions
+source("Scripts/04-helper-functions.R")
+
 #===============================================================================
 # Scrape data
 #===============================================================================
@@ -115,6 +118,14 @@ nbl_schedule <-
     )) |> 
     mutate(start_time = dmy_hm(start_time)) |> 
     arrange(start_time)
+
+# Fix team names
+nbl_schedule <-
+    nbl_schedule |> 
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |> 
+    mutate(match = paste(home_team, away_team, sep = " v ")) |> 
+    relocate(match, .before = round)
 
 # Write out data
 write_rds(nbl_schedule, "Data/season_schedule_2023_2024.rds")
