@@ -17,6 +17,7 @@ source("OddsScraper/scrape_sportsbet.R")
 source("OddsScraper/scrape_TAB.R")
 source("OddsScraper/scrape_TopSport.R")
 source("OddsScraper/scrape_bet365.R")
+source("OddsScraper/scrape_bluebet.R")
 
 ##%######################################################%##
 #                                                          #

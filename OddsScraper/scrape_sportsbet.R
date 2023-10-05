@@ -46,7 +46,6 @@ next_match <-
 # URL of website
 sportsbet_url = "https://www.sportsbet.com.au/betting/basketball-aus-other/australian-nbl"
 
-
 #===============================================================================
 # Use rvest to get main market information-------------------------------------#
 #===============================================================================
@@ -63,7 +62,7 @@ matches <-
 get_team_names <- function(match) {
     team_names <-
         match |>
-        html_nodes(".caption_f4zed5e") |>
+        html_nodes(".participantText_fivg86r") |>
         html_text()
     
     # Home team and Away Team
@@ -153,7 +152,7 @@ player_props_function <- function() {
 match_links <-
 sportsbet_url |> 
     read_html() |>
-    html_nodes(".link_ft4u1lp") |> 
+    html_nodes(".linkMultiMarket_fcmecz0") |> 
     html_attr("href")
 
 # Get match IDs from links
@@ -245,7 +244,11 @@ player_points_data <-
     mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
     mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
     mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Le Afa", "Le'Afa")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Le Afa", "Le'Afa"))
 
 # Get player points alternate lines---------------------------------------------
 
@@ -346,7 +349,12 @@ player_assists_data <-
     mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
     mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
     mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Le Afa", "Le'Afa")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Le Afa", "Le'Afa"))
+
 
 # Get player assists alternate lines---------------------------------------------
 player_assists_alternate <-
@@ -446,7 +454,11 @@ player_rebounds_data <-
     mutate(prop_market_name = str_replace_all(prop_market_name, "^Mitch ", "Mitchell ")) |>
     mutate(selection_name_prop = str_replace_all(selection_name_prop, "^Mitch ", "Mitchell ")) |> 
     mutate(prop_market_name = str_replace_all(prop_market_name, "Mcveigh", "McVeigh")) |>
-    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh"))
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Mcveigh", "McVeigh")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "William McDowell White", "Will McDowell-White")) |> 
+    mutate(prop_market_name = str_replace_all(prop_market_name, "Le Afa", "Le'Afa")) |>
+    mutate(selection_name_prop = str_replace_all(selection_name_prop, "Le Afa", "Le'Afa"))
 
 # Get player rebounds alternate lines---------------------------------------------
 player_rebounds_alternate <-

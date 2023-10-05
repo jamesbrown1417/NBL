@@ -182,10 +182,11 @@ map(player_points_links, safe_get_prop_data) |>
     mutate(home_team = fix_team_names(home_team)) |>
     mutate(away_team = fix_team_names(away_team)) |>
     mutate(match = paste(home_team, "v", away_team)) |>
+    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     mutate(agency = "BlueBet") |>
-    mutate(line = as.numeric(str_remove(outcome_name, "\\+"))) |>
+    mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
     select(
         "match",
         "home_team",
@@ -199,3 +200,70 @@ map(player_points_links, safe_get_prop_data) |>
         "opposition_team"
     )
 
+# Get player assists data-------------------------------------------------------
+bluebet_player_assists <-
+    map(player_assists_links, safe_get_prop_data) |> 
+    map("result") |>
+    bind_rows() |>
+    separate(outcome_title, into = c("market_name", "player_name"), sep = " - ") |>
+    mutate(match = str_extract(event_name, "\\(.*\\)")) |>
+    mutate(match = str_remove(match, "\\(|\\)")) |>
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team)) |>
+    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
+    mutate(agency = "BlueBet") |>
+    mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
+    select(
+        "match",
+        "home_team",
+        "away_team",
+        "market_name",
+        "player_name",
+        "player_team",
+        "line",
+        "over_price" = "price",
+        "agency",
+        "opposition_team"
+    )
+
+# Get player rebounds data------------------------------------------------------
+bluebet_player_rebounds <-
+    map(player_rebounds_links, safe_get_prop_data) |> 
+    map("result") |>
+    bind_rows() |>
+    separate(outcome_title, into = c("market_name", "player_name"), sep = " - ") |>
+    mutate(match = str_extract(event_name, "\\(.*\\)")) |>
+    mutate(match = str_remove(match, "\\(|\\)")) |>
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team)) |>
+    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
+    mutate(agency = "BlueBet") |>
+    mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
+    select(
+        "match",
+        "home_team",
+        "away_team",
+        "market_name",
+        "player_name",
+        "player_team",
+        "line",
+        "over_price" = "price",
+        "agency",
+        "opposition_team"
+    )
+
+#===============================================================================
+# Write to CSV
+#===============================================================================
+
+bluebet_player_points |> write_csv("Data/scraped_odds/bluebet_player_points.csv")
+bluebet_player_assists |> write_csv("Data/scraped_odds/bluebet_player_assists.csv")
+bluebet_player_rebounds |> write_csv("Data/scraped_odds/bluebet_player_rebounds.csv")
