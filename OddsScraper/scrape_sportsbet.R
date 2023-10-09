@@ -62,7 +62,7 @@ matches <-
 get_team_names <- function(match) {
     team_names <-
         match |>
-        html_nodes(".participantText_fivg86r") |>
+        html_nodes(".caption_f4zed5e") |>
         html_text()
     
     # Home team and Away Team
@@ -152,7 +152,7 @@ player_props_function <- function() {
 match_links <-
 sportsbet_url |> 
     read_html() |>
-    html_nodes(".linkMultiMarket_fcmecz0") |> 
+    html_nodes(".link_ft4u1lp") |> 
     html_attr("href")
 
 # Get match IDs from links

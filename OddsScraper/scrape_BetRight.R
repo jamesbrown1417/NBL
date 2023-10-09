@@ -2,6 +2,7 @@
 library(tidyverse)
 library(rvest)
 library(httr2)
+library(glue)
 
 # Load user functions
 source("Scripts/04-helper-functions.R")
