@@ -149,8 +149,17 @@ write_csv(betright_head_to_head_markets, "Data/scraped_odds/betright_h2h.csv")
 # Get API URL for each market type----------------------------------------------
 
 # Player Stats
-player_stats_links <-
-    glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G308")
+player_points_links <-
+    glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G670")
+
+player_assist_links <-
+    glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G672")
+
+player_rebound_links <-
+    glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G673")
+
+
+player_stats_links <- c(player_points_links,player_assist_links,player_rebound_links)
 
 # Function to extract prop data from links--------------------------------------
 
@@ -198,6 +207,7 @@ betright_player_stats <-
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
     mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
