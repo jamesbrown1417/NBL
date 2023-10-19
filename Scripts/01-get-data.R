@@ -10,11 +10,6 @@ library(openxlsx)
 library(googlesheets4)
 library(googledrive)
 
-# Google sheets authentification -----------------------------------------------
-options(gargle_oauth_cache = ".secrets")
-drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
-gs4_auth(token = drive_token())
-
 #==============================================================================
 # Get Data
 #==============================================================================
@@ -195,7 +190,9 @@ team_box_scores |>
     mutate(family_name = str_replace(family_name, "^Mcdaniel$", "McDaniel")) |>
     mutate(family_name = str_replace(family_name, "^Kell Iii$", "Kell")) |>
     mutate(family_name = str_replace(family_name, "^Mcveigh$", "McVeigh")) |> 
-    mutate(family_name = str_replace(family_name, "^Mcdowell$", "McDowell"))
+    mutate(family_name = str_replace(family_name, "^Mcdowell$", "McDowell")) |> 
+    mutate(date_scraped = ymd(Sys.Date())) |> 
+    relocate(date_scraped, .before = match_id)
 
 #==============================================================================
 # Write to Data Folder
@@ -230,6 +227,3 @@ addStyle(wb, "Combined Stats Table", style = style, rows = 1, cols = 1:ncol(comb
 # Save workbook to Excel file
 saveWorkbook(wb, "Data/combined_stats_table.xlsx", overwrite = TRUE)
 
-# Google Sheets-----------------------------------------------------
-sheet <- gs4_find("NBL Data")
-sheet_write(sheet, data = combined_stats_table, sheet = "combined_stats_table")
