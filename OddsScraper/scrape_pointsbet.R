@@ -193,7 +193,8 @@ pointsbet_data_player_props <-
     pointsbet_data_player_props |>
     mutate(outcome = str_replace_all(outcome, "Byrce", "Bryce")) |>
     mutate(outcome = str_replace_all(outcome, "Jordon", "Jordan")) |> 
-    mutate(outcome = str_replace_all(outcome, "Gary Brown", "Gary Browne")) |>
+    mutate(outcome = str_replace_all(outcome, "Gary Brown$", "Gary Browne")) |>
+    mutate(outcome = str_replace_all(outcome, "Delaney", "Delany")) |>
     mutate(outcome = str_replace_all(outcome, "Le Afa", "Le'Afa"))
 
 #===============================================================================

@@ -165,7 +165,8 @@ map(pick_your_own_points_markets, read_topsport_html) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win) |> 
-    left_join(player_names_teams[c("player_name_initials", "player_last_name", "player_first_name", "player_team")], by = c("Selection" = "player_name_initials")) |> 
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    left_join(player_names_teams[c("player_full_name", "player_last_name", "player_first_name", "player_team")], by = c("Selection" = "player_full_name")) |> 
     rename(player_name = Selection) |> 
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
     relocate(match, .before = player_name) |> 
@@ -186,6 +187,7 @@ player_points_lines <-
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -240,6 +242,7 @@ player_assists_lines <-
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -274,7 +277,7 @@ player_assists_lines_unders <-
 player_assists_lines <- 
     player_assists_lines_overs |> 
     left_join(player_assists_lines_unders) |> 
-    mutate(market_name = "Player Points") |> 
+    mutate(market_name = "Player Assists") |> 
     mutate(agency = "TopSport")
 
 #===============================================================================
@@ -294,6 +297,7 @@ player_rebounds_lines <-
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win)
 
@@ -328,7 +332,7 @@ player_rebounds_lines_unders <-
 player_rebounds_lines <- 
     player_rebounds_lines_overs |> 
     left_join(player_rebounds_lines_unders) |> 
-    mutate(market_name = "Player Points") |> 
+    mutate(market_name = "Player Rebounds") |> 
     mutate(agency = "TopSport")
 
 #===============================================================================

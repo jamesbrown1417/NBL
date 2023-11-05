@@ -23,7 +23,7 @@ drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
 gs4_auth(token = drive_token())
 
 # Supercoach API URL
-url = "https://supercoach.dailytelegraph.com.au/2023/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=0&xredir=1"
+url = "https://supercoach.dailytelegraph.com.au/2023/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=5&xredir=1"
 
 # Make request
 req <- request(url)

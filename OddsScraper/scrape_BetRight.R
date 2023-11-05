@@ -207,6 +207,7 @@ betright_player_stats <-
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
     mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
     mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     left_join(next_match[, c("team", "opposition_team", "match")], by = c("player_team" = "team")) |> 
