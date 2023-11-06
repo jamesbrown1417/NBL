@@ -305,3 +305,71 @@ sheet_write(sheet, data = all_player_rebounds, sheet = "Player Rebounds")
 
 # Write as RDS
 all_player_rebounds |> write_rds("Data/processed_odds/all_player_rebounds.rds")
+
+##%######################################################%##
+#                                                          #
+####                   Player Threes                    ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_player_threes <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_threes") |>
+    map(read_csv) |>
+    # Ignore null elements
+    keep(~nrow(.x) > 0) |>
+    reduce(bind_rows)
+
+# Add empirical probabilities---------------------------------------------------
+
+# Player Threes
+distinct_rebound_combos <-
+    all_player_threes |> 
+    distinct(player_name, line)
+
+player_emp_probs_2022_23 <-
+    pmap(distinct_rebound_combos, get_empirical_prob, "Threes", "2022_2023", .progress = TRUE) |> 
+    bind_rows() |> 
+    select(player_name, line, games_played_2022_2023 = games_played, empirical_prob_2022_2023)
+
+player_emp_probs_2023_24 <- 
+    pmap(distinct_rebound_combos, get_empirical_prob, "Threes", "2023_2024", .progress = TRUE) |> 
+    bind_rows() |> 
+    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024)
+
+all_player_threes <-
+    all_player_threes |>
+    mutate(
+        implied_prob_over = 1 / over_price,
+        implied_prob_under = 1 / under_price
+    ) |>
+    left_join(player_emp_probs_2022_23, by = c("player_name", "line")) |>
+    left_join(player_emp_probs_2023_24, by = c("player_name", "line")) |>
+    rename(empirical_prob_over_2022_23 = empirical_prob_2022_2023,
+           empirical_prob_over_2023_24 = empirical_prob_2023_2024) |>
+    mutate(empirical_prob_under_2022_23 = 1 - empirical_prob_over_2022_23,
+           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24) |>
+    mutate(
+        diff_over_2022_23 = empirical_prob_over_2022_23 - implied_prob_over,
+        diff_under_2022_23 = empirical_prob_under_2022_23 - implied_prob_under,
+        diff_over_2023_24 = empirical_prob_over_2023_24 - implied_prob_over,
+        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under
+    ) |>
+    relocate(agency, .after = diff_under_2023_24) |>
+    mutate_if(is.double, round, 2) |>
+    filter(!is.na(opposition_team)) |>
+    group_by(player_name, line) |>
+    mutate(
+        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
+        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
+    ) |>
+    mutate(variation = max_implied_prob - min_implied_prob) |>
+    ungroup() |>
+    select(-min_implied_prob,-max_implied_prob) |>
+    arrange(desc(variation), player_name, desc(over_price), line)
+
+# Add to google sheets
+sheet_write(sheet, data = all_player_threes, sheet = "Player Threes")
+
+# Write as RDS
+all_player_threes |> write_rds("Data/processed_odds/all_player_threes.rds")

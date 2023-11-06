@@ -204,7 +204,8 @@ tab_player_points_markets <-
 tab_player_points_markets <-
     tab_player_points_markets |> 
     mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa"))
+    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
+    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
 
 # Separate player name into first and last name
 tab_player_points_markets <-
@@ -217,6 +218,7 @@ tab_player_points_markets <-
     mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
     mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
     mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
+    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -280,7 +282,8 @@ tab_player_assists_markets <-
 tab_player_assists_markets <-
     tab_player_assists_markets |> 
     mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa"))
+    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
+    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
 
 # Separate player name into first and last name
 tab_player_assists_markets <-
@@ -293,6 +296,7 @@ tab_player_assists_markets <-
     mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
     mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
     mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
+    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -356,7 +360,8 @@ tab_player_rebounds_markets <-
 tab_player_rebounds_markets <-
     tab_player_rebounds_markets |> 
     mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa"))
+    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
+    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
 
 # Separate player name into first and last name
 tab_player_rebounds_markets <-
@@ -369,6 +374,7 @@ tab_player_rebounds_markets <-
     mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
     mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
     mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
+    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -380,12 +386,99 @@ tab_player_rebounds_markets <-
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
 
 #===============================================================================
+# Player Threes
+#=============================================================================== 
+
+# Filter to player threes markets
+player_threes_markets <-
+    all_tab_markets |> 
+    filter(str_detect(market_name, "Threes"))
+
+# Extract player names
+player_threes_markets <-
+    player_threes_markets |> 
+    mutate(player_name_1 = str_remove_all(prop_name, " \\(.*\\)")) |> 
+    mutate(player_name_2 = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
+    mutate(player_name = coalesce(player_name_1, player_name_2)) |>
+    select(-player_name_1, -player_name_2) |>
+    mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
+    mutate(line_1 = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line_2 = str_extract(market_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = coalesce(line_1, line_2)) |>
+    select(-line_1, -line_2) |>
+    mutate(line = as.numeric(line)) |>
+    mutate(type = str_detect(prop_name, "Under")) |> 
+    mutate(type = ifelse(type, "Under", "Over")) |> 
+    mutate(line = if_else(market_name != "Player Threes", line - 0.5, line))
+
+# Over lines
+over_lines <-
+    player_threes_markets |> 
+    filter(type == "Over") |> 
+    mutate(market_name = "Player Threes") |>
+    select(match, market_name, player_name, line, over_price = price)
+
+# Under lines
+under_lines <-
+    player_threes_markets |> 
+    filter(type == "Under") |> 
+    mutate(market_name = "Player Threes") |>
+    select(match, market_name, player_name, line, under_price = price)
+
+# Combine
+tab_player_threes_markets <-
+    over_lines |>
+    full_join(under_lines) |> 
+    select(match, market_name, player_name, line, over_price, under_price) |> 
+    mutate(agency = "TAB")
+
+# Fix team names
+tab_player_threes_markets <-
+    tab_player_threes_markets |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(match = paste(home_team, "v", away_team))
+
+# Add first initial for players who were not given one
+tab_player_threes_markets <-
+    tab_player_threes_markets |> 
+    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
+    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
+    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
+
+# Separate player name into first and last name
+tab_player_threes_markets <-
+    tab_player_threes_markets |> 
+    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
+    mutate(first_initial = substr(first_name, 1, 1)) |> 
+    mutate(player_name = paste(first_initial, last_name)) |> 
+    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
+    mutate(player_name = str_replace_all(player_name, "Delaney", "Delany")) |>
+    mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
+    mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
+    mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
+    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
+    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
+    mutate(player_name = paste(player_first_name, player_last_name)) |>
+    select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
+    relocate(player_name, player_team, .after = market_name)
+
+# Create opposition team variable
+tab_player_threes_markets <-
+    tab_player_threes_markets |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |> 
+    distinct(player_name, line, over_price, .keep_all = TRUE)
+
+
+#===============================================================================
 # Write to CSV------------------------------------------------------------------
 #===============================================================================
 
 tab_player_points_markets |> write_csv("Data/scraped_odds/tab_player_points.csv")
 tab_player_assists_markets |> write_csv("Data/scraped_odds/tab_player_assists.csv")
 tab_player_rebounds_markets |> write_csv("Data/scraped_odds/tab_player_rebounds.csv")
+tab_player_threes_markets |> write_csv("Data/scraped_odds/tab_player_threes.csv")
 }
 
 #===============================================================================

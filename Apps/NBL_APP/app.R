@@ -135,22 +135,27 @@ all_player_stats <-
   mutate(HOME_TEAM = ifelse(home_away == "home", name, opp_name)) |>
   mutate(AWAY_TEAM = ifelse(home_away == "away", name, opp_name))
 
-# # Google sheets authentication -------------------------------------------------
-# options(gargle_oauth_cache = ".secrets")
-# drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
-# gs4_auth(token = drive_token())
-
-# # Google Sheets Data------------------------------------------------------------
-# ss_name <- gs4_find("NBL Data")
-# h2h_data <- read_sheet(ss = ss_name, sheet = "H2H")
-# player_points_data <- read_sheet(ss = ss_name, sheet = "Player Points")
-# player_assists_data <- read_sheet(ss = ss_name, sheet = "Player Assists")
-# player_rebounds_data <- read_sheet(ss = ss_name, sheet = "Player Rebounds")
-
-# Read Odds Data----------------------------------------------------------------
-player_points_data <- read_rds("../../data/processed_odds/all_player_points.rds")
-player_assists_data <- read_rds("../../data/processed_odds/all_player_assists.rds")
-player_rebounds_data <- read_rds("../../data/processed_odds/all_player_rebounds.rds")
+# Conditional logic for if operating system is windows
+if (Sys.info()["sysname"] == "Windows") {
+    # Read Odds Data----------------------------------------------------------------
+    player_points_data <- read_rds("../../data/processed_odds/all_player_points.rds")
+    player_assists_data <- read_rds("../../data/processed_odds/all_player_assists.rds")
+    player_rebounds_data <- read_rds("../../data/processed_odds/all_player_rebounds.rds")
+    player_threes_data <- read_rds("../../data/processed_odds/all_player_threes.rds")
+} else {
+    # Google sheets authentication -------------------------------------------------
+    options(gargle_oauth_cache = ".secrets")
+    drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
+    gs4_auth(token = drive_token())
+    
+    # Google Sheets Data------------------------------------------------------------
+    ss_name <- gs4_find("NBL Data")
+    h2h_data <- read_sheet(ss = ss_name, sheet = "H2H")
+    player_points_data <- read_sheet(ss = ss_name, sheet = "Player Points")
+    player_assists_data <- read_sheet(ss = ss_name, sheet = "Player Assists")
+    player_rebounds_data <- read_sheet(ss = ss_name, sheet = "Player Rebounds")
+    player_threes_data <- read_sheet(ss = ss_name, sheet = "Player Threes")
+}
 
 # # Add opposition defensive rating-----------------------------------------------
 # 
@@ -243,6 +248,7 @@ ui <- page_navbar(
                         "REB",
                         "AST",
                         "PRA",
+                        "FG3M",
                         "BLK",
                         "STL",
                         "MIN"),
@@ -321,7 +327,7 @@ ui <- page_navbar(
                           selectInput(
                             inputId = "market_input",
                             label = "Select Market:",
-                            choices = c("Points", "Rebounds", "Assists"),
+                            choices = c("Points", "Rebounds", "Assists", "Threes"),
                             multiple = FALSE
                           ),
                           selectInput(
@@ -557,14 +563,18 @@ server <- function(input, output) {
     
     # Get implied Odds
     implied_odds <- 1 / proportion_above_reference_line
+    implied_odds_under <- 1 / (1 - proportion_above_reference_line)
     
     # Get string to output
     output_string <- paste0(
       "Proportion Above Reference Line: ",
       round(proportion_above_reference_line, 2),
       "\n",
-      "Implied Odds: ",
+      "Implied Odds Over: ",
       round(implied_odds, 2),
+      "\n",
+      "Implied Odds Under: ",
+      round(implied_odds_under, 2),
       "\n",
       "Sample Size: ",
       nrow(filtered_player_stats())
@@ -752,6 +762,16 @@ server <- function(input, output) {
     if (input$market_input == "Assists") {
       odds <-
         player_assists_data |> 
+        mutate(variation = round(variation, 2)) |>
+        filter(agency %in% input$agency_input) |> 
+        filter(match %in% input$match_input) |>
+        select(-match)
+    }
+      
+    # Threes
+    if (input$market_input == "Threes") {
+      odds <-
+        player_threes_data |> 
         mutate(variation = round(variation, 2)) |>
         filter(agency %in% input$agency_input) |> 
         filter(match %in% input$match_input) |>
