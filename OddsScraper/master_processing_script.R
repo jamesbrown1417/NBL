@@ -33,11 +33,12 @@ source("OddsScraper/scrape_bluebet.R")
 all_odds_files <-
     list.files("Data/scraped_odds", full.names = TRUE, pattern = "h2h") |>
     map(read_csv) |>
+    keep(~ nrow(.) > 0) |>
     reduce(bind_rows)
 
 # For each match, get all home wins
 all_home <-
-all_odds_files |>
+    all_odds_files |>
     arrange(match, start_time, desc(home_win)) |>
     select(match, start_time, market_name, home_team, home_win, home_agency = agency) |> 
     mutate(start_time = date(start_time)) |> 
@@ -45,7 +46,7 @@ all_odds_files |>
 
 # For each match, get all away wins
 all_away <-
-all_odds_files |>
+    all_odds_files |>
     arrange(match, start_time, desc(away_win)) |>
     select(match, start_time, market_name, away_team, away_win, away_agency = agency) |> 
     mutate(start_time = date(start_time)) |> 
@@ -130,7 +131,7 @@ player_emp_probs_2022_23 <-
 player_emp_probs_2023_24 <- 
     pmap(distinct_point_combos, get_empirical_prob, "PTS", "2023_2024", .progress = TRUE) |> 
     bind_rows() |> 
-    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024)
+    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024, empirical_prob_last_10)
 
 all_player_points <-
     all_player_points |>
@@ -141,14 +142,18 @@ all_player_points <-
     left_join(player_emp_probs_2022_23, by = c("player_name", "line")) |>
     left_join(player_emp_probs_2023_24, by = c("player_name", "line")) |>
     rename(empirical_prob_over_2022_23 = empirical_prob_2022_2023,
-           empirical_prob_over_2023_24 = empirical_prob_2023_2024) |>
+           empirical_prob_over_2023_24 = empirical_prob_2023_2024,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
     mutate(empirical_prob_under_2022_23 = 1 - empirical_prob_over_2022_23,
-           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24) |>
+           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
     mutate(
         diff_over_2022_23 = empirical_prob_over_2022_23 - implied_prob_over,
         diff_under_2022_23 = empirical_prob_under_2022_23 - implied_prob_under,
         diff_over_2023_24 = empirical_prob_over_2023_24 - implied_prob_over,
-        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under
+        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
     ) |>
     relocate(agency, .after = diff_under_2023_24) |>
     mutate_if(is.double, round, 2) |>
@@ -198,7 +203,7 @@ player_emp_probs_2022_23 <-
 player_emp_probs_2023_24 <- 
     pmap(distinct_assist_combos, get_empirical_prob, "AST", "2023_2024", .progress = TRUE) |> 
     bind_rows() |> 
-    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024)
+    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024, empirical_prob_last_10)
 
 all_player_assists <-
     all_player_assists |>
@@ -209,14 +214,18 @@ all_player_assists <-
     left_join(player_emp_probs_2022_23, by = c("player_name", "line")) |>
     left_join(player_emp_probs_2023_24, by = c("player_name", "line")) |>
     rename(empirical_prob_over_2022_23 = empirical_prob_2022_2023,
-           empirical_prob_over_2023_24 = empirical_prob_2023_2024) |>
+           empirical_prob_over_2023_24 = empirical_prob_2023_2024,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
     mutate(empirical_prob_under_2022_23 = 1 - empirical_prob_over_2022_23,
-           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24) |>
+           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
     mutate(
         diff_over_2022_23 = empirical_prob_over_2022_23 - implied_prob_over,
         diff_under_2022_23 = empirical_prob_under_2022_23 - implied_prob_under,
         diff_over_2023_24 = empirical_prob_over_2023_24 - implied_prob_over,
-        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under
+        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
     ) |>
     relocate(agency, .after = diff_under_2023_24) |>
     mutate_if(is.double, round, 2) |>
@@ -267,7 +276,7 @@ player_emp_probs_2022_23 <-
 player_emp_probs_2023_24 <- 
     pmap(distinct_rebound_combos, get_empirical_prob, "REB", "2023_2024", .progress = TRUE) |> 
     bind_rows() |> 
-    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024)
+    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024, empirical_prob_last_10)
 
 all_player_rebounds <-
     all_player_rebounds |>
@@ -278,14 +287,18 @@ all_player_rebounds <-
     left_join(player_emp_probs_2022_23, by = c("player_name", "line")) |>
     left_join(player_emp_probs_2023_24, by = c("player_name", "line")) |>
     rename(empirical_prob_over_2022_23 = empirical_prob_2022_2023,
-           empirical_prob_over_2023_24 = empirical_prob_2023_2024) |>
+           empirical_prob_over_2023_24 = empirical_prob_2023_2024,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
     mutate(empirical_prob_under_2022_23 = 1 - empirical_prob_over_2022_23,
-           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24) |>
+           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
     mutate(
         diff_over_2022_23 = empirical_prob_over_2022_23 - implied_prob_over,
         diff_under_2022_23 = empirical_prob_under_2022_23 - implied_prob_under,
         diff_over_2023_24 = empirical_prob_over_2023_24 - implied_prob_over,
-        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under
+        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
     ) |>
     relocate(agency, .after = diff_under_2023_24) |>
     mutate_if(is.double, round, 2) |>
@@ -323,19 +336,19 @@ all_player_threes <-
 # Add empirical probabilities---------------------------------------------------
 
 # Player Threes
-distinct_rebound_combos <-
+distinct_threes_combos <-
     all_player_threes |> 
     distinct(player_name, line)
 
 player_emp_probs_2022_23 <-
-    pmap(distinct_rebound_combos, get_empirical_prob, "Threes", "2022_2023", .progress = TRUE) |> 
+    pmap(distinct_threes_combos, get_empirical_prob, "Threes", "2022_2023", .progress = TRUE) |> 
     bind_rows() |> 
     select(player_name, line, games_played_2022_2023 = games_played, empirical_prob_2022_2023)
 
 player_emp_probs_2023_24 <- 
-    pmap(distinct_rebound_combos, get_empirical_prob, "Threes", "2023_2024", .progress = TRUE) |> 
+    pmap(distinct_threes_combos, get_empirical_prob, "Threes", "2023_2024", .progress = TRUE) |> 
     bind_rows() |> 
-    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024)
+    select(player_name, line, games_played_2023_2024 = games_played, empirical_prob_2023_2024, empirical_prob_last_10)
 
 all_player_threes <-
     all_player_threes |>
@@ -346,14 +359,18 @@ all_player_threes <-
     left_join(player_emp_probs_2022_23, by = c("player_name", "line")) |>
     left_join(player_emp_probs_2023_24, by = c("player_name", "line")) |>
     rename(empirical_prob_over_2022_23 = empirical_prob_2022_2023,
-           empirical_prob_over_2023_24 = empirical_prob_2023_2024) |>
+           empirical_prob_over_2023_24 = empirical_prob_2023_2024,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
     mutate(empirical_prob_under_2022_23 = 1 - empirical_prob_over_2022_23,
-           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24) |>
+           empirical_prob_under_2023_24 = 1 - empirical_prob_over_2023_24,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
     mutate(
         diff_over_2022_23 = empirical_prob_over_2022_23 - implied_prob_over,
         diff_under_2022_23 = empirical_prob_under_2022_23 - implied_prob_under,
         diff_over_2023_24 = empirical_prob_over_2023_24 - implied_prob_over,
-        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under
+        diff_under_2023_24 = empirical_prob_under_2023_24 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
     ) |>
     relocate(agency, .after = diff_under_2023_24) |>
     mutate_if(is.double, round, 2) |>

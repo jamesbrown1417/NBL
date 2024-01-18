@@ -41,14 +41,14 @@ combined_stats_table <-
 combined_stats_2022_2023 <-
     combined_stats_table |>
     filter(season == "2022-2023") |>
-    select(PLAYER_NAME, PTS, REB, AST, STL, BLK, Threes) |>
+    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
     mutate(season = "2022_2023")
 
 # Create season data - 2023-2024
 combined_stats_2023_2024 <-
     combined_stats_table |>
     filter(season == "2023-2024") |>
-    select(PLAYER_NAME, PTS, REB, AST, STL, BLK, Threes) |>
+    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
     mutate(season = "2023_2024")
 
 #===============================================================================
@@ -56,51 +56,195 @@ combined_stats_2023_2024 <-
 #===============================================================================
 
 get_empirical_prob <- function(player_name, line, stat, season) {
+    
     # Choose the data based on the selected season
     if (season == "2022_2023") {
-        player_stats <-
-            combined_stats_2022_2023 |> filter(PLAYER_NAME == player_name)
+        player_stats <- combined_stats_2022_2023 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
     } else if (season == "2023_2024") {
-        player_stats <-
-            combined_stats_2023_2024 |> filter(PLAYER_NAME == player_name)
+        player_stats <- combined_stats_2023_2024 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
     } else {
         stop("Invalid season selected")
     }
+    
+    # Last 10 games
+    player_stats_last_10 <-
+        combined_stats_2023_2024 |>
+        group_by(PLAYER_NAME) |> 
+        arrange(desc(match_time_utc )) |> 
+        slice(1:10) |>
+        ungroup()
     
     # Initialize empirical_prob
     empirical_prob <- NULL
     
     # Branch based on whether stat is PTS, REB or AST
     if (stat == "PTS") {
-        empirical_prob <- player_stats |>
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
             summarise(games_played = n(),
-                      empirical_prob = mean(PTS >= line))
+                      empirical_prob = mean(PTS >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(PTS >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
     } else if (stat == "REB") {
-        empirical_prob <- player_stats |>
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
             summarise(games_played = n(),
-                      empirical_prob = mean(REB >= line))
+                      empirical_prob = mean(REB >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(REB >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
     } else if (stat == "AST") {
-        empirical_prob <- player_stats |>
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
             summarise(games_played = n(),
-                      empirical_prob = mean(AST >= line))
+                      empirical_prob = mean(AST >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(AST >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
+    } else if (stat == "STL") {
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
+            summarise(games_played = n(),
+                      empirical_prob = mean(STL >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(STL >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
+    } else if (stat == "BLK") {
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
+            summarise(games_played = n(),
+                      empirical_prob = mean(BLK >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(BLK >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
     } else if (stat == "Threes") {
-        empirical_prob <- player_stats |>
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
             summarise(games_played = n(),
-                      empirical_prob = mean(Threes >= line))
-    }    else {
-        stop("stat must be one of PTS, REB, AST or Threes")
+                      empirical_prob = mean(Threes >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(Threes >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
+    } else if (stat == "PRA") {
+        empirical_prob <-
+            player_stats |> 
+            group_by(PLAYER_NAME) |> 
+            summarise(games_played = n(),
+                      empirical_prob = mean(PRA >= line)) |> 
+            ungroup()
+        
+        if (season == "2023_2024") {
+            
+            last_10 <- player_stats_last_10 |> 
+                group_by(PLAYER_NAME) |>
+                summarise(empirical_prob_last_10 = mean(PRA >= line)) |> 
+                ungroup()
+            
+            empirical_prob <-
+                empirical_prob |>
+                left_join(last_10, by = "PLAYER_NAME") |> 
+                select(-PLAYER_NAME)
+        }
+        
+    } else {
+        stop("stat must be one of PTS, REB, AST, STL, BLK, Threes, or PRA")
     }
     
+    
     # Add line, player_name, and season information
-    empirical_prob <- empirical_prob |>
-        mutate(line = line,
-               player_name = player_name,
+    empirical_prob <- empirical_prob |> 
+        mutate(line = line, 
+               player_name = player_name, 
                season = season)
+    
+    if (season == "2022_2023") {
+        empirical_prob <-
+            empirical_prob |> 
+            select(-PLAYER_NAME)
+    }
     
     # Rename the empirical_prob column to include season
     new_col_name <- paste("empirical_prob", season, sep = "_")
-    empirical_prob <- empirical_prob |>
-        rename_with( ~ new_col_name, .cols = "empirical_prob")
+    empirical_prob <- empirical_prob |> 
+        rename_with(~ new_col_name, .cols = "empirical_prob")
     
     # Return empirical probability
     return(empirical_prob)
