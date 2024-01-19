@@ -20,7 +20,6 @@ sportsbet_sgm <-
 sportsbet_sgm_overs <-
   sportsbet_sgm |> 
   filter(!is.na(over_price)) |> 
-  select(-player_id_unders) |> 
   rename(price = over_price) |> 
   mutate(type = "Overs") |> 
   select(-under_price) |> 
@@ -29,8 +28,6 @@ sportsbet_sgm_overs <-
 sportsbet_sgm_unders <-
   sportsbet_sgm |> 
   filter(!is.na(under_price)) |> 
-  select(-player_id) |> 
-  rename(player_id = player_id_unders) |> 
   rename(price = under_price) |> 
   mutate(type = "Unders") |> 
   select(-over_price) |> 

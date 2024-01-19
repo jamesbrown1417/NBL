@@ -14,6 +14,7 @@ tab_sgm <-
   map(all_files, function(x) {
     read_csv(paste0("../../Data/scraped_odds/", x))
   }) |> 
+    keep(~ nrow(.x) > 0) |>
   bind_rows()
 
 # Split overs and unders into separate rows
@@ -128,21 +129,23 @@ call_sgm_tab <- function(data, player_names, prop_line, prop_type, over_under) {
     player_string <- paste(combined_list, collapse = ", ")
     
     output_data <- tryCatch({
-      data.frame(
-        Selections = player_string,
-        Unadjusted_Price = unadjusted_price,
-        Adjusted_Price = adjusted_price,
-        Adjustment_Factor = adjustment_factor,
-        Agency = 'TAB'
-      )
+        data.frame(
+            Selections = player_string,
+            Markets = paste(prop_type, sep = ": ", collapse = ", "),
+            Unadjusted_Price = unadjusted_price,
+            Adjusted_Price = adjusted_price,
+            Adjustment_Factor = adjustment_factor,
+            Agency = 'TAB'
+        )
     }, error = function(e) {
-      data.frame(
-        Selections = NA_character_,
-        Unadjusted_Price = NA_real_,
-        Adjusted_Price = NA_real_,
-        Adjustment_Factor = NA_real_,
-        Agency = NA_character_
-      )
+        data.frame(
+            Selections = NA_character_,
+            Markets = NA_character_,
+            Unadjusted_Price = NA_real_,
+            Adjusted_Price = NA_real_,
+            Adjustment_Factor = NA_real_,
+            Agency = NA_character_
+        )
     })
     
     return(output_data)
@@ -154,8 +157,8 @@ call_sgm_tab <- function(data, player_names, prop_line, prop_type, over_under) {
 
 call_sgm_tab(
     data = tab_sgm,
-    player_names = c("Tyler Harvey", "Tyler Harvey"),
-    prop_line = c("14.5", "9.5"),
-    prop_type = c("Player Points", "Player Points"),
-    over_under = c("Overs", "Overs")
+    player_names = c("Chris Goulding", "Chris Goulding"),
+    prop_line = c("17.5", "2.5"),
+    prop_type = c("Player Points", "Player Assists"),
+    over_under = c("Unders", "Unders")
 )
