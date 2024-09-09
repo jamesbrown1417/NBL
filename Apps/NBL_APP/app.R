@@ -136,26 +136,11 @@ all_player_stats <-
   mutate(AWAY_TEAM = ifelse(home_away == "away", name, opp_name))
 
 # Conditional logic for if operating system is windows
-if (Sys.info()["sysname"] == "Windows") {
-    # Read Odds Data----------------------------------------------------------------
-    player_points_data <- read_rds("../../data/processed_odds/all_player_points.rds")
-    player_assists_data <- read_rds("../../data/processed_odds/all_player_assists.rds")
-    player_rebounds_data <- read_rds("../../data/processed_odds/all_player_rebounds.rds")
-    player_threes_data <- read_rds("../../data/processed_odds/all_player_threes.rds")
-} else {
-    # Google sheets authentication -------------------------------------------------
-    options(gargle_oauth_cache = ".secrets")
-    drive_auth(cache = ".secrets", email = "cuzzy.punting@gmail.com")
-    gs4_auth(token = drive_token())
-    
-    # Google Sheets Data------------------------------------------------------------
-    ss_name <- gs4_find("NBL Data")
-    h2h_data <- read_sheet(ss = ss_name, sheet = "H2H")
-    player_points_data <- read_sheet(ss = ss_name, sheet = "Player Points")
-    player_assists_data <- read_sheet(ss = ss_name, sheet = "Player Assists")
-    player_rebounds_data <- read_sheet(ss = ss_name, sheet = "Player Rebounds")
-    player_threes_data <- read_sheet(ss = ss_name, sheet = "Player Threes")
-}
+# Read Odds Data----------------------------------------------------------------
+player_points_data <- read_rds("../../data/processed_odds/all_player_points.rds")
+player_assists_data <- read_rds("../../data/processed_odds/all_player_assists.rds")
+player_rebounds_data <- read_rds("../../data/processed_odds/all_player_rebounds.rds")
+player_threes_data <- read_rds("../../data/processed_odds/all_player_threes.rds")
 
 # # Add opposition defensive rating-----------------------------------------------
 # 
@@ -239,7 +224,8 @@ ui <- page_navbar(
             selectize = TRUE,
             selected = c("2021-2022",
                          "2022-2023",
-                         "2023-2024")
+                         "2023-2024",
+                         "2024-2025")
           ),
           selectInput(
             inputId = "stat_input_a",
@@ -364,6 +350,17 @@ ui <- page_navbar(
                             label = "Max Odds",
                             value = NA
                           ),
+                          markdown(mds = c("__Select Difference Range 2024:__")),
+                          numericInput(
+                            inputId = "diff_minimum_24",
+                            label = "Min Diff",
+                            value = NA
+                          ),
+                          numericInput(
+                            inputId = "diff_maximum_24",
+                            label = "Max Diff",
+                            value = NA
+                          ),
                           markdown(mds = c("__Select Difference Range 2023:__")),
                           numericInput(
                             inputId = "diff_minimum_23",
@@ -372,17 +369,6 @@ ui <- page_navbar(
                           ),
                           numericInput(
                             inputId = "diff_maximum_23",
-                            label = "Max Diff",
-                            value = NA
-                          ),
-                          markdown(mds = c("__Select Difference Range 2022:__")),
-                          numericInput(
-                            inputId = "diff_minimum_22",
-                            label = "Min Diff",
-                            value = NA
-                          ),
-                          numericInput(
-                            inputId = "diff_maximum_22",
                             label = "Max Diff",
                             value = NA
                           )
@@ -788,18 +774,6 @@ server <- function(input, output) {
     }
     
     # Min and max differences
-    if (!is.na(input$diff_minimum_22)) {
-      odds <-
-        odds |>
-        filter(diff_over_2022_23 >= input$diff_minimum_22)
-    }
-    
-    if (!is.na(input$diff_maximum_22)) {
-      odds <-
-        odds |>
-        filter(diff_over_2022_23 <= input$diff_maximum_22)
-    }
-    
     if (!is.na(input$diff_minimum_23)) {
       odds <-
         odds |>
@@ -810,6 +784,18 @@ server <- function(input, output) {
       odds <-
         odds |>
         filter(diff_over_2023_24 <= input$diff_maximum_23)
+    }
+    
+    if (!is.na(input$diff_minimum_24)) {
+      odds <-
+        odds |>
+        filter(diff_over_2024_25 >= input$diff_minimum_24)
+    }
+    
+    if (!is.na(input$diff_maximum_24)) {
+      odds <-
+        odds |>
+        filter(diff_over_2024_25 <= input$diff_maximum_24)
     }
     
     # Odds Range

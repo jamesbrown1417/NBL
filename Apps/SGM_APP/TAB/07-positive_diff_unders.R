@@ -13,20 +13,14 @@ source("TAB/tab_sgm.R")
 player_points_data <- read_rds("../../Data/processed_odds/all_player_points.rds")
 player_assists_data <- read_rds("../../Data/processed_odds/all_player_assists.rds")
 player_rebounds_data <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
-player_pras_data <- read_rds("../../Data/processed_odds/all_player_pras.rds")
-player_steals_data <- read_rds("../../Data/processed_odds/all_player_steals.rds")
 player_threes_data <- read_rds("../../Data/processed_odds/all_player_threes.rds")
-player_blocks_data <- read_rds("../../Data/processed_odds/all_player_blocks.rds")
 
 # Get those where the tab Odds diff for the season is greater than 0
 tab_positive <-
   player_points_data |>
   bind_rows(player_assists_data) |>
   bind_rows(player_rebounds_data) |>
-  bind_rows(player_pras_data) |>
-  bind_rows(player_steals_data) |>
   bind_rows(player_threes_data) |>
-  bind_rows(player_blocks_data) |>
   arrange(player_name, market_name, line, desc(over_price)) |>
   filter(agency == "TAB") |>
   filter(!is.na(under_price)) |> 

@@ -72,8 +72,8 @@ list_of_dataframes <-
 retained_combinations <-
   list_of_dataframes |> 
   # Keep only dataframes where first and second row match are equal
-  keep(~.x$match[1] == .x$match[2]) |> 
-  keep(~prod(.x$price) >= 1.6 & prod(.x$price) <= 2.5)
+  keep(~.x$match[1] == .x$match[2])
+  # keep(~prod(.x$price) >= 1.6 & prod(.x$price) <= 2.5)
 
 #===============================================================================
 # Call function
@@ -112,4 +112,3 @@ results <-
   mutate(Diff = 1/Unadjusted_Price - 1/Adjusted_Price) |> 
   mutate(Diff = round(Diff, 2)) |>
   arrange(desc(Diff))
-
