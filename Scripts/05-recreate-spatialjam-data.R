@@ -213,7 +213,7 @@ team_metrics <-
     team_metrics |> 
     group_by(name) |>
     summarise(GP = n(),
-              PACE = mean(pace),
+              PACE = mean(pace, na.rm = TRUE),
              `eFG%` = mean(`eFG%`),
               `TS%` = mean(`TS%`),
               `FTR` = mean(`FTR`),
@@ -244,7 +244,7 @@ opposition_metrics <-
     opposition_metrics |> 
     group_by(opp_name) |>
     summarise(GP = n(),
-              PACE = mean(pace),
+              PACE = mean(pace, na.rm = TRUE),
               `eFG%` = mean(`eFG%`),
               `TS%` = mean(`TS%`),
               `FTR` = mean(`FTR`),

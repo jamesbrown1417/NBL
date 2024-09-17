@@ -15,34 +15,6 @@ player_names_teams <-
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
     mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
 
-
-# Get schedule
-nbl_schedule <- read_rds("Data/season_schedule_2023_2024.rds")
-
-# Add current datetime
-nbl_schedule <- nbl_schedule |> 
-    mutate(current_timestamp = Sys.time()) |> 
-    mutate(home_team = fix_team_names(home_team), away_team = fix_team_names(away_team)) |> 
-    mutate(match = paste(home_team, "v", away_team, sep = " "))
-
-# Get home teams and away teams next match
-home_teams <-
-    nbl_schedule |> 
-    rename(team = home_team, opposition_team = away_team) 
-
-away_teams <-
-    nbl_schedule |> 
-    rename(team = away_team, opposition_team = home_team)
-
-# Get next match
-next_match <-
-    bind_rows(home_teams, away_teams) |>
-    arrange(team, start_time) |> 
-    filter(current_timestamp <= start_time) |> 
-    group_by(team) |>
-    slice_head(n = 1) |>
-    mutate(team = fix_team_names(team), opposition_team = fix_team_names(opposition_team))
-
 # URL to get responses
 betright_url = "https://next-api.betright.com.au/Sports/Category?categoryId=110"
 
@@ -158,9 +130,6 @@ player_assist_links <-
 player_rebound_links <-
     glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G673")
 
-
-player_stats_links <- c(player_points_links,player_assist_links,player_rebound_links)
-
 # Function to extract prop data from links--------------------------------------
 
 get_prop_data <- function(link) {
@@ -198,9 +167,13 @@ get_prop_data <- function(link) {
 # Safe version of function
 safe_get_prop_data <- safely(get_prop_data)
 
-# Get all player stats
-betright_player_stats <-
-    map(player_stats_links, safe_get_prop_data) |> 
+#===============================================================================
+# Player Points
+#===============================================================================
+
+# Get all player points
+betright_player_points <-
+    map(player_points_links, safe_get_prop_data) |> 
     map("result") |>
     bind_rows() |>
     separate(outcome_title, into = c("market_name", "player_name"), sep = " - ") |>

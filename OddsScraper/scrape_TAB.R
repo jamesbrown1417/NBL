@@ -2,6 +2,7 @@
 library(tidyverse)
 library(rvest)
 library(httr2)
+library(httr)
 
 # Load user functions
 source("Scripts/04-helper-functions.R")
@@ -18,11 +19,30 @@ tab_url = "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/com
 
 main_tab <- function() {
 
-# Make request and get response
-tab_response <-
-    request(tab_url) |>
-    req_perform() |> 
-    resp_body_json()
+    # Set the headers
+    headers <- c(
+        "accept" = "application/json, text/plain, */*",
+        "accept-language" = "en-US,en;q=0.9",
+        "origin" = "https://www.tab.com.au",
+        "referer" = "https://www.tab.com.au/",
+        "sec-ch-ua" = '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        "sec-ch-ua-mobile" = "?0",
+        "sec-ch-ua-platform" = '"Windows"',
+        "sec-fetch-dest" = "empty",
+        "sec-fetch-mode" = "cors",
+        "sec-fetch-site" = "same-site",
+        "user-agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    )
+    
+    # Try response, if nothing in 10 seconds, make it null
+    response <- tryCatch({
+        GET(tab_url, add_headers(.headers = headers), timeout(10))
+    }, error = function(e) {
+        return(NULL)
+    })
+    
+    # Get response body
+    tab_response <- content(response, as = "parsed")
 
 # Function to extract market info from response---------------------------------
 get_market_info <- function(markets) {
@@ -84,21 +104,24 @@ home_teams <-
     group_by(match) |> 
     filter(row_number() == 1) |> 
     rename(home_win = price) |> 
-    select(-prop_name)
+    select(-prop_name) |> 
+    rename(home_prop_id = prop_id)
 
 # Away teams
 away_teams <-
     all_tab_markets |>
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
     filter(market_name == "Head To Head") |> 
     group_by(match) |> 
     filter(row_number() == 2) |> 
     rename(away_win = price) |> 
-    select(-prop_name)
+    select(-prop_name) |> 
+    rename(away_prop_id = prop_id)
 
 # Combine
 tab_head_to_head_markets <-
     home_teams |>
-    left_join(away_teams) |> 
+    left_join(away_teams, by = c("match", "home_team", "away_team", "start_time", "market_name")) |>
     select(match, start_time, market_name, home_team, home_win, away_team, away_win) |> 
     mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
     mutate(agency = "TAB")
