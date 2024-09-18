@@ -209,10 +209,11 @@ ui <- page_navbar(
         area = "nbl_stats",
         card_header("Settings"),
         card_body(
-          textInput(
+          selectInput(
             inputId = "player_name_input_a",
             label = "Select Player:",
-            value = "Bryce Cotton"
+            selected = "Bryce Cotton",
+            choices = all_player_stats$PLAYER_NAME |> unique(),
           ),
           selectInput(
             inputId = "season_input_a",
@@ -388,15 +389,17 @@ ui <- page_navbar(
         area = "with_without_settings",
         card_header("Settings"),
         card_body(
-          textInput(
+          selectInput(
             inputId = "player_name",
             label = "Select Player:",
-            value = "Bryce Cotton"
+            selected = "Bryce Cotton",
+            choices = all_player_stats$PLAYER_NAME |> unique()
           ),
-          textInput(
+          selectInput(
             inputId = "teammate_name",
             label = "Select Teammate:",
-            value = "Keanu Pinder"
+            selected = "Keanu Pinder",
+            choices = all_player_stats$PLAYER_NAME |> unique()
           ),
           selectInput(
             inputId = "season_input",
@@ -433,10 +436,11 @@ ui <- page_navbar(
         area = "corr_settings",
         card_header("Settings"),
         card_body(
-          textInput(
+          selectInput(
             inputId = "player_name_corr",
             label = "Select Player 1:",
-            value = "Bryce Cotton"
+            selected = "Bryce Cotton",
+            choices = all_player_stats$PLAYER_NAME |> unique()
           ),
           selectInput(
             inputId = "metric_input_corr_a",
@@ -445,10 +449,11 @@ ui <- page_navbar(
             multiple = FALSE,
             selected = "PTS"
           ),
-          textInput(
+          selectInput(
             inputId = "teammate_name_corr",
             label = "Select Player 2:",
-            value = "Keanu Pinder"
+            selected = "Keanu Pinder",
+            choices = all_player_stats$PLAYER_NAME |> unique()
           ),
           selectInput(
             inputId = "metric_input_corr_b",
