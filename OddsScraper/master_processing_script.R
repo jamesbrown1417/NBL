@@ -22,6 +22,7 @@ run_scraping("OddsScraper/scrape_pointsbet.R")
 run_scraping("OddsScraper/scrape_sportsbet.R")
 run_scraping("OddsScraper/scrape_TAB.R")
 run_scraping("OddsScraper/scrape_TopSport.R")
+run_scraping("OddsScraper/scrape_dabble.R")
 
 ##%######################################################%##
 #                                                          #
