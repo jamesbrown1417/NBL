@@ -37,13 +37,6 @@ combined_stats_table <-
         Threes = player_three_pointers_made
     )
 
-# Create season data - 2022-2023
-combined_stats_2022_2023 <-
-    combined_stats_table |>
-    filter(season == "2022-2023") |>
-    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
-    mutate(season = "2022_2023")
-
 # Create season data - 2023-2024
 combined_stats_2023_2024 <-
     combined_stats_table |>
@@ -65,9 +58,7 @@ combined_stats_2024_2025 <-
 get_empirical_prob <- function(player_name, line, stat, season) {
     
     # Choose the data based on the selected season
-    if (season == "2022_2023") {
-        player_stats <- combined_stats_2022_2023 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
-    } else if (season == "2023_2024") {
+    if (season == "2023_2024") {
         player_stats <- combined_stats_2023_2024 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
     } else if (season == "2024_2025") {
         player_stats <- combined_stats_2024_2025 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
@@ -242,12 +233,6 @@ get_empirical_prob <- function(player_name, line, stat, season) {
         mutate(line = line, 
                player_name = player_name, 
                season = season)
-    
-    if (season == "2022_2023") {
-        empirical_prob <-
-            empirical_prob |> 
-            select(-PLAYER_NAME)
-    }
     
     # Rename the empirical_prob column to include season
     new_col_name <- paste("empirical_prob", season, sep = "_")

@@ -3,8 +3,6 @@ library(bslib)
 library(gridlayout)
 library(DT)
 library(tidyverse)
-library(googlesheets4)
-library(googledrive)
 
 # Function to convert time to decimal-------------------------------------------
 convert_time_to_decimal_hms <- function(time_obj) {
