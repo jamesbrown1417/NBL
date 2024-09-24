@@ -4,6 +4,10 @@
 
 # Data and libraries
 library(tidyverse)
+library(furrr)
+
+# Set up parallel processing
+plan(multisession)
 
 # PBP Data
 all_pbp_data <- nblR::nbl_pbp()
@@ -163,7 +167,7 @@ calculate_offensive_pace <- function(match_id) {
 }
 
 #===============================================================================
-# Map function to each match last season
+# Map function to each match this season
 #===============================================================================
 
 # Get all match IDs from the 2024/2025 season
@@ -174,7 +178,7 @@ match_ids <- all_pbp_data %>%
     unique()
 
 # Calculate offensive pace for each match
-offensive_pace_results <- map_df(match_ids, calculate_offensive_pace, .progress = TRUE)
+all_pace_results <- future_map_dfr(match_ids, calculate_offensive_pace, .progress = TRUE)
 
 # Get average for each team
 average_team_pace <-
