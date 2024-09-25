@@ -746,20 +746,20 @@ alternate_threes_players <-
 #     html_elements(".srb-ParticipantLabelWithTeam_Team") |>
 #     html_text()
 
-# Get Threes Made Node Indexes for 1 to 10 threes
+# Get Threes Made Node Indexes for 1 to 5 threes
 alternate_threes_cols <-
     bet365_player_markets[[alternate_threes_index]] |>
     html_elements(".gl-Market_General")
 
-# Define indexes for each milestone (1 to 10 threes)
+# Define indexes for each milestone (1 to 5 threes)
 alternate_threes_indexes <- list()
-for(i in 1:10) {
+for(i in 1:5) {
     alternate_threes_indexes[[i]] <- which(str_detect(alternate_threes_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), paste0("^", i, "$")))
 }
 
 # Get Odds for each threes range
 alternate_threes_odds <- list()
-for(i in 1:10) {
+for(i in 1:5) {
     alternate_threes_odds[[i]] <- alternate_threes_cols[[alternate_threes_indexes[[i]]]] |>
         html_elements(".gl-ParticipantOddsOnly_Odds") |>
         html_text()
@@ -767,7 +767,7 @@ for(i in 1:10) {
 
 # Create Alternate Player Threes Made Tables
 alternate_threes_tables <- list()
-for(i in 1:10) {
+for(i in 1:5) {
     alternate_threes_tables[[i]] <-
         tibble(player = alternate_threes_players,
                # team = alternate_threes_teams,
@@ -835,6 +835,7 @@ list_of_player_props <-
 # Combine into a df
 all_player_props <-
     list_of_player_props |> 
+    mutate(player = ifelse(player == "Derrick Walton Jr.", "Derrick Walton Jr", player)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player" = "player_full_name")) |>
     rename(player_name = player) |> 
     mutate(player_team = fix_team_names(player_team)) |> 
