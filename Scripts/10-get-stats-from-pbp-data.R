@@ -182,7 +182,7 @@ all_pace_results <- future_map_dfr(match_ids, calculate_offensive_pace, .progres
 
 # Get average for each team
 average_team_pace <-
-    offensive_pace_results %>%
+    all_pace_results %>%
     group_by(team_name) %>%
     summarise(
         average_offensive_pace = mean(offensive_pace, na.rm = TRUE),
