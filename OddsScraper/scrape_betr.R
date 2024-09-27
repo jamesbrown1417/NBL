@@ -116,7 +116,7 @@ bluebet_head_to_head_markets <-
            away_team,
            away_win) |>
     mutate(margin = round((1 / home_win + 1 / away_win), digits = 3)) |>
-    mutate(agency = "Bluebet")
+    mutate(agency = "Betr")
 
 # Fix team names
 bluebet_head_to_head_markets <-
@@ -223,7 +223,7 @@ if (nrow(bluebet_player_points) != 0) {
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-        mutate(agency = "BlueBet") |>
+        mutate(agency = "Betr") |>
         mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
         select(
             "match",
@@ -266,7 +266,7 @@ if (nrow(bluebet_player_assists) != 0) {
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-        mutate(agency = "BlueBet") |>
+        mutate(agency = "Betr") |>
         mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
         select(
             "match",
@@ -309,7 +309,7 @@ if (nrow(bluebet_player_rebounds) != 0) {
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-        mutate(agency = "BlueBet") |>
+        mutate(agency = "Betr") |>
         mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
         select(
             "match",

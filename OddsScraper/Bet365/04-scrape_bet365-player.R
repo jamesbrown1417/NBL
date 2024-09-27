@@ -546,7 +546,7 @@ alternate_assists_players <-
 #     html_elements(".srb-ParticipantLabelWithTeam_Team") |>
 #     html_text()
 
-# Get Assists Node Indexes for 3 to 17 assists
+# Get Assists Node Indexes for 3 to 10 assists
 alternate_assists_cols <-
     bet365_player_markets[[alternate_assists_index]] |>
     html_elements(".gl-Market_General")
@@ -555,8 +555,6 @@ alternate_assists_3_index <- which(str_detect(alternate_assists_cols |> html_nod
 alternate_assists_5_index <- which(str_detect(alternate_assists_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^5$"))
 alternate_assists_7_index <- which(str_detect(alternate_assists_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^7$"))
 alternate_assists_10_index <- which(str_detect(alternate_assists_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "10"))
-alternate_assists_13_index <- which(str_detect(alternate_assists_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "13"))
-alternate_assists_15_index <- which(str_detect(alternate_assists_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "15"))
 
 # Get Odds for each assists range
 alternate_assists_3_odds <-
@@ -576,16 +574,6 @@ alternate_assists_7_odds <-
 
 alternate_assists_10_odds <-
     alternate_assists_cols[[alternate_assists_10_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
-
-alternate_assists_13_odds <-
-    alternate_assists_cols[[alternate_assists_13_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
-
-alternate_assists_15_odds <-
-    alternate_assists_cols[[alternate_assists_15_index]] |>
     html_elements(".gl-ParticipantOddsOnly_Odds") |>
     html_text()
 
@@ -622,27 +610,9 @@ alternate_assists_10 <-
     mutate(market_name = "Alternate Player Assists") |>
     mutate(agency = "Bet365")
 
-alternate_assists_13 <-
-    tibble(player = alternate_assists_players,
-           # team = alternate_assists_teams,
-           line = 13,
-           over_price = as.numeric(alternate_assists_13_odds)) |>
-    mutate(market_name = "Alternate Player Assists") |>
-    mutate(agency = "Bet365")
-
-alternate_assists_15 <-
-    tibble(player = alternate_assists_players,
-           # team = alternate_assists_teams,
-           line = 15,
-           over_price = as.numeric(alternate_assists_15_odds)) |>
-    mutate(market_name = "Alternate Player Assists") |>
-    mutate(agency = "Bet365")
-
-
 # Combine
 alternate_player_assists <-
-    bind_rows(alternate_assists_3, alternate_assists_5, alternate_assists_7, alternate_assists_10,
-              alternate_assists_13, alternate_assists_15) |> 
+    bind_rows(alternate_assists_3, alternate_assists_5, alternate_assists_7, alternate_assists_10) |> 
     filter(!is.na(over_price))
 
 
@@ -848,7 +818,7 @@ all_player_props <-
 player_points <- all_player_props |> filter(market_name == "Player Points")
 player_rebounds <- all_player_props |> filter(market_name == "Player Rebounds")
 player_assists <- all_player_props |> filter(market_name == "Player Assists")
-player_threes <- all_player_props |> filter(market_name == "Player Threes Made")
+player_threes <- all_player_props |> filter(market_name == "Player Threes Made") |> mutate(market_name = "Player Threes")
 
 # Write out
 write_csv(player_points, "Data/scraped_odds/bet365_player_points.csv")

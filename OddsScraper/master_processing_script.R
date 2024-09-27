@@ -20,7 +20,7 @@ run_scraping("OddsScraper/scrape_betr.R")
 run_scraping("OddsScraper/scrape_BetRight.R")
 run_scraping("OddsScraper/scrape_pointsbet.R")
 run_scraping("OddsScraper/scrape_sportsbet.R")
-run_scraping("OddsScraper/scrape_TAB.R")
+run_scraping("OddsScraper/TAB/scrape_TAB.R")
 run_scraping("OddsScraper/scrape_TopSport.R")
 run_scraping("OddsScraper/scrape_dabble.R")
 
@@ -75,24 +75,13 @@ all_totals_files <-
     mutate(market_name = "Total Points")
 
 # For each match, get all unders
-all_unders <-
+all_totals <-
     all_totals_files |>
-    arrange(start_time, match, total_points_line, desc(under_price)) |>
-    select(match, start_time, market_name, home_team, away_team, total_points_line, under_price, under_agency = agency)
+    arrange(match, line, desc(under_price)) |>
+    select(match, market_name, home_team, away_team, line, over_price, under_price, agency)
 
-# For each match, get all overs
-all_overs <-
-    all_totals_files |>
-    arrange(start_time, match, total_points_line, desc(over_price)) |>
-    select(match, start_time, market_name, home_team, away_team, total_points_line, over_price, over_agency = agency)
-
-# Combine
-all_odds_totals <-
-    all_unders |>
-    full_join(all_overs, relationship = "many-to-many") |>
-    mutate(margin = (1/under_price + 1/over_price)) |> 
-    mutate(margin = round(100*(margin - 1), digits = 3)) |> 
-    arrange(margin)
+# Write as RDS
+write_rds(all_totals, "Data/processed_odds/total_match_points.rds")
 
 ##%######################################################%##
 #                                                          #

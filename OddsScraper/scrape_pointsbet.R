@@ -141,7 +141,10 @@ get_player_props <- function(url) {
     outcome_names <- c()
     outcome_types <- c()
     outcome_prices <- c()
-
+    event_key <- c()
+    market_key <- c()
+    outcome_key <- c()
+    
     # Loop through events
     for (market in pointsbet_response$fixedOddsMarkets) {
         for (outcome in market$outcomes) {
@@ -170,6 +173,20 @@ get_player_props <- function(url) {
             } else {
                 outcome_prices <- c(outcome_prices, NA)
             }
+            
+            event_key <- c(event_key, pointsbet_response$key)
+            
+            if (!is.null(market$key)) {
+                market_key <- c(market_key, market$key)
+            } else {
+                market_key <- c(market_key, NA)
+            }
+            
+            if (!is.null(outcome$key)) {
+                outcome_key <- c(outcome_key, outcome$key)
+            } else {
+                outcome_key <- c(outcome_key, NA)
+            }
         }
     }
     
@@ -181,7 +198,10 @@ get_player_props <- function(url) {
             market = market_names,
             outcome = outcome_names,
             outcome_type = outcome_types,
-            price = outcome_prices
+            price = outcome_prices,
+            EventKey = event_key,
+            MarketKey = market_key,
+            OutcomeKey = outcome_key
         )
 }
 
@@ -222,7 +242,11 @@ pointsbet_player_points_lines <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
 
 # Player points over / under----------------------------------------------------
 
@@ -251,7 +275,11 @@ pointsbet_player_points_over <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
     
 # Get Unders
 pointsbet_player_points_under <-
@@ -272,14 +300,30 @@ pointsbet_player_points_under <-
         opposition_team,
         line,
         under_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey_unders = OutcomeKey
+    )
 
 # Combine overs and unders
-pointsbet_player_points_over_under <- 
+pointsbet_player_points_over_under <-
     pointsbet_player_points_over |>
     left_join(pointsbet_player_points_under) |>
-    select(match, home_team, away_team, market_name, player_name, player_team, opposition_team, line, over_price, under_price, agency)
-
+    select(
+        match,
+        home_team,
+        away_team,
+        market_name,
+        player_name,
+        player_team,
+        opposition_team,
+        line,
+        over_price,
+        under_price,
+        agency,
+        contains("Key")
+    )
 
 #===============================================================================
 # Player Assists
@@ -306,7 +350,11 @@ pointsbet_player_assists_lines <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
 
 # Player assists over / under----------------------------------------------------
 
@@ -335,7 +383,11 @@ pointsbet_player_assists_over <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
 
 # Get Unders
 pointsbet_player_assists_under <-
@@ -356,13 +408,30 @@ pointsbet_player_assists_under <-
         opposition_team,
         line,
         under_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey_unders = OutcomeKey
+    )
 
 # Combine overs and unders
-pointsbet_player_assists_over_under <- 
+pointsbet_player_assists_over_under <-
     pointsbet_player_assists_over |>
     left_join(pointsbet_player_assists_under) |>
-    select(match, home_team, away_team, market_name, player_name, player_team, opposition_team, line, over_price, under_price, agency)
+    select(
+        match,
+        home_team,
+        away_team,
+        market_name,
+        player_name,
+        player_team,
+        opposition_team,
+        line,
+        over_price,
+        under_price,
+        agency,
+        contains("Key")
+    )
 
 
 #===============================================================================
@@ -390,7 +459,11 @@ pointsbet_player_rebounds_lines <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
 
 # Player rebounds over / under----------------------------------------------------
 
@@ -419,7 +492,11 @@ pointsbet_player_rebounds_over <-
         opposition_team,
         line,
         over_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey
+    )
 
 # Get Unders
 pointsbet_player_rebounds_under <-
@@ -440,13 +517,30 @@ pointsbet_player_rebounds_under <-
         opposition_team,
         line,
         under_price = price,
-        agency = "Pointsbet")
+        agency = "Pointsbet",
+        EventKey,
+        MarketKey,
+        OutcomeKey_unders = OutcomeKey
+    )
 
 # Combine overs and unders
-pointsbet_player_rebounds_over_under <- 
+pointsbet_player_rebounds_over_under <-
     pointsbet_player_rebounds_over |>
     left_join(pointsbet_player_rebounds_under) |>
-    select(match, home_team, away_team, market_name, player_name, player_team, opposition_team, line, over_price, under_price, agency)
+    select(
+        match,
+        home_team,
+        away_team,
+        market_name,
+        player_name,
+        player_team,
+        opposition_team,
+        line,
+        over_price,
+        under_price,
+        agency,
+        contains("Key")
+    )
 
 #===============================================================================
 # Write to CSV
@@ -466,7 +560,11 @@ pointsbet_player_points_lines |>
         "over_price",
         "under_price",
         "agency",
-        "opposition_team"
+        "opposition_team",
+        "EventKey",
+        "MarketKey",
+        "OutcomeKey",
+        "OutcomeKey_unders"
     ) |>
     mutate(market_name = "Player Points") |>
     mutate(agency = "Pointsbet") |> 
@@ -486,7 +584,11 @@ pointsbet_player_rebounds_lines |>
         "over_price",
         "under_price",
         "agency",
-        "opposition_team"
+        "opposition_team",
+        "EventKey",
+        "MarketKey",
+        "OutcomeKey",
+        "OutcomeKey_unders"
     ) |>
     mutate(market_name = "Player Rebounds") |>
     mutate(agency = "Pointsbet") |> 
@@ -506,7 +608,11 @@ pointsbet_player_assists_lines |>
         "over_price",
         "under_price",
         "agency",
-        "opposition_team"
+        "opposition_team",
+        "EventKey",
+        "MarketKey",
+        "OutcomeKey",
+        "OutcomeKey_unders"
     ) |>
     mutate(market_name = "Player Assists") |>
     mutate(agency = "Pointsbet") |> 

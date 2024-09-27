@@ -73,7 +73,3 @@ extracted_data <-
 
 # Write out to csv
 write_csv(extracted_data, "Data/supercoach-data.csv")
-
-# # Google Sheets-----------------------------------------------------
-# sheet <- gs4_find("NBL Data")
-# sheet_write(sheet, data = extracted_data, sheet = "supercoach_data")
