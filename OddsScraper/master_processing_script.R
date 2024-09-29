@@ -1,7 +1,5 @@
 # Libraries and functions-------------------------------------------------------
 library(tidyverse)
-library(googlesheets4)
-library(googledrive)
 
 # Empirical Probabilities Script
 source("Scripts/08-get-empirical-probabilities.R")
@@ -144,6 +142,9 @@ all_player_points <-
 # Write as RDS
 all_player_points |>
     select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    select(-group_by_header, -outcome_name) |> 
     write_rds("Data/processed_odds/all_player_points.rds")
 
 ##%######################################################%##
@@ -207,6 +208,9 @@ all_player_assists <-
 # Write as RDS
 all_player_assists |>
     select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    select(-group_by_header, -outcome_name) |> 
     write_rds("Data/processed_odds/all_player_assists.rds")
 
 ##%######################################################%##
@@ -271,6 +275,9 @@ all_player_rebounds <-
 # Write as RDS
 all_player_rebounds |>
     select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    select(-group_by_header, -outcome_name) |> 
     write_rds("Data/processed_odds/all_player_rebounds.rds")
 
 ##%######################################################%##
@@ -334,4 +341,8 @@ all_player_threes <-
 # Write as RDS
 all_player_threes |>
     select(-matches("_id$")) |> 
+    select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    # select(-group_by_header, -outcome_name) |>
     write_rds("Data/processed_odds/all_player_threes.rds")

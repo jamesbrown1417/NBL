@@ -149,7 +149,7 @@ match_table_home <-
 match_table_away <-
     tibble(match_names, match_ids) |> 
     filter(str_detect(match_names, " At ")) |>
-    separate(match_names, into = c("away_team", "home_team"), sep = " At ", remove = TRUE) |> 
+    separate(match_names, into = c("home_team", "away_team"), sep = " At ", remove = TRUE) |> 
     mutate(home_team = fix_team_names(home_team),
            away_team = fix_team_names(away_team)) |> 
     mutate(match = paste(home_team, "v", away_team)) |> 
