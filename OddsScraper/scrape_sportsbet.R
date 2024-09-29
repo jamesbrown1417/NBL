@@ -137,13 +137,26 @@ match_names <-
     str_to_title()
 
 # Table with match names and IDs
-match_table <-
+match_table_home <-
     tibble(match_names, match_ids) |> 
+    filter(str_detect(match_names, " V ")) |>
     separate(match_names, into = c("home_team", "away_team"), sep = " V ", remove = TRUE) |> 
     mutate(home_team = fix_team_names(home_team),
            away_team = fix_team_names(away_team)) |> 
     mutate(match = paste(home_team, "v", away_team)) |> 
     select(match, home_team, away_team, match_id = match_ids)
+
+match_table_away <-
+    tibble(match_names, match_ids) |> 
+    filter(str_detect(match_names, " At ")) |>
+    separate(match_names, into = c("away_team", "home_team"), sep = " At ", remove = TRUE) |> 
+    mutate(home_team = fix_team_names(home_team),
+           away_team = fix_team_names(away_team)) |> 
+    mutate(match = paste(home_team, "v", away_team)) |> 
+    select(match, home_team, away_team, match_id = match_ids)
+
+match_table <-
+    bind_rows(match_table_home, match_table_away)
 
 # Match info links
 match_info_links <- glue("https://www.sportsbet.com.au/apigw/sportsbook-sports/Sportsbook/Sports/Events/{match_ids}/SportCard?displayWinnersPriceMkt=true&includeLiveMarketGroupings=true&includeCollection=true")

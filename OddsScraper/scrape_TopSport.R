@@ -113,7 +113,7 @@ read_topsport_html <- function(url) {
     market_name <- str_remove(market_name, "\\/.*$")
     
     # Get line from market name
-    line <- str_extract(market_name, "\\d+\\.\\d+")
+    line <- str_extract(market_name, "\\d+\\.?\\d?")
     
     # Get match name from html
     match_name_html <-    
@@ -137,7 +137,8 @@ read_topsport_html <- function(url) {
     
     # Get tibble
     result[[1]] |>
-        mutate(line = ifelse(!is.na(line), line, str_extract(Selection, "\\d+\\.\\d+"))) |>
+        mutate(line = ifelse(!is.na(line), line, str_extract(Selection, "\\d+\\.?\\d?"))) |>
+        mutate(line = as.numeric(line)) |>
         mutate(match = match_name) |>
         mutate(Selection = if_else(str_detect(Selection, "(Over)|(Under)"), paste(player_name, Selection), Selection))
 }
@@ -168,6 +169,8 @@ player_points_alternate <-
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
     mutate(line = line - 0.5) |>
     rename(over_price = Win) |> 
     mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
@@ -204,7 +207,10 @@ player_points_lines <-
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
     mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    mutate(Selection = str_remove_all(Selection, "Upcoming Matches Total Points: ")) |>
     rename(over_price = Win)
 
 # Get Overs
@@ -212,9 +218,9 @@ player_points_lines_overs <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
@@ -224,10 +230,10 @@ player_points_lines_unders <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
@@ -244,33 +250,74 @@ player_points_lines <-
 # Player Assists
 #===============================================================================
 
+# Get data for pick your own player assists--------------------------------------
+
+# Get URLs
+pick_your_own_assists_markets <- 
+    topsport_other_markets[str_detect(topsport_other_markets, "Player_to_Have_.*_Assists")]
+
+# Map function
+player_assists_alternate <-
+    map(pick_your_own_assists_markets, read_topsport_html) |> 
+    bind_rows()
+
+if (nrow(player_assists_alternate) == 0) {
+    player_assists_alternate <-
+        tibble(
+            match = character(),
+            Selection = character(),
+            Win = numeric(),
+            line = numeric()
+        )
+}
+
+player_assists_alternate <-
+    player_assists_alternate |> 
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
+    mutate(line = line - 0.5) |>
+    rename(over_price = Win) |> 
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    left_join(player_names_teams[c("player_full_name", "player_last_name", "player_first_name", "player_team")], by = c("Selection" = "player_full_name")) |> 
+    rename(player_name = Selection) |> 
+    relocate(match, .before = player_name) |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
+    mutate(player_name = paste(player_first_name, player_last_name)) |> 
+    select(-player_first_name, -player_last_name)
+
 # Get data for player assists over/under-----------------------------------------
 
 # Get URLs
 player_assists_markets <- 
-    topsport_other_markets[str_detect(topsport_other_markets, "Assists")]
+    topsport_other_markets[str_detect(topsport_other_markets, "Total_Assists")]
 
 # Map function
 player_assists_lines <-
-    map(player_assists_markets, read_topsport_html) |>
+    map(player_assists_markets, read_topsport_html) |> 
     bind_rows()
 
 if (nrow(player_assists_lines) == 0) {
     player_assists_lines <-
         tibble(
-        match = character(),
-        Selection = character(),
-        Win = numeric(),
-        line = numeric()
-    )
+            match = character(),
+            Selection = character(),
+            Win = numeric(),
+            line = numeric()
+        )
 }
 
 player_assists_lines <-
-    player_assists_lines |> 
+    player_assists_lines |>
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
     mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    mutate(Selection = str_remove_all(Selection, "Upcoming Matches Total Assists: ")) |>
     rename(over_price = Win)
 
 # Get Overs
@@ -278,22 +325,22 @@ player_assists_lines_overs <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
-    
+
 # Get Unders
 player_assists_lines_unders <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
@@ -310,11 +357,49 @@ player_assists_lines <-
 # Player Rebounds
 #===============================================================================
 
+# Get data for pick your own player rebounds--------------------------------------
+
+# Get URLs
+pick_your_own_rebounds_markets <- 
+    topsport_other_markets[str_detect(topsport_other_markets, "Player_to_Have_.*_Rebounds")]
+
+# Map function
+player_rebounds_alternate <-
+    map(pick_your_own_rebounds_markets, read_topsport_html) |> 
+    bind_rows()
+
+if (nrow(player_rebounds_alternate) == 0) {
+    player_rebounds_alternate <-
+        tibble(
+            match = character(),
+            Selection = character(),
+            Win = numeric(),
+            line = numeric()
+        )
+}
+
+player_rebounds_alternate <-
+    player_rebounds_alternate |> 
+    mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
+    mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
+    mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
+    mutate(line = line - 0.5) |>
+    rename(over_price = Win) |> 
+    mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    left_join(player_names_teams[c("player_full_name", "player_last_name", "player_first_name", "player_team")], by = c("Selection" = "player_full_name")) |> 
+    rename(player_name = Selection) |> 
+    relocate(match, .before = player_name) |> 
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
+    mutate(player_name = paste(player_first_name, player_last_name)) |> 
+    select(-player_first_name, -player_last_name)
+
 # Get data for player rebounds over/under-----------------------------------------
 
 # Get URLs
 player_rebounds_markets <- 
-    topsport_other_markets[str_detect(topsport_other_markets, "Rebounds")]
+    topsport_other_markets[str_detect(topsport_other_markets, "Total_Rebounds")]
 
 # Map function
 player_rebounds_lines <-
@@ -324,19 +409,22 @@ player_rebounds_lines <-
 if (nrow(player_rebounds_lines) == 0) {
     player_rebounds_lines <-
         tibble(
-        match = character(),
-        Selection = character(),
-        Win = numeric(),
-        line = numeric()
-    )
+            match = character(),
+            Selection = character(),
+            Win = numeric(),
+            line = numeric()
+        )
 }
 
 player_rebounds_lines <-
-    player_rebounds_lines |> 
+    player_rebounds_lines |>
     mutate(Selection = str_replace_all(Selection, "Mcveigh", "McVeigh")) |>
     mutate(Selection = str_replace_all(Selection, "Jordon", "Jordan")) |>
     mutate(Selection = str_replace_all(Selection, "D.J.", "DJ")) |>
+    mutate(Selection = str_replace_all(Selection, "Trey Kell III", "Trey Kell")) |>
+    mutate(Selection = str_replace_all(Selection, "Parker Jackson Cartwright", "Parker Jackson-Cartwright")) |>
     mutate(Selection = str_remove_all(Selection, " \\(.*\\)$")) |>
+    mutate(Selection = str_remove_all(Selection, "Upcoming Matches Total Rebounds: ")) |>
     rename(over_price = Win)
 
 # Get Overs
@@ -344,9 +432,9 @@ player_rebounds_lines_overs <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
@@ -356,10 +444,10 @@ player_rebounds_lines_unders <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
+    mutate(Selection = str_remove(Selection, ".*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
-    mutate(player_name = str_replace(player_name, "Matt", "Matthew")) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
@@ -368,8 +456,8 @@ player_rebounds_lines_unders <-
 player_rebounds_lines <- 
     player_rebounds_lines_overs |> 
     left_join(player_rebounds_lines_unders) |> 
-    mutate(market_name = "Player Rebounds") |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
+    mutate(market_name = "Player Rebounds") |> 
     mutate(agency = "TopSport")
 
 #===============================================================================
@@ -438,6 +526,7 @@ player_points_lines |>
 
 # Rebounds
 player_rebounds_lines |>
+    bind_rows(player_rebounds_alternate) |>
     select(
         "match",
         "home_team",
@@ -455,6 +544,7 @@ player_rebounds_lines |>
 
 # Assists
 player_assists_lines |>
+    bind_rows(player_assists_alternate) |>
     select(
         "match",
         "home_team",
