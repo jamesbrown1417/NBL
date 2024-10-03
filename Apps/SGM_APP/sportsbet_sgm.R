@@ -5,6 +5,11 @@ library(purrr)
 library(mongolite)
 
 # Sportsbet SGM-----------------------------------------------------------------
+# Read in data
+start_times <-
+    read_csv("../../Data/scraped_odds/tab_h2h.csv") |> 
+    select(match, start_time)
+
 sportsbet_sgm <-
     read_csv("../../Data/scraped_odds/sportsbet_player_points.csv") |> 
     bind_rows(read_csv("../../Data/scraped_odds/sportsbet_player_rebounds.csv")) |>
@@ -21,7 +26,13 @@ sportsbet_sgm <-
         classExternalId = class_external_id ,
         marketExternalId = market_id,
         outcomeExternalId = player_id
-    )
+    ) |> 
+    left_join(start_times, by = "match") |>
+    filter(!is.na(start_time)) |>
+    arrange(player_name, start_time, match, market_name, line, agency) |> 
+    group_by(player_name, market_name, line, agency) |> 
+    slice_head(n = 1) |> 
+    ungroup()
 
 #==============================================================================
 # Function to get SGM data
@@ -120,9 +131,9 @@ call_sgm_sportsbet <- function(data, player_names, stat_counts, markets) {
     return(output_data)
 }
 
-# call_sgm_sportsbet(
-#   data = sportsbet_sgm,
-#   player_names = c("Darius Days", "Sam Froling"),
-#   stat_counts = c(14.5, 14.5),
-#   markets = c("Player Points", "Player Points")
-# )
+call_sgm_sportsbet(
+  data = sportsbet_sgm,
+  player_names = c("Isaac Humphries", "Lat Mayen"),
+  stat_counts = c(14.5, 9.5),
+  markets = c("Player Points", "Player Points")
+)

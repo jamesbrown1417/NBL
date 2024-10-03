@@ -16,7 +16,20 @@ pointsbet_sgm_list <-
 pointsbet_sgm <-
     pointsbet_sgm_list |> 
     keep(~nrow(.x) > 0) |>
-    bind_rows() |>
+    bind_rows()
+
+if (nrow(pointsbet_sgm) == 0) {
+    pointsbet_sgm <-
+        tibble(match = character(),
+               player_name = character(),
+               line = numeric(),
+               over_price = numeric(),
+               market_name = character(),
+               agency = character())
+}
+
+pointsbet_sgm <-
+    pointsbet_sgm |> 
     rename(price = over_price) |>  
     distinct(match, player_name, line, market_name, agency, .keep_all = TRUE) |>
     select(-contains("under"))
