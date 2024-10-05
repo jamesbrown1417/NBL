@@ -163,7 +163,5 @@ all_player_threes_middles <- calculate_player_middles(all_odds, "Player Threes")
 # Combining all middles
 all_middles <- bind_rows(all_player_points_middles, all_player_assists_middles, all_player_rebounds_middles, all_player_threes_middles)
 
-all_middles |> 
-    filter(margin / middle_size > -10) |> 
-    filter(over_price > 1.10)
+all_middles
 ```
