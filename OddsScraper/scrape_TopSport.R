@@ -222,7 +222,7 @@ player_points_lines_overs <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+    mutate(Selection = str_remove(Selection, "^.*\\) ")) |>
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -234,7 +234,7 @@ player_points_lines_unders <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     rename(under_price = over_price) |>
     mutate(line = as.numeric(line)) |>
@@ -333,7 +333,7 @@ player_assists_lines_overs <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -345,7 +345,7 @@ player_assists_lines_unders <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
@@ -444,7 +444,7 @@ player_rebounds_lines_overs <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -456,7 +456,7 @@ player_rebounds_lines_unders <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-    mutate(Selection = str_remove(Selection, " \\(.*\\)")) |> 
+        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
