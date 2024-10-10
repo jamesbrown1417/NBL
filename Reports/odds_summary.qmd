@@ -1,0 +1,50 @@
+---
+title: "Odds Screen"
+execute:
+    echo: false
+    message: false
+    warning: false
+author: "James Brown"
+date: "2024-10-10"
+format:
+    html:
+        df-print: default
+        theme: cosmo
+        self-contained: true
+        toc: true
+        toc-depth: 3
+        fig-width: 8
+        fig-height: 6
+editor: visual
+---
+
+```{r}
+#===============================================================================
+# Libraries and functions
+#===============================================================================
+
+library(tidyverse)
+library(gt)
+`%notin%` <- Negate(`%in%`)
+
+#===============================================================================
+# Read in data
+#===============================================================================
+
+# Read in Data
+list_of_files <- list.files("../Data/processed_odds", full.names = TRUE)
+
+# Read in all data
+all_odds <- 
+  list_of_files |> 
+  map_dfr(read_rds)
+```
+
+# Lines
+
+```{r}
+all_odds |> 
+  arrange(match, player_name, market_name, line, desc(over_price)) |> 
+    filter(!is.na(under_price))
+```
+
