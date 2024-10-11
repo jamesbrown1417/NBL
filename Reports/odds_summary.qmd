@@ -1,20 +1,21 @@
 ---
-title: "Odds Screen"
+title: "NBL Odds Screen"
 execute:
     echo: false
     message: false
     warning: false
 author: "James Brown"
-date: "2024-10-10"
+date: "`r lubridate::now()`"
+date-format: "dddd MMM D, YYYY - hh:mmA"
 format:
     html:
-        df-print: default
+        df-print: kable
         theme: cosmo
         self-contained: true
         toc: true
         toc-depth: 3
-        fig-width: 8
-        fig-height: 6
+        fig-width: 16
+        fig-height: 10
 editor: visual
 ---
 
@@ -24,7 +25,7 @@ editor: visual
 #===============================================================================
 
 library(tidyverse)
-library(gt)
+library(DT)
 `%notin%` <- Negate(`%in%`)
 
 #===============================================================================
@@ -32,19 +33,81 @@ library(gt)
 #===============================================================================
 
 # Read in Data
-list_of_files <- list.files("../Data/processed_odds", full.names = TRUE)
+list_of_files_props <-
+    list.files("../Data/processed_odds", full.names = TRUE, pattern = "all")
 
-# Read in all data
+head_to_head <- read_rds("../Data/processed_odds/head_to_head.rds")
+
+# Read in all data - player props
 all_odds <- 
-  list_of_files |> 
+  list_of_files_props |> 
   map_dfr(read_rds)
+
+# Distinct Matches
+all_matches <- 
+  all_odds |> 
+  distinct(match) |> 
+    pull(match)
+
+# Function to filter by match
+filter_by_match <- function(m, df) {
+  df |> 
+    filter(match == m)
+}
 ```
 
-# Lines
+::: panel-tabset
+
+## H2H
 
 ```{r}
-all_odds |> 
-  arrange(match, player_name, market_name, line, desc(over_price)) |> 
-    filter(!is.na(under_price))
+head_to_head |> 
+    select(-market_name) |> 
+    arrange(match, desc(home_win)) |>
+    datatable()
 ```
 
+## Lines
+
+```{r}
+#| results: asis
+
+all_lines <-
+all_odds |> 
+  arrange(match, player_name, market_name, line, desc(over_price)) |> 
+    filter(!is.na(under_price)) |> 
+    select(match, agency, player_name, market_name, line, over_price, under_price, diff_over_last_10, diff_under_last_10)
+
+# Get a list where each match is the name of the filtered DF
+filtered_list <- map(all_matches, filter_by_match, df = all_lines) |> 
+  set_names(all_matches) |> 
+    # keep if there are more than 1 row
+    keep(~ nrow(.x) > 1) |> 
+    map(~ datatable(.x))
+
+# Use qreport to make tabset
+qreport::maketabs(filtered_list, wide = TRUE)
+```
+
+## Alternative Lines
+
+```{r}
+#| results: asis
+
+all_alt_lines <-
+all_odds |> 
+  arrange(match, player_name, market_name, line, desc(over_price)) |> 
+    filter(is.na(under_price)) |> 
+    select(match, agency, player_name, market_name, line, over_price, diff_over_last_10)
+
+# Get a list where each match is the name of the filtered DF
+filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines) |> 
+  set_names(all_matches) |> 
+    # keep if there are more than 1 row
+    keep(~ nrow(.x) > 1) |> 
+    map(~ datatable(.x))
+
+# Use qreport to make tabset
+qreport::maketabs(filtered_list_alt, wide = TRUE)
+```
+:::

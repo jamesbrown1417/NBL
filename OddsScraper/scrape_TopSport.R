@@ -181,7 +181,8 @@ player_points_alternate <-
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |> 
-    select(-player_first_name, -player_last_name)
+    select(-player_first_name, -player_last_name) |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
 
 # Get data for player points over/under-----------------------------------------
 
@@ -222,7 +223,7 @@ player_points_lines_overs <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-    mutate(Selection = str_remove(Selection, "^.*\\) ")) |>
+    mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |>
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -234,7 +235,7 @@ player_points_lines_unders <-
     player_points_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
+        mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     rename(under_price = over_price) |>
     mutate(line = as.numeric(line)) |>
@@ -292,7 +293,8 @@ player_assists_alternate <-
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |> 
-    select(-player_first_name, -player_last_name)
+    select(-player_first_name, -player_last_name) |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
 
 # Get data for player assists over/under-----------------------------------------
 
@@ -333,7 +335,7 @@ player_assists_lines_overs <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
+        mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -345,7 +347,7 @@ player_assists_lines_unders <-
     player_assists_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
+        mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
@@ -403,7 +405,8 @@ player_rebounds_alternate <-
     relocate(match, .before = player_name) |> 
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |> 
-    select(-player_first_name, -player_last_name)
+    select(-player_first_name, -player_last_name) |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
 
 # Get data for player rebounds over/under-----------------------------------------
 
@@ -444,7 +447,7 @@ player_rebounds_lines_overs <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Over")) |>
-        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
+        mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Over ") |> 
     mutate(line = as.numeric(line)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -456,7 +459,7 @@ player_rebounds_lines_unders <-
     player_rebounds_lines |> 
     select(-line) |> 
     filter(str_detect(Selection, "Under")) |>
-        mutate(Selection = str_remove(Selection, "^.*\\) ")) |> 
+        mutate(Selection = str_remove(Selection, "\\(.*\\) ")) |> 
     rename(under_price = over_price) |> 
     separate(Selection, into = c("player_name", "line"), sep = " Under ") |> 
     mutate(line = as.numeric(line)) |>
@@ -510,7 +513,8 @@ total_match_points_lines_unders <-
 total_match_points_lines <- 
     total_match_points_lines_overs |> 
     left_join(total_match_points_lines_unders) |> 
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE)
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
+    mutate(line = line/10)
 
 #===============================================================================
 # Write to CSV
@@ -552,6 +556,8 @@ player_rebounds_lines |>
         "agency",
         "opposition_team"
     ) |>
+    mutate(market_name = "Player Rebounds") |> 
+    mutate(agency = "TopSport") |>
     write_csv("Data/scraped_odds/topsport_player_rebounds.csv")
 
 # Assists
@@ -570,6 +576,8 @@ player_assists_lines |>
         "agency",
         "opposition_team"
     ) |>
+    mutate(market_name = "Player Assists") |>
+    mutate(agency = "TopSport") |>
     write_csv("Data/scraped_odds/topsport_player_assists.csv")
 
 # Total Match Points
@@ -584,6 +592,8 @@ total_match_points_lines |>
         "under_price",
         "agency"
     ) |>
+    mutate(agency = "TopSport") |>
+    mutate(market_name = "Total Match Points") |>
     write_csv("Data/scraped_odds/topsport_total_match_points.csv")
 }
 

@@ -66,9 +66,16 @@ get_empirical_prob <- function(player_name, line, stat, season) {
         stop("Invalid season selected")
     }
     
+    # Combined data for last 10
+    both_seasons_data <-
+        combined_stats_2023_2024 |>
+        bind_rows(combined_stats_2024_2025) |> 
+        filter(PLAYER_NAME == player_name) |>
+        filter(!is.na(minutes))
+    
     # Last 10 games
     player_stats_last_10 <-
-        player_stats |>
+        both_seasons_data |>
         group_by(PLAYER_NAME) |> 
         arrange(desc(match_time_utc)) |> 
         slice(1:10) |>
