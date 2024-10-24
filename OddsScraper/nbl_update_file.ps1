@@ -23,3 +23,6 @@ git commit -m $commitMessage
 
 # Push the commit to the 'main' branch on 'origin'
 git push origin main
+
+# Publish report using Quarto
+echo "1" | & "quarto" "publish" "quarto-pub" "Reports\odds_summary.qmd"
