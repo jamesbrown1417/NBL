@@ -7,7 +7,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 cd ~/Projects/NBL || exit
 
 # Remove .json and .txt files in specific directories
-rm OddsScraper/Bet365/HTML/*.txt
+rm Data/BET365_HTML/*.txt
 
 # Execute Python and R scripts
 /Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/01-get_bet365_html.py
