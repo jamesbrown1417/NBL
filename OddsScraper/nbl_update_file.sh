@@ -10,11 +10,11 @@ cd ~/Projects/NBL || exit
 rm Data/BET365_HTML/*.txt
 
 # Execute Python and R scripts
-/Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/01-get_bet365_html.py
-/Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/02-get_bet365_player.py
+# /Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/01-get_bet365_html.py
+# /Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/02-get_bet365_player.py
 /Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/TAB/get-TAB-response.py
-Rscript OddsScraper/Bet365/03-scrape_bet365-h2h.R
-Rscript OddsScraper/Bet365/04-scrape_bet365-player.R
+# Rscript OddsScraper/Bet365/03-scrape_bet365-h2h.R
+# Rscript OddsScraper/Bet365/04-scrape_bet365-player.R
 
 # Execute R script for getting all odds
 Rscript OddsScraper/master_processing_script.R
