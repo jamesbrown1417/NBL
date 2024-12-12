@@ -37,7 +37,7 @@ get_player_props <- function(scraped_file) {
 #=============================================================================
 
 # Get index for node with text "Player Points Over/Under"
-points_over_under_index <- which(market_names == "Player Points")
+points_over_under_index <- which(market_names == "Points O/U")
 
 # Get Player Names from node
 points_players <-
@@ -94,7 +94,7 @@ player_points <-
 #=============================================================================
 
 # Get index for node with text "Player Points Milestones"
-alternate_points_index <- which(market_names == "Player Points Milestones")
+alternate_points_index <- which(market_names == "Points")
 
 # Get Player Names from node
 alternate_points_players <-
@@ -249,7 +249,11 @@ team_names <-
 team_names <- fix_team_names(team_names)
 
 # Get Match Name
-match_name <- paste(team_names, collapse = " v ")
+match_name <-
+scraped_file |> 
+    read_html() |> 
+    html_nodes(".sph-EventWrapper_Label ") |> 
+    html_text()
 
 # Combine all tables
 player_points_all <-
@@ -264,7 +268,7 @@ player_points_all <-
 #=============================================================================
 
 # Get index for node with text "Player Rebounds Over/Under"
-rebounds_over_under_index <- which(market_names == "Player Rebounds")
+rebounds_over_under_index <- which(market_names == "Rebounds O/U")
 
 # Get Player Names from node
 rebounds_players <-
@@ -321,7 +325,7 @@ player_rebounds <-
 #=============================================================================
 
 # Get index for node with text "Player Rebounds Milestones"
-alternate_rebounds_index <- which(market_names == "Player Rebounds Milestones")
+alternate_rebounds_index <- which(market_names == "Rebounds")
 
 # Get Player Names from node
 alternate_rebounds_players <-
@@ -461,7 +465,11 @@ team_names <-
 team_names <- fix_team_names(team_names)
 
 # Get Match Name
-match_name <- paste(team_names, collapse = " v ")
+match_name <-
+scraped_file |> 
+    read_html() |> 
+    html_nodes(".sph-EventWrapper_Label ") |> 
+    html_text()
 
 # Combine all tables
 player_rebounds_all <-
@@ -475,7 +483,7 @@ player_rebounds_all <-
 #=============================================================================
 
 # Get index for node with text "Player Assists Over/Under"
-assists_over_under_index <- which(market_names == "Player Assists")
+assists_over_under_index <- which(market_names == "Assists O/U")
 
 # Get Player Names from node
 assists_players <-
@@ -532,7 +540,7 @@ player_assists <-
 #=============================================================================
 
 # Get index for node with text "Player Assists Milestones"
-alternate_assists_index <- which(market_names == "Player Assists Milestones")
+alternate_assists_index <- which(market_names == "Assists")
 
 # Get Player Names from node
 alternate_assists_players <-
@@ -630,7 +638,11 @@ team_names <-
 team_names <- fix_team_names(team_names)
 
 # Get Match Name
-match_name <- paste(team_names, collapse = " v ")
+match_name <-
+scraped_file |> 
+    read_html() |> 
+    html_nodes(".sph-EventWrapper_Label ") |> 
+    html_text()
 
 # Combine all tables
 player_assists_all <-
@@ -645,7 +657,7 @@ player_assists_all <-
 #=============================================================================
 
 # Get index for node with text "Player Threes Made Over/Under"
-threes_over_under_index <- which(market_names == "Player Threes Made")
+threes_over_under_index <- which(market_names == "Threes Made O/U")
 
 # Get Player Names from node
 threes_players <-
@@ -702,7 +714,7 @@ player_threes_made <-
 #=============================================================================
 
 # Get index for node with text "Player Threes Made Milestones"
-alternate_threes_index <- which(market_names == "Player Threes Made Milestones")
+alternate_threes_index <- which(market_names == "Threes Made")
 
 # Get Player Names from node
 alternate_threes_players <-
@@ -767,7 +779,11 @@ team_names <-
 team_names <- fix_team_names(team_names)
 
 # Get Match Name
-match_name <- paste(team_names, collapse = " v ")
+match_name <-
+scraped_file |> 
+    read_html() |> 
+    html_nodes(".sph-EventWrapper_Label ") |> 
+    html_text()
 
 # Combine all tables
 player_threes_made_all <-

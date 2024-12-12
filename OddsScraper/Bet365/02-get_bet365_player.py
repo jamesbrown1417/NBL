@@ -35,7 +35,7 @@ async def main():
                 
                 # If there is a button that says Player Assists, click it
                 try:
-                    player_assists_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Assists']")
+                    player_assists_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Assists O/U']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", player_assists_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await player_assists_button.click()
@@ -47,7 +47,7 @@ async def main():
 
                 # If there is a button that says Player Assists Milestones, click it
                 try:
-                    assists_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Assists Milestones']")
+                    assists_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Assists']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", assists_milestones_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await assists_milestones_button.click()
@@ -59,7 +59,7 @@ async def main():
 
                 # If there is a button that says Player Rebounds, click it
                 try:
-                    rebounds_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Rebounds']")
+                    rebounds_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Rebounds O/U']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", rebounds_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await rebounds_button.click()
@@ -71,7 +71,7 @@ async def main():
 
                 # If there is a button that says Player Rebounds Milestones, click it
                 try:
-                    rebounds_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Rebounds Milestones']")
+                    rebounds_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Rebounds']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", rebounds_milestones_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await rebounds_milestones_button.click()
@@ -83,7 +83,7 @@ async def main():
 
                 # If there is a button that says Player Threes Made, click it
                 try:
-                    threes_made_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Threes Made']")
+                    threes_made_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Threes Made O/U']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", threes_made_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await threes_made_button.click()
@@ -95,7 +95,7 @@ async def main():
 
                 # If there is a button that says Player Threes Made Milestones, click it
                 try:
-                    threes_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Player Threes Made Milestones']")
+                    threes_milestones_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='Threes Made']")
                     await driver.execute_script("arguments[0].scrollIntoView(true);", threes_milestones_button)
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await threes_milestones_button.click()
