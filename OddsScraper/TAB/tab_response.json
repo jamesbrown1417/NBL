@@ -72,9 +72,9 @@
                 "New Zealand",
                 "Tasmania"
             ],
-            "openMarketCount": 129,
+            "openMarketCount": 131,
             "futureMarketCount": 0,
-            "nonFutureMarketCount": 129,
+            "nonFutureMarketCount": 131,
             "markets": [
                 {
                     "id": "107758789",
@@ -436,13 +436,13 @@
                     "sameGameMultipleSelections": false
                 },
                 {
-                    "id": "107819393",
+                    "id": "107758790",
                     "name": "NBL NZ Brkrs-Tasmania H2H/OvUn",
                     "shortName": "NBL NZB-Tas H2H/OvUn",
                     "betOption": "HDtoHD/OverUnder Double",
                     "betOptionSpectrumId": "285",
                     "betOptionPriority": 2645,
-                    "marketUniqueId": 107819393,
+                    "marketUniqueId": 107758790,
                     "closeTime": "2024-12-12T06:37:00.000Z",
                     "bettingStatus": "Open",
                     "message": null,
@@ -464,50 +464,206 @@
                     "allowBundle": false,
                     "propositions": [
                         {
-                            "id": "584784",
-                            "name": "NZ Brkrs /Over 163.5",
-                            "returnWin": 4.1,
-                            "returnPlace": 0,
-                            "differential": null,
-                            "bettingStatus": "Open",
-                            "allowPlace": false,
-                            "number": 584784,
-                            "isOpen": true,
-                            "sortOrder": 1
-                        },
-                        {
-                            "id": "584785",
-                            "name": "NZ Brkrs /Under 163.5",
+                            "id": "571619",
+                            "name": "NZ Brkrs /Over 165.5",
                             "returnWin": 4.4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 584785,
+                            "number": 571619,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 1
                         },
                         {
-                            "id": "584786",
-                            "name": "Tasmania /Over 163.5",
-                            "returnWin": 2.9,
+                            "id": "571620",
+                            "name": "NZ Brkrs /Under 165.5",
+                            "returnWin": 4.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 584786,
+                            "number": 571620,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 2
                         },
                         {
-                            "id": "584787",
-                            "name": "Tasmania /Under 163.5",
+                            "id": "571621",
+                            "name": "Tasmania /Over 165.5",
                             "returnWin": 3.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 584787,
+                            "number": 571621,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "571622",
+                            "name": "Tasmania /Under 165.5",
+                            "returnWin": 2.9,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 571622,
+                            "isOpen": true,
+                            "sortOrder": 4
+                        }
+                    ]
+                },
+                {
+                    "id": "107783855",
+                    "name": "NBL New Zealand-Tasmania 12/12",
+                    "shortName": "NBL NZB-Tas LnTt$2 12/12",
+                    "betOption": "Line/Total Double $2",
+                    "betOptionSpectrumId": "2657",
+                    "betOptionPriority": 3015,
+                    "marketUniqueId": 107783855,
+                    "closeTime": "2024-12-12T06:37:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "593031",
+                            "name": "New Zealand +9.5/Over 159.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593031,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "593032",
+                            "name": "New Zealand +9.5/Under 169.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593032,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "593033",
+                            "name": "Tasmania +0.5/Over 159.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593033,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "593034",
+                            "name": "Tasmania +0.5/Under 169.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593034,
+                            "isOpen": true,
+                            "sortOrder": 4
+                        }
+                    ]
+                },
+                {
+                    "id": "107783856",
+                    "name": "NBL New Zealand-Tasmania 12/12",
+                    "shortName": "NBL NZB-Tas LnTt$7 12/12",
+                    "betOption": "Line/Total Double $7",
+                    "betOptionSpectrumId": "2658",
+                    "betOptionPriority": 3020,
+                    "marketUniqueId": 107783856,
+                    "closeTime": "2024-12-12T06:37:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "593035",
+                            "name": "New Zealand -1.5/Over 170.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593035,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "593036",
+                            "name": "New Zealand -5.5/Under 154.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593036,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "593037",
+                            "name": "Tasmania -14.5/Over 174.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593037,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "593038",
+                            "name": "Tasmania -10.5/Under 158.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593038,
                             "isOpen": true,
                             "sortOrder": 4
                         }
@@ -758,7 +914,7 @@
                         {
                             "id": "571700",
                             "name": "New Zealand +5.5",
-                            "returnWin": 1.6,
+                            "returnWin": 1.62,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -771,7 +927,7 @@
                         {
                             "id": "571701",
                             "name": "Tasmania -5.5",
-                            "returnWin": 2.15,
+                            "returnWin": 2.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -972,7 +1128,7 @@
                         {
                             "id": "553471",
                             "name": "Over 174.5",
-                            "returnWin": 3.2,
+                            "returnWin": 3.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -985,7 +1141,7 @@
                         {
                             "id": "553472",
                             "name": "Under 174.5",
-                            "returnWin": 1.28,
+                            "returnWin": 1.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -998,7 +1154,7 @@
                         {
                             "id": "553473",
                             "name": "Over 171.5",
-                            "returnWin": 2.7,
+                            "returnWin": 2.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1011,7 +1167,7 @@
                         {
                             "id": "553474",
                             "name": "Under 171.5",
-                            "returnWin": 1.39,
+                            "returnWin": 1.42,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1050,7 +1206,7 @@
                         {
                             "id": "553477",
                             "name": "Over 165.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1063,7 +1219,7 @@
                         {
                             "id": "553478",
                             "name": "Under 165.5",
-                            "returnWin": 1.73,
+                            "returnWin": 1.77,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1076,7 +1232,7 @@
                         {
                             "id": "553483",
                             "name": "Over 162.5",
-                            "returnWin": 1.7,
+                            "returnWin": 1.66,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1089,7 +1245,7 @@
                         {
                             "id": "553484",
                             "name": "Under 162.5",
-                            "returnWin": 2,
+                            "returnWin": 2.05,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1102,7 +1258,7 @@
                         {
                             "id": "553491",
                             "name": "Over 159.5",
-                            "returnWin": 1.5,
+                            "returnWin": 1.48,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1115,7 +1271,7 @@
                         {
                             "id": "553492",
                             "name": "Under 159.5",
-                            "returnWin": 2.35,
+                            "returnWin": 2.4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1238,7 +1394,7 @@
                         {
                             "id": "571314",
                             "name": "Tasmania / Tasmania",
-                            "returnWin": 2.1,
+                            "returnWin": 2.15,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1322,7 +1478,7 @@
                         {
                             "id": "606740",
                             "name": "NZ Brkrs +0.5 /Over 42.5",
-                            "returnWin": 4,
+                            "returnWin": 3.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1334,7 +1490,7 @@
                         {
                             "id": "606741",
                             "name": "NZ Brkrs +0.5 /Under 42.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1346,7 +1502,7 @@
                         {
                             "id": "606742",
                             "name": "Tasmania -0.5 /Over 42.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -1358,7 +1514,7 @@
                         {
                             "id": "606743",
                             "name": "Tasmania -0.5 /Under 42.5",
-                            "returnWin": 3.4,
+                            "returnWin": 3.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2114,7 +2270,7 @@
                         {
                             "id": "585124",
                             "name": "Jo Crawford Over 13.5 Pts",
-                            "returnWin": 1.95,
+                            "returnWin": 2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2127,7 +2283,7 @@
                         {
                             "id": "585125",
                             "name": "Jo Crawford Under 13.5 Pts",
-                            "returnWin": 1.8,
+                            "returnWin": 1.75,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2598,22 +2754,9 @@
                             "sameGame": true
                         },
                         {
-                            "id": "586689",
-                            "name": "Matt Mooney (NZB)",
-                            "returnWin": 1.75,
-                            "returnPlace": 0,
-                            "differential": null,
-                            "bettingStatus": "Open",
-                            "allowPlace": false,
-                            "number": 586689,
-                            "isOpen": true,
-                            "sortOrder": 2,
-                            "sameGame": true
-                        },
-                        {
                             "id": "586692",
                             "name": "Sam Mennenga (NZB)",
-                            "returnWin": 1.75,
+                            "returnWin": 1.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2621,6 +2764,19 @@
                             "number": 586692,
                             "isOpen": true,
                             "sortOrder": 5,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "586689",
+                            "name": "Matt Mooney (NZB)",
+                            "returnWin": 1.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 586689,
+                            "isOpen": true,
+                            "sortOrder": 2,
                             "sameGame": true
                         },
                         {
@@ -2760,7 +2916,7 @@
                         {
                             "id": "586708",
                             "name": "Sam Mennenga (NZB)",
-                            "returnWin": 3.25,
+                            "returnWin": 3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2773,7 +2929,7 @@
                         {
                             "id": "586705",
                             "name": "Matt Mooney (NZB)",
-                            "returnWin": 3.5,
+                            "returnWin": 3.25,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2997,29 +3153,29 @@
                     "allowBundle": false,
                     "propositions": [
                         {
-                            "id": "585104",
-                            "name": "Jo Crawford Over 19.5 PRA",
-                            "returnWin": 2,
+                            "id": "585106",
+                            "name": "Jo Crawford Over 18.5 PRA",
+                            "returnWin": 1.95,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585104,
+                            "number": 585106,
                             "isOpen": true,
-                            "sortOrder": 5,
+                            "sortOrder": 7,
                             "sameGame": true
                         },
                         {
-                            "id": "585105",
-                            "name": "Jo Crawford Under 19.5 PRA",
-                            "returnWin": 1.75,
+                            "id": "585107",
+                            "name": "Jo Crawford Under 18.5 PRA",
+                            "returnWin": 1.8,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585105,
+                            "number": 585107,
                             "isOpen": true,
-                            "sortOrder": 6,
+                            "sortOrder": 8,
                             "sameGame": true
                         }
                     ],
@@ -3057,7 +3213,7 @@
                         {
                             "id": "585254",
                             "name": "M Doyle Over 25.5 PRA",
-                            "returnWin": 1.95,
+                            "returnWin": 2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -3070,7 +3226,7 @@
                         {
                             "id": "585255",
                             "name": "M Doyle Under 25.5 PRA",
-                            "returnWin": 1.8,
+                            "returnWin": 1.75,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -3467,7 +3623,7 @@
                         {
                             "id": "591680",
                             "name": "Jo Crawford 15+ Pts/Tas Win",
-                            "returnWin": 3.3,
+                            "returnWin": 3.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -4293,7 +4449,7 @@
                         {
                             "id": "593015",
                             "name": "NZB Score 15+ Pts Every Qtr",
-                            "returnWin": 1.6,
+                            "returnWin": 1.58,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -4329,7 +4485,7 @@
                         {
                             "id": "593018",
                             "name": "NZB Score 30+ Pts Every Qtr",
-                            "returnWin": 501,
+                            "returnWin": 301,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -4377,7 +4533,7 @@
                         {
                             "id": "593022",
                             "name": "Tas Score 30+ Pts Every Qtr",
-                            "returnWin": 501,
+                            "returnWin": 251,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -4413,7 +4569,7 @@
                         {
                             "id": "593025",
                             "name": "Both Score 25+ Pts Every Qtr",
-                            "returnWin": 401,
+                            "returnWin": 301,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -4461,7 +4617,7 @@
                         {
                             "id": "593029",
                             "name": "NZB Win Bth Halves By 5+ Pts",
-                            "returnWin": 31,
+                            "returnWin": 21,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -5437,7 +5593,7 @@
                         {
                             "id": "571347",
                             "name": "NZB 7+ / NZB 1-10",
-                            "returnWin": 10,
+                            "returnWin": 9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -5658,7 +5814,7 @@
                         {
                             "id": "571364",
                             "name": "Tas 7+ / Tas 1-10",
-                            "returnWin": 7.5,
+                            "returnWin": 8,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -6597,7 +6753,7 @@
                         {
                             "id": "585134",
                             "name": "Jo Crawford Over 2.5 Reb",
-                            "returnWin": 2.35,
+                            "returnWin": 2.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -6610,7 +6766,7 @@
                         {
                             "id": "585135",
                             "name": "Jo Crawford Under 2.5 Reb",
-                            "returnWin": 1.55,
+                            "returnWin": 1.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -6625,13 +6781,13 @@
                     "sameGameMultipleSelections": false
                 },
                 {
-                    "id": "107819555",
+                    "id": "107819881",
                     "name": "NBL NZB-Tas M Doyle PlyRbd",
                     "shortName": "NBL NZB-Tas M Doyle RbOU",
                     "betOption": "Player Rebounds",
                     "betOptionSpectrumId": "838",
                     "betOptionPriority": 6090,
-                    "marketUniqueId": 107819555,
+                    "marketUniqueId": 107819881,
                     "closeTime": "2024-12-12T06:37:00.000Z",
                     "bettingStatus": "Open",
                     "message": null,
@@ -6653,29 +6809,29 @@
                     "allowBundle": false,
                     "propositions": [
                         {
-                            "id": "585248",
-                            "name": "M Doyle Over 5.5 Reb",
-                            "returnWin": 2.3,
+                            "id": "585286",
+                            "name": "M Doyle Over 4.5 Reb",
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585248,
+                            "number": 585286,
                             "isOpen": true,
-                            "sortOrder": 9,
+                            "sortOrder": 1,
                             "sameGame": true
                         },
                         {
-                            "id": "585249",
-                            "name": "M Doyle Under 5.5 Reb",
-                            "returnWin": 1.58,
+                            "id": "585287",
+                            "name": "M Doyle Under 4.5 Reb",
+                            "returnWin": 1.85,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585249,
+                            "number": 585287,
                             "isOpen": true,
-                            "sortOrder": 10,
+                            "sortOrder": 2,
                             "sameGame": true
                         }
                     ],
@@ -7445,30 +7601,28 @@
                     "allowBundle": false,
                     "propositions": [
                         {
-                            "id": "585172",
-                            "name": "Jo Crawford Over 3.5 Ast",
-                            "returnWin": 2.15,
+                            "id": "585174",
+                            "name": "Jo Crawford Over 2.5 Ast",
+                            "returnWin": 1.87,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585172,
+                            "number": 585174,
                             "isOpen": true,
-                            "sortOrder": 3,
-                            "sameGame": true
+                            "sortOrder": 5
                         },
                         {
-                            "id": "585173",
-                            "name": "Jo Crawford Under 3.5 Ast",
-                            "returnWin": 1.65,
+                            "id": "585175",
+                            "name": "Jo Crawford Under 2.5 Ast",
+                            "returnWin": 1.87,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
-                            "number": 585173,
+                            "number": 585175,
                             "isOpen": true,
-                            "sortOrder": 4,
-                            "sameGame": true
+                            "sortOrder": 6
                         }
                     ],
                     "sameGame": true,
@@ -8256,7 +8410,7 @@
                         {
                             "id": "592219",
                             "name": "Jo Crawford Double-Double",
-                            "returnWin": 26,
+                            "returnWin": 34,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -8346,7 +8500,7 @@
                         {
                             "id": "591697",
                             "name": "M Doyle Double-Double",
-                            "returnWin": 5.5,
+                            "returnWin": 6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -8658,7 +8812,7 @@
                         {
                             "id": "592123",
                             "name": "M Doyle Triple-Double",
-                            "returnWin": 81,
+                            "returnWin": 101,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9172,7 +9326,7 @@
                         {
                             "id": "571602",
                             "name": "New Zealand +1.5",
-                            "returnWin": 1.87,
+                            "returnWin": 1.85,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9184,7 +9338,7 @@
                         {
                             "id": "571603",
                             "name": "Tasmania -1.5",
-                            "returnWin": 1.87,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9226,7 +9380,7 @@
                         {
                             "id": "606640",
                             "name": "NZ Brkrs +1.5 /Over 83.5",
-                            "returnWin": 3.6,
+                            "returnWin": 3.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9262,7 +9416,7 @@
                         {
                             "id": "606643",
                             "name": "Tasmania -1.5 /Under 83.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9304,7 +9458,7 @@
                         {
                             "id": "606636",
                             "name": "NZ Brkrs /Over 83.5",
-                            "returnWin": 4,
+                            "returnWin": 3.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9328,7 +9482,7 @@
                         {
                             "id": "606638",
                             "name": "Tasmania /Over 83.5",
-                            "returnWin": 3.2,
+                            "returnWin": 3.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9502,7 +9656,7 @@
                         {
                             "id": "572917",
                             "name": "New Zealand -4.5",
-                            "returnWin": 3.2,
+                            "returnWin": 3.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9514,7 +9668,7 @@
                         {
                             "id": "572918",
                             "name": "Tasmania +4.5",
-                            "returnWin": 1.28,
+                            "returnWin": 1.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9622,7 +9776,7 @@
                         {
                             "id": "572927",
                             "name": "New Zealand +0.5",
-                            "returnWin": 2,
+                            "returnWin": 1.97,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9634,7 +9788,7 @@
                         {
                             "id": "572928",
                             "name": "Tasmania -0.5",
-                            "returnWin": 1.7,
+                            "returnWin": 1.72,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9646,7 +9800,7 @@
                         {
                             "id": "572929",
                             "name": "New Zealand +1.5",
-                            "returnWin": 1.87,
+                            "returnWin": 1.85,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9658,7 +9812,7 @@
                         {
                             "id": "572930",
                             "name": "Tasmania -1.5",
-                            "returnWin": 1.87,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9814,7 +9968,7 @@
                         {
                             "id": "572943",
                             "name": "New Zealand +8.5",
-                            "returnWin": 1.24,
+                            "returnWin": 1.23,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9826,7 +9980,7 @@
                         {
                             "id": "572944",
                             "name": "Tasmania -8.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -9906,30 +10060,6 @@
                             "number": 572950,
                             "isOpen": true,
                             "sortOrder": 54
-                        },
-                        {
-                            "id": "572951",
-                            "name": "New Zealand +12.5",
-                            "returnWin": 1.1,
-                            "returnPlace": 0,
-                            "differential": null,
-                            "bettingStatus": "Open",
-                            "allowPlace": false,
-                            "number": 572951,
-                            "isOpen": true,
-                            "sortOrder": 55
-                        },
-                        {
-                            "id": "572952",
-                            "name": "Tasmania -12.5",
-                            "returnWin": 5.5,
-                            "returnPlace": 0,
-                            "differential": null,
-                            "bettingStatus": "Open",
-                            "allowPlace": false,
-                            "number": 572952,
-                            "isOpen": true,
-                            "sortOrder": 56
                         }
                     ]
                 },
@@ -9988,7 +10118,7 @@
                         {
                             "id": "553578",
                             "name": "Over 94.5",
-                            "returnWin": 5,
+                            "returnWin": 4.75,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10000,7 +10130,7 @@
                         {
                             "id": "553579",
                             "name": "Under 94.5",
-                            "returnWin": 1.12,
+                            "returnWin": 1.13,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10012,7 +10142,7 @@
                         {
                             "id": "553580",
                             "name": "Over 93.5",
-                            "returnWin": 4.5,
+                            "returnWin": 4.25,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10024,7 +10154,7 @@
                         {
                             "id": "553581",
                             "name": "Under 93.5",
-                            "returnWin": 1.15,
+                            "returnWin": 1.17,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10084,7 +10214,7 @@
                         {
                             "id": "553607",
                             "name": "Over 90.5",
-                            "returnWin": 3.4,
+                            "returnWin": 3.2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10096,7 +10226,7 @@
                         {
                             "id": "553608",
                             "name": "Under 90.5",
-                            "returnWin": 1.25,
+                            "returnWin": 1.28,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10132,7 +10262,7 @@
                         {
                             "id": "553611",
                             "name": "Over 88.5",
-                            "returnWin": 2.8,
+                            "returnWin": 2.7,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10144,7 +10274,7 @@
                         {
                             "id": "553612",
                             "name": "Under 88.5",
-                            "returnWin": 1.36,
+                            "returnWin": 1.39,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10180,7 +10310,7 @@
                         {
                             "id": "553615",
                             "name": "Over 86.5",
-                            "returnWin": 2.35,
+                            "returnWin": 2.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10192,7 +10322,7 @@
                         {
                             "id": "553641",
                             "name": "Under 86.5",
-                            "returnWin": 1.5,
+                            "returnWin": 1.52,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10204,7 +10334,7 @@
                         {
                             "id": "553642",
                             "name": "Over 85.5",
-                            "returnWin": 2.15,
+                            "returnWin": 2.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10216,7 +10346,7 @@
                         {
                             "id": "553697",
                             "name": "Under 85.5",
-                            "returnWin": 1.6,
+                            "returnWin": 1.62,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10228,7 +10358,7 @@
                         {
                             "id": "553698",
                             "name": "Over 84.5",
-                            "returnWin": 2,
+                            "returnWin": 1.97,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10240,7 +10370,7 @@
                         {
                             "id": "553699",
                             "name": "Under 84.5",
-                            "returnWin": 1.7,
+                            "returnWin": 1.72,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10252,7 +10382,7 @@
                         {
                             "id": "553700",
                             "name": "Over 83.5",
-                            "returnWin": 1.9,
+                            "returnWin": 1.87,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10264,7 +10394,7 @@
                         {
                             "id": "553701",
                             "name": "Under 83.5",
-                            "returnWin": 1.85,
+                            "returnWin": 1.87,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10276,7 +10406,7 @@
                         {
                             "id": "553702",
                             "name": "Over 82.5",
-                            "returnWin": 1.73,
+                            "returnWin": 1.72,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10288,7 +10418,7 @@
                         {
                             "id": "553703",
                             "name": "Under 82.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.97,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10324,7 +10454,7 @@
                         {
                             "id": "553706",
                             "name": "Over 80.5",
-                            "returnWin": 1.55,
+                            "returnWin": 1.52,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10336,7 +10466,7 @@
                         {
                             "id": "553716",
                             "name": "Under 80.5",
-                            "returnWin": 2.25,
+                            "returnWin": 2.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10396,7 +10526,7 @@
                         {
                             "id": "553740",
                             "name": "Over 77.5",
-                            "returnWin": 1.34,
+                            "returnWin": 1.32,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10408,7 +10538,7 @@
                         {
                             "id": "553741",
                             "name": "Under 77.5",
-                            "returnWin": 2.9,
+                            "returnWin": 3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10444,7 +10574,7 @@
                         {
                             "id": "553744",
                             "name": "Over 75.5",
-                            "returnWin": 1.24,
+                            "returnWin": 1.23,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10456,7 +10586,7 @@
                         {
                             "id": "553745",
                             "name": "Under 75.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10468,7 +10598,7 @@
                         {
                             "id": "553746",
                             "name": "Over 74.5",
-                            "returnWin": 1.21,
+                            "returnWin": 1.19,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10480,7 +10610,7 @@
                         {
                             "id": "553747",
                             "name": "Under 74.5",
-                            "returnWin": 3.8,
+                            "returnWin": 4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -10972,7 +11102,7 @@
                         {
                             "id": "572827",
                             "name": "71 to 80",
-                            "returnWin": 3.3,
+                            "returnWin": 3.4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11008,7 +11138,7 @@
                         {
                             "id": "572830",
                             "name": "101 Points or More",
-                            "returnWin": 10,
+                            "returnWin": 9.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11050,7 +11180,7 @@
                         {
                             "id": "572823",
                             "name": "Over 84 Pts",
-                            "returnWin": 2,
+                            "returnWin": 1.97,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11074,7 +11204,7 @@
                         {
                             "id": "572825",
                             "name": "Under 81 Pts",
-                            "returnWin": 2.25,
+                            "returnWin": 2.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11116,7 +11246,7 @@
                         {
                             "id": "550493",
                             "name": "New Zealand 0 to 30",
-                            "returnWin": 9.5,
+                            "returnWin": 10,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11374,7 +11504,7 @@
                         {
                             "id": "606738",
                             "name": "New Zealand +0.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11386,7 +11516,7 @@
                         {
                             "id": "606739",
                             "name": "Tasmania -0.5",
-                            "returnWin": 1.8,
+                            "returnWin": 1.85,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11504,9 +11634,33 @@
                     "allowBundle": false,
                     "propositions": [
                         {
+                            "id": "572844",
+                            "name": "New Zealand -7.5",
+                            "returnWin": 5.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 572844,
+                            "isOpen": true,
+                            "sortOrder": 11
+                        },
+                        {
+                            "id": "572845",
+                            "name": "Tasmania +7.5",
+                            "returnWin": 1.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 572845,
+                            "isOpen": true,
+                            "sortOrder": 12
+                        },
+                        {
                             "id": "572846",
                             "name": "New Zealand -6.5",
-                            "returnWin": 5,
+                            "returnWin": 4.75,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11518,7 +11672,7 @@
                         {
                             "id": "572847",
                             "name": "Tasmania +6.5",
-                            "returnWin": 1.12,
+                            "returnWin": 1.13,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11530,7 +11684,7 @@
                         {
                             "id": "572848",
                             "name": "New Zealand -5.5",
-                            "returnWin": 4.25,
+                            "returnWin": 4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11542,7 +11696,7 @@
                         {
                             "id": "572849",
                             "name": "Tasmania +5.5",
-                            "returnWin": 1.17,
+                            "returnWin": 1.19,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11554,7 +11708,7 @@
                         {
                             "id": "572850",
                             "name": "New Zealand -4.5",
-                            "returnWin": 3.6,
+                            "returnWin": 3.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11566,7 +11720,7 @@
                         {
                             "id": "572851",
                             "name": "Tasmania +4.5",
-                            "returnWin": 1.23,
+                            "returnWin": 1.24,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11650,7 +11804,7 @@
                         {
                             "id": "572858",
                             "name": "New Zealand -0.5",
-                            "returnWin": 2.15,
+                            "returnWin": 2.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11662,7 +11816,7 @@
                         {
                             "id": "572859",
                             "name": "Tasmania +0.5",
-                            "returnWin": 1.6,
+                            "returnWin": 1.62,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11674,7 +11828,7 @@
                         {
                             "id": "572860",
                             "name": "New Zealand +0.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11686,7 +11840,7 @@
                         {
                             "id": "572861",
                             "name": "Tasmania -0.5",
-                            "returnWin": 1.8,
+                            "returnWin": 1.85,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11698,7 +11852,7 @@
                         {
                             "id": "572862",
                             "name": "New Zealand +1.5",
-                            "returnWin": 1.72,
+                            "returnWin": 1.7,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11710,7 +11864,7 @@
                         {
                             "id": "572863",
                             "name": "Tasmania -1.5",
-                            "returnWin": 1.97,
+                            "returnWin": 2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11722,7 +11876,7 @@
                         {
                             "id": "572864",
                             "name": "New Zealand +2.5",
-                            "returnWin": 1.57,
+                            "returnWin": 1.55,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11734,7 +11888,7 @@
                         {
                             "id": "572865",
                             "name": "Tasmania -2.5",
-                            "returnWin": 2.2,
+                            "returnWin": 2.25,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11770,7 +11924,7 @@
                         {
                             "id": "572868",
                             "name": "New Zealand +4.5",
-                            "returnWin": 1.36,
+                            "returnWin": 1.34,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11782,7 +11936,7 @@
                         {
                             "id": "572869",
                             "name": "Tasmania -4.5",
-                            "returnWin": 2.8,
+                            "returnWin": 2.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11842,7 +11996,7 @@
                         {
                             "id": "572874",
                             "name": "New Zealand +7.5",
-                            "returnWin": 1.17,
+                            "returnWin": 1.15,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11854,7 +12008,7 @@
                         {
                             "id": "572875",
                             "name": "Tasmania -7.5",
-                            "returnWin": 4.25,
+                            "returnWin": 4.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11944,7 +12098,7 @@
                         {
                             "id": "617092",
                             "name": "Over 49.5",
-                            "returnWin": 4.5,
+                            "returnWin": 4.75,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -11956,7 +12110,7 @@
                         {
                             "id": "617093",
                             "name": "Under 49.5",
-                            "returnWin": 1.15,
+                            "returnWin": 1.13,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12472,7 +12626,7 @@
                         {
                             "id": "550500",
                             "name": "New Zealand",
-                            "returnWin": 2,
+                            "returnWin": 1.95,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12538,7 +12692,7 @@
                         {
                             "id": "550480",
                             "name": "New Zealand",
-                            "returnWin": 2.3,
+                            "returnWin": 2.25,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12550,7 +12704,7 @@
                         {
                             "id": "550481",
                             "name": "Tasmania",
-                            "returnWin": 1.9,
+                            "returnWin": 1.95,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12772,7 +12926,7 @@
                         {
                             "id": "550484",
                             "name": "NZB score 20+ only",
-                            "returnWin": 5,
+                            "returnWin": 4.8,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12784,7 +12938,7 @@
                         {
                             "id": "550485",
                             "name": "Tas score 20+ only",
-                            "returnWin": 3.8,
+                            "returnWin": 4,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12850,7 +13004,7 @@
                         {
                             "id": "550504",
                             "name": "New Zealand 21 to 23",
-                            "returnWin": 4,
+                            "returnWin": 4.2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12928,7 +13082,7 @@
                         {
                             "id": "550463",
                             "name": "Tasmania 0 to 20",
-                            "returnWin": 2.15,
+                            "returnWin": 2.1,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12952,7 +13106,7 @@
                         {
                             "id": "550465",
                             "name": "Tasmania 24 to 26",
-                            "returnWin": 4.8,
+                            "returnWin": 5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -12964,7 +13118,7 @@
                         {
                             "id": "550466",
                             "name": "Tasmania 27 to 29",
-                            "returnWin": 7.5,
+                            "returnWin": 8,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13030,7 +13184,7 @@
                         {
                             "id": "571638",
                             "name": "New Zealand by 9-10",
-                            "returnWin": 19,
+                            "returnWin": 18,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13150,7 +13304,7 @@
                         {
                             "id": "571648",
                             "name": "Tasmania by 9-10",
-                            "returnWin": 14,
+                            "returnWin": 15,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13162,7 +13316,7 @@
                         {
                             "id": "571649",
                             "name": "Tasmania by 11+",
-                            "returnWin": 7,
+                            "returnWin": 7.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13204,7 +13358,7 @@
                         {
                             "id": "571756",
                             "name": "1st Half",
-                            "returnWin": 1.65,
+                            "returnWin": 1.62,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13216,7 +13370,7 @@
                         {
                             "id": "571757",
                             "name": "Equal Scoring Halves",
-                            "returnWin": 26,
+                            "returnWin": 31,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13228,7 +13382,7 @@
                         {
                             "id": "571758",
                             "name": "2nd Half",
-                            "returnWin": 2.25,
+                            "returnWin": 2.3,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13283,7 +13437,7 @@
                         {
                             "id": "606629",
                             "name": "2nd Quarter",
-                            "returnWin": 3.4,
+                            "returnWin": 3.2,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -13763,9 +13917,9 @@
                 "Brisbane",
                 "South East Melb"
             ],
-            "openMarketCount": 101,
+            "openMarketCount": 103,
             "futureMarketCount": 0,
-            "nonFutureMarketCount": 101,
+            "nonFutureMarketCount": 103,
             "markets": [
                 {
                     "id": "107758840",
@@ -14199,6 +14353,162 @@
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 564621,
+                            "isOpen": true,
+                            "sortOrder": 4
+                        }
+                    ]
+                },
+                {
+                    "id": "107783850",
+                    "name": "NBL Brisbane-SE Melbourne 12/12",
+                    "shortName": "NBL Bri-SEM LnTt$2 12/12",
+                    "betOption": "Line/Total Double $2",
+                    "betOptionSpectrumId": "2657",
+                    "betOptionPriority": 3015,
+                    "marketUniqueId": 107783850,
+                    "closeTime": "2024-12-12T08:37:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "593095",
+                            "name": "Brisbane +3.5/Over 181.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593095,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "593096",
+                            "name": "Brisbane +3.5/Under 191.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593096,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "593097",
+                            "name": "SE Melb +6.5/Over 181.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593097,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "593098",
+                            "name": "SE Melb +6.5/Under 191.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593098,
+                            "isOpen": true,
+                            "sortOrder": 4
+                        }
+                    ]
+                },
+                {
+                    "id": "107783849",
+                    "name": "NBL Brisbane-SE Melbourne 12/12",
+                    "shortName": "NBL Bri-SEM LnTt$7 12/12",
+                    "betOption": "Line/Total Double $7",
+                    "betOptionSpectrumId": "2658",
+                    "betOptionPriority": 3020,
+                    "marketUniqueId": 107783849,
+                    "closeTime": "2024-12-12T08:37:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "593099",
+                            "name": "Brisbane -11.5/Over 196.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593099,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "593100",
+                            "name": "Brisbane -8.5/Under 179.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593100,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "593101",
+                            "name": "SE Melb -5.5/Over 193.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593101,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "593102",
+                            "name": "SE Melb -8.5/Under 176.5",
+                            "returnWin": 7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 593102,
                             "isOpen": true,
                             "sortOrder": 4
                         }
@@ -17377,7 +17687,7 @@
                         {
                             "id": "593080",
                             "name": "Bri Score 20+ Pts Every Qtr",
-                            "returnWin": 2.7,
+                            "returnWin": 2.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17389,7 +17699,7 @@
                         {
                             "id": "593081",
                             "name": "Bri Score 25+ Pts Every Qtr",
-                            "returnWin": 21,
+                            "returnWin": 19,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17401,7 +17711,7 @@
                         {
                             "id": "593082",
                             "name": "Bri Score 30+ Pts Every Qtr",
-                            "returnWin": 401,
+                            "returnWin": 251,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17449,7 +17759,7 @@
                         {
                             "id": "593086",
                             "name": "SEM Score 30+ Pts Every Qtr",
-                            "returnWin": 401,
+                            "returnWin": 301,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17461,7 +17771,7 @@
                         {
                             "id": "593087",
                             "name": "Both Score 15+ Pts Every Qtr",
-                            "returnWin": 1.5,
+                            "returnWin": 1.48,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17509,7 +17819,7 @@
                         {
                             "id": "593091",
                             "name": "Bri Win Every Qtr By 2+ Pts",
-                            "returnWin": 51,
+                            "returnWin": 41,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -17533,7 +17843,7 @@
                         {
                             "id": "593093",
                             "name": "Bri Win Bth Halves By 5+ Pts",
-                            "returnWin": 10,
+                            "returnWin": 9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -29859,7 +30169,7 @@
                         {
                             "id": "601604",
                             "name": "Ill Score 15+ Pts Every Qtr",
-                            "returnWin": 1.2,
+                            "returnWin": 1.18,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -29871,7 +30181,7 @@
                         {
                             "id": "601605",
                             "name": "Ill Score 20+ Pts Every Qtr",
-                            "returnWin": 2.4,
+                            "returnWin": 2.25,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -29967,7 +30277,7 @@
                         {
                             "id": "601613",
                             "name": "Ill Win Every Qtr By 2+ Pts",
-                            "returnWin": 81,
+                            "returnWin": 67,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -29979,7 +30289,7 @@
                         {
                             "id": "601614",
                             "name": "Mel Win Bth Halves By 5+ Pts",
-                            "returnWin": 9,
+                            "returnWin": 8.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -29991,7 +30301,7 @@
                         {
                             "id": "601615",
                             "name": "Ill Win Bth Halves By 5+ Pts",
-                            "returnWin": 16,
+                            "returnWin": 13,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -41116,7 +41426,7 @@
                         {
                             "id": "601722",
                             "name": "Cns Win Bth Halves By 5+ Pts",
-                            "returnWin": 26,
+                            "returnWin": 21,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -46351,6 +46661,8 @@
         "Tri Bet",
         "Line/Over Under Double",
         "HDtoHD/OverUnder Double",
+        "Line/Total Double $2",
+        "Line/Total Double $7",
         "Total Points Over/Under",
         "Pick Your Own Line",
         "Pick Your Own Total",
@@ -46480,6 +46792,22 @@
             "openMarketCount": 4,
             "_links": {
                 "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=HDtoHD%2FOverUnder%20Double"
+            }
+        },
+        {
+            "name": "Line/Total Double $2",
+            "hasFutureMarket": false,
+            "openMarketCount": 2,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=Line%2FTotal%20Double%20%242"
+            }
+        },
+        {
+            "name": "Line/Total Double $7",
+            "hasFutureMarket": false,
+            "openMarketCount": 2,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=Line%2FTotal%20Double%20%247"
             }
         },
         {
