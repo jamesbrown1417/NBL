@@ -27,6 +27,7 @@ combined_stats_table <- read_rds("Data/combined_stats_table.rds")
 combined_stats_table <-
     combined_stats_table |>
     mutate(PLAYER_NAME = paste(first_name, family_name)) |>
+    mutate(PLAYER_NAME = ifelse(PLAYER_NAME == "Matthew Mooney", "Matt Mooney", PLAYER_NAME)) |> 
     # Rename stats
     rename(
         PTS = player_points,

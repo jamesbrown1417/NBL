@@ -130,6 +130,9 @@ player_assist_links <-
 player_rebound_links <-
     glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G673")
 
+player_threes_links <-
+    glue("https://next-api.betright.com.au/Sports/MasterEvent?masterEventId={unique(all_betright_markets$match_id)}&groupTypeCode=G674")
+
 # Function to extract prop data from links--------------------------------------
 
 get_prop_data <- function(link) {
@@ -203,6 +206,7 @@ betright_player_points <-
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
     mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
     mutate(player_name = str_replace(player_name, "^William", "Will")) |>
+    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
     mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
@@ -250,6 +254,7 @@ betright_player_rebounds <-
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
     mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
     mutate(player_name = str_replace(player_name, "^William", "Will")) |>
     mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
@@ -298,6 +303,7 @@ betright_player_assists <-
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
     mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
     mutate(player_name = str_replace(player_name, "^William", "Will")) |>
     mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
@@ -306,6 +312,56 @@ betright_player_assists <-
     mutate(agency = "BetRight") |>
     mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
     mutate(line = as.numeric(line) - 0.5) |>
+    select(
+        "match",
+        "home_team",
+        "away_team",
+        "market_name",
+        "player_name",
+        "player_team",
+        "line",
+        "over_price" = "price",
+        "agency",
+        "group_by_header",
+        "event_id",
+        "outcome_name",
+        "outcome_id",
+        "fixed_market_id",
+        "opposition_team"
+    ) |> 
+    mutate(home_team = fix_team_names(home_team)) |>
+    mutate(away_team = fix_team_names(away_team)) |>
+    mutate(player_team = fix_team_names(player_team)) |>
+    mutate(opposition_team = fix_team_names(opposition_team)) |> 
+    mutate(match = paste(home_team, away_team, sep = " v "))
+
+#===============================================================================
+# Player Threes
+#===============================================================================
+
+# Get all player threes
+betright_player_threes <-
+    map(player_threes_links, safe_get_prop_data) |> 
+    map("result") |>
+    bind_rows() |>
+    rename(match_id = link) |> 
+    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
+    left_join(match_names) |> 
+    filter(!is.na(outcome_name)) |> 
+    separate(outcome_title, into = c("market_name", "player_name"), sep = " - ") |>
+    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
+    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
+    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
+    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
+    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
+    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
+    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
+    mutate(agency = "BetRight") |>
+    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
+    mutate(line = as.numeric(line) - 0.5) |>
+    mutate(market_name = "Player Threes") |>
     select(
         "match",
         "home_team",
@@ -340,3 +396,7 @@ betright_player_rebounds |>
 # Get player assists data-------------------------------------------------------
 betright_player_assists |>
     write_csv("Data/scraped_odds/betright_player_assists.csv")
+
+# Get player threes data--------------------------------------------------------
+betright_player_threes |>
+    write_csv("Data/scraped_odds/betright_player_threes.csv")
