@@ -53,6 +53,10 @@ write_rds(all_h2h, "Data/processed_odds/head_to_head.rds")
 all_totals_files <-
     list.files("Data/scraped_odds", full.names = TRUE, pattern = "total") |>
     map(read_csv) |>
+    # Map a mutate across dfs to convert line to numeric
+    map(~mutate(.x, line = as.numeric(line),
+                under_price = as.numeric(under_price),
+                over_price = as.numeric(over_price))) |>
     reduce(bind_rows) |> 
     mutate(market_name = "Total Points")
 

@@ -826,6 +826,11 @@ server <- function(input, output) {
         filter(str_detect(player_name, input$player_name_input_b))
     }
       
+    odds <-
+        odds |> 
+        select(-contains("key")) |>
+        relocate(agency, .before = player_name)
+      
     # Return odds
     return(odds)
   })
