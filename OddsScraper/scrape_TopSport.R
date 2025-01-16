@@ -147,7 +147,7 @@ read_topsport_html <- function(url) {
 
 # Get URLs
 pick_your_own_points_markets <- 
-    topsport_other_markets[str_detect(topsport_other_markets, "Player_to_Score_.*_Points\\/")]
+    topsport_other_markets[str_detect(topsport_other_markets, "Player_to_(Score|Have)_.*_Points\\/")]
 
 # Map function
 player_points_alternate <-
