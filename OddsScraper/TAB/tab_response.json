@@ -72,9 +72,9 @@
                 "South East Melb",
                 "Adelaide"
             ],
-            "openMarketCount": 32,
+            "openMarketCount": 39,
             "futureMarketCount": 0,
-            "nonFutureMarketCount": 32,
+            "nonFutureMarketCount": 39,
             "markets": [
                 {
                     "id": "110733050",
@@ -115,7 +115,8 @@
                             "number": 585244,
                             "isOpen": true,
                             "sortOrder": 1,
-                            "position": "HOME"
+                            "position": "HOME",
+                            "sameGame": true
                         },
                         {
                             "id": "585245",
@@ -128,9 +129,12 @@
                             "number": 585245,
                             "isOpen": true,
                             "sortOrder": 2,
-                            "position": "AWAY"
+                            "position": "AWAY",
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733059",
@@ -163,7 +167,7 @@
                         {
                             "id": "585189",
                             "name": "South East Melb -4.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -171,12 +175,13 @@
                             "number": 585189,
                             "isOpen": true,
                             "sortOrder": 1,
-                            "line": "-4.5"
+                            "line": "-4.5",
+                            "sameGame": true
                         },
                         {
                             "id": "585190",
                             "name": "Adelaide +4.5",
-                            "returnWin": 1.85,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -184,9 +189,12 @@
                             "number": 585190,
                             "isOpen": true,
                             "sortOrder": 2,
-                            "line": "+4.5"
+                            "line": "+4.5",
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733063",
@@ -226,7 +234,8 @@
                             "allowPlace": false,
                             "number": 585193,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585194",
@@ -238,7 +247,8 @@
                             "allowPlace": false,
                             "number": 585194,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585195",
@@ -250,7 +260,8 @@
                             "allowPlace": false,
                             "number": 585195,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585196",
@@ -262,9 +273,12 @@
                             "allowPlace": false,
                             "number": 585196,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733077",
@@ -304,7 +318,8 @@
                             "allowPlace": false,
                             "number": 585140,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585141",
@@ -316,7 +331,8 @@
                             "allowPlace": false,
                             "number": 585141,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585142",
@@ -328,9 +344,12 @@
                             "allowPlace": false,
                             "number": 585142,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733058",
@@ -363,52 +382,58 @@
                         {
                             "id": "585143",
                             "name": "SE Melb -4.5 /Over 196.5",
-                            "returnWin": 3.7,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585143,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585144",
                             "name": "SE Melb -4.5 /Under 196.5",
-                            "returnWin": 3.7,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585144,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585145",
                             "name": "Adelaide +4.5 /Over 196.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585145,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585146",
                             "name": "Adelaide +4.5 /Under 196.5",
-                            "returnWin": 3.5,
+                            "returnWin": 3.6,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585146,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733051",
@@ -526,7 +551,8 @@
                             "allowPlace": false,
                             "number": 585191,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585192",
@@ -538,9 +564,12 @@
                             "allowPlace": false,
                             "number": 585192,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733068",
@@ -580,7 +609,8 @@
                             "allowPlace": false,
                             "number": 585071,
                             "isOpen": true,
-                            "sortOrder": 13
+                            "sortOrder": 13,
+                            "sameGame": true
                         },
                         {
                             "id": "585072",
@@ -592,7 +622,8 @@
                             "allowPlace": false,
                             "number": 585072,
                             "isOpen": true,
-                            "sortOrder": 14
+                            "sortOrder": 14,
+                            "sameGame": true
                         },
                         {
                             "id": "585073",
@@ -604,7 +635,8 @@
                             "allowPlace": false,
                             "number": 585073,
                             "isOpen": true,
-                            "sortOrder": 15
+                            "sortOrder": 15,
+                            "sameGame": true
                         },
                         {
                             "id": "585074",
@@ -616,7 +648,8 @@
                             "allowPlace": false,
                             "number": 585074,
                             "isOpen": true,
-                            "sortOrder": 16
+                            "sortOrder": 16,
+                            "sameGame": true
                         },
                         {
                             "id": "585075",
@@ -628,7 +661,8 @@
                             "allowPlace": false,
                             "number": 585075,
                             "isOpen": true,
-                            "sortOrder": 17
+                            "sortOrder": 17,
+                            "sameGame": true
                         },
                         {
                             "id": "585076",
@@ -640,7 +674,8 @@
                             "allowPlace": false,
                             "number": 585076,
                             "isOpen": true,
-                            "sortOrder": 18
+                            "sortOrder": 18,
+                            "sameGame": true
                         },
                         {
                             "id": "585077",
@@ -652,7 +687,8 @@
                             "allowPlace": false,
                             "number": 585077,
                             "isOpen": true,
-                            "sortOrder": 19
+                            "sortOrder": 19,
+                            "sameGame": true
                         },
                         {
                             "id": "585078",
@@ -664,7 +700,8 @@
                             "allowPlace": false,
                             "number": 585078,
                             "isOpen": true,
-                            "sortOrder": 20
+                            "sortOrder": 20,
+                            "sameGame": true
                         },
                         {
                             "id": "585079",
@@ -676,7 +713,8 @@
                             "allowPlace": false,
                             "number": 585079,
                             "isOpen": true,
-                            "sortOrder": 21
+                            "sortOrder": 21,
+                            "sameGame": true
                         },
                         {
                             "id": "585080",
@@ -688,7 +726,8 @@
                             "allowPlace": false,
                             "number": 585080,
                             "isOpen": true,
-                            "sortOrder": 22
+                            "sortOrder": 22,
+                            "sameGame": true
                         },
                         {
                             "id": "585081",
@@ -700,7 +739,8 @@
                             "allowPlace": false,
                             "number": 585081,
                             "isOpen": true,
-                            "sortOrder": 23
+                            "sortOrder": 23,
+                            "sameGame": true
                         },
                         {
                             "id": "585082",
@@ -712,7 +752,8 @@
                             "allowPlace": false,
                             "number": 585082,
                             "isOpen": true,
-                            "sortOrder": 24
+                            "sortOrder": 24,
+                            "sameGame": true
                         },
                         {
                             "id": "585083",
@@ -724,7 +765,8 @@
                             "allowPlace": false,
                             "number": 585083,
                             "isOpen": true,
-                            "sortOrder": 25
+                            "sortOrder": 25,
+                            "sameGame": true
                         },
                         {
                             "id": "585084",
@@ -736,31 +778,34 @@
                             "allowPlace": false,
                             "number": 585084,
                             "isOpen": true,
-                            "sortOrder": 26
+                            "sortOrder": 26,
+                            "sameGame": true
                         },
                         {
                             "id": "585085",
                             "name": "South East Melb -4.5",
-                            "returnWin": 1.95,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585085,
                             "isOpen": true,
-                            "sortOrder": 27
+                            "sortOrder": 27,
+                            "sameGame": true
                         },
                         {
                             "id": "585086",
                             "name": "Adelaide +4.5",
-                            "returnWin": 1.85,
+                            "returnWin": 1.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585086,
                             "isOpen": true,
-                            "sortOrder": 28
+                            "sortOrder": 28,
+                            "sameGame": true
                         },
                         {
                             "id": "585087",
@@ -772,7 +817,8 @@
                             "allowPlace": false,
                             "number": 585087,
                             "isOpen": true,
-                            "sortOrder": 29
+                            "sortOrder": 29,
+                            "sameGame": true
                         },
                         {
                             "id": "585088",
@@ -784,7 +830,8 @@
                             "allowPlace": false,
                             "number": 585088,
                             "isOpen": true,
-                            "sortOrder": 30
+                            "sortOrder": 30,
+                            "sameGame": true
                         },
                         {
                             "id": "585089",
@@ -796,7 +843,8 @@
                             "allowPlace": false,
                             "number": 585089,
                             "isOpen": true,
-                            "sortOrder": 31
+                            "sortOrder": 31,
+                            "sameGame": true
                         },
                         {
                             "id": "585090",
@@ -808,7 +856,8 @@
                             "allowPlace": false,
                             "number": 585090,
                             "isOpen": true,
-                            "sortOrder": 32
+                            "sortOrder": 32,
+                            "sameGame": true
                         },
                         {
                             "id": "585091",
@@ -820,7 +869,8 @@
                             "allowPlace": false,
                             "number": 585091,
                             "isOpen": true,
-                            "sortOrder": 33
+                            "sortOrder": 33,
+                            "sameGame": true
                         },
                         {
                             "id": "585092",
@@ -832,7 +882,8 @@
                             "allowPlace": false,
                             "number": 585092,
                             "isOpen": true,
-                            "sortOrder": 34
+                            "sortOrder": 34,
+                            "sameGame": true
                         },
                         {
                             "id": "585093",
@@ -844,7 +895,8 @@
                             "allowPlace": false,
                             "number": 585093,
                             "isOpen": true,
-                            "sortOrder": 35
+                            "sortOrder": 35,
+                            "sameGame": true
                         },
                         {
                             "id": "585094",
@@ -856,7 +908,8 @@
                             "allowPlace": false,
                             "number": 585094,
                             "isOpen": true,
-                            "sortOrder": 36
+                            "sortOrder": 36,
+                            "sameGame": true
                         },
                         {
                             "id": "585095",
@@ -868,7 +921,8 @@
                             "allowPlace": false,
                             "number": 585095,
                             "isOpen": true,
-                            "sortOrder": 37
+                            "sortOrder": 37,
+                            "sameGame": true
                         },
                         {
                             "id": "585096",
@@ -880,7 +934,8 @@
                             "allowPlace": false,
                             "number": 585096,
                             "isOpen": true,
-                            "sortOrder": 38
+                            "sortOrder": 38,
+                            "sameGame": true
                         },
                         {
                             "id": "585097",
@@ -892,7 +947,8 @@
                             "allowPlace": false,
                             "number": 585097,
                             "isOpen": true,
-                            "sortOrder": 39
+                            "sortOrder": 39,
+                            "sameGame": true
                         },
                         {
                             "id": "585098",
@@ -904,9 +960,12 @@
                             "allowPlace": false,
                             "number": 585098,
                             "isOpen": true,
-                            "sortOrder": 40
+                            "sortOrder": 40,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733046",
@@ -946,19 +1005,21 @@
                             "allowPlace": false,
                             "number": 585053,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585054",
                             "name": "SE Melbourne / Adelaide",
-                            "returnWin": 6,
+                            "returnWin": 6.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585054,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585055",
@@ -970,7 +1031,8 @@
                             "allowPlace": false,
                             "number": 585055,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585056",
@@ -982,7 +1044,8 @@
                             "allowPlace": false,
                             "number": 585056,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "585057",
@@ -994,7 +1057,8 @@
                             "allowPlace": false,
                             "number": 585057,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "585058",
@@ -1006,9 +1070,12 @@
                             "allowPlace": false,
                             "number": 585058,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733079",
@@ -1048,19 +1115,21 @@
                             "allowPlace": false,
                             "number": 585150,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585151",
                             "name": "SE Melb by 21-24",
-                            "returnWin": 16,
+                            "returnWin": 15,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585151,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585152",
@@ -1072,7 +1141,8 @@
                             "allowPlace": false,
                             "number": 585152,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585153",
@@ -1084,7 +1154,8 @@
                             "allowPlace": false,
                             "number": 585153,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "585154",
@@ -1096,19 +1167,21 @@
                             "allowPlace": false,
                             "number": 585154,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "585155",
                             "name": "SE Melb by 5-8",
-                            "returnWin": 7,
+                            "returnWin": 6.5,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585155,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         },
                         {
                             "id": "585156",
@@ -1120,7 +1193,8 @@
                             "allowPlace": false,
                             "number": 585156,
                             "isOpen": true,
-                            "sortOrder": 7
+                            "sortOrder": 7,
+                            "sameGame": true
                         },
                         {
                             "id": "585157",
@@ -1132,7 +1206,8 @@
                             "allowPlace": false,
                             "number": 585157,
                             "isOpen": true,
-                            "sortOrder": 8
+                            "sortOrder": 8,
+                            "sameGame": true
                         },
                         {
                             "id": "585158",
@@ -1144,7 +1219,8 @@
                             "allowPlace": false,
                             "number": 585158,
                             "isOpen": true,
-                            "sortOrder": 9
+                            "sortOrder": 9,
+                            "sameGame": true
                         },
                         {
                             "id": "585159",
@@ -1156,7 +1232,8 @@
                             "allowPlace": false,
                             "number": 585159,
                             "isOpen": true,
-                            "sortOrder": 10
+                            "sortOrder": 10,
+                            "sameGame": true
                         },
                         {
                             "id": "585160",
@@ -1168,7 +1245,8 @@
                             "allowPlace": false,
                             "number": 585160,
                             "isOpen": true,
-                            "sortOrder": 11
+                            "sortOrder": 11,
+                            "sameGame": true
                         },
                         {
                             "id": "585161",
@@ -1180,7 +1258,8 @@
                             "allowPlace": false,
                             "number": 585161,
                             "isOpen": true,
-                            "sortOrder": 12
+                            "sortOrder": 12,
+                            "sameGame": true
                         },
                         {
                             "id": "585162",
@@ -1192,7 +1271,8 @@
                             "allowPlace": false,
                             "number": 585162,
                             "isOpen": true,
-                            "sortOrder": 13
+                            "sortOrder": 13,
+                            "sameGame": true
                         },
                         {
                             "id": "585163",
@@ -1204,9 +1284,12 @@
                             "allowPlace": false,
                             "number": 585163,
                             "isOpen": true,
-                            "sortOrder": 14
+                            "sortOrder": 14,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733073",
@@ -1246,7 +1329,8 @@
                             "allowPlace": false,
                             "number": 585113,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585114",
@@ -1258,7 +1342,8 @@
                             "allowPlace": false,
                             "number": 585114,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585115",
@@ -1270,7 +1355,8 @@
                             "allowPlace": false,
                             "number": 585115,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585116",
@@ -1282,7 +1368,8 @@
                             "allowPlace": false,
                             "number": 585116,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "585117",
@@ -1294,7 +1381,8 @@
                             "allowPlace": false,
                             "number": 585117,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "585118",
@@ -1306,7 +1394,8 @@
                             "allowPlace": false,
                             "number": 585118,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         },
                         {
                             "id": "585119",
@@ -1318,7 +1407,8 @@
                             "allowPlace": false,
                             "number": 585119,
                             "isOpen": true,
-                            "sortOrder": 7
+                            "sortOrder": 7,
+                            "sameGame": true
                         },
                         {
                             "id": "585120",
@@ -1330,7 +1420,8 @@
                             "allowPlace": false,
                             "number": 585120,
                             "isOpen": true,
-                            "sortOrder": 8
+                            "sortOrder": 8,
+                            "sameGame": true
                         },
                         {
                             "id": "585121",
@@ -1342,7 +1433,8 @@
                             "allowPlace": false,
                             "number": 585121,
                             "isOpen": true,
-                            "sortOrder": 9
+                            "sortOrder": 9,
+                            "sameGame": true
                         },
                         {
                             "id": "585122",
@@ -1354,7 +1446,8 @@
                             "allowPlace": false,
                             "number": 585122,
                             "isOpen": true,
-                            "sortOrder": 10
+                            "sortOrder": 10,
+                            "sameGame": true
                         },
                         {
                             "id": "585123",
@@ -1366,7 +1459,8 @@
                             "allowPlace": false,
                             "number": 585123,
                             "isOpen": true,
-                            "sortOrder": 11
+                            "sortOrder": 11,
+                            "sameGame": true
                         },
                         {
                             "id": "585124",
@@ -1378,7 +1472,8 @@
                             "allowPlace": false,
                             "number": 585124,
                             "isOpen": true,
-                            "sortOrder": 12
+                            "sortOrder": 12,
+                            "sameGame": true
                         },
                         {
                             "id": "585125",
@@ -1390,7 +1485,8 @@
                             "allowPlace": false,
                             "number": 585125,
                             "isOpen": true,
-                            "sortOrder": 13
+                            "sortOrder": 13,
+                            "sameGame": true
                         },
                         {
                             "id": "585126",
@@ -1402,7 +1498,8 @@
                             "allowPlace": false,
                             "number": 585126,
                             "isOpen": true,
-                            "sortOrder": 14
+                            "sortOrder": 14,
+                            "sameGame": true
                         },
                         {
                             "id": "585127",
@@ -1414,7 +1511,8 @@
                             "allowPlace": false,
                             "number": 585127,
                             "isOpen": true,
-                            "sortOrder": 15
+                            "sortOrder": 15,
+                            "sameGame": true
                         },
                         {
                             "id": "585128",
@@ -1426,7 +1524,8 @@
                             "allowPlace": false,
                             "number": 585128,
                             "isOpen": true,
-                            "sortOrder": 16
+                            "sortOrder": 16,
+                            "sameGame": true
                         },
                         {
                             "id": "585129",
@@ -1438,7 +1537,8 @@
                             "allowPlace": false,
                             "number": 585129,
                             "isOpen": true,
-                            "sortOrder": 17
+                            "sortOrder": 17,
+                            "sameGame": true
                         },
                         {
                             "id": "585130",
@@ -1450,7 +1550,8 @@
                             "allowPlace": false,
                             "number": 585130,
                             "isOpen": true,
-                            "sortOrder": 18
+                            "sortOrder": 18,
+                            "sameGame": true
                         },
                         {
                             "id": "585131",
@@ -1462,7 +1563,8 @@
                             "allowPlace": false,
                             "number": 585131,
                             "isOpen": true,
-                            "sortOrder": 19
+                            "sortOrder": 19,
+                            "sameGame": true
                         },
                         {
                             "id": "585132",
@@ -1474,7 +1576,8 @@
                             "allowPlace": false,
                             "number": 585132,
                             "isOpen": true,
-                            "sortOrder": 20
+                            "sortOrder": 20,
+                            "sameGame": true
                         },
                         {
                             "id": "585133",
@@ -1486,7 +1589,8 @@
                             "allowPlace": false,
                             "number": 585133,
                             "isOpen": true,
-                            "sortOrder": 21
+                            "sortOrder": 21,
+                            "sameGame": true
                         },
                         {
                             "id": "585134",
@@ -1498,7 +1602,8 @@
                             "allowPlace": false,
                             "number": 585134,
                             "isOpen": true,
-                            "sortOrder": 22
+                            "sortOrder": 22,
+                            "sameGame": true
                         },
                         {
                             "id": "585135",
@@ -1510,9 +1615,12 @@
                             "allowPlace": false,
                             "number": 585135,
                             "isOpen": true,
-                            "sortOrder": 23
+                            "sortOrder": 23,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733045",
@@ -1552,7 +1660,8 @@
                             "allowPlace": false,
                             "number": 584964,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "584965",
@@ -1564,7 +1673,8 @@
                             "allowPlace": false,
                             "number": 584965,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "584966",
@@ -1576,7 +1686,8 @@
                             "allowPlace": false,
                             "number": 584966,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "584967",
@@ -1588,7 +1699,8 @@
                             "allowPlace": false,
                             "number": 584967,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "584968",
@@ -1600,7 +1712,8 @@
                             "allowPlace": false,
                             "number": 584968,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "584969",
@@ -1612,7 +1725,8 @@
                             "allowPlace": false,
                             "number": 584969,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         },
                         {
                             "id": "584970",
@@ -1624,7 +1738,8 @@
                             "allowPlace": false,
                             "number": 584970,
                             "isOpen": true,
-                            "sortOrder": 7
+                            "sortOrder": 7,
+                            "sameGame": true
                         },
                         {
                             "id": "584971",
@@ -1636,7 +1751,8 @@
                             "allowPlace": false,
                             "number": 584971,
                             "isOpen": true,
-                            "sortOrder": 8
+                            "sortOrder": 8,
+                            "sameGame": true
                         },
                         {
                             "id": "584972",
@@ -1648,7 +1764,8 @@
                             "allowPlace": false,
                             "number": 584972,
                             "isOpen": true,
-                            "sortOrder": 9
+                            "sortOrder": 9,
+                            "sameGame": true
                         },
                         {
                             "id": "584973",
@@ -1660,7 +1777,8 @@
                             "allowPlace": false,
                             "number": 584973,
                             "isOpen": true,
-                            "sortOrder": 10
+                            "sortOrder": 10,
+                            "sameGame": true
                         },
                         {
                             "id": "584974",
@@ -1672,7 +1790,8 @@
                             "allowPlace": false,
                             "number": 584974,
                             "isOpen": true,
-                            "sortOrder": 11
+                            "sortOrder": 11,
+                            "sameGame": true
                         },
                         {
                             "id": "584975",
@@ -1684,7 +1803,8 @@
                             "allowPlace": false,
                             "number": 584975,
                             "isOpen": true,
-                            "sortOrder": 12
+                            "sortOrder": 12,
+                            "sameGame": true
                         },
                         {
                             "id": "584976",
@@ -1696,7 +1816,8 @@
                             "allowPlace": false,
                             "number": 584976,
                             "isOpen": true,
-                            "sortOrder": 13
+                            "sortOrder": 13,
+                            "sameGame": true
                         },
                         {
                             "id": "584977",
@@ -1708,7 +1829,8 @@
                             "allowPlace": false,
                             "number": 584977,
                             "isOpen": true,
-                            "sortOrder": 14
+                            "sortOrder": 14,
+                            "sameGame": true
                         },
                         {
                             "id": "584978",
@@ -1720,7 +1842,8 @@
                             "allowPlace": false,
                             "number": 584978,
                             "isOpen": true,
-                            "sortOrder": 15
+                            "sortOrder": 15,
+                            "sameGame": true
                         },
                         {
                             "id": "584979",
@@ -1732,7 +1855,8 @@
                             "allowPlace": false,
                             "number": 584979,
                             "isOpen": true,
-                            "sortOrder": 16
+                            "sortOrder": 16,
+                            "sameGame": true
                         },
                         {
                             "id": "584980",
@@ -1744,7 +1868,8 @@
                             "allowPlace": false,
                             "number": 584980,
                             "isOpen": true,
-                            "sortOrder": 17
+                            "sortOrder": 17,
+                            "sameGame": true
                         },
                         {
                             "id": "584981",
@@ -1756,7 +1881,8 @@
                             "allowPlace": false,
                             "number": 584981,
                             "isOpen": true,
-                            "sortOrder": 18
+                            "sortOrder": 18,
+                            "sameGame": true
                         },
                         {
                             "id": "584982",
@@ -1768,7 +1894,8 @@
                             "allowPlace": false,
                             "number": 584982,
                             "isOpen": true,
-                            "sortOrder": 19
+                            "sortOrder": 19,
+                            "sameGame": true
                         },
                         {
                             "id": "584983",
@@ -1780,7 +1907,8 @@
                             "allowPlace": false,
                             "number": 584983,
                             "isOpen": true,
-                            "sortOrder": 20
+                            "sortOrder": 20,
+                            "sameGame": true
                         },
                         {
                             "id": "584984",
@@ -1792,7 +1920,8 @@
                             "allowPlace": false,
                             "number": 584984,
                             "isOpen": true,
-                            "sortOrder": 21
+                            "sortOrder": 21,
+                            "sameGame": true
                         },
                         {
                             "id": "584985",
@@ -1804,7 +1933,8 @@
                             "allowPlace": false,
                             "number": 584985,
                             "isOpen": true,
-                            "sortOrder": 22
+                            "sortOrder": 22,
+                            "sameGame": true
                         },
                         {
                             "id": "584986",
@@ -1816,7 +1946,8 @@
                             "allowPlace": false,
                             "number": 584986,
                             "isOpen": true,
-                            "sortOrder": 23
+                            "sortOrder": 23,
+                            "sameGame": true
                         },
                         {
                             "id": "584987",
@@ -1828,7 +1959,8 @@
                             "allowPlace": false,
                             "number": 584987,
                             "isOpen": true,
-                            "sortOrder": 24
+                            "sortOrder": 24,
+                            "sameGame": true
                         },
                         {
                             "id": "584988",
@@ -1840,7 +1972,8 @@
                             "allowPlace": false,
                             "number": 584988,
                             "isOpen": true,
-                            "sortOrder": 25
+                            "sortOrder": 25,
+                            "sameGame": true
                         },
                         {
                             "id": "584989",
@@ -1852,7 +1985,8 @@
                             "allowPlace": false,
                             "number": 584989,
                             "isOpen": true,
-                            "sortOrder": 26
+                            "sortOrder": 26,
+                            "sameGame": true
                         },
                         {
                             "id": "584990",
@@ -1864,7 +1998,8 @@
                             "allowPlace": false,
                             "number": 584990,
                             "isOpen": true,
-                            "sortOrder": 27
+                            "sortOrder": 27,
+                            "sameGame": true
                         },
                         {
                             "id": "584991",
@@ -1876,7 +2011,8 @@
                             "allowPlace": false,
                             "number": 584991,
                             "isOpen": true,
-                            "sortOrder": 28
+                            "sortOrder": 28,
+                            "sameGame": true
                         },
                         {
                             "id": "584992",
@@ -1888,7 +2024,8 @@
                             "allowPlace": false,
                             "number": 584992,
                             "isOpen": true,
-                            "sortOrder": 29
+                            "sortOrder": 29,
+                            "sameGame": true
                         },
                         {
                             "id": "584993",
@@ -1900,7 +2037,8 @@
                             "allowPlace": false,
                             "number": 584993,
                             "isOpen": true,
-                            "sortOrder": 30
+                            "sortOrder": 30,
+                            "sameGame": true
                         },
                         {
                             "id": "584994",
@@ -1912,7 +2050,8 @@
                             "allowPlace": false,
                             "number": 584994,
                             "isOpen": true,
-                            "sortOrder": 31
+                            "sortOrder": 31,
+                            "sameGame": true
                         },
                         {
                             "id": "584995",
@@ -1924,7 +2063,8 @@
                             "allowPlace": false,
                             "number": 584995,
                             "isOpen": true,
-                            "sortOrder": 32
+                            "sortOrder": 32,
+                            "sameGame": true
                         },
                         {
                             "id": "584996",
@@ -1936,7 +2076,8 @@
                             "allowPlace": false,
                             "number": 584996,
                             "isOpen": true,
-                            "sortOrder": 33
+                            "sortOrder": 33,
+                            "sameGame": true
                         },
                         {
                             "id": "584997",
@@ -1948,7 +2089,8 @@
                             "allowPlace": false,
                             "number": 584997,
                             "isOpen": true,
-                            "sortOrder": 34
+                            "sortOrder": 34,
+                            "sameGame": true
                         },
                         {
                             "id": "584998",
@@ -1960,7 +2102,8 @@
                             "allowPlace": false,
                             "number": 584998,
                             "isOpen": true,
-                            "sortOrder": 35
+                            "sortOrder": 35,
+                            "sameGame": true
                         },
                         {
                             "id": "584999",
@@ -1972,7 +2115,8 @@
                             "allowPlace": false,
                             "number": 584999,
                             "isOpen": true,
-                            "sortOrder": 36
+                            "sortOrder": 36,
+                            "sameGame": true
                         },
                         {
                             "id": "585000",
@@ -1984,7 +2128,8 @@
                             "allowPlace": false,
                             "number": 585000,
                             "isOpen": true,
-                            "sortOrder": 37
+                            "sortOrder": 37,
+                            "sameGame": true
                         },
                         {
                             "id": "585001",
@@ -1996,7 +2141,8 @@
                             "allowPlace": false,
                             "number": 585001,
                             "isOpen": true,
-                            "sortOrder": 38
+                            "sortOrder": 38,
+                            "sameGame": true
                         },
                         {
                             "id": "585002",
@@ -2008,7 +2154,8 @@
                             "allowPlace": false,
                             "number": 585002,
                             "isOpen": true,
-                            "sortOrder": 39
+                            "sortOrder": 39,
+                            "sameGame": true
                         },
                         {
                             "id": "585003",
@@ -2020,7 +2167,8 @@
                             "allowPlace": false,
                             "number": 585003,
                             "isOpen": true,
-                            "sortOrder": 40
+                            "sortOrder": 40,
+                            "sameGame": true
                         },
                         {
                             "id": "585004",
@@ -2032,7 +2180,8 @@
                             "allowPlace": false,
                             "number": 585004,
                             "isOpen": true,
-                            "sortOrder": 41
+                            "sortOrder": 41,
+                            "sameGame": true
                         },
                         {
                             "id": "585005",
@@ -2044,9 +2193,12 @@
                             "allowPlace": false,
                             "number": 585005,
                             "isOpen": true,
-                            "sortOrder": 42
+                            "sortOrder": 42,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733049",
@@ -2086,7 +2238,8 @@
                             "allowPlace": false,
                             "number": 585018,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585019",
@@ -2098,7 +2251,8 @@
                             "allowPlace": false,
                             "number": 585019,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585020",
@@ -2110,7 +2264,8 @@
                             "allowPlace": false,
                             "number": 585020,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585021",
@@ -2122,7 +2277,8 @@
                             "allowPlace": false,
                             "number": 585021,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "585022",
@@ -2134,7 +2290,8 @@
                             "allowPlace": false,
                             "number": 585022,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "585023",
@@ -2146,7 +2303,8 @@
                             "allowPlace": false,
                             "number": 585023,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         },
                         {
                             "id": "585024",
@@ -2158,7 +2316,8 @@
                             "allowPlace": false,
                             "number": 585024,
                             "isOpen": true,
-                            "sortOrder": 7
+                            "sortOrder": 7,
+                            "sameGame": true
                         },
                         {
                             "id": "585025",
@@ -2170,7 +2329,8 @@
                             "allowPlace": false,
                             "number": 585025,
                             "isOpen": true,
-                            "sortOrder": 8
+                            "sortOrder": 8,
+                            "sameGame": true
                         },
                         {
                             "id": "585026",
@@ -2182,7 +2342,8 @@
                             "allowPlace": false,
                             "number": 585026,
                             "isOpen": true,
-                            "sortOrder": 9
+                            "sortOrder": 9,
+                            "sameGame": true
                         },
                         {
                             "id": "585027",
@@ -2194,7 +2355,8 @@
                             "allowPlace": false,
                             "number": 585027,
                             "isOpen": true,
-                            "sortOrder": 10
+                            "sortOrder": 10,
+                            "sameGame": true
                         },
                         {
                             "id": "585028",
@@ -2206,7 +2368,8 @@
                             "allowPlace": false,
                             "number": 585028,
                             "isOpen": true,
-                            "sortOrder": 11
+                            "sortOrder": 11,
+                            "sameGame": true
                         },
                         {
                             "id": "585029",
@@ -2218,7 +2381,8 @@
                             "allowPlace": false,
                             "number": 585029,
                             "isOpen": true,
-                            "sortOrder": 12
+                            "sortOrder": 12,
+                            "sameGame": true
                         },
                         {
                             "id": "585030",
@@ -2230,7 +2394,8 @@
                             "allowPlace": false,
                             "number": 585030,
                             "isOpen": true,
-                            "sortOrder": 13
+                            "sortOrder": 13,
+                            "sameGame": true
                         },
                         {
                             "id": "585031",
@@ -2242,7 +2407,8 @@
                             "allowPlace": false,
                             "number": 585031,
                             "isOpen": true,
-                            "sortOrder": 14
+                            "sortOrder": 14,
+                            "sameGame": true
                         },
                         {
                             "id": "585032",
@@ -2254,7 +2420,8 @@
                             "allowPlace": false,
                             "number": 585032,
                             "isOpen": true,
-                            "sortOrder": 15
+                            "sortOrder": 15,
+                            "sameGame": true
                         },
                         {
                             "id": "585033",
@@ -2266,7 +2433,8 @@
                             "allowPlace": false,
                             "number": 585033,
                             "isOpen": true,
-                            "sortOrder": 16
+                            "sortOrder": 16,
+                            "sameGame": true
                         },
                         {
                             "id": "585034",
@@ -2278,7 +2446,8 @@
                             "allowPlace": false,
                             "number": 585034,
                             "isOpen": true,
-                            "sortOrder": 17
+                            "sortOrder": 17,
+                            "sameGame": true
                         },
                         {
                             "id": "585035",
@@ -2290,7 +2459,8 @@
                             "allowPlace": false,
                             "number": 585035,
                             "isOpen": true,
-                            "sortOrder": 18
+                            "sortOrder": 18,
+                            "sameGame": true
                         },
                         {
                             "id": "585036",
@@ -2302,7 +2472,8 @@
                             "allowPlace": false,
                             "number": 585036,
                             "isOpen": true,
-                            "sortOrder": 19
+                            "sortOrder": 19,
+                            "sameGame": true
                         },
                         {
                             "id": "585037",
@@ -2314,9 +2485,12 @@
                             "allowPlace": false,
                             "number": 585037,
                             "isOpen": true,
-                            "sortOrder": 20
+                            "sortOrder": 20,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733062",
@@ -2373,7 +2547,7 @@
                         {
                             "id": "585171",
                             "name": "SEM by 11+ /171-190",
-                            "returnWin": 8.5,
+                            "returnWin": 8,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
@@ -2578,7 +2752,8 @@
                             "allowPlace": false,
                             "number": 585207,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585208",
@@ -2590,7 +2765,8 @@
                             "allowPlace": false,
                             "number": 585208,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585209",
@@ -2602,7 +2778,8 @@
                             "allowPlace": false,
                             "number": 585209,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         },
                         {
                             "id": "585210",
@@ -2614,7 +2791,8 @@
                             "allowPlace": false,
                             "number": 585210,
                             "isOpen": true,
-                            "sortOrder": 4
+                            "sortOrder": 4,
+                            "sameGame": true
                         },
                         {
                             "id": "585211",
@@ -2626,7 +2804,8 @@
                             "allowPlace": false,
                             "number": 585211,
                             "isOpen": true,
-                            "sortOrder": 5
+                            "sortOrder": 5,
+                            "sameGame": true
                         },
                         {
                             "id": "585212",
@@ -2638,9 +2817,206 @@
                             "allowPlace": false,
                             "number": 585212,
                             "isOpen": true,
-                            "sortOrder": 6
+                            "sortOrder": 6,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
+                },
+                {
+                    "id": "110744511",
+                    "name": "NBL SE Melb-Adelaide HomePts",
+                    "shortName": "NBL SEM-Adl HomePts",
+                    "betOption": "Home Total Points",
+                    "betOptionSpectrumId": "2602",
+                    "betOptionPriority": 6550,
+                    "marketUniqueId": 110744511,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608693",
+                            "name": "SE Melbourne 0 to 90",
+                            "returnWin": 4.25,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608693,
+                            "isOpen": true,
+                            "sortOrder": 1,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608694",
+                            "name": "SE Melbourne 91 to 100",
+                            "returnWin": 2.9,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608694,
+                            "isOpen": true,
+                            "sortOrder": 2,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608695",
+                            "name": "SE Melbourne 101 to 110",
+                            "returnWin": 3,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608695,
+                            "isOpen": true,
+                            "sortOrder": 3,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608696",
+                            "name": "SE Melbourne 111 to 120",
+                            "returnWin": 5.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608696,
+                            "isOpen": true,
+                            "sortOrder": 4,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608697",
+                            "name": "SE Melbourne 121+",
+                            "returnWin": 13,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608697,
+                            "isOpen": true,
+                            "sortOrder": 5,
+                            "sameGame": true
+                        }
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
+                },
+                {
+                    "id": "110744509",
+                    "name": "NBL SE Melb-Adelaide AwayPts",
+                    "shortName": "NBL SEM-Adl AwayPts",
+                    "betOption": "Away Total Points",
+                    "betOptionSpectrumId": "2603",
+                    "betOptionPriority": 6565,
+                    "marketUniqueId": 110744509,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "Enabled",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608677",
+                            "name": "Adelaide 0 to 80",
+                            "returnWin": 8.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608677,
+                            "isOpen": true,
+                            "sortOrder": 1,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608678",
+                            "name": "Adelaide 81 to 90",
+                            "returnWin": 4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608678,
+                            "isOpen": true,
+                            "sortOrder": 2,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608679",
+                            "name": "Adelaide 91 to 100",
+                            "returnWin": 2.7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608679,
+                            "isOpen": true,
+                            "sortOrder": 3,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608680",
+                            "name": "Adelaide 101 to 110",
+                            "returnWin": 3.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608680,
+                            "isOpen": true,
+                            "sortOrder": 4,
+                            "sameGame": true
+                        },
+                        {
+                            "id": "608681",
+                            "name": "Adelaide 111+",
+                            "returnWin": 6.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608681,
+                            "isOpen": true,
+                            "sortOrder": 5,
+                            "sameGame": true
+                        }
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733070",
@@ -2813,6 +3189,612 @@
                             "number": 585243,
                             "isOpen": true,
                             "sortOrder": 2
+                        }
+                    ]
+                },
+                {
+                    "id": "110744512",
+                    "name": "NBL SE Melb-Adelaide H1PYOL",
+                    "shortName": "NBL SEM-Adl H1PYOL",
+                    "betOption": "1st Half Pick Your Own Line",
+                    "betOptionSpectrumId": "2486",
+                    "betOptionPriority": 10665,
+                    "marketUniqueId": 110744512,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "PreMatch",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608710",
+                            "name": "South East Melb -13.5",
+                            "returnWin": 5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608710,
+                            "isOpen": true,
+                            "sortOrder": 13
+                        },
+                        {
+                            "id": "608711",
+                            "name": "Adelaide +13.5",
+                            "returnWin": 1.12,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608711,
+                            "isOpen": true,
+                            "sortOrder": 14
+                        },
+                        {
+                            "id": "608712",
+                            "name": "South East Melb -12.5",
+                            "returnWin": 4.75,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608712,
+                            "isOpen": true,
+                            "sortOrder": 15
+                        },
+                        {
+                            "id": "608713",
+                            "name": "Adelaide +12.5",
+                            "returnWin": 1.13,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608713,
+                            "isOpen": true,
+                            "sortOrder": 16
+                        },
+                        {
+                            "id": "608714",
+                            "name": "South East Melb -11.5",
+                            "returnWin": 4.25,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608714,
+                            "isOpen": true,
+                            "sortOrder": 17
+                        },
+                        {
+                            "id": "608715",
+                            "name": "Adelaide +11.5",
+                            "returnWin": 1.17,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608715,
+                            "isOpen": true,
+                            "sortOrder": 18
+                        },
+                        {
+                            "id": "608716",
+                            "name": "South East Melb -10.5",
+                            "returnWin": 3.8,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608716,
+                            "isOpen": true,
+                            "sortOrder": 19
+                        },
+                        {
+                            "id": "608717",
+                            "name": "Adelaide +10.5",
+                            "returnWin": 1.21,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608717,
+                            "isOpen": true,
+                            "sortOrder": 20
+                        },
+                        {
+                            "id": "608718",
+                            "name": "South East Melb -9.5",
+                            "returnWin": 3.4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608718,
+                            "isOpen": true,
+                            "sortOrder": 21
+                        },
+                        {
+                            "id": "608719",
+                            "name": "Adelaide +9.5",
+                            "returnWin": 1.25,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608719,
+                            "isOpen": true,
+                            "sortOrder": 22
+                        },
+                        {
+                            "id": "608720",
+                            "name": "South East Melb -8.5",
+                            "returnWin": 3.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608720,
+                            "isOpen": true,
+                            "sortOrder": 23
+                        },
+                        {
+                            "id": "608721",
+                            "name": "Adelaide +8.5",
+                            "returnWin": 1.3,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608721,
+                            "isOpen": true,
+                            "sortOrder": 24
+                        },
+                        {
+                            "id": "608722",
+                            "name": "South East Melb -7.5",
+                            "returnWin": 2.8,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608722,
+                            "isOpen": true,
+                            "sortOrder": 25
+                        },
+                        {
+                            "id": "608723",
+                            "name": "Adelaide +7.5",
+                            "returnWin": 1.36,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608723,
+                            "isOpen": true,
+                            "sortOrder": 26
+                        },
+                        {
+                            "id": "608724",
+                            "name": "South East Melb -6.5",
+                            "returnWin": 2.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608724,
+                            "isOpen": true,
+                            "sortOrder": 27
+                        },
+                        {
+                            "id": "608725",
+                            "name": "Adelaide +6.5",
+                            "returnWin": 1.42,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608725,
+                            "isOpen": true,
+                            "sortOrder": 28
+                        },
+                        {
+                            "id": "608726",
+                            "name": "South East Melb -5.5",
+                            "returnWin": 2.4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608726,
+                            "isOpen": true,
+                            "sortOrder": 29
+                        },
+                        {
+                            "id": "608727",
+                            "name": "Adelaide +5.5",
+                            "returnWin": 1.48,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608727,
+                            "isOpen": true,
+                            "sortOrder": 30
+                        },
+                        {
+                            "id": "608728",
+                            "name": "South East Melb -4.5",
+                            "returnWin": 2.2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608728,
+                            "isOpen": true,
+                            "sortOrder": 31
+                        },
+                        {
+                            "id": "608729",
+                            "name": "Adelaide +4.5",
+                            "returnWin": 1.57,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608729,
+                            "isOpen": true,
+                            "sortOrder": 32
+                        },
+                        {
+                            "id": "608730",
+                            "name": "South East Melb -3.5",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608730,
+                            "isOpen": true,
+                            "sortOrder": 33
+                        },
+                        {
+                            "id": "608731",
+                            "name": "Adelaide +3.5",
+                            "returnWin": 1.7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608731,
+                            "isOpen": true,
+                            "sortOrder": 34
+                        },
+                        {
+                            "id": "608732",
+                            "name": "South East Melb -2.5",
+                            "returnWin": 1.9,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608732,
+                            "isOpen": true,
+                            "sortOrder": 35
+                        },
+                        {
+                            "id": "608733",
+                            "name": "Adelaide +2.5",
+                            "returnWin": 1.85,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608733,
+                            "isOpen": true,
+                            "sortOrder": 36
+                        },
+                        {
+                            "id": "608734",
+                            "name": "South East Melb -1.5",
+                            "returnWin": 1.73,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608734,
+                            "isOpen": true,
+                            "sortOrder": 37
+                        },
+                        {
+                            "id": "608735",
+                            "name": "Adelaide +1.5",
+                            "returnWin": 1.95,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608735,
+                            "isOpen": true,
+                            "sortOrder": 38
+                        },
+                        {
+                            "id": "608736",
+                            "name": "South East Melb -0.5",
+                            "returnWin": 1.62,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608736,
+                            "isOpen": true,
+                            "sortOrder": 39
+                        },
+                        {
+                            "id": "608737",
+                            "name": "Adelaide +0.5",
+                            "returnWin": 2.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608737,
+                            "isOpen": true,
+                            "sortOrder": 40
+                        },
+                        {
+                            "id": "608738",
+                            "name": "South East Melb +0.5",
+                            "returnWin": 1.55,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608738,
+                            "isOpen": true,
+                            "sortOrder": 41
+                        },
+                        {
+                            "id": "608739",
+                            "name": "Adelaide -0.5",
+                            "returnWin": 2.25,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608739,
+                            "isOpen": true,
+                            "sortOrder": 42
+                        },
+                        {
+                            "id": "608740",
+                            "name": "South East Melb +1.5",
+                            "returnWin": 1.45,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608740,
+                            "isOpen": true,
+                            "sortOrder": 43
+                        },
+                        {
+                            "id": "608741",
+                            "name": "Adelaide -1.5",
+                            "returnWin": 2.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608741,
+                            "isOpen": true,
+                            "sortOrder": 44
+                        },
+                        {
+                            "id": "608742",
+                            "name": "South East Melb +2.5",
+                            "returnWin": 1.39,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608742,
+                            "isOpen": true,
+                            "sortOrder": 45
+                        },
+                        {
+                            "id": "608743",
+                            "name": "Adelaide -2.5",
+                            "returnWin": 2.7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608743,
+                            "isOpen": true,
+                            "sortOrder": 46
+                        },
+                        {
+                            "id": "608744",
+                            "name": "South East Melb +3.5",
+                            "returnWin": 1.34,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608744,
+                            "isOpen": true,
+                            "sortOrder": 47
+                        },
+                        {
+                            "id": "608745",
+                            "name": "Adelaide -3.5",
+                            "returnWin": 2.9,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608745,
+                            "isOpen": true,
+                            "sortOrder": 48
+                        },
+                        {
+                            "id": "608746",
+                            "name": "South East Melb +4.5",
+                            "returnWin": 1.28,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608746,
+                            "isOpen": true,
+                            "sortOrder": 49
+                        },
+                        {
+                            "id": "608747",
+                            "name": "Adelaide -4.5",
+                            "returnWin": 3.2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608747,
+                            "isOpen": true,
+                            "sortOrder": 50
+                        },
+                        {
+                            "id": "608748",
+                            "name": "South East Melb +5.5",
+                            "returnWin": 1.23,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608748,
+                            "isOpen": true,
+                            "sortOrder": 51
+                        },
+                        {
+                            "id": "608749",
+                            "name": "Adelaide -5.5",
+                            "returnWin": 3.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608749,
+                            "isOpen": true,
+                            "sortOrder": 52
+                        },
+                        {
+                            "id": "608750",
+                            "name": "South East Melb +6.5",
+                            "returnWin": 1.19,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608750,
+                            "isOpen": true,
+                            "sortOrder": 53
+                        },
+                        {
+                            "id": "608751",
+                            "name": "Adelaide -6.5",
+                            "returnWin": 4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608751,
+                            "isOpen": true,
+                            "sortOrder": 54
+                        },
+                        {
+                            "id": "608752",
+                            "name": "South East Melb +7.5",
+                            "returnWin": 1.15,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608752,
+                            "isOpen": true,
+                            "sortOrder": 55
+                        },
+                        {
+                            "id": "608753",
+                            "name": "Adelaide -7.5",
+                            "returnWin": 4.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608753,
+                            "isOpen": true,
+                            "sortOrder": 56
+                        },
+                        {
+                            "id": "608754",
+                            "name": "South East Melb +8.5",
+                            "returnWin": 1.12,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608754,
+                            "isOpen": true,
+                            "sortOrder": 57
+                        },
+                        {
+                            "id": "608755",
+                            "name": "Adelaide -8.5",
+                            "returnWin": 5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608755,
+                            "isOpen": true,
+                            "sortOrder": 58
+                        },
+                        {
+                            "id": "608756",
+                            "name": "South East Melb +9.5",
+                            "returnWin": 1.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608756,
+                            "isOpen": true,
+                            "sortOrder": 59
+                        },
+                        {
+                            "id": "608757",
+                            "name": "Adelaide -9.5",
+                            "returnWin": 5.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608757,
+                            "isOpen": true,
+                            "sortOrder": 60
                         }
                     ]
                 },
@@ -3183,6 +4165,162 @@
                     ]
                 },
                 {
+                    "id": "110744510",
+                    "name": "NBL SE Melb-Adelaide 1HTotPts",
+                    "shortName": "NBL SEM-Adl 1HTotPts",
+                    "betOption": "1st Half Total Points",
+                    "betOptionSpectrumId": "1280",
+                    "betOptionPriority": 10765,
+                    "marketUniqueId": 110744510,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "PreMatch",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608688",
+                            "name": "80 Points or Less",
+                            "returnWin": 11,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608688,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "608689",
+                            "name": "81 to 90",
+                            "returnWin": 5.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608689,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "608690",
+                            "name": "91 to 100",
+                            "returnWin": 3.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608690,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        },
+                        {
+                            "id": "608691",
+                            "name": "101 to 110",
+                            "returnWin": 3.2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608691,
+                            "isOpen": true,
+                            "sortOrder": 4
+                        },
+                        {
+                            "id": "608692",
+                            "name": "111 Points or More",
+                            "returnWin": 4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608692,
+                            "isOpen": true,
+                            "sortOrder": 5
+                        }
+                    ]
+                },
+                {
+                    "id": "110744507",
+                    "name": "NBL SE Melb-Adelaide 1stHlf3W",
+                    "shortName": "NBL SEM-Adl 1stHlf3W",
+                    "betOption": "1st Half Total 3-Way",
+                    "betOptionSpectrumId": "1002",
+                    "betOptionPriority": 10775,
+                    "marketUniqueId": 110744507,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "PreMatch",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608685",
+                            "name": "Over 102 Pts",
+                            "returnWin": 2.15,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608685,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "608686",
+                            "name": "99 - 102 Pts",
+                            "returnWin": 6.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608686,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "608687",
+                            "name": "Under 99 Pts",
+                            "returnWin": 2.05,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608687,
+                            "isOpen": true,
+                            "sortOrder": 3
+                        }
+                    ]
+                },
+                {
                     "id": "110733069",
                     "name": "NBL SEM-Adl 1stQtrHH",
                     "shortName": "NBL SEM-Adl 1QtrHH",
@@ -3291,6 +4429,468 @@
                     ]
                 },
                 {
+                    "id": "110744513",
+                    "name": "NBL SE Melb-Adelaide Q1PYOL",
+                    "shortName": "NBL SEM-Adl Q1PYOL",
+                    "betOption": "1st Quarter Pick Your Own Line",
+                    "betOptionSpectrumId": "2488",
+                    "betOptionPriority": 11650,
+                    "marketUniqueId": 110744513,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "PreMatch",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608780",
+                            "name": "South East Melb -9.5",
+                            "returnWin": 5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608780,
+                            "isOpen": true,
+                            "sortOrder": 13
+                        },
+                        {
+                            "id": "608781",
+                            "name": "Adelaide +9.5",
+                            "returnWin": 1.12,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608781,
+                            "isOpen": true,
+                            "sortOrder": 14
+                        },
+                        {
+                            "id": "608782",
+                            "name": "South East Melb -8.5",
+                            "returnWin": 4.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608782,
+                            "isOpen": true,
+                            "sortOrder": 15
+                        },
+                        {
+                            "id": "608783",
+                            "name": "Adelaide +8.5",
+                            "returnWin": 1.15,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608783,
+                            "isOpen": true,
+                            "sortOrder": 16
+                        },
+                        {
+                            "id": "608784",
+                            "name": "South East Melb -7.5",
+                            "returnWin": 3.8,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608784,
+                            "isOpen": true,
+                            "sortOrder": 17
+                        },
+                        {
+                            "id": "608785",
+                            "name": "Adelaide +7.5",
+                            "returnWin": 1.21,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608785,
+                            "isOpen": true,
+                            "sortOrder": 18
+                        },
+                        {
+                            "id": "608786",
+                            "name": "South East Melb -6.5",
+                            "returnWin": 3.4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608786,
+                            "isOpen": true,
+                            "sortOrder": 19
+                        },
+                        {
+                            "id": "608787",
+                            "name": "Adelaide +6.5",
+                            "returnWin": 1.25,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608787,
+                            "isOpen": true,
+                            "sortOrder": 20
+                        },
+                        {
+                            "id": "608788",
+                            "name": "South East Melb -5.5",
+                            "returnWin": 3,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608788,
+                            "isOpen": true,
+                            "sortOrder": 21
+                        },
+                        {
+                            "id": "608789",
+                            "name": "Adelaide +5.5",
+                            "returnWin": 1.32,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608789,
+                            "isOpen": true,
+                            "sortOrder": 22
+                        },
+                        {
+                            "id": "608790",
+                            "name": "South East Melb -4.5",
+                            "returnWin": 2.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608790,
+                            "isOpen": true,
+                            "sortOrder": 23
+                        },
+                        {
+                            "id": "608791",
+                            "name": "Adelaide +4.5",
+                            "returnWin": 1.42,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608791,
+                            "isOpen": true,
+                            "sortOrder": 24
+                        },
+                        {
+                            "id": "608792",
+                            "name": "South East Melb -3.5",
+                            "returnWin": 2.35,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608792,
+                            "isOpen": true,
+                            "sortOrder": 25
+                        },
+                        {
+                            "id": "608793",
+                            "name": "Adelaide +3.5",
+                            "returnWin": 1.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608793,
+                            "isOpen": true,
+                            "sortOrder": 26
+                        },
+                        {
+                            "id": "608794",
+                            "name": "South East Melb -2.5",
+                            "returnWin": 2.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608794,
+                            "isOpen": true,
+                            "sortOrder": 27
+                        },
+                        {
+                            "id": "608795",
+                            "name": "Adelaide +2.5",
+                            "returnWin": 1.62,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608795,
+                            "isOpen": true,
+                            "sortOrder": 28
+                        },
+                        {
+                            "id": "608796",
+                            "name": "South East Melb -1.5",
+                            "returnWin": 1.95,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608796,
+                            "isOpen": true,
+                            "sortOrder": 29
+                        },
+                        {
+                            "id": "608797",
+                            "name": "Adelaide +1.5",
+                            "returnWin": 1.8,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608797,
+                            "isOpen": true,
+                            "sortOrder": 30
+                        },
+                        {
+                            "id": "608798",
+                            "name": "South East Melb -0.5",
+                            "returnWin": 1.73,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608798,
+                            "isOpen": true,
+                            "sortOrder": 31
+                        },
+                        {
+                            "id": "608799",
+                            "name": "Adelaide +0.5",
+                            "returnWin": 1.95,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608799,
+                            "isOpen": true,
+                            "sortOrder": 32
+                        },
+                        {
+                            "id": "608800",
+                            "name": "South East Melb +0.5",
+                            "returnWin": 1.6,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608800,
+                            "isOpen": true,
+                            "sortOrder": 33
+                        },
+                        {
+                            "id": "608801",
+                            "name": "Adelaide -0.5",
+                            "returnWin": 2.15,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608801,
+                            "isOpen": true,
+                            "sortOrder": 34
+                        },
+                        {
+                            "id": "608802",
+                            "name": "South East Melb +1.5",
+                            "returnWin": 1.48,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608802,
+                            "isOpen": true,
+                            "sortOrder": 35
+                        },
+                        {
+                            "id": "608803",
+                            "name": "Adelaide -1.5",
+                            "returnWin": 2.4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608803,
+                            "isOpen": true,
+                            "sortOrder": 36
+                        },
+                        {
+                            "id": "608804",
+                            "name": "South East Melb +2.5",
+                            "returnWin": 1.39,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608804,
+                            "isOpen": true,
+                            "sortOrder": 37
+                        },
+                        {
+                            "id": "608805",
+                            "name": "Adelaide -2.5",
+                            "returnWin": 2.7,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608805,
+                            "isOpen": true,
+                            "sortOrder": 38
+                        },
+                        {
+                            "id": "608806",
+                            "name": "South East Melb +3.5",
+                            "returnWin": 1.32,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608806,
+                            "isOpen": true,
+                            "sortOrder": 39
+                        },
+                        {
+                            "id": "608807",
+                            "name": "Adelaide -3.5",
+                            "returnWin": 3,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608807,
+                            "isOpen": true,
+                            "sortOrder": 40
+                        },
+                        {
+                            "id": "608808",
+                            "name": "South East Melb +4.5",
+                            "returnWin": 1.24,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608808,
+                            "isOpen": true,
+                            "sortOrder": 41
+                        },
+                        {
+                            "id": "608809",
+                            "name": "Adelaide -4.5",
+                            "returnWin": 3.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608809,
+                            "isOpen": true,
+                            "sortOrder": 42
+                        },
+                        {
+                            "id": "608810",
+                            "name": "South East Melb +5.5",
+                            "returnWin": 1.19,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608810,
+                            "isOpen": true,
+                            "sortOrder": 43
+                        },
+                        {
+                            "id": "608811",
+                            "name": "Adelaide -5.5",
+                            "returnWin": 4,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608811,
+                            "isOpen": true,
+                            "sortOrder": 44
+                        },
+                        {
+                            "id": "608812",
+                            "name": "South East Melb +6.5",
+                            "returnWin": 1.15,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608812,
+                            "isOpen": true,
+                            "sortOrder": 45
+                        },
+                        {
+                            "id": "608813",
+                            "name": "Adelaide -6.5",
+                            "returnWin": 4.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608813,
+                            "isOpen": true,
+                            "sortOrder": 46
+                        },
+                        {
+                            "id": "608814",
+                            "name": "South East Melb +7.5",
+                            "returnWin": 1.1,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608814,
+                            "isOpen": true,
+                            "sortOrder": 47
+                        },
+                        {
+                            "id": "608815",
+                            "name": "Adelaide -7.5",
+                            "returnWin": 5.5,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608815,
+                            "isOpen": true,
+                            "sortOrder": 48
+                        }
+                    ]
+                },
+                {
                     "id": "110733071",
                     "name": "NBL SE Melb-Adelaide Qtr1Mrgn",
                     "shortName": "NBL SEM-Adl Qtr1Mrgn",
@@ -3377,6 +4977,72 @@
                             "number": 585241,
                             "isOpen": true,
                             "sortOrder": 5
+                        }
+                    ]
+                },
+                {
+                    "id": "110744508",
+                    "name": "NBL SE Melb-Adelaide Tot3WyQ1",
+                    "shortName": "NBL SEM-Adl Tot3WyQ1",
+                    "betOption": "1st Quarter Total Points 3-Way",
+                    "betOptionSpectrumId": "391",
+                    "betOptionPriority": 11885,
+                    "marketUniqueId": 110744508,
+                    "closeTime": "2025-02-16T03:30:00.000Z",
+                    "bettingStatus": "Open",
+                    "message": null,
+                    "informationMessage": null,
+                    "isFuture": false,
+                    "onlineBetting": true,
+                    "phoneBettingOnly": false,
+                    "inPlay": false,
+                    "goingInPlay": false,
+                    "allowWin": true,
+                    "allowPlace": false,
+                    "allowEachWay": false,
+                    "allowMulti": true,
+                    "allowMultiWin": true,
+                    "allowMultiPlace": false,
+                    "allowMultiEachWay": false,
+                    "numberOfPlaces": 0,
+                    "cashOutEligibility": "PreMatch",
+                    "allowBundle": false,
+                    "propositions": [
+                        {
+                            "id": "608682",
+                            "name": "Over 51 Pts",
+                            "returnWin": 2,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608682,
+                            "isOpen": true,
+                            "sortOrder": 1
+                        },
+                        {
+                            "id": "608683",
+                            "name": "50 - 51 Pts",
+                            "returnWin": 9,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608683,
+                            "isOpen": true,
+                            "sortOrder": 2
+                        },
+                        {
+                            "id": "608684",
+                            "name": "Under 50 Pts",
+                            "returnWin": 2.05,
+                            "returnPlace": 0,
+                            "differential": null,
+                            "bettingStatus": "Open",
+                            "allowPlace": false,
+                            "number": 608684,
+                            "isOpen": true,
+                            "sortOrder": 3
                         }
                     ]
                 },
@@ -3663,14 +5329,15 @@
                         {
                             "id": "585250",
                             "name": "SE Melb by 4+",
-                            "returnWin": 1.77,
+                            "returnWin": 1.73,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585250,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585251",
@@ -3682,21 +5349,25 @@
                             "allowPlace": false,
                             "number": 585251,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585252",
                             "name": "Adelaide by 4+",
-                            "returnWin": 2.8,
+                            "returnWin": 2.9,
                             "returnPlace": 0,
                             "differential": null,
                             "bettingStatus": "Open",
                             "allowPlace": false,
                             "number": 585252,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733075",
@@ -3736,7 +5407,8 @@
                             "allowPlace": false,
                             "number": 585147,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585148",
@@ -3748,7 +5420,8 @@
                             "allowPlace": false,
                             "number": 585148,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         },
                         {
                             "id": "585149",
@@ -3760,9 +5433,12 @@
                             "allowPlace": false,
                             "number": 585149,
                             "isOpen": true,
-                            "sortOrder": 3
+                            "sortOrder": 3,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733078",
@@ -3802,7 +5478,8 @@
                             "allowPlace": false,
                             "number": 585166,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585167",
@@ -3814,9 +5491,12 @@
                             "allowPlace": false,
                             "number": 585167,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733066",
@@ -3856,7 +5536,8 @@
                             "allowPlace": false,
                             "number": 585235,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585236",
@@ -3868,9 +5549,12 @@
                             "allowPlace": false,
                             "number": 585236,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733047",
@@ -3910,7 +5594,8 @@
                             "allowPlace": false,
                             "number": 585248,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585249",
@@ -3922,9 +5607,12 @@
                             "allowPlace": false,
                             "number": 585249,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 },
                 {
                     "id": "110733044",
@@ -3964,7 +5652,8 @@
                             "allowPlace": false,
                             "number": 585038,
                             "isOpen": true,
-                            "sortOrder": 1
+                            "sortOrder": 1,
+                            "sameGame": true
                         },
                         {
                             "id": "585039",
@@ -3976,13 +5665,17 @@
                             "allowPlace": false,
                             "number": 585039,
                             "isOpen": true,
-                            "sortOrder": 2
+                            "sortOrder": 2,
+                            "sameGame": true
                         }
-                    ]
+                    ],
+                    "sameGame": true,
+                    "sameGameMultipleSelections": false
                 }
             ],
             "inPlay": false,
-            "goingInPlay": true
+            "goingInPlay": true,
+            "sameGame": true
         }
     ],
     "tournaments": [],
@@ -4003,15 +5696,22 @@
         "Halftime/Fulltime Margin",
         "Margin Total Double",
         "Total Match Points",
+        "Home Total Points",
+        "Away Total Points",
         "Quarter by Quarter Leader",
         "1st Half Head to Head",
         "1st Half Line",
+        "1st Half Pick Your Own Line",
         "1st Half Margin",
         "1st Half Margin (1-10)",
         "1st Half Super Margin",
+        "1st Half Total Points",
+        "1st Half Total 3-Way",
         "1st Quarter Head to Head",
         "1st Quarter Line",
+        "1st Quarter Pick Your Own Line",
         "1st Quarter Margin",
+        "1st Quarter Total Points 3-Way",
         "1st Quarter Super Margin",
         "Highest Scoring Half",
         "Tri Bet 1-3",
@@ -4143,6 +5843,22 @@
             }
         },
         {
+            "name": "Home Total Points",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=Home%20Total%20Points"
+            }
+        },
+        {
+            "name": "Away Total Points",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=Away%20Total%20Points"
+            }
+        },
+        {
             "name": "Quarter by Quarter Leader",
             "hasFutureMarket": false,
             "openMarketCount": 1,
@@ -4164,6 +5880,14 @@
             "openMarketCount": 1,
             "_links": {
                 "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Half%20Line"
+            }
+        },
+        {
+            "name": "1st Half Pick Your Own Line",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Half%20Pick%20Your%20Own%20Line"
             }
         },
         {
@@ -4191,6 +5915,22 @@
             }
         },
         {
+            "name": "1st Half Total Points",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Half%20Total%20Points"
+            }
+        },
+        {
+            "name": "1st Half Total 3-Way",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Half%20Total%203-Way"
+            }
+        },
+        {
             "name": "1st Quarter Head to Head",
             "hasFutureMarket": false,
             "openMarketCount": 1,
@@ -4207,11 +5947,27 @@
             }
         },
         {
+            "name": "1st Quarter Pick Your Own Line",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Quarter%20Pick%20Your%20Own%20Line"
+            }
+        },
+        {
             "name": "1st Quarter Margin",
             "hasFutureMarket": false,
             "openMarketCount": 1,
             "_links": {
                 "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Quarter%20Margin"
+            }
+        },
+        {
+            "name": "1st Quarter Total Points 3-Way",
+            "hasFutureMarket": false,
+            "openMarketCount": 1,
+            "_links": {
+                "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&betOptionName=1st%20Quarter%20Total%20Points%203-Way"
             }
         },
         {
@@ -5289,5 +7045,6 @@
             ]
         }
     ],
-    "hasFuturePredictions": false
+    "hasFuturePredictions": false,
+    "sameGame": true
 }
