@@ -18,7 +18,7 @@ safe_subscript <- function(x, index) {
 }
 
 # Supercoach API URL
-url = "https://supercoach.dailytelegraph.com.au/2024/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=5&xredir=1"
+url = "https://supercoach.dailytelegraph.com.au/2025/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=5&xredir=1"
 
 # Make request
 req <- request(url)

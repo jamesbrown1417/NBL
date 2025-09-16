@@ -11,7 +11,7 @@ library(tidyverse)
 
 combined_stats_table <-
     read_rds("Data/combined_stats_table.rds") |> 
-    filter(season == "2023-2024")
+    filter(season == "2025-2026")
 
 #===============================================================================
 # Get opposition team data

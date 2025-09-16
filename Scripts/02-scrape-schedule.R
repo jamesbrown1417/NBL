@@ -1,6 +1,6 @@
 ##%######################################################%##
 #                                                          #
-####              Scrape the 2023-2024 NBL              ####
+####              Scrape the 2025-2026 NBL              ####
 ####           season schedule from wikipedia           ####
 #                                                          #
 ##%######################################################%##
@@ -21,7 +21,7 @@ source("Scripts/04-helper-functions.R")
 #===============================================================================
 
 # Read in HTML Downloaded from flashscore
-nbl_schedule_html <- read_html("Data/flashscore_nbl_schedule_2023_2024.txt")
+# nbl_schedule_html <- read_html("Data/flashscore_nbl_schedule_2025_2026.txt")
 
 # Get Home Teams
 home_teams <-
@@ -113,8 +113,8 @@ nbl_schedule <-
     select(round = 2, home_team = 1, away_team = 3, start_time = 5) %>% 
     mutate(start_time = if_else(
         str_sub(start_time, 4, 5) %in% c("09", "10", "11", "12"),
-        str_replace(start_time, "\\d{2}\\.\\d{2}\\.", paste0(str_sub(start_time, 1, 5), ".2023")),
-        str_replace(start_time, "\\d{2}\\.\\d{2}\\.", paste0(str_sub(start_time, 1, 5), ".2024"))
+        str_replace(start_time, "\\d{2}\\.\\d{2}\\.", paste0(str_sub(start_time, 1, 5), ".2025")),
+        str_replace(start_time, "\\d{2}\\.\\d{2}\\.", paste0(str_sub(start_time, 1, 5), ".2026"))
     )) |> 
     mutate(start_time = dmy_hm(start_time)) |> 
     arrange(start_time)
@@ -128,7 +128,7 @@ nbl_schedule <-
     relocate(match, .before = round)
 
 # Write out data
-write_rds(nbl_schedule, "Data/season_schedule_2023_2024.rds")
+write_rds(nbl_schedule, "Data/season_schedule_2025_2026.rds")
 
 # Get number of times a team appears in a given round---------------------------
 

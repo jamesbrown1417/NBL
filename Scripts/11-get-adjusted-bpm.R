@@ -15,7 +15,7 @@ all_pbp_data <- nblR::nbl_pbp()
 # Get only the data for the current season
 current_season_pbp <-
     all_pbp_data |>
-    filter(season == "2024-2025")
+    filter(season == "2025-2026")
 
 calculate_adjusted_bpm <- function(match_id_num) {
     # Get Match PBP Data

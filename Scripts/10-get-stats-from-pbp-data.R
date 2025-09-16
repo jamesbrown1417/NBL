@@ -15,7 +15,7 @@ all_pbp_data <- nblR::nbl_pbp()
 # Get only the data for the current season
 current_season_pbp <-
     all_pbp_data |>
-    filter(season == "2024-2025")
+    filter(season == "2025-2026")
 
 calculate_offensive_pace <- function(match_id) {
     #===============================================================================
@@ -170,10 +170,10 @@ calculate_offensive_pace <- function(match_id) {
 # Map function to each match this season
 #===============================================================================
 
-# Get all match IDs from the 2024/2025 season
+# Get all match IDs from the 2025/2026 season
 match_ids <- all_pbp_data %>%
     filter(!is.na(match_id)) %>%
-    filter(season == "2024-2025") %>%
+    filter(season == "2025-2026") %>%
     pull(match_id) %>%
     unique()
 

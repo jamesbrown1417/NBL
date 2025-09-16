@@ -92,7 +92,7 @@ get_player_correlation <- function(seasons = NULL, name_a, name_b, metric_a, met
 #===============================================================================
 
 # Get all player combinations for a given team----------------------------------
-get_all_player_combinations <- function(team_name, seasons = c("2023-2024")) {
+get_all_player_combinations <- function(team_name, seasons = c("2025-2026")) {
     # Preparing team_players data frame
     team_players <- 
         all_player_stats %>% 
@@ -129,7 +129,7 @@ safe_get_player_correlation <- safely(get_player_correlation, otherwise = c(NULL
 player_correlations_sem <- 
     get_all_player_combinations("South East Melbourne Phoenix") |> 
     select(-seasons) |> 
-    pmap(safe_get_player_correlation, .progress = TRUE, seasons = c("2022-2023", "2023-2024"))
+    pmap(safe_get_player_correlation, .progress = TRUE, seasons = c("2024-2025", "2025-2026"))
 
 # Filter out NULL values
 player_correlations_sem <- 

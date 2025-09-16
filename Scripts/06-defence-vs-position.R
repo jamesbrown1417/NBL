@@ -51,7 +51,7 @@ get_dvp <- function(team, stat, offset = 0) {
     # Stats
     stats_table <-
     combined_stats_table |> 
-        filter(season == "2023-2024") |> 
+        filter(season == "2025-2026") |> 
         mutate(minutes_played = period_to_seconds(ms(player_minutes)) / 60) |> 
         filter(minutes_played >= 5) |> 
         transmute(player_name = paste(first_name, family_name),
