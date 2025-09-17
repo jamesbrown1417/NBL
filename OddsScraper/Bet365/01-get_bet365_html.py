@@ -1,69 +1,129 @@
+"""
+Single-run Bet365 scraper using one driverless Chrome instance.
+
+Performs both steps in order:
+1) Load main market page and save H2H HTML
+2) Collect player prop URLs and save each match's player HTML
+"""
+
 # Import Modules=============================================================
 from selenium_driverless import webdriver
 from selenium_driverless.types.by import By
 from datetime import datetime
+import asyncio
 
 # Get current timestamp=======================================================
 now = datetime.now()
 time_stamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
-# Get H2H HTML===============================================================
-import asyncio
+
+async def collect_h2h_and_urls(driver):
+    """Navigate to main page, save H2H HTML, and return list of player URLs."""
+    await driver.get('https://www.bet365.com.au/#/AC/B18/C21084266/D48/E1453/F10')
+    await driver.sleep(0.1)
+
+    # Wait up to 100s for market container then dump HTML
+    elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=100)
+    body_html = await elem.get_attribute('outerHTML')
+
+    with open("OddsScraper/Bet365/HTML/h2h_html.txt", 'w') as f:
+        f.write(body_html)
+
+    # Find team rows to discover match URLs
+    team_elements = await driver.find_elements(By.XPATH, "//div[contains(@class, 'scb-ParticipantFixtureDetailsHigherBasketball_TeamNames')]")
+
+    for team_element in team_elements:
+        try:
+            print(await team_element.get_attribute('innerText'))
+        except Exception:
+            pass
+
+    player_urls = []
+    for index in range(len(team_elements)):
+        # Re-find elements as DOM may refresh
+        team_elements = await driver.find_elements(By.XPATH, "//div[contains(@class, 'scb-ParticipantFixtureDetailsHigherBasketball_TeamNames')]")
+
+        await driver.execute_script("arguments[0].scrollIntoView(true);", team_elements[index])
+        await driver.execute_script("window.scrollBy(0, -150)")
+        await driver.sleep(0.1)
+
+        await team_elements[index].click()
+
+        cur_url = await driver.current_url
+        modified_player_url = cur_url + "I43/"
+        player_urls.append(modified_player_url)
+
+        await driver.back()
+
+    # Optionally persist URL list for debugging/traceability
+    try:
+        with open("OddsScraper/Bet365/player_urls.csv", 'w') as f:
+            f.write('\n'.join(player_urls))
+    except Exception:
+        pass
+
+    return player_urls
+
+
+async def scrape_player_pages(driver, player_urls):
+    """Iterate player URLs, expand sections, and save player HTML per match."""
+    for index, url in enumerate(player_urls, start=1):
+        try:
+            await driver.get(url)
+
+            # Wait for a market group button to appear
+            await driver.find_element(By.XPATH, "//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text ')]", timeout=5)
+            print(f"Getting URL {url} which is match {index}")
+
+            # Expand standard markets if present
+            async def maybe_click(xpath_text, label):
+                try:
+                    el = await driver.find_element(By.XPATH, f"//div[contains(@class, 'cm-MarketGroupWithIconsButton_Text') and text()='{xpath_text}']")
+                    await driver.execute_script("arguments[0].scrollIntoView(true);", el)
+                    await driver.execute_script("window.scrollBy(0, -150)")
+                    await el.click()
+                    print(f"Clicked {label}")
+                    await driver.sleep(1)
+                except Exception:
+                    print(f"No {label} button was found")
+
+            await maybe_click('Assists O/U', 'Player Assists')
+            await maybe_click('Assists', 'Player Assists Milestones')
+            await maybe_click('Rebounds O/U', 'Player Rebounds')
+            await maybe_click('Rebounds', 'Player Rebounds Milestones')
+            await maybe_click('Threes Made O/U', 'Player Threes Made')
+            await maybe_click('Threes Made', 'Player Threes Made Milestones')
+
+            # Click all visible "Show more" buttons
+            button_elements = await driver.find_elements(By.XPATH, "//div[contains(@class, 'msl-ShowMore_Link ') and contains(text(), 'Show more')]")
+            for button_element in button_elements:
+                try:
+                    await driver.execute_script("arguments[0].scrollIntoView(true);", button_element)
+                    await driver.execute_script("window.scrollBy(0, -150)")
+                    await button_element.click()
+                    await driver.sleep(1)
+                except Exception:
+                    pass
+
+            # Grab and write the player page HTML for this match
+            elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'wcl-PageContainer_Colcontainer ')]")
+            body_html_players = await elem.get_attribute('outerHTML')
+            with open(f"OddsScraper/Bet365/HTML/body_html_players_match_{index}.txt", 'w') as f:
+                f.write(body_html_players)
+
+        except Exception as e:
+            print(f"An error occurred with URL {url}: {e}. Moving to the next URL.")
+            continue
+
 
 async def main():
     options = webdriver.ChromeOptions()
     # options.add_argument("--headless=True")
 
     async with webdriver.Chrome(options=options) as driver:
-        await driver.get('https://www.bet365.com.au/#/AC/B18/C21084266/D48/E1453/F10')
-        await driver.sleep(0.1)
-        
-        # wait 100s for elem to exist
-        elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=100)
-        body_html = await elem.get_attribute('outerHTML')
-        
-        # Write html to file - overwrite existing file
-        with open(f"OddsScraper/Bet365/HTML/h2h_html.txt", 'w') as f:
-            f.write(body_html)
-        
-        # Get all occurences of src-ParticipantFixtureDetailsHigher_Team, we want to click on each one
-        team_elements = await driver.find_elements(By.XPATH, "//div[contains(@class, 'scb-ParticipantFixtureDetailsHigherBasketball_TeamNames')]")
-        
-        # Print team elements inner text
-        for team_element in team_elements:
-            print(await team_element.get_attribute('innerText'))
-        
-        # URL List
-        player_url_list = []
-        
-        for index in range(len(team_elements)):
-            # Get the team elements again as the page has been refreshed
-            team_elements = await driver.find_elements(By.XPATH, "//div[contains(@class, 'scb-ParticipantFixtureDetailsHigherBasketball_TeamNames')]")
-            
-            # Scroll into view, in the middle of screen
-            await driver.execute_script("arguments[0].scrollIntoView(true);", team_elements[index])
-            await driver.execute_script("window.scrollBy(0, -150)")
-            
-            # Wait 5 seconds
-            await driver.sleep(0.1)
-            
-            # Click on the current element
-            await team_elements[index].click()
-            
-            # Get Current URL
-            cur_url = await driver.current_url
+        player_urls = await collect_h2h_and_urls(driver)
+        await scrape_player_pages(driver, player_urls)
 
-            # Append 'I43/' to URL
-            modified_player_url = cur_url + "I43/"
-            
-            player_url_list.append(modified_player_url)
-            
-            # Go back to the previous page
-            await driver.back()
-            
-        # Write URL as a csv    
-        player_url_list = '\n'.join(player_url_list)
-        with open(f"OddsScraper/Bet365/player_urls.csv", 'w') as f:
-           f.write(player_url_list)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

@@ -344,19 +344,17 @@ alternate_rebounds_cols <-
     bet365_player_markets[[alternate_rebounds_index]] |>
     html_elements(".gl-Market_General")
 
-alternate_rebounds_3_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^3$"))
+# alternate_rebounds_3_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^3$"))
 alternate_rebounds_5_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^5$"))
 alternate_rebounds_7_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^7$"))
 alternate_rebounds_10_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "10"))
 alternate_rebounds_13_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "13"))
-alternate_rebounds_15_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "15"))
-alternate_rebounds_17_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "17"))
 
 # Get Odds for each rebounds range
-alternate_rebounds_3_odds <-
-    alternate_rebounds_cols[[alternate_rebounds_3_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
+#alternate_rebounds_3_odds <-
+#    alternate_rebounds_cols[[alternate_rebounds_3_index]] |>
+#    html_elements(".gl-ParticipantOddsOnly_Odds") |>
+#    html_text()
 
 alternate_rebounds_5_odds <-
     alternate_rebounds_cols[[alternate_rebounds_5_index]] |>
@@ -389,13 +387,13 @@ alternate_rebounds_17_odds <-
     html_text()
 
 # Create Alternate Player Rebounds Tables
-alternate_rebounds_3 <-
-    tibble(player = alternate_rebounds_players,
-           # team = alternate_rebounds_teams,
-           line = 3,
-           over_price = as.numeric(alternate_rebounds_3_odds)) |>
-    mutate(market_name = "Alternate Player Rebounds") |>
-    mutate(agency = "Bet365")
+#alternate_rebounds_3 <-
+ #   tibble(player = alternate_rebounds_players,
+  #         # team = alternate_rebounds_teams,
+   #        line = 3,
+    #       over_price = as.numeric(alternate_rebounds_3_odds)) |>
+    #mutate(market_name = "Alternate Player Rebounds") |>
+    #mutate(agency = "Bet365")
 
 alternate_rebounds_5 <-
     tibble(player = alternate_rebounds_players,
@@ -429,26 +427,11 @@ alternate_rebounds_13 <-
     mutate(market_name = "Alternate Player Rebounds") |>
     mutate(agency = "Bet365")
 
-alternate_rebounds_15 <-
-    tibble(player = alternate_rebounds_players,
-           # team = alternate_rebounds_teams,
-           line = 15,
-           over_price = as.numeric(alternate_rebounds_15_odds)) |>
-    mutate(market_name = "Alternate Player Rebounds") |>
-    mutate(agency = "Bet365")
-
-alternate_rebounds_17 <-
-    tibble(player = alternate_rebounds_players,
-           # team = alternate_rebounds_teams,
-           line = 17,
-           over_price = as.numeric(alternate_rebounds_17_odds)) |>
-    mutate(market_name = "Alternate Player Rebounds") |>
-    mutate(agency = "Bet365")
-
 # Combine
 alternate_player_rebounds <-
-    bind_rows(alternate_rebounds_3, alternate_rebounds_5, alternate_rebounds_7, alternate_rebounds_10,
-              alternate_rebounds_13, alternate_rebounds_15, alternate_rebounds_17) |> 
+    bind_rows(#alternate_rebounds_3,
+         alternate_rebounds_5, alternate_rebounds_7, alternate_rebounds_10,
+              alternate_rebounds_13) |> 
     filter(!is.na(over_price))
 
 #=============================================================================
