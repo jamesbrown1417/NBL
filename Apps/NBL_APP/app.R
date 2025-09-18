@@ -224,8 +224,7 @@ ui <- page_navbar(
             selected = c("2021-2022",
                          "2022-2023",
                          "2023-2024",
-                         "2024-2025",
-                         "2025-2026")
+                         "2024-2025")
           ),
           selectInput(
             inputId = "stat_input_a",
@@ -350,7 +349,7 @@ ui <- page_navbar(
                             label = "Max Odds",
                             value = NA
                           ),
-                          markdown(mds = c("__Select Difference Range 2025:__")),
+                          markdown(mds = c("__Select Difference Range 2024:__")),
                           numericInput(
                             inputId = "diff_minimum_24",
                             label = "Min Diff",
@@ -793,13 +792,13 @@ server <- function(input, output) {
     if (!is.na(input$diff_minimum_24)) {
       odds <-
         odds |>
-        filter(diff_over_2025_26 >= input$diff_minimum_24)
+        filter(diff_over_2024_25 >= input$diff_minimum_24)
     }
     
     if (!is.na(input$diff_maximum_24)) {
       odds <-
         odds |>
-        filter(diff_over_2025_26 <= input$diff_maximum_24)
+        filter(diff_over_2024_25 <= input$diff_maximum_24)
     }
     
     # Odds Range

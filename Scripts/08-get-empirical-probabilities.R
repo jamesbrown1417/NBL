@@ -42,21 +42,24 @@ combined_stats_table <-
 combined_stats_2023_2024 <-
     combined_stats_table |>
     filter(season == "2023-2024") |>
-    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
+    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes, player_minutes) |>
+    mutate(PRA = PTS + REB + AST) |>
     mutate(season = "2023_2024")
 
 # Create season data - 2024-2025
 combined_stats_2024_2025 <-
     combined_stats_table |>
     filter(season == "2024-2025") |>
-    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
+    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes, player_minutes) |>
+    mutate(PRA = PTS + REB + AST) |>
     mutate(season = "2024_2025")
 
 # Create season data - 2025-2026
 combined_stats_2025_2026 <-
     combined_stats_table |>
     filter(season == "2025-2026") |>
-    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes) |>
+    select(PLAYER_NAME, match_time_utc, PTS, REB, AST, STL, BLK, Threes, player_minutes) |>
+    mutate(PRA = PTS + REB + AST) |>
     mutate(season = "2025_2026")
 
 #===============================================================================
@@ -67,29 +70,29 @@ get_empirical_prob <- function(player_name, line, stat, season) {
     
     # Choose the data based on the selected season
     if (season == "2023_2024") {
-        player_stats <- combined_stats_2023_2024 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
+        player_stats <- combined_stats_2023_2024 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(player_minutes))
         # For last-10 context, use 2023_2024 + 2024_2025
         both_seasons_data <-
             combined_stats_2023_2024 |>
             bind_rows(combined_stats_2024_2025) |> 
             filter(PLAYER_NAME == player_name) |>
-            filter(!is.na(minutes))
+            filter(!is.na(player_minutes))
     } else if (season == "2024_2025") {
-        player_stats <- combined_stats_2024_2025 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
+        player_stats <- combined_stats_2024_2025 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(player_minutes))
         # For last-10 context, use 2023_2024 + 2024_2025
         both_seasons_data <-
             combined_stats_2023_2024 |>
             bind_rows(combined_stats_2024_2025) |> 
             filter(PLAYER_NAME == player_name) |>
-            filter(!is.na(minutes))
+            filter(!is.na(player_minutes))
     } else if (season == "2025_2026") {
-        player_stats <- combined_stats_2025_2026 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(minutes))
+        player_stats <- combined_stats_2025_2026 |> filter(PLAYER_NAME == player_name) |> filter(!is.na(player_minutes))
         # For last-10 context, use 2024_2025 + 2025_2026
         both_seasons_data <-
             combined_stats_2024_2025 |>
             bind_rows(combined_stats_2025_2026) |> 
             filter(PLAYER_NAME == player_name) |>
-            filter(!is.na(minutes))
+            filter(!is.na(player_minutes))
     } else {
         stop("Invalid season selected")
     }

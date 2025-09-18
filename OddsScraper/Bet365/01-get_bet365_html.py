@@ -11,6 +11,13 @@ from selenium_driverless import webdriver
 from selenium_driverless.types.by import By
 from datetime import datetime
 import asyncio
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+username = os.getenv('BET365USER')
+password = os.getenv('BET365PW')
 
 # Get current timestamp=======================================================
 now = datetime.now()
@@ -20,8 +27,29 @@ time_stamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 async def collect_h2h_and_urls(driver):
     """Navigate to main page, save H2H HTML, and return list of player URLs."""
     await driver.get('https://www.bet365.com.au/#/AC/B18/C21084266/D48/E1453/F10')
-    await driver.sleep(0.1)
+    await driver.sleep(2)
 
+    # Attempt login
+    login_element = await driver.find_element(By.XPATH, "//div[contains(@class, 'hm-MainHeaderRHSLoggedOutWide_Login')]", timeout=10)
+    await login_element.click()
+    await driver.sleep(1)
+
+    username_field = await driver.find_element(By.XPATH, "//input[@placeholder='Username or email address']", timeout=10)
+    await username_field.clear()
+    await driver.sleep(0.3)
+    await username_field.send_keys(username)
+    print(f"Set username via send_keys: {username}")
+
+    password_field = await driver.find_element(By.XPATH, "//input[@placeholder='Password']", timeout=10)
+    await password_field.clear()
+    await driver.sleep(0.3)
+    await password_field.send_keys(password)
+    print(f"Set password via send_keys: {password}")
+
+    login_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'lms-LoginButton ')]", timeout=5)
+    await login_button.click()
+    print("Clicked login button")
+    
     # Wait up to 100s for market container then dump HTML
     elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=100)
     body_html = await elem.get_attribute('outerHTML')
