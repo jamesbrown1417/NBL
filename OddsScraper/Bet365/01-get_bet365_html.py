@@ -50,8 +50,8 @@ async def collect_h2h_and_urls(driver):
     await login_button.click()
     print("Clicked login button")
     
-    # Wait up to 100s for market container then dump HTML
-    elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=100)
+    # Wait up to 10s for market container then dump HTML
+    elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=10)
     body_html = await elem.get_attribute('outerHTML')
 
     with open("OddsScraper/Bet365/HTML/h2h_html.txt", 'w') as f:
