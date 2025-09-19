@@ -348,7 +348,6 @@ alternate_rebounds_cols <-
 alternate_rebounds_5_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^5$"))
 alternate_rebounds_7_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "^7$"))
 alternate_rebounds_10_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "10"))
-alternate_rebounds_13_index <- which(str_detect(alternate_rebounds_cols |> html_node(".srb-HScrollPlaceHeader ") |> html_text(), "13"))
 
 # Get Odds for each rebounds range
 #alternate_rebounds_3_odds <-
@@ -368,21 +367,6 @@ alternate_rebounds_7_odds <-
 
 alternate_rebounds_10_odds <-
     alternate_rebounds_cols[[alternate_rebounds_10_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
-
-alternate_rebounds_13_odds <-
-    alternate_rebounds_cols[[alternate_rebounds_13_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
-
-alternate_rebounds_15_odds <-
-    alternate_rebounds_cols[[alternate_rebounds_15_index]] |>
-    html_elements(".gl-ParticipantOddsOnly_Odds") |>
-    html_text()
-
-alternate_rebounds_17_odds <-
-    alternate_rebounds_cols[[alternate_rebounds_17_index]] |>
     html_elements(".gl-ParticipantOddsOnly_Odds") |>
     html_text()
 
@@ -419,19 +403,10 @@ alternate_rebounds_10 <-
     mutate(market_name = "Alternate Player Rebounds") |>
     mutate(agency = "Bet365")
 
-alternate_rebounds_13 <-
-    tibble(player = alternate_rebounds_players,
-           # team = alternate_rebounds_teams,
-           line = 13,
-           over_price = as.numeric(alternate_rebounds_13_odds)) |>
-    mutate(market_name = "Alternate Player Rebounds") |>
-    mutate(agency = "Bet365")
-
 # Combine
 alternate_player_rebounds <-
     bind_rows(#alternate_rebounds_3,
-         alternate_rebounds_5, alternate_rebounds_7, alternate_rebounds_10,
-              alternate_rebounds_13) |> 
+         alternate_rebounds_5, alternate_rebounds_7, alternate_rebounds_10) |> 
     filter(!is.na(over_price))
 
 #=============================================================================
