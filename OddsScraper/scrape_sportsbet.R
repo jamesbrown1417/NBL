@@ -316,6 +316,8 @@ player_points_alternate <-
     mutate(line = str_extract(prop_market_name, "\\d{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     rename(player_name = selection_name_prop) |> 
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -345,6 +347,8 @@ player_points_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -373,6 +377,8 @@ player_points_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -441,6 +447,8 @@ player_assists_alternate <-
     mutate(line = str_extract(prop_market_name, "\\d{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     rename(player_name = selection_name_prop) |> 
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -470,6 +478,8 @@ player_assists_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -498,6 +508,8 @@ player_assists_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -566,6 +578,8 @@ player_rebounds_alternate <-
     mutate(line = str_extract(prop_market_name, "\\d{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     rename(player_name = selection_name_prop) |> 
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -595,6 +609,8 @@ player_rebounds_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -623,6 +639,8 @@ player_rebounds_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -690,6 +708,8 @@ player_threes_alternate <-
     mutate(line = str_extract(prop_market_name, "\\d{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     rename(player_name = selection_name_prop) |> 
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
@@ -719,6 +739,8 @@ player_threes_over <-
     filter(str_detect(selection_name_prop, "Over")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(over_price = prop_market_price) |> 
     left_join(match_table) |> 
@@ -747,6 +769,8 @@ player_threes_under <-
     filter(str_detect(selection_name_prop, "Under")) |> 
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
+    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
     rename(line = handicap) |> 
     rename(under_price = prop_market_price) |> 
     left_join(match_table) |> 
