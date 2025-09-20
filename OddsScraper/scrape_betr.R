@@ -220,6 +220,8 @@ if (nrow(bluebet_player_points) != 0) {
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
         mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+        mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+        mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -263,6 +265,8 @@ if (nrow(bluebet_player_assists) != 0) {
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
         mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+        mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+        mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -306,6 +310,8 @@ if (nrow(bluebet_player_rebounds) != 0) {
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
         mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
+        mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
+        mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
         left_join(player_names_teams[, c("player_full_name", "player_team")],
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
