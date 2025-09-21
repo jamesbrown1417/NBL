@@ -578,98 +578,51 @@ dabble_player_blocks_markets <-
 
 player_names_unique <-
     player_names_teams |>
-    select(player_name = player_full_name, player_team) |> 
-    mutate(player_name = case_when(
-        str_detect(player_name, "Jordan Crawford") ~ "Jordon Crawford",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    ))
+    select(player_name = player_full_name, player_team)
 
 # Fix player names--------------------------------------------------------------
 
 # Points
 dabble_player_points_markets <-
     dabble_player_points_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Rebounds
 dabble_player_rebounds_markets <-
     dabble_player_rebounds_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Assists
 dabble_player_assists_markets <-
     dabble_player_assists_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Steals
 dabble_player_steals_markets <-
     dabble_player_steals_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Blocks
 dabble_player_blocks_markets <-
     dabble_player_blocks_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Threes
 dabble_player_threes_markets <-
     dabble_player_threes_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # PRAs
 dabble_player_pras_markets <-
     dabble_player_pras_markets |>
-    mutate(player_name = case_when(
-        str_detect(player_name, "Matt Dellavedova") ~ "Matthew Dellavedova",
-        str_detect(player_name, "^Jo Lual-Acuil$") ~ "Jo Lual-Acuil Jr",
-        str_detect(player_name, "Jo Lual-Acuil Jr\\.") ~ "Jo Lual-Acuil Jr",
-        .default = player_name
-    )) |>
-    left_join(player_names_unique,
-              by = c("player_name"))
+    mutate(player_name = fix_player_names(player_name)) |>
+    left_join(player_names_unique, by = c("player_name"))
 
 # Fix Team Names----------------------------------------------------------------
 

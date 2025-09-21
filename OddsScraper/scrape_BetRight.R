@@ -196,12 +196,7 @@ betright_player_points <-
     separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
-    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
-    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -247,12 +242,7 @@ betright_player_rebounds <-
     separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
-    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
-    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -298,12 +288,7 @@ betright_player_assists <-
     separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
-    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
-    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -350,12 +335,7 @@ betright_player_pras <-
     separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
-    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
-    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -402,12 +382,7 @@ betright_player_threes <-
     separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
     mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
     mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = str_replace(player_name, "^Mitch", "Mitchell")) |>
-    mutate(player_name = str_replace(player_name, "^William", "Will")) |>
-    mutate(player_name = str_replace(player_name, "Matthew William Dellavedova", "Matthew Dellavedova")) |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "Lee Jr.", "Lee")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>

@@ -211,11 +211,7 @@ pointsbet_data_player_props <- map_df(match_urls, get_player_props)
 # Fix player names
 pointsbet_data_player_props <-
     pointsbet_data_player_props |>
-    mutate(outcome = str_replace_all(outcome, "Byrce", "Bryce")) |>
-    mutate(outcome = str_replace_all(outcome, "Jordon", "Jordan")) |> 
-    mutate(outcome = str_replace_all(outcome, "Gary Brown$", "Gary Browne")) |>
-    mutate(outcome = str_replace_all(outcome, "Delaney", "Delany")) |>
-    mutate(outcome = str_replace_all(outcome, "Le Afa", "Le'Afa"))
+    mutate(outcome = fix_player_names(outcome))
 
 #===============================================================================
 # Player Points
@@ -229,9 +225,7 @@ pointsbet_player_points_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Points")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
-    mutate(outcome = str_replace(outcome, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(outcome = str_replace(outcome, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(outcome = fix_player_names(outcome)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -256,7 +250,7 @@ pointsbet_player_points_lines <-
 pointsbet_player_points_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Points Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
+    mutate(outcome = fix_player_names(outcome))
 
 # Get Overs
 pointsbet_player_points_over <-
@@ -264,8 +258,7 @@ pointsbet_player_points_over <-
     filter(outcome_type == "Over") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Over ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -291,8 +284,7 @@ pointsbet_player_points_under <-
     filter(outcome_type == "Under") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Under ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -343,9 +335,7 @@ pointsbet_player_assists_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Assists")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
-    mutate(outcome = str_replace(outcome, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(outcome = str_replace(outcome, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(outcome = fix_player_names(outcome)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -370,7 +360,7 @@ pointsbet_player_assists_lines <-
 pointsbet_player_assists_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Assists Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
+    mutate(outcome = fix_player_names(outcome))
 
 # Get Overs
 pointsbet_player_assists_over <-
@@ -378,8 +368,7 @@ pointsbet_player_assists_over <-
     filter(outcome_type == "Over") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Over ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -405,8 +394,7 @@ pointsbet_player_assists_under <-
     filter(outcome_type == "Under") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Under ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -458,9 +446,7 @@ pointsbet_player_rebounds_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Rebounds")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
-    mutate(outcome = str_replace(outcome, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(outcome = str_replace(outcome, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(outcome = fix_player_names(outcome)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -485,7 +471,7 @@ pointsbet_player_rebounds_lines <-
 pointsbet_player_rebounds_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Rebounds Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
+    mutate(outcome = fix_player_names(outcome))
 
 # Get Overs
 pointsbet_player_rebounds_over <-
@@ -493,8 +479,7 @@ pointsbet_player_rebounds_over <-
     filter(outcome_type == "Over") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Over ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -520,8 +505,7 @@ pointsbet_player_rebounds_under <-
     filter(outcome_type == "Under") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Under ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -572,9 +556,7 @@ pointsbet_player_threes_lines <-
     filter(str_detect(market, "To Get [0-9]{1,2}\\+ Threes")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell")) |> 
-    mutate(outcome = str_replace(outcome, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(outcome = str_replace(outcome, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(outcome = fix_player_names(outcome)) |>
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("outcome" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
     transmute(
@@ -599,7 +581,7 @@ pointsbet_player_threes_lines <-
 pointsbet_player_threes_over_under <-
     pointsbet_data_player_props |>
     filter(str_detect(market, "Player Threes Over/Under")) |>
-    mutate(outcome = str_replace_all(outcome, "^Mitch", "Mitchell"))
+    mutate(outcome = fix_player_names(outcome))
 
 # Get Overs
 pointsbet_player_threes_over <-
@@ -607,8 +589,7 @@ pointsbet_player_threes_over <-
     filter(outcome_type == "Over") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Over ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
@@ -634,8 +615,7 @@ pointsbet_player_threes_under <-
     filter(outcome_type == "Under") |>
     mutate(player_name = outcome) |>
     separate(outcome, into = c("player_name", "line"), sep = " Under ") |>
-    mutate(player_name = str_replace(player_name, "Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr")) |>
-    mutate(player_name = str_replace(player_name, "^Jo Lual-Acuil$", "Jo Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     mutate(line = as.numeric(line)) |> 
     left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>

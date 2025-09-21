@@ -215,9 +215,7 @@ tab_player_points_markets <-
 # Add first initial for players who were not given one
 tab_player_points_markets <-
     tab_player_points_markets |> 
-    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
-    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
+    mutate(player_name = fix_player_initials(player_name))
 
 # Separate player name into first and last name
 tab_player_points_markets <-
@@ -225,12 +223,7 @@ tab_player_points_markets <-
     separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
     mutate(first_initial = substr(first_name, 1, 1)) |> 
     mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
-    mutate(player_name = str_replace_all(player_name, "Delaney", "Delany")) |>
-    mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
-    mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
-    mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
-    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -301,9 +294,7 @@ tab_player_assists_markets <-
 # Add first initial for players who were not given one
 tab_player_assists_markets <-
     tab_player_assists_markets |> 
-    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
-    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
+    mutate(player_name = fix_player_initials(player_name))
 
 # Separate player name into first and last name
 tab_player_assists_markets <-
@@ -311,12 +302,7 @@ tab_player_assists_markets <-
     separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
     mutate(first_initial = substr(first_name, 1, 1)) |> 
     mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
-    mutate(player_name = str_replace_all(player_name, "Delaney", "Delany")) |>
-    mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
-    mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
-    mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
-    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -387,9 +373,7 @@ tab_player_rebounds_markets <-
 # Add first initial for players who were not given one
 tab_player_rebounds_markets <-
     tab_player_rebounds_markets |> 
-    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
-    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
+    mutate(player_name = fix_player_initials(player_name))
 
 # Separate player name into first and last name
 tab_player_rebounds_markets <-
@@ -397,12 +381,7 @@ tab_player_rebounds_markets <-
     separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
     mutate(first_initial = substr(first_name, 1, 1)) |> 
     mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
-    mutate(player_name = str_replace_all(player_name, "Delaney", "Delany")) |>
-    mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
-    mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
-    mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
-    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
@@ -472,9 +451,7 @@ tab_player_threes_markets <-
 # Add first initial for players who were not given one
 tab_player_threes_markets <-
     tab_player_threes_markets |> 
-    mutate(player_name = str_replace_all(player_name, "^Dellavedova", "M Dellavedova")) |> 
-    mutate(player_name = str_replace_all(player_name, "Le Afa", "Le'Afa")) |> 
-    mutate(player_name = str_replace_all(player_name, "Lual-Acuil", "J Lual-Acuil"))
+    mutate(player_name = fix_player_initials(player_name))
 
 # Separate player name into first and last name
 tab_player_threes_markets <-
@@ -482,12 +459,7 @@ tab_player_threes_markets <-
     separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
     mutate(first_initial = substr(first_name, 1, 1)) |> 
     mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = str_replace_all(player_name, "TeRangi", "Te Rangi")) |> 
-    mutate(player_name = str_replace_all(player_name, "Delaney", "Delany")) |>
-    mutate(player_name = str_replace_all(player_name, "P J-Crtwght", "P Jackson-Cartwright")) |>
-    mutate(player_name = str_replace_all(player_name, "W McD-White", "W McDowell-White")) |>
-    mutate(player_name = str_replace_all(player_name, "S Wardnburg", "S Waardenburg")) |>
-    mutate(player_name = str_replace_all(player_name, "J Lual-Acuil", "J Lual-Acuil Jr")) |>
+    mutate(player_name = fix_player_names(player_name)) |>
     left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
     mutate(player_name = paste(player_first_name, player_last_name)) |>
     select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
