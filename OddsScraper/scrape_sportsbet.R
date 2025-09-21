@@ -139,8 +139,9 @@ match_names <-
 # Table with match names and IDs
 match_table_home <-
     tibble(match_names, match_ids) |> 
+    mutate(match_names = str_replace(match_names, " V ", " Vs ")) |>
     filter(str_detect(match_names, " Vs ")) |>
-    separate(match_names, into = c("home_team", "away_team"), sep = " Vs ", remove = TRUE) |> 
+    separate(match_names, into = c("home_team", "away_team"), sep = " V[s]? ", remove = TRUE) |> 
     mutate(home_team = fix_team_names(home_team),
            away_team = fix_team_names(away_team)) |> 
     mutate(match = paste(home_team, "v", away_team)) |> 

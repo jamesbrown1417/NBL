@@ -50,7 +50,9 @@ fix_player_names <- function(col) {
         str_replace_all("^Jo Lual-Acuil$", "Jo Lual-Acuil Jr") |>
         str_replace_all("\\bByrce\\b", "Bryce") |>
         str_replace_all("\\bJordon\\b", "Jordan") |>
-        str_replace_all("\\bGary Brown$", "Gary Browne") |>
+        str_replace_all("\\bRobert Baker$", "Rob Baker II") |>
+        str_replace_all("\\Ii$", "II") |>
+        str_replace_all("\\bLopez\\b", "López") |>
         str_replace_all("\\bDelaney\\b", "Delany") |>
         str_replace_all("\\bLee Jr\\.", "Lee") |>
         # Initials/short-form variants (TAB style)

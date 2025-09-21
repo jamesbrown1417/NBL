@@ -205,17 +205,19 @@ bluebet_player_points <-
 if (nrow(bluebet_player_points) != 0) {
     bluebet_player_points <-
         bluebet_player_points |>
-        separate(outcome_title,
+        separate(outcome_name,
                  into = c("market_name", "player_name"),
                  sep = " - ") |>
         mutate(match = str_extract(event_name, "\\(.*\\)")) |>
         mutate(match = str_remove(match, "\\(|\\)")) |>
+        mutate(line = as.numeric(str_extract(player_name, "\\d+")) - 0.5) |>
         separate(
             match,
             into = c("home_team", "away_team"),
             sep = " v ",
             remove = FALSE
         ) |>
+        mutate(player_name = str_remove(player_name, " \\d+\\+.*$")) |>
         mutate(home_team = fix_team_names(home_team)) |>
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
@@ -224,7 +226,7 @@ if (nrow(bluebet_player_points) != 0) {
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
         mutate(agency = "Betr") |>
-        mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
+        mutate(market_name = "Player Points") |> 
         select(
             "match",
             "home_team",
@@ -248,17 +250,19 @@ bluebet_player_assists <-
 if (nrow(bluebet_player_assists) != 0) {
     bluebet_player_assists <-
         bluebet_player_assists |>
-        separate(outcome_title,
+        separate(outcome_name,
                  into = c("market_name", "player_name"),
                  sep = " - ") |>
         mutate(match = str_extract(event_name, "\\(.*\\)")) |>
         mutate(match = str_remove(match, "\\(|\\)")) |>
+        mutate(line = as.numeric(str_extract(player_name, "\\d+")) - 0.5) |>
         separate(
             match,
             into = c("home_team", "away_team"),
             sep = " v ",
             remove = FALSE
         ) |>
+        mutate(player_name = str_remove(player_name, " \\d+\\+.*$")) |>
         mutate(home_team = fix_team_names(home_team)) |>
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
@@ -267,7 +271,7 @@ if (nrow(bluebet_player_assists) != 0) {
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
         mutate(agency = "Betr") |>
-        mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
+        mutate(market_name = "Player Assists") |> 
         select(
             "match",
             "home_team",
@@ -291,17 +295,19 @@ bluebet_player_rebounds <-
 if (nrow(bluebet_player_rebounds) != 0) {
     bluebet_player_rebounds <-
         bluebet_player_rebounds |>
-        separate(outcome_title,
+        separate(outcome_name,
                  into = c("market_name", "player_name"),
                  sep = " - ") |>
         mutate(match = str_extract(event_name, "\\(.*\\)")) |>
         mutate(match = str_remove(match, "\\(|\\)")) |>
+        mutate(line = as.numeric(str_extract(player_name, "\\d+")) - 0.5) |>
         separate(
             match,
             into = c("home_team", "away_team"),
             sep = " v ",
             remove = FALSE
         ) |>
+        mutate(player_name = str_remove(player_name, " \\d+\\+.*$")) |>
         mutate(home_team = fix_team_names(home_team)) |>
         mutate(away_team = fix_team_names(away_team)) |>
         mutate(match = paste(home_team, "v", away_team)) |>
@@ -310,7 +316,7 @@ if (nrow(bluebet_player_rebounds) != 0) {
                   by = c("player_name" = "player_full_name")) |>
         mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
         mutate(agency = "Betr") |>
-        mutate(line = as.numeric(str_remove(outcome_name, "\\+")) - 0.5) |>
+        mutate(market_name = "Player Rebounds") |> 
         select(
             "match",
             "home_team",
