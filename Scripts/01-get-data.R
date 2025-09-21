@@ -125,7 +125,7 @@ team_box_scores <-
     player_points_second_chance = points_second_chance,
     player_points_fast_break = points_fast_break,
     player_points_in_the_paint = points_in_the_paint
- )
+ ) |> mutate(match_id = as.character(match_id))
 
  # Create pace variable----------------------------------------------------------
  # Get vars
@@ -173,7 +173,8 @@ team_box_scores <-
          away_fga + 0.4 * away_fta - 1.07 * (away_oreb / (away_oreb + home_dreb)) * (away_fga - away_fgm) + away_to
      )) |> mutate(possessions = (home_possessions + away_possessions) / 2) |>
      mutate(pace = 200*(possessions) / match_minutes) |> 
-     transmute(match_id, possessions = round(possessions, 1), pace = round(pace, 1))
+     transmute(match_id, possessions = round(possessions, 1), pace = round(pace, 1)) |> 
+     mutate(match_id = as.character(match_id))
 
 # Combine
 combined_stats_table <-

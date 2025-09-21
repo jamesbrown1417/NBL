@@ -779,9 +779,7 @@ list_of_player_props <-
 # Combine into a df
 all_player_props <-
     list_of_player_props |> 
-    mutate(player = ifelse(player == "Derrick Walton Jr.", "Derrick Walton Jr", player)) |>
-    mutate(player = ifelse(player == "Jo Lual-Acuil Jr.", "Jo Lual-Acuil Jr", player)) |>
-    mutate(player = ifelse(player == "Jo Lual-Acuil", "Jo Lual-Acuil Jr", player)) |>
+    mutate(player = fix_player_names(player)) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player" = "player_full_name")) |>
     rename(player_name = player) |> 
     mutate(player_team = fix_team_names(player_team)) |> 

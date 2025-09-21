@@ -121,7 +121,7 @@ async def scrape_player_pages(driver, player_urls):
                     await driver.execute_script("window.scrollBy(0, -150)")
                     await el.click()
                     print(f"Clicked {label}")
-                    await driver.sleep(1)
+                    await driver.sleep(2)
                 except Exception:
                     print(f"No {label} button was found")
 
@@ -141,7 +141,7 @@ async def scrape_player_pages(driver, player_urls):
                     await button_element.click()
                     await driver.sleep(1)
                 except Exception:
-                    pass
+                    pass      
 
             # Grab and write the player page HTML for this match
             elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'wcl-PageContainer_Colcontainer ')]")
