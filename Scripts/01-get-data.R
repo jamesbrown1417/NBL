@@ -47,11 +47,13 @@ points_fast_break:plus_minus_points)
 team_data <-
 nblR::nbl_pbp() |> 
     select(match_id, team_name, first_name, family_name) |> 
-    distinct(match_id, team_name, first_name, family_name, .keep_all = TRUE)
+    distinct(match_id, team_name, first_name, family_name, .keep_all = TRUE) |> 
+    mutate(match_id = as.character(match_id))
 
 # Join with Player Box Scores
 player_box_scores <-
     player_box_scores |> 
+    mutate(match_id = as.character(match_id)) |>
     left_join(team_data) |> 
     relocate(team_name, .after = family_name) |> 
     rename(name = team_name)
