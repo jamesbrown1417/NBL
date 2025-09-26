@@ -117,7 +117,7 @@ compare_performance <- function(seasons = NULL, main_name, teammate_name, metric
 #===============================================================================
 
 all_player_stats <-
-  read_rds("../../data/combined_stats_table.rds") |> 
+  read_rds("../../Data/combined_stats_table.rds") |> 
   mutate(PLAYER_NAME = paste(first_name, family_name)) |>
   mutate(minutes_played = period_to_seconds(ms(player_minutes)) / 60) |> 
   rename(
@@ -135,10 +135,10 @@ all_player_stats <-
 
 # Conditional logic for if operating system is windows
 # Read Odds Data----------------------------------------------------------------
-player_points_data <- read_rds("../../data/processed_odds/all_player_points.rds")
-player_assists_data <- read_rds("../../data/processed_odds/all_player_assists.rds")
-player_rebounds_data <- read_rds("../../data/processed_odds/all_player_rebounds.rds")
-player_threes_data <- read_rds("../../data/processed_odds/all_player_threes.rds")
+player_points_data <- read_rds("../../Data/processed_odds/all_player_points.rds")
+player_assists_data <- read_rds("../../Data/processed_odds/all_player_assists.rds")
+player_rebounds_data <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
+player_threes_data <- read_rds("../../Data/processed_odds/all_player_threes.rds")
 
 # # Add opposition defensive rating-----------------------------------------------
 # 
@@ -221,10 +221,16 @@ ui <- page_navbar(
             choices = all_player_stats$SEASON_YEAR |> unique(),
             multiple = TRUE,
             selectize = TRUE,
-            selected = c("2021-2022",
-                         "2022-2023",
-                         "2023-2024",
-                         "2024-2025")
+            selected = intersect(
+              c(
+                "2021-2022",
+                "2022-2023",
+                "2023-2024",
+                "2024-2025",
+                "2025-2026"
+              ),
+              all_player_stats$SEASON_YEAR |> unique()
+            )
           ),
           selectInput(
             inputId = "stat_input_a",
@@ -406,7 +412,17 @@ ui <- page_navbar(
             label = "Select Season:",
             choices = all_player_stats$SEASON_YEAR |> unique(),
             multiple = TRUE,
-            selectize = TRUE
+            selectize = TRUE,
+            selected = intersect(
+              c(
+                "2021-2022",
+                "2022-2023",
+                "2023-2024",
+                "2024-2025",
+                "2025-2026"
+              ),
+              all_player_stats$SEASON_YEAR |> unique()
+            )
           ),
           selectInput(
             inputId = "metric_input",
@@ -467,7 +483,17 @@ ui <- page_navbar(
             label = "Select Season:",
             choices = all_player_stats$SEASON_YEAR |> unique(),
             multiple = TRUE,
-            selectize = TRUE
+            selectize = TRUE,
+            selected = intersect(
+              c(
+                "2021-2022",
+                "2022-2023",
+                "2023-2024",
+                "2024-2025",
+                "2025-2026"
+              ),
+              all_player_stats$SEASON_YEAR |> unique()
+            )
           )
         )
       ),

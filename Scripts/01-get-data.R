@@ -37,6 +37,7 @@ nbl_box_player() |>
 select(match_id,
 first_name,
 family_name,
+name = team_name,
 playing_position,
 starter,
 shirt_number,
@@ -53,10 +54,7 @@ nblR::nbl_pbp() |>
 # Join with Player Box Scores
 player_box_scores <-
     player_box_scores |> 
-    mutate(match_id = as.character(match_id)) |>
-    left_join(team_data) |> 
-    relocate(team_name, .after = family_name) |> 
-    rename(name = team_name)
+    mutate(match_id = as.character(match_id))
 
 # Combined Stats Table----------------------------------------------
 
