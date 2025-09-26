@@ -44,12 +44,12 @@ shirt_number,
 minutes:active,
 points_fast_break:plus_minus_points)
 
-# Player Team Data
-team_data <-
-nblR::nbl_pbp() |> 
-    select(match_id, team_name, first_name, family_name) |> 
-    distinct(match_id, team_name, first_name, family_name, .keep_all = TRUE) |> 
-    mutate(match_id = as.character(match_id))
+# # Player Team Data
+# team_data <-
+# nblR::nbl_pbp() |> 
+#     select(match_id, team_name, first_name, family_name) |> 
+#     distinct(match_id, team_name, first_name, family_name, .keep_all = TRUE) |> 
+#     mutate(match_id = as.character(match_id))
 
 # Join with Player Box Scores
 player_box_scores <-

@@ -119,7 +119,8 @@ compare_performance <- function(seasons = NULL, main_name, teammate_name, metric
 all_player_stats <-
   read_rds("../../Data/combined_stats_table.rds") |> 
   mutate(PLAYER_NAME = paste(first_name, family_name)) |>
-  mutate(minutes_played = period_to_seconds(ms(player_minutes)) / 60) |> 
+  mutate(minutes_played = ifelse(str_detect(player_minutes, "\\:"), period_to_seconds(ms(player_minutes)) / 60, player_minutes)) |>
+  mutate(minutes_played = as.numeric(minutes_played)) |>
   rename(
          PTS = player_points,
          REB = player_rebounds_total,
