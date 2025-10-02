@@ -37,46 +37,6 @@ all_odds <-
 
 # Arbs
 
-## Head to Head
-
-```{r}
-# All files
-list_of_files <- list.files("../Data/scraped_odds", full.names = TRUE)
-
-# Only H2H
-h2h_files <- list_of_files |> 
-  keep(~ str_detect(.x, "h2h"))
-
-# Read in all data
-all_h2h <- 
-  h2h_files |> 
-  map_dfr(read_csv)
-
-# All home win
-all_home_win <-
-    all_h2h |> 
-    select(-away_win, -margin) |> 
-    rename(home_agency = agency)
-
-# All away win
-all_away_win <-
-    all_h2h |> 
-    select(-home_win, -margin) |> 
-    rename(away_agency = agency)
-
-# Merge
-h2h_arbs <-
-    inner_join(all_home_win, all_away_win) |> 
-    mutate(margin = 1 / home_win + 1 / away_win) |>
-    mutate(margin = 1 - margin) |>
-    mutate(margin = round(100 * margin, 2)) |>
-    filter(home_agency != away_agency) |>
-    arrange(desc(margin))
-
-h2h_arbs |> 
-    filter(margin > 0)
-```
-
 ## Player Props
 
 ```{r}
@@ -160,8 +120,9 @@ all_player_assists_middles <- calculate_player_middles(all_odds, "Player Assists
 all_player_rebounds_middles <- calculate_player_middles(all_odds, "Player Rebounds")
 all_player_threes_middles <- calculate_player_middles(all_odds, "Player Threes")
 
-# Combining all middles
-all_middles <- bind_rows(all_player_points_middles, all_player_assists_middles, all_player_rebounds_middles, all_player_threes_middles)
-
-all_middles
+# Display
+all_player_points_middles |> slice_head(n = 10)
+all_player_assists_middles |> slice_head(n = 10)
+all_player_rebounds_middles |> slice_head(n = 10)
+all_player_threes_middles |> slice_head(n = 10)
 ```
