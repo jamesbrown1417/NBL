@@ -32,21 +32,7 @@
         {
           "name": "New Orleans",
           "position": "HOME",
-          "isHome": true,
-          "image": [
-            {
-              "size": "svg",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans.svg"
-            },
-            {
-              "size": "xxhdpi",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans_xxhdpi.png"
-            },
-            {
-              "size": "2x",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans%402x.png"
-            }
-          ]
+          "isHome": true
         },
         {
           "name": "Melbourne",
@@ -72,9 +58,9 @@
         "New Orleans",
         "Melbourne"
       ],
-      "openMarketCount": 52,
+      "openMarketCount": 54,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 52,
+      "nonFutureMarketCount": 54,
       "markets": [
         {
           "id": "122103486",
@@ -130,6 +116,66 @@
               "isOpen": true,
               "sortOrder": 2,
               "position": "AWAY",
+              "sameGame": true
+            }
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
+        },
+        {
+          "id": "122174653",
+          "name": "NBA NOP-Mel Line -19.0",
+          "shortName": "NBA NOP-Mel Line -19.0",
+          "betOption": "Line",
+          "betOptionSpectrumId": "43",
+          "betOptionPriority": 1370,
+          "marketUniqueId": 122174653,
+          "closeTime": "2025-10-03T09:30:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "550587",
+              "name": "New Orleans -19.0",
+              "returnWin": 1.9,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550587,
+              "isOpen": true,
+              "sortOrder": 1,
+              "line": "-19.0",
+              "sameGame": true
+            },
+            {
+              "id": "550588",
+              "name": "Melbourne +19.0",
+              "returnWin": 1.9,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550588,
+              "isOpen": true,
+              "sortOrder": 2,
+              "line": "+19.0",
               "sameGame": true
             }
           ],
@@ -285,6 +331,90 @@
               "number": 683004,
               "isOpen": true,
               "sortOrder": 3,
+              "sameGame": true
+            }
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
+        },
+        {
+          "id": "122174652",
+          "name": "NBA NOP-Mel LnOUDb",
+          "shortName": "NBA NOP-Mel LnOUDb",
+          "betOption": "Line/Over Under Double",
+          "betOptionSpectrumId": "212",
+          "betOptionPriority": 2745,
+          "marketUniqueId": 122174652,
+          "closeTime": "2025-10-03T09:30:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "550563",
+              "name": "NewOrlns -19.5 /Over 216.5",
+              "returnWin": 3.6,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550563,
+              "isOpen": true,
+              "sortOrder": 1,
+              "sameGame": true
+            },
+            {
+              "id": "550566",
+              "name": "NewOrlns -19.5 /Under 216.5",
+              "returnWin": 3.9,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550566,
+              "isOpen": true,
+              "sortOrder": 2,
+              "sameGame": true
+            },
+            {
+              "id": "550567",
+              "name": "Melb Utd +19.5 /Over 216.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550567,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
+              "id": "550568",
+              "name": "Melb Utd +19.5 /Under 216.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 550568,
+              "isOpen": true,
+              "sortOrder": 4,
               "sameGame": true
             }
           ],
@@ -4190,7 +4320,7 @@
             {
               "id": "665019",
               "name": "Trey Murphy III (NOP)",
-              "returnWin": 3,
+              "returnWin": 2.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4293,7 +4423,7 @@
             {
               "id": "665047",
               "name": "Zion Williamson (NOP)",
-              "returnWin": 12,
+              "returnWin": 10,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -20157,7 +20287,7 @@
             {
               "id": "554731",
               "name": "Ja Adams 10+ Pts/Bri Win",
-              "returnWin": 2,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -21850,7 +21980,7 @@
             {
               "id": "609546",
               "name": "Tas by 11+ /191 or more",
-              "returnWin": 19,
+              "returnWin": 18,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24261,7 +24391,7 @@
             {
               "id": "587055",
               "name": "181 to 190",
-              "returnWin": 4.8,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -25725,7 +25855,7 @@
             {
               "id": "555970",
               "name": "Tasmania by 10-12",
-              "returnWin": 12,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27621,7 +27751,7 @@
             {
               "id": "556001",
               "name": "1st Half",
-              "returnWin": 1.7,
+              "returnWin": 1.72,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -28144,7 +28274,7 @@
     {
       "name": "Line",
       "hasFutureMarket": false,
-      "openMarketCount": 2,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Line"
       }
@@ -28176,7 +28306,7 @@
     {
       "name": "Line/Over Under Double",
       "hasFutureMarket": false,
-      "openMarketCount": 2,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Line%2FOver%20Under%20Double"
       }
