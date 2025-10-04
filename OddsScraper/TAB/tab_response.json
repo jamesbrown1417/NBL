@@ -603,7 +603,8 @@
               "allowPlace": false,
               "number": 757692,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "757693",
@@ -615,7 +616,8 @@
               "allowPlace": false,
               "number": 757693,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "757694",
@@ -627,7 +629,8 @@
               "allowPlace": false,
               "number": 757694,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "757695",
@@ -639,9 +642,12 @@
               "allowPlace": false,
               "number": 757695,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122225006",
@@ -1485,7 +1491,7 @@
             {
               "id": "586933",
               "name": "Brisbane / Tasmania",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1537,7 +1543,7 @@
             {
               "id": "586937",
               "name": "Tie / Tasmania",
-              "returnWin": 26,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1552,13 +1558,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "122265860",
+          "id": "122264405",
           "name": "NBL Bri-Tas 1QtLOU",
           "shortName": "NBL Bri-Tas 1QtLOU",
           "betOption": "1st Quarter Line/OverUnder Double",
           "betOptionSpectrumId": "410",
           "betOptionPriority": 3455,
-          "marketUniqueId": 122265860,
+          "marketUniqueId": 122264405,
           "closeTime": "2025-10-04T10:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -1580,50 +1586,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "739547",
-              "name": "Brisbane +1.5 /Over 43.5",
-              "returnWin": 3.8,
+              "id": "725954",
+              "name": "Brisbane +1.5 /Over 44.5",
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739547,
+              "number": 725954,
               "isOpen": true,
               "sortOrder": 1
             },
             {
-              "id": "739548",
-              "name": "Brisbane +1.5 /Under 43.5",
-              "returnWin": 3.6,
+              "id": "725956",
+              "name": "Brisbane +1.5 /Under 44.5",
+              "returnWin": 3.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739548,
+              "number": 725956,
               "isOpen": true,
               "sortOrder": 2
             },
             {
-              "id": "739549",
-              "name": "Tasmania -1.5 /Over 43.5",
-              "returnWin": 3.1,
+              "id": "725957",
+              "name": "Tasmania -1.5 /Over 44.5",
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739549,
+              "number": 725957,
               "isOpen": true,
               "sortOrder": 3
             },
             {
-              "id": "739550",
-              "name": "Tasmania -1.5 /Under 43.5",
-              "returnWin": 3.8,
+              "id": "725958",
+              "name": "Tasmania -1.5 /Under 44.5",
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739550,
+              "number": 725958,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -4085,7 +4091,7 @@
             {
               "id": "587002",
               "name": "Bri 1-6 / Bri 1-10",
-              "returnWin": 12,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4267,7 +4273,7 @@
             {
               "id": "587017",
               "name": "Tas 7+ / Tas 11+",
-              "returnWin": 3.3,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5142,7 +5148,7 @@
             {
               "id": "725672",
               "name": "T Harrison Over 11.5 Reb",
-              "returnWin": 2.1,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5155,7 +5161,7 @@
             {
               "id": "725673",
               "name": "T Harrison Under 11.5 Reb",
-              "returnWin": 1.68,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6394,7 +6400,7 @@
             {
               "id": "555202",
               "name": "T Harrison Double-Double",
-              "returnWin": 1.5,
+              "returnWin": 1.45,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6944,7 +6950,7 @@
             {
               "id": "555951",
               "name": "Brisbane",
-              "returnWin": 2.55,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6956,7 +6962,7 @@
             {
               "id": "555954",
               "name": "Tasmania",
-              "returnWin": 1.48,
+              "returnWin": 1.46,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7052,7 +7058,7 @@
             {
               "id": "738821",
               "name": "Brisbane +3.5 /Over 86.5",
-              "returnWin": 3.6,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7064,7 +7070,7 @@
             {
               "id": "738822",
               "name": "Brisbane +3.5 /Under 86.5",
-              "returnWin": 3.7,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7076,7 +7082,7 @@
             {
               "id": "738823",
               "name": "Tasmania -3.5 /Over 86.5",
-              "returnWin": 3.5,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7088,7 +7094,7 @@
             {
               "id": "738824",
               "name": "Tasmania -3.5 /Under 86.5",
-              "returnWin": 3.6,
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7100,13 +7106,13 @@
           ]
         },
         {
-          "id": "122221430",
+          "id": "122162254",
           "name": "NBL Brisbane-Tasmania 1stHHHOU",
           "shortName": "NBL Bri-Tas 1stHHHOU",
           "betOption": "1st Half H2H/Over Under Double",
           "betOptionSpectrumId": "879",
           "betOptionPriority": 10915,
-          "marketUniqueId": 122221430,
+          "marketUniqueId": 122162254,
           "closeTime": "2025-10-04T10:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -7128,50 +7134,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "550479",
-              "name": "Brisbane /Over 86.5",
+              "id": "683100",
+              "name": "Brisbane /Over 87.5",
+              "returnWin": 5.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683100,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "683101",
+              "name": "Brisbane /Under 87.5",
               "returnWin": 4.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 550479,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "550480",
-              "name": "Brisbane /Under 86.5",
-              "returnWin": 4.8,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 550480,
+              "number": 683101,
               "isOpen": true,
               "sortOrder": 2
             },
             {
-              "id": "550487",
-              "name": "Tasmania /Over 86.5",
-              "returnWin": 2.7,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 550487,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "550488",
-              "name": "Tasmania /Under 86.5",
+              "id": "683102",
+              "name": "Tasmania /Over 87.5",
               "returnWin": 2.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 550488,
+              "number": 683102,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "683103",
+              "name": "Tasmania /Under 87.5",
+              "returnWin": 2.6,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683103,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -7304,7 +7310,7 @@
             {
               "id": "683210",
               "name": "Brisbane -3.5",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7316,7 +7322,7 @@
             {
               "id": "683211",
               "name": "Tasmania +3.5",
-              "returnWin": 1.24,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7376,7 +7382,7 @@
             {
               "id": "683216",
               "name": "Brisbane -0.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7388,7 +7394,7 @@
             {
               "id": "683217",
               "name": "Tasmania +0.5",
-              "returnWin": 1.42,
+              "returnWin": 1.39,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7448,7 +7454,7 @@
             {
               "id": "683222",
               "name": "Brisbane +2.5",
-              "returnWin": 2,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7460,7 +7466,7 @@
             {
               "id": "683223",
               "name": "Tasmania -2.5",
-              "returnWin": 1.7,
+              "returnWin": 1.66,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7496,7 +7502,7 @@
             {
               "id": "683226",
               "name": "Brisbane +4.5",
-              "returnWin": 1.72,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7508,7 +7514,7 @@
             {
               "id": "683227",
               "name": "Tasmania -4.5",
-              "returnWin": 1.97,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7520,7 +7526,7 @@
             {
               "id": "683228",
               "name": "Brisbane +5.5",
-              "returnWin": 1.6,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7532,7 +7538,7 @@
             {
               "id": "683229",
               "name": "Tasmania -5.5",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7544,7 +7550,7 @@
             {
               "id": "683230",
               "name": "Brisbane +6.5",
-              "returnWin": 1.5,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7556,7 +7562,7 @@
             {
               "id": "683231",
               "name": "Tasmania -6.5",
-              "returnWin": 2.35,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7616,7 +7622,7 @@
             {
               "id": "683236",
               "name": "Brisbane +9.5",
-              "returnWin": 1.3,
+              "returnWin": 1.32,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7628,7 +7634,7 @@
             {
               "id": "683237",
               "name": "Tasmania -9.5",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7886,7 +7892,7 @@
             {
               "id": "557600",
               "name": "Over 95.5",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7898,7 +7904,7 @@
             {
               "id": "557606",
               "name": "Under 95.5",
-              "returnWin": 1.21,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7934,7 +7940,7 @@
             {
               "id": "557613",
               "name": "Over 93.5",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7946,7 +7952,7 @@
             {
               "id": "557615",
               "name": "Under 93.5",
-              "returnWin": 1.3,
+              "returnWin": 1.32,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7958,7 +7964,7 @@
             {
               "id": "557617",
               "name": "Over 92.5",
-              "returnWin": 2.9,
+              "returnWin": 2.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7970,7 +7976,7 @@
             {
               "id": "557620",
               "name": "Under 92.5",
-              "returnWin": 1.34,
+              "returnWin": 1.36,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8006,7 +8012,7 @@
             {
               "id": "557624",
               "name": "Over 90.5",
-              "returnWin": 2.4,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8018,7 +8024,7 @@
             {
               "id": "557625",
               "name": "Under 90.5",
-              "returnWin": 1.48,
+              "returnWin": 1.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8030,7 +8036,7 @@
             {
               "id": "557626",
               "name": "Over 89.5",
-              "returnWin": 2.25,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8042,7 +8048,7 @@
             {
               "id": "557627",
               "name": "Under 89.5",
-              "returnWin": 1.55,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8078,7 +8084,7 @@
             {
               "id": "557641",
               "name": "Over 87.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8090,7 +8096,7 @@
             {
               "id": "557642",
               "name": "Under 87.5",
-              "returnWin": 1.77,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8102,7 +8108,7 @@
             {
               "id": "557643",
               "name": "Over 86.5",
-              "returnWin": 1.85,
+              "returnWin": 1.77,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8126,7 +8132,7 @@
             {
               "id": "557650",
               "name": "Over 85.5",
-              "returnWin": 1.7,
+              "returnWin": 1.66,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8138,7 +8144,7 @@
             {
               "id": "557651",
               "name": "Under 85.5",
-              "returnWin": 2,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8150,7 +8156,7 @@
             {
               "id": "557652",
               "name": "Over 84.5",
-              "returnWin": 1.6,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8162,7 +8168,7 @@
             {
               "id": "557653",
               "name": "Under 84.5",
-              "returnWin": 2.15,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8174,7 +8180,7 @@
             {
               "id": "557654",
               "name": "Over 83.5",
-              "returnWin": 1.5,
+              "returnWin": 1.48,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8186,7 +8192,7 @@
             {
               "id": "557679",
               "name": "Under 83.5",
-              "returnWin": 2.35,
+              "returnWin": 2.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8198,7 +8204,7 @@
             {
               "id": "557681",
               "name": "Over 82.5",
-              "returnWin": 1.45,
+              "returnWin": 1.42,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8210,7 +8216,7 @@
             {
               "id": "557687",
               "name": "Under 82.5",
-              "returnWin": 2.5,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8246,7 +8252,7 @@
             {
               "id": "557966",
               "name": "Over 80.5",
-              "returnWin": 1.32,
+              "returnWin": 1.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8258,7 +8264,7 @@
             {
               "id": "557969",
               "name": "Under 80.5",
-              "returnWin": 3,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8270,7 +8276,7 @@
             {
               "id": "557970",
               "name": "Over 79.5",
-              "returnWin": 1.28,
+              "returnWin": 1.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8282,7 +8288,7 @@
             {
               "id": "557971",
               "name": "Under 79.5",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8342,7 +8348,7 @@
             {
               "id": "557987",
               "name": "Over 76.5",
-              "returnWin": 1.17,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8354,7 +8360,7 @@
             {
               "id": "557989",
               "name": "Under 76.5",
-              "returnWin": 4.25,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8366,7 +8372,7 @@
             {
               "id": "557990",
               "name": "Over 75.5",
-              "returnWin": 1.13,
+              "returnWin": 1.12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8378,7 +8384,7 @@
             {
               "id": "557991",
               "name": "Under 75.5",
-              "returnWin": 4.75,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8468,7 +8474,7 @@
             {
               "id": "556026",
               "name": "Draw",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8492,7 +8498,7 @@
             {
               "id": "556028",
               "name": "Tasmania by 6+",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8534,7 +8540,7 @@
             {
               "id": "556013",
               "name": "Brisbane by 11+",
-              "returnWin": 8,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8558,7 +8564,7 @@
             {
               "id": "556016",
               "name": "Draw",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8624,7 +8630,7 @@
             {
               "id": "555955",
               "name": "Brisbane by 16+",
-              "returnWin": 15,
+              "returnWin": 17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8696,7 +8702,7 @@
             {
               "id": "555963",
               "name": "Draw",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8744,7 +8750,7 @@
             {
               "id": "555970",
               "name": "Tasmania by 10-12",
-              "returnWin": 9,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8834,7 +8840,7 @@
             {
               "id": "683179",
               "name": "81 to 90",
-              "returnWin": 2.8,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8858,7 +8864,7 @@
             {
               "id": "683181",
               "name": "101 Points or More",
-              "returnWin": 6.5,
+              "returnWin": 6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8870,13 +8876,13 @@
           ]
         },
         {
-          "id": "122221431",
+          "id": "122162250",
           "name": "NBL Brisbane-Tasmania 1stHlf3W",
           "shortName": "NBL Bri-Tas 1stHlf3W",
           "betOption": "1st Half Total 3-Way",
           "betOptionSpectrumId": "1002",
           "betOptionPriority": 11030,
-          "marketUniqueId": 122221431,
+          "marketUniqueId": 122162250,
           "closeTime": "2025-10-04T10:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -8898,38 +8904,38 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "550489",
-              "name": "Over 87 Pts",
-              "returnWin": 1.9,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 550489,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "550490",
-              "name": "84 - 87 Pts",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 550490,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "550491",
-              "name": "Under 84 Pts",
+              "id": "683104",
+              "name": "Over 90 Pts",
               "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 550491,
+              "number": 683104,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "683105",
+              "name": "87 - 90 Pts",
+              "returnWin": 6,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683105,
+              "isOpen": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "683106",
+              "name": "Under 87 Pts",
+              "returnWin": 1.9,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683106,
               "isOpen": true,
               "sortOrder": 3
             }
@@ -8966,7 +8972,7 @@
             {
               "id": "683094",
               "name": "Brisbane 0 to 30",
-              "returnWin": 10,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8990,7 +8996,7 @@
             {
               "id": "683096",
               "name": "Brisbane 36 to 40",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9002,7 +9008,7 @@
             {
               "id": "683097",
               "name": "Brisbane 41 to 45",
-              "returnWin": 3.4,
+              "returnWin": 3.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9014,7 +9020,7 @@
             {
               "id": "683098",
               "name": "Brisbane 46 to 50",
-              "returnWin": 4.8,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9080,7 +9086,7 @@
             {
               "id": "683084",
               "name": "Tasmania 31 to 35",
-              "returnWin": 11,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9092,7 +9098,7 @@
             {
               "id": "683085",
               "name": "Tasmania 36 to 40",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9104,7 +9110,7 @@
             {
               "id": "683086",
               "name": "Tasmania 41 to 45",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9128,7 +9134,7 @@
             {
               "id": "683088",
               "name": "Tasmania 51+",
-              "returnWin": 3.6,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9248,13 +9254,13 @@
           ]
         },
         {
-          "id": "122265859",
+          "id": "122188709",
           "name": "NBL Brisbane-Tasmania 1stQHHOU",
           "shortName": "NBL Bri-Tas 1stQHHOU",
           "betOption": "1st Quarter H2H/Over Under Double",
           "betOptionSpectrumId": "880",
           "betOptionPriority": 11900,
-          "marketUniqueId": 122265859,
+          "marketUniqueId": 122188709,
           "closeTime": "2025-10-04T10:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -9276,50 +9282,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "739540",
-              "name": "Brisbane /Over 43.5",
-              "returnWin": 4.1,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 739540,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "739541",
-              "name": "Brisbane /Under 43.5",
+              "id": "560686",
+              "name": "Brisbane /Over 44.5",
               "returnWin": 4.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739541,
+              "number": 560686,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 1
             },
             {
-              "id": "739542",
-              "name": "Tasmania /Over 43.5",
-              "returnWin": 2.8,
+              "id": "560687",
+              "name": "Brisbane /Under 44.5",
+              "returnWin": 4.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739542,
+              "number": 560687,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 2
             },
             {
-              "id": "739543",
-              "name": "Tasmania /Under 43.5",
+              "id": "560739",
+              "name": "Tasmania /Over 44.5",
               "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739543,
+              "number": 560739,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "560911",
+              "name": "Tasmania /Under 44.5",
+              "returnWin": 2.8,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 560911,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -9794,7 +9800,7 @@
             {
               "id": "559917",
               "name": "Over 52.5",
-              "returnWin": 5.5,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9806,7 +9812,7 @@
             {
               "id": "559918",
               "name": "Under 52.5",
-              "returnWin": 1.1,
+              "returnWin": 1.12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9842,7 +9848,7 @@
             {
               "id": "559921",
               "name": "Over 50.5",
-              "returnWin": 4,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9854,7 +9860,7 @@
             {
               "id": "559926",
               "name": "Under 50.5",
-              "returnWin": 1.19,
+              "returnWin": 1.21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9866,7 +9872,7 @@
             {
               "id": "559927",
               "name": "Over 49.5",
-              "returnWin": 3.5,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9878,7 +9884,7 @@
             {
               "id": "559929",
               "name": "Under 49.5",
-              "returnWin": 1.24,
+              "returnWin": 1.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9938,7 +9944,7 @@
             {
               "id": "559934",
               "name": "Over 46.5",
-              "returnWin": 2.4,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9950,7 +9956,7 @@
             {
               "id": "559935",
               "name": "Under 46.5",
-              "returnWin": 1.48,
+              "returnWin": 1.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9962,7 +9968,7 @@
             {
               "id": "559936",
               "name": "Over 45.5",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9974,7 +9980,7 @@
             {
               "id": "559937",
               "name": "Under 45.5",
-              "returnWin": 1.6,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9998,7 +10004,7 @@
             {
               "id": "559939",
               "name": "Under 44.5",
-              "returnWin": 1.73,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10010,7 +10016,7 @@
             {
               "id": "559940",
               "name": "Over 43.5",
-              "returnWin": 1.8,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10034,7 +10040,7 @@
             {
               "id": "559942",
               "name": "Over 42.5",
-              "returnWin": 1.62,
+              "returnWin": 1.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10046,7 +10052,7 @@
             {
               "id": "559943",
               "name": "Under 42.5",
-              "returnWin": 2.1,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10058,7 +10064,7 @@
             {
               "id": "559944",
               "name": "Over 41.5",
-              "returnWin": 1.5,
+              "returnWin": 1.48,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10070,7 +10076,7 @@
             {
               "id": "559945",
               "name": "Under 41.5",
-              "returnWin": 2.35,
+              "returnWin": 2.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10082,7 +10088,7 @@
             {
               "id": "559946",
               "name": "Over 40.5",
-              "returnWin": 1.42,
+              "returnWin": 1.39,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10094,7 +10100,7 @@
             {
               "id": "559947",
               "name": "Under 40.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10154,7 +10160,7 @@
             {
               "id": "559952",
               "name": "Over 37.5",
-              "returnWin": 1.21,
+              "returnWin": 1.19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10166,7 +10172,7 @@
             {
               "id": "559953",
               "name": "Under 37.5",
-              "returnWin": 3.8,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10202,7 +10208,7 @@
             {
               "id": "559957",
               "name": "Over 35.5",
-              "returnWin": 1.12,
+              "returnWin": 1.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10214,7 +10220,7 @@
             {
               "id": "559959",
               "name": "Under 35.5",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10358,7 +10364,7 @@
             {
               "id": "560913",
               "name": "Tasmania",
-              "returnWin": 1.65,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10424,7 +10430,7 @@
             {
               "id": "556035",
               "name": "Tasmania",
-              "returnWin": 1.68,
+              "returnWin": 1.65,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10436,7 +10442,7 @@
             {
               "id": "556036",
               "name": "Neither",
-              "returnWin": 7,
+              "returnWin": 7.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10538,13 +10544,13 @@
           ]
         },
         {
-          "id": "122265858",
+          "id": "122162251",
           "name": "NBL Brisbane-Tasmania Tot3WyQ1",
           "shortName": "NBL Bri-Tas Tot3WyQ1",
           "betOption": "1st Quarter Total Points 3-Way",
           "betOptionSpectrumId": "391",
           "betOptionPriority": 12140,
-          "marketUniqueId": 122265858,
+          "marketUniqueId": 122162251,
           "closeTime": "2025-10-04T10:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -10566,38 +10572,38 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "739544",
-              "name": "Over 44 Pts",
-              "returnWin": 1.95,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 739544,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "739545",
-              "name": "43 - 44 Pts",
-              "returnWin": 8,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 739545,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "739546",
-              "name": "Under 43 Pts",
+              "id": "683174",
+              "name": "Over 45 Pts",
               "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 739546,
+              "number": 683174,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "683175",
+              "name": "44 - 45 Pts",
+              "returnWin": 8,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683175,
+              "isOpen": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "683176",
+              "name": "Under 44 Pts",
+              "returnWin": 1.95,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 683176,
               "isOpen": true,
               "sortOrder": 3
             }
@@ -11078,7 +11084,7 @@
             {
               "id": "556001",
               "name": "1st Half",
-              "returnWin": 1.85,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11102,7 +11108,7 @@
             {
               "id": "556004",
               "name": "2nd Half",
-              "returnWin": 1.95,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11144,7 +11150,7 @@
             {
               "id": "568169",
               "name": "1st Quarter",
-              "returnWin": 3.2,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11170,7 +11176,7 @@
             {
               "id": "568171",
               "name": "3rd Quarter",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11597,35 +11603,35 @@
         {
           "name": "New Orleans",
           "position": "HOME",
-          "isHome": true,
-          "image": [
-            {
-              "size": "svg",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans.svg"
-            },
-            {
-              "size": "xxhdpi",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans_xxhdpi.png"
-            },
-            {
-              "size": "2x",
-              "url": "https://metadata.beta.tab.com.au/icons/NBA%20logos/New%20Orleans%20Pelicans%402x.png"
-            }
-          ]
+          "isHome": true
         },
         {
           "name": "South East Melb",
           "position": "AWAY",
-          "isHome": false
+          "isHome": false,
+          "image": [
+            {
+              "size": "svg",
+              "url": "https://metadata.beta.tab.com.au/icons/NBL/South%20East%20Melbourne%20Phoenix.svg"
+            },
+            {
+              "size": "xxhdpi",
+              "url": "https://metadata.beta.tab.com.au/icons/NBL/South%20East%20Melbourne%20Phoenix_xxhdpi.png"
+            },
+            {
+              "size": "2x",
+              "url": "https://metadata.beta.tab.com.au/icons/NBL/South%20East%20Melbourne%20Phoenix%402x.png"
+            }
+          ]
         }
       ],
       "competitors": [
         "New Orleans",
         "South East Melb"
       ],
-      "openMarketCount": 35,
+      "openMarketCount": 38,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 35,
+      "nonFutureMarketCount": 38,
       "markets": [
         {
           "id": "122253225",
@@ -11666,7 +11672,8 @@
               "number": 562874,
               "isOpen": true,
               "sortOrder": 1,
-              "line": "-27.0"
+              "line": "-27.0",
+              "sameGame": true
             },
             {
               "id": "562875",
@@ -11679,9 +11686,12 @@
               "number": 562875,
               "isOpen": true,
               "sortOrder": 2,
-              "line": "+27.0"
+              "line": "+27.0",
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257907",
@@ -11721,7 +11731,8 @@
               "allowPlace": false,
               "number": 659754,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659755",
@@ -11733,7 +11744,8 @@
               "allowPlace": false,
               "number": 659755,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659756",
@@ -11745,7 +11757,8 @@
               "allowPlace": false,
               "number": 659756,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659757",
@@ -11757,9 +11770,12 @@
               "allowPlace": false,
               "number": 659757,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257902",
@@ -11799,7 +11815,8 @@
               "allowPlace": false,
               "number": 659762,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659763",
@@ -11811,7 +11828,8 @@
               "allowPlace": false,
               "number": 659763,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659764",
@@ -11823,7 +11841,8 @@
               "allowPlace": false,
               "number": 659764,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659765",
@@ -11835,9 +11854,12 @@
               "allowPlace": false,
               "number": 659765,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122253228",
@@ -11877,7 +11899,8 @@
               "allowPlace": false,
               "number": 562880,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "562881",
@@ -11889,9 +11912,12 @@
               "allowPlace": false,
               "number": 562881,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122260080",
@@ -12207,7 +12233,8 @@
               "allowPlace": false,
               "number": 659585,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659586",
@@ -12219,7 +12246,8 @@
               "allowPlace": false,
               "number": 659586,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659587",
@@ -12231,7 +12259,8 @@
               "allowPlace": false,
               "number": 659587,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659588",
@@ -12243,7 +12272,8 @@
               "allowPlace": false,
               "number": 659588,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "659589",
@@ -12255,7 +12285,8 @@
               "allowPlace": false,
               "number": 659589,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "659590",
@@ -12267,7 +12298,8 @@
               "allowPlace": false,
               "number": 659590,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "659591",
@@ -12279,7 +12311,8 @@
               "allowPlace": false,
               "number": 659591,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "659592",
@@ -12291,7 +12324,8 @@
               "allowPlace": false,
               "number": 659592,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "659593",
@@ -12303,7 +12337,8 @@
               "allowPlace": false,
               "number": 659593,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "659594",
@@ -12315,7 +12350,8 @@
               "allowPlace": false,
               "number": 659594,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "659595",
@@ -12327,7 +12363,8 @@
               "allowPlace": false,
               "number": 659595,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "659596",
@@ -12339,7 +12376,8 @@
               "allowPlace": false,
               "number": 659596,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "659597",
@@ -12351,7 +12389,8 @@
               "allowPlace": false,
               "number": 659597,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "659598",
@@ -12363,7 +12402,8 @@
               "allowPlace": false,
               "number": 659598,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "659599",
@@ -12375,7 +12415,8 @@
               "allowPlace": false,
               "number": 659599,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "659600",
@@ -12387,7 +12428,8 @@
               "allowPlace": false,
               "number": 659600,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "659601",
@@ -12399,7 +12441,8 @@
               "allowPlace": false,
               "number": 659601,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "659602",
@@ -12411,7 +12454,8 @@
               "allowPlace": false,
               "number": 659602,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "659603",
@@ -12423,7 +12467,8 @@
               "allowPlace": false,
               "number": 659603,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "659604",
@@ -12435,7 +12480,8 @@
               "allowPlace": false,
               "number": 659604,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             },
             {
               "id": "659605",
@@ -12447,7 +12493,8 @@
               "allowPlace": false,
               "number": 659605,
               "isOpen": true,
-              "sortOrder": 21
+              "sortOrder": 21,
+              "sameGame": true
             },
             {
               "id": "659606",
@@ -12459,7 +12506,8 @@
               "allowPlace": false,
               "number": 659606,
               "isOpen": true,
-              "sortOrder": 22
+              "sortOrder": 22,
+              "sameGame": true
             },
             {
               "id": "659607",
@@ -12471,7 +12519,8 @@
               "allowPlace": false,
               "number": 659607,
               "isOpen": true,
-              "sortOrder": 23
+              "sortOrder": 23,
+              "sameGame": true
             },
             {
               "id": "659608",
@@ -12483,7 +12532,8 @@
               "allowPlace": false,
               "number": 659608,
               "isOpen": true,
-              "sortOrder": 24
+              "sortOrder": 24,
+              "sameGame": true
             },
             {
               "id": "659609",
@@ -12495,7 +12545,8 @@
               "allowPlace": false,
               "number": 659609,
               "isOpen": true,
-              "sortOrder": 25
+              "sortOrder": 25,
+              "sameGame": true
             },
             {
               "id": "659610",
@@ -12507,7 +12558,8 @@
               "allowPlace": false,
               "number": 659610,
               "isOpen": true,
-              "sortOrder": 26
+              "sortOrder": 26,
+              "sameGame": true
             },
             {
               "id": "659611",
@@ -12519,7 +12571,8 @@
               "allowPlace": false,
               "number": 659611,
               "isOpen": true,
-              "sortOrder": 27
+              "sortOrder": 27,
+              "sameGame": true
             },
             {
               "id": "659612",
@@ -12531,7 +12584,8 @@
               "allowPlace": false,
               "number": 659612,
               "isOpen": true,
-              "sortOrder": 28
+              "sortOrder": 28,
+              "sameGame": true
             },
             {
               "id": "659613",
@@ -12543,7 +12597,8 @@
               "allowPlace": false,
               "number": 659613,
               "isOpen": true,
-              "sortOrder": 29
+              "sortOrder": 29,
+              "sameGame": true
             },
             {
               "id": "659614",
@@ -12555,7 +12610,8 @@
               "allowPlace": false,
               "number": 659614,
               "isOpen": true,
-              "sortOrder": 30
+              "sortOrder": 30,
+              "sameGame": true
             },
             {
               "id": "659615",
@@ -12567,7 +12623,8 @@
               "allowPlace": false,
               "number": 659615,
               "isOpen": true,
-              "sortOrder": 31
+              "sortOrder": 31,
+              "sameGame": true
             },
             {
               "id": "659616",
@@ -12579,7 +12636,8 @@
               "allowPlace": false,
               "number": 659616,
               "isOpen": true,
-              "sortOrder": 32
+              "sortOrder": 32,
+              "sameGame": true
             },
             {
               "id": "659617",
@@ -12591,7 +12649,8 @@
               "allowPlace": false,
               "number": 659617,
               "isOpen": true,
-              "sortOrder": 33
+              "sortOrder": 33,
+              "sameGame": true
             },
             {
               "id": "659618",
@@ -12603,7 +12662,8 @@
               "allowPlace": false,
               "number": 659618,
               "isOpen": true,
-              "sortOrder": 34
+              "sortOrder": 34,
+              "sameGame": true
             },
             {
               "id": "659619",
@@ -12615,7 +12675,8 @@
               "allowPlace": false,
               "number": 659619,
               "isOpen": true,
-              "sortOrder": 35
+              "sortOrder": 35,
+              "sameGame": true
             },
             {
               "id": "659620",
@@ -12627,7 +12688,8 @@
               "allowPlace": false,
               "number": 659620,
               "isOpen": true,
-              "sortOrder": 36
+              "sortOrder": 36,
+              "sameGame": true
             },
             {
               "id": "659621",
@@ -12639,7 +12701,8 @@
               "allowPlace": false,
               "number": 659621,
               "isOpen": true,
-              "sortOrder": 37
+              "sortOrder": 37,
+              "sameGame": true
             },
             {
               "id": "659622",
@@ -12651,7 +12714,8 @@
               "allowPlace": false,
               "number": 659622,
               "isOpen": true,
-              "sortOrder": 38
+              "sortOrder": 38,
+              "sameGame": true
             },
             {
               "id": "659623",
@@ -12663,7 +12727,8 @@
               "allowPlace": false,
               "number": 659623,
               "isOpen": true,
-              "sortOrder": 39
+              "sortOrder": 39,
+              "sameGame": true
             },
             {
               "id": "659624",
@@ -12675,7 +12740,8 @@
               "allowPlace": false,
               "number": 659624,
               "isOpen": true,
-              "sortOrder": 40
+              "sortOrder": 40,
+              "sameGame": true
             },
             {
               "id": "659625",
@@ -12687,7 +12753,8 @@
               "allowPlace": false,
               "number": 659625,
               "isOpen": true,
-              "sortOrder": 41
+              "sortOrder": 41,
+              "sameGame": true
             },
             {
               "id": "659626",
@@ -12699,9 +12766,12 @@
               "allowPlace": false,
               "number": 659626,
               "isOpen": true,
-              "sortOrder": 42
+              "sortOrder": 42,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257898",
@@ -12741,7 +12811,8 @@
               "allowPlace": false,
               "number": 659629,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659630",
@@ -12753,7 +12824,8 @@
               "allowPlace": false,
               "number": 659630,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659631",
@@ -12765,7 +12837,8 @@
               "allowPlace": false,
               "number": 659631,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659632",
@@ -12777,7 +12850,8 @@
               "allowPlace": false,
               "number": 659632,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "659633",
@@ -12789,7 +12863,8 @@
               "allowPlace": false,
               "number": 659633,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "659634",
@@ -12801,7 +12876,8 @@
               "allowPlace": false,
               "number": 659634,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "659635",
@@ -12813,7 +12889,8 @@
               "allowPlace": false,
               "number": 659635,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "659636",
@@ -12825,7 +12902,8 @@
               "allowPlace": false,
               "number": 659636,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "659637",
@@ -12837,7 +12915,8 @@
               "allowPlace": false,
               "number": 659637,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "659638",
@@ -12849,7 +12928,8 @@
               "allowPlace": false,
               "number": 659638,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "659639",
@@ -12861,7 +12941,8 @@
               "allowPlace": false,
               "number": 659639,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "659640",
@@ -12873,7 +12954,8 @@
               "allowPlace": false,
               "number": 659640,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "659641",
@@ -12885,7 +12967,8 @@
               "allowPlace": false,
               "number": 659641,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "659642",
@@ -12897,7 +12980,8 @@
               "allowPlace": false,
               "number": 659642,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "659643",
@@ -12909,7 +12993,8 @@
               "allowPlace": false,
               "number": 659643,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "659644",
@@ -12921,7 +13006,8 @@
               "allowPlace": false,
               "number": 659644,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "659645",
@@ -12933,7 +13019,8 @@
               "allowPlace": false,
               "number": 659645,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "659646",
@@ -12945,7 +13032,8 @@
               "allowPlace": false,
               "number": 659646,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "659647",
@@ -12957,7 +13045,8 @@
               "allowPlace": false,
               "number": 659647,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "659648",
@@ -12969,9 +13058,12 @@
               "allowPlace": false,
               "number": 659648,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257906",
@@ -13238,6 +13330,90 @@
           ]
         },
         {
+          "id": "122260092",
+          "name": "NBA New Orleans-SE Melbourne 05/10",
+          "shortName": "NBA NOP-SEM 6+Reb 05/10",
+          "betOption": "6+ Rebounds",
+          "betOptionSpectrumId": "3535",
+          "betOptionPriority": 6290,
+          "marketUniqueId": 122260092,
+          "closeTime": "2025-10-05T03:10:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "666660",
+              "name": "Zion Williamson (NOP)",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 666660,
+              "isOpen": true,
+              "sortOrder": 1
+            }
+          ]
+        },
+        {
+          "id": "122260094",
+          "name": "NBA New Orleans-SE Melbourne 05/10",
+          "shortName": "NBA NOP-SEM 8+Reb 05/10",
+          "betOption": "8+ Rebounds",
+          "betOptionSpectrumId": "3536",
+          "betOptionPriority": 6295,
+          "marketUniqueId": 122260094,
+          "closeTime": "2025-10-05T03:10:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "666698",
+              "name": "Zion Williamson (NOP)",
+              "returnWin": 10,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 666698,
+              "isOpen": true,
+              "sortOrder": 1
+            }
+          ]
+        },
+        {
           "id": "122260086",
           "name": "NBA New Orleans-SE Melbourne 05/10",
           "shortName": "NBA NOP-SEM 4+Ast 05/10",
@@ -13484,6 +13660,48 @@
           ]
         },
         {
+          "id": "122260085",
+          "name": "NBA New Orleans-SE Melbourne 05/10",
+          "shortName": "NBA NOP-SEM 4+ 3s 05/10",
+          "betOption": "4+ Threes",
+          "betOptionSpectrumId": "3864",
+          "betOptionPriority": 6410,
+          "marketUniqueId": 122260085,
+          "closeTime": "2025-10-05T03:10:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "666841",
+              "name": "Trey Murphy III (NOP)",
+              "returnWin": 5.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 666841,
+              "isOpen": true,
+              "sortOrder": 2
+            }
+          ]
+        },
+        {
           "id": "122257915",
           "name": "NBA NewOrlns-SE Melb TotPoint",
           "shortName": "NBA NOP-SEM TotPoint",
@@ -13521,7 +13739,8 @@
               "allowPlace": false,
               "number": 659692,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659693",
@@ -13533,7 +13752,8 @@
               "allowPlace": false,
               "number": 659693,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659694",
@@ -13545,7 +13765,8 @@
               "allowPlace": false,
               "number": 659694,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659695",
@@ -13557,7 +13778,8 @@
               "allowPlace": false,
               "number": 659695,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "659696",
@@ -13569,7 +13791,8 @@
               "allowPlace": false,
               "number": 659696,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "659697",
@@ -13581,9 +13804,12 @@
               "allowPlace": false,
               "number": 659697,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257909",
@@ -14103,7 +14329,8 @@
               "allowPlace": false,
               "number": 659698,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659699",
@@ -14115,7 +14342,8 @@
               "allowPlace": false,
               "number": 659699,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659700",
@@ -14127,7 +14355,8 @@
               "allowPlace": false,
               "number": 659700,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659701",
@@ -14139,7 +14368,8 @@
               "allowPlace": false,
               "number": 659701,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "659702",
@@ -14151,9 +14381,12 @@
               "allowPlace": false,
               "number": 659702,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257900",
@@ -14319,7 +14552,8 @@
               "allowPlace": false,
               "number": 659674,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659675",
@@ -14331,7 +14565,8 @@
               "allowPlace": false,
               "number": 659675,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659676",
@@ -14343,7 +14578,8 @@
               "allowPlace": false,
               "number": 659676,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659677",
@@ -14355,7 +14591,8 @@
               "allowPlace": false,
               "number": 659677,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "659678",
@@ -14367,9 +14604,12 @@
               "allowPlace": false,
               "number": 659678,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257894",
@@ -14613,7 +14853,8 @@
               "allowPlace": false,
               "number": 659758,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659759",
@@ -14625,7 +14866,8 @@
               "allowPlace": false,
               "number": 659759,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659760",
@@ -14637,7 +14879,8 @@
               "allowPlace": false,
               "number": 659760,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "659761",
@@ -14649,9 +14892,12 @@
               "allowPlace": false,
               "number": 659761,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257911",
@@ -14691,7 +14937,8 @@
               "allowPlace": false,
               "number": 659706,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659707",
@@ -14703,7 +14950,8 @@
               "allowPlace": false,
               "number": 659707,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659708",
@@ -14715,9 +14963,12 @@
               "allowPlace": false,
               "number": 659708,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257912",
@@ -14757,7 +15008,8 @@
               "allowPlace": false,
               "number": 659703,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659704",
@@ -14769,7 +15021,8 @@
               "allowPlace": false,
               "number": 659704,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659705",
@@ -14781,9 +15034,12 @@
               "allowPlace": false,
               "number": 659705,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257914",
@@ -14823,7 +15079,8 @@
               "allowPlace": false,
               "number": 659689,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659690",
@@ -14835,7 +15092,8 @@
               "allowPlace": false,
               "number": 659690,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "659691",
@@ -14847,9 +15105,12 @@
               "allowPlace": false,
               "number": 659691,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257917",
@@ -14889,7 +15150,8 @@
               "allowPlace": false,
               "number": 659709,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659710",
@@ -14901,9 +15163,12 @@
               "allowPlace": false,
               "number": 659710,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257908",
@@ -14943,7 +15208,8 @@
               "allowPlace": false,
               "number": 659734,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659735",
@@ -14955,9 +15221,12 @@
               "allowPlace": false,
               "number": 659735,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257899",
@@ -14997,7 +15266,8 @@
               "allowPlace": false,
               "number": 659649,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659650",
@@ -15009,9 +15279,12 @@
               "allowPlace": false,
               "number": 659650,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "122257893",
@@ -15051,7 +15324,8 @@
               "allowPlace": false,
               "number": 659627,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "659628",
@@ -15063,13 +15337,17 @@
               "allowPlace": false,
               "number": 659628,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         }
       ],
       "inPlay": false,
-      "goingInPlay": true
+      "goingInPlay": true,
+      "sameGame": true
     }
   ],
   "tournaments": [],
@@ -15114,6 +15392,7 @@
     "1+ Threes",
     "2+ Threes",
     "3+ Threes",
+    "4+ Threes",
     "Double-Double",
     "Triple-Double",
     "Total Match Points",
@@ -15379,7 +15658,7 @@
     {
       "name": "6+ Rebounds",
       "hasFutureMarket": false,
-      "openMarketCount": 1,
+      "openMarketCount": 2,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=6%2B%20Rebounds"
       }
@@ -15387,7 +15666,7 @@
     {
       "name": "8+ Rebounds",
       "hasFutureMarket": false,
-      "openMarketCount": 1,
+      "openMarketCount": 2,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=8%2B%20Rebounds"
       }
@@ -15478,6 +15757,14 @@
       "openMarketCount": 2,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=3%2B%20Threes"
+      }
+    },
+    {
+      "name": "4+ Threes",
+      "hasFutureMarket": false,
+      "openMarketCount": 1,
+      "_links": {
+        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=4%2B%20Threes"
       }
     },
     {
