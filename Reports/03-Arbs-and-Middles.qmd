@@ -78,7 +78,8 @@ all_player_threes_arbs <- calculate_player_arbs(all_odds, "Player Threes")
 all_arbs <- bind_rows(all_player_points_arbs, all_player_assists_arbs, all_player_rebounds_arbs, all_player_threes_arbs)
 
 all_arbs |> 
-    filter(margin > 0)
+    filter(margin > 0) |> 
+    arrange(desc(margin))
 ```
 
 # Middles
