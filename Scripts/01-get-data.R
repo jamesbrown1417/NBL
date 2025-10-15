@@ -20,11 +20,20 @@ match_results <-
     mutate(match_time_utc = ymd_hms(match_time_utc)) |>
     arrange(desc(match_time_utc))
 
+# Get team info to join
+match_results_join <-
+match_results |> 
+    mutate(home_away = ifelse(is_home_competitor == 1, "home", "away")) |>
+    select(match_id, home_away, name = team_name, opp_name = opp_team_name)
+
 # Team Box Scores
 team_box_scores <-
     nblR::nbl_box_team() |>
     relocate(ot_score, .after = p4_score) |>
     select(-c(short_name, opp_short_name, efficiency_custom, tot_eff_1:tot_eff_7, -full_score, -opp_full_score)) |>
+    select(-c("name", "code", "opp_name")) |> 
+    left_join(match_results_join, by = c("match_id", "home_away")) |>
+    relocate(name, opp_name, .after = home_away) |> 
     left_join(match_results |>
         select(match_id, round_number, match_time_utc, extra_periods_used) |>
         distinct(match_id, .keep_all = TRUE)) |>
