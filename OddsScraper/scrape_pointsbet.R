@@ -729,6 +729,33 @@ pointsbet_player_assists_lines |>
     mutate(market_name = "Player Assists") |>
     mutate(agency = "Pointsbet") |> 
     write_csv("Data/scraped_odds/pointsbet_player_assists.csv")
+
+# Threes
+pointsbet_player_threes_lines |>
+    bind_rows(pointsbet_player_threes_over_under) |>
+    select(
+        "match",
+        "home_team",
+        "away_team",
+        "market_name",
+        "player_name",
+        "player_team",
+        "line",
+        "over_price",
+        "under_price",
+        "agency",
+        "opposition_team",
+        "EventKey",
+        "MarketKey",
+        "OutcomeKey",
+        "OutcomeKey_unders"
+    ) |>
+    mutate(market_name = "Player Threes") |>
+    mutate(agency = "Pointsbet") |> 
+    write_csv("Data/scraped_odds/pointsbet_player_threes.csv")
+        
+        
+        
 }
 
 ##%######################################################%##
