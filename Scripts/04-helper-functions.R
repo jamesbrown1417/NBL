@@ -45,13 +45,17 @@ fix_player_names <- function(col) {
         str_replace_all("\\bMatthew Mooney\\b", "Matt Mooney") |>
         str_replace_all("\\bWilliam McDowell White\\b", "Will McDowell-White") |>
         str_replace_all("\\bMatthew William Dellavedova\\b", "Matthew Dellavedova") |>
+        str_replace_all("\\bMatt Dellavedova\\b", "Matthew Dellavedova") |>
+        str_replace_all("Nicholas Marshall", "Nick Marshall") |>
         str_replace_all("\\bLe Afa\\b", "Le'Afa") |>
         str_replace_all("Jo Lual-Acuil Jr\\.", "Jo Lual-Acuil Jr") |>
+        str_replace_all("Jo Acuil", "Jo Lual-Acuil Jr") |>
         str_replace_all("^Jo Lual-Acuil$", "Jo Lual-Acuil Jr") |>
         str_replace_all("\\bByrce\\b", "Bryce") |>
         str_replace_all("\\bJordon\\b", "Jordan") |>
         str_replace_all("\\bRobert Baker$", "Rob Baker II") |>
         str_replace_all("\\Ii$", "II") |>
+        str_replace_all("\\Timothy Soares\\b", "Tim Soares") |>
         str_replace_all("\\bLopez\\b", "López") |>
         str_replace_all("\\bDelaney\\b", "Delany") |>
         str_replace_all("\\bLee Jr\\.", "Lee") |>

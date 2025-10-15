@@ -109,4 +109,68 @@ filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines) |>
 # Use qreport to make tabset
 qreport::maketabs(filtered_list_alt, wide = TRUE)
 ```
+
+## Arbs
+```{r}
+#===============================================================================
+# Libraries and functions
+#===============================================================================
+
+library(tidyverse)
+`%notin%` <- Negate(`%in%`)
+
+# Read in Data
+list_of_files <- list.files("../Data/processed_odds", full.names = TRUE)
+
+# Read in all data
+all_odds <- 
+  list_of_files |> 
+  map_dfr(read_rds)
+```
+
+```{r}
+# Function to calculate arbitrage margins for different player markets
+calculate_player_arbs <- function(all_odds, market_name) {
+  # Filter by the specified market
+  all_market_data <- all_odds |> 
+    filter(market_name == !!market_name)
+  
+  # Only get overs
+  all_market_overs <- all_market_data |> 
+    filter(!is.na(over_price)) |> 
+    select(match,market_name, player_name, player_team, opposition_team, over_line = line, over_price, over_agency = agency)
+  
+  # Only get unders
+  all_market_unders <- all_market_data |> 
+    filter(!is.na(under_price)) |> 
+    select(match, market_name, player_name, player_team, opposition_team, under_line = line, under_price, under_agency = agency)
+  
+  # Merge overs and unders, then calculate margin
+  all_market_arbs <- all_market_overs |>
+    inner_join(all_market_unders, by = c("match", "market_name", "player_name", "player_team", "opposition_team")) |> 
+    filter(over_agency != under_agency) |> 
+    filter(over_line <= under_line) |>
+    mutate(middle = under_line - over_line) |>
+    mutate(margin = 1 / over_price + 1 / under_price) |> 
+    mutate(margin = 1 - margin) |> 
+    mutate(margin = round(100 * margin, 2)) |> 
+    arrange(desc(margin))
+  
+  return(all_market_arbs)
+}
+
+# Applying the function to different markets
+all_player_points_arbs <- calculate_player_arbs(all_odds, "Player Points")
+all_player_assists_arbs <- calculate_player_arbs(all_odds, "Player Assists")
+all_player_rebounds_arbs <- calculate_player_arbs(all_odds, "Player Rebounds")
+all_player_threes_arbs <- calculate_player_arbs(all_odds, "Player Threes")
+all_player_pras_arbs <- calculate_player_arbs(all_odds, "Player PRAs")
+
+# Combining all arbs
+all_arbs <- bind_rows(all_player_points_arbs, all_player_assists_arbs, all_player_rebounds_arbs, all_player_threes_arbs)
+
+all_arbs |> 
+    filter(margin > 0 | (margin > -10 & middle > 0)) |> 
+    arrange(desc(margin))
+```
 :::
