@@ -787,7 +787,7 @@ all_player_props <-
     mutate(home_team = fix_team_names(home_team),
            away_team = fix_team_names(away_team)) |>
     mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
-    mutate(match = paste(player_team, opposition_team, sep = " v ")) |>
+    mutate(match = paste(home_team, away_team, sep = " v ")) |>
     # If line ends with .0 subtract 0.5
     mutate(line = if_else(line %% 1 == 0, line - 0.5, line))
 
