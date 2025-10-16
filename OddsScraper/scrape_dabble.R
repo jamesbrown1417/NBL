@@ -648,8 +648,16 @@ dabble_player_threes_markets |> write_csv("Data/scraped_odds/dabble_player_three
 # Get List of Fixture URLs
 fixture_urls_pickem <- paste0("https://api.dabble.com.au/sportfixtures/details/", fixtures$id, "?filter=dfs-enabled")
 
+# Create safe version of function
+safe_get_fixture_details <- safely(get_fixture_details,otherwise = tibble())
+
 # Map over data
-prop_data_pickem <- map_dfr(fixture_urls_pickem, get_fixture_details, .progress = TRUE)
+prop_data_pickem <-
+    map(fixture_urls_pickem, safe_get_fixture_details, .progress = TRUE) |> 
+    # keep only elements with no error
+    keep(~is.null(.x$error)) |> 
+    # extract the result component
+    map_dfr("result")
 
 # Add match details
 prop_data_pickem <-
