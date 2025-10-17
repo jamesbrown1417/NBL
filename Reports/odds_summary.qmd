@@ -88,7 +88,7 @@ filtered_list <- map(all_matches, filter_by_match, df = all_lines) |>
 qreport::maketabs(filtered_list, wide = TRUE)
 ```
 
-## Alternative Lines
+## Alternative Lines (diff)
 
 ```{r}
 #| results: asis
@@ -97,10 +97,18 @@ all_alt_lines <-
 all_odds |> 
   arrange(match, player_name, market_name, line, desc(over_price)) |> 
     filter(is.na(under_price)) |> 
+    group_by(match, player_name, market_name, line) |>
+    mutate(number_of_markets = n()) |> 
+    mutate(best_market_price = over_price == max(over_price, na.rm = TRUE)) |>
+    mutate(next_best_diff = lead(1/over_price) - (1/over_price)) |>
+    replace_na(list(next_best_diff = 0))
+
+all_alt_lines_diff <-
+    all_alt_lines |> 
     select(match, agency, player_name, market_name, line, over_price, diff_over_last_10)
 
 # Get a list where each match is the name of the filtered DF
-filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines) |> 
+filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines_diff) |> 
   set_names(all_matches) |> 
     # keep if there are more than 1 row
     keep(~ nrow(.x) > 1) |> 
@@ -110,7 +118,30 @@ filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines) |>
 qreport::maketabs(filtered_list_alt, wide = TRUE)
 ```
 
+## Alternative Lines (outliers)
+
+```{r}
+#| results: asis
+
+all_alt_lines_outliers <-
+    all_alt_lines |> 
+    filter(best_market_price) |> 
+    mutate(next_best_diff = round(100 * next_best_diff, 2)) |>
+    select(match, agency, player_name, market_name, line, over_price, number_of_markets, next_best_diff) |> 
+    arrange(desc(next_best_diff))
+
+# Get a list where each match is the name of the filtered DF
+filtered_list_outliers <- map(all_matches, filter_by_match, df = all_alt_lines_outliers) |> 
+  set_names(all_matches) |> 
+    # keep if there are more than 1 row
+    keep(~ nrow(.x) > 1) |> 
+    map(~ datatable(.x))
+
+# Use qreport to make tabset
+qreport::maketabs(filtered_list_outliers, wide = TRUE)
+```
 ## Arbs
+
 ```{r}
 #===============================================================================
 # Libraries and functions
