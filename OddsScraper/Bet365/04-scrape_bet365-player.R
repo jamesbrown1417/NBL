@@ -79,6 +79,18 @@ points_under_odds <-
     html_elements(".gl-ParticipantCenteredStacked_Odds") |>
     html_text()
 
+# Get suspended elements
+child_nodes <- html_children(points_cols[[points_over_index]])
+
+# Convert each child to a character string
+suspended_elements <-
+    as.character(child_nodes) |>
+    as_tibble() |>
+    filter(str_detect(value, "ParticipantCenteredStacked")) |>
+    mutate(row_num = row_number()) |>
+    filter(str_detect(value, "Suspended")) |>
+    pull(row_num)
+
 # Create Player Points Table
 player_points <-
     tibble(player = points_players,
@@ -87,7 +99,8 @@ player_points <-
            over_price = as.numeric(points_over_odds),
            under_price = as.numeric(points_under_odds)) |>
     mutate(market_name = "Player Points Over/Under") |>
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |> 
+    slice(-suspended_elements)
 
 #=============================================================================
 # Alternate Player Points
@@ -310,6 +323,17 @@ rebounds_under_odds <-
     html_elements(".gl-ParticipantCenteredStacked_Odds") |>
     html_text()
 
+# Get suspended elements for rebounds
+rebounds_child_nodes <- html_children(rebounds_cols[[rebounds_over_index]])
+
+rebounds_suspended_elements <-
+    as.character(rebounds_child_nodes) |>
+    as_tibble() |>
+    filter(str_detect(value, "ParticipantCenteredStacked")) |>
+    mutate(row_num = row_number()) |>
+    filter(str_detect(value, "Suspended")) |>
+    pull(row_num)
+
 # Create Player Rebounds Table
 player_rebounds <-
     tibble(player = rebounds_players,
@@ -318,7 +342,8 @@ player_rebounds <-
            over_price = as.numeric(rebounds_over_odds),
            under_price = as.numeric(rebounds_under_odds)) |>
     mutate(market_name = "Player Rebounds Over/Under") |>
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |>
+    slice(-rebounds_suspended_elements)
 
 #=============================================================================
 # Alternate Player Rebounds
@@ -483,6 +508,17 @@ assists_under_odds <-
     html_elements(".gl-ParticipantCenteredStacked_Odds") |>
     html_text()
 
+# Get suspended elements for assists
+assists_child_nodes <- html_children(assists_cols[[assists_over_index]])
+
+assists_suspended_elements <-
+    as.character(assists_child_nodes) |>
+    as_tibble() |>
+    filter(str_detect(value, "ParticipantCenteredStacked")) |>
+    mutate(row_num = row_number()) |>
+    filter(str_detect(value, "Suspended")) |>
+    pull(row_num)
+
 # Create Player Assists Table
 player_assists <-
     tibble(player = assists_players,
@@ -491,7 +527,8 @@ player_assists <-
            over_price = as.numeric(assists_over_odds),
            under_price = as.numeric(assists_under_odds)) |>
     mutate(market_name = "Player Assists Over/Under") |>
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |>
+    slice(-assists_suspended_elements)
 
 #=============================================================================
 # Alternate Player Assists
@@ -657,6 +694,17 @@ threes_under_odds <-
     html_elements(".gl-ParticipantCenteredStacked_Odds") |>
     html_text()
 
+# Get suspended elements for threes
+threes_child_nodes <- html_children(threes_cols[[threes_over_index]])
+
+threes_suspended_elements <-
+    as.character(threes_child_nodes) |>
+    as_tibble() |>
+    filter(str_detect(value, "ParticipantCenteredStacked")) |>
+    mutate(row_num = row_number()) |>
+    filter(str_detect(value, "Suspended")) |>
+    pull(row_num)
+
 # Create Player Threes Made Table
 player_threes_made <-
     tibble(player = threes_players,
@@ -665,7 +713,8 @@ player_threes_made <-
            over_price = as.numeric(threes_over_odds),
            under_price = as.numeric(threes_under_odds)) |>
     mutate(market_name = "Player Threes Made Over/Under") |>
-    mutate(agency = "Bet365")
+    mutate(agency = "Bet365") |>
+    slice(-threes_suspended_elements)
 
 #=============================================================================
 # Alternate Player Threes Made
