@@ -25,17 +25,33 @@ sportsbet_sgm <-
 
 # Build Over/Under rows with appropriate outcome IDs and price
 sportsbet_sgm_over <- sportsbet_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price,
-            classExternalId, competitionExternalId, eventExternalId, marketExternalId,
-            outcomeExternalId_sgm = outcomeExternalId)
+  transmute(match = .data$match,
+            player_name = .data$player_name,
+            line = .data$line,
+            market_name = .data$market_name,
+            agency = .data$agency,
+            type = "Over",
+            price = .data$over_price,
+            classExternalId = .data$classExternalId,
+            competitionExternalId = .data$competitionExternalId,
+            eventExternalId = .data$eventExternalId,
+            marketExternalId = .data$marketExternalId,
+            outcomeExternalId_sgm = .data$outcomeExternalId)
 
 sportsbet_sgm_under <- sportsbet_sgm |>
   filter(!is.na(under_price), !is.na(outcomeExternalId_unders)) |>
-  transmute(match, player_name, line, market_name, agency, type = "Under",
-            price = under_price,
-            classExternalId, competitionExternalId, eventExternalId, marketExternalId,
-            outcomeExternalId_sgm = outcomeExternalId_unders)
+  transmute(match = .data$match,
+            player_name = .data$player_name,
+            line = .data$line,
+            market_name = .data$market_name,
+            agency = .data$agency,
+            type = "Under",
+            price = .data$under_price,
+            classExternalId = .data$classExternalId,
+            competitionExternalId = .data$competitionExternalId,
+            eventExternalId = .data$eventExternalId,
+            marketExternalId = .data$marketExternalId,
+            outcomeExternalId_sgm = .data$outcomeExternalId_unders)
 
 sportsbet_sgm <- bind_rows(sportsbet_sgm_over, sportsbet_sgm_under) |>
   distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)

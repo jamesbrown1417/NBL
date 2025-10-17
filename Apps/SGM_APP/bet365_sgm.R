@@ -13,15 +13,25 @@ bet365_sgm <-
 
 # Build Over/Under rows with price only (no API for Bet365)
 bet365_over <- bet365_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price)
+  transmute(match = .data$match,
+            player_name = .data$player_name,
+            line = .data$line,
+            market_name = .data$market_name,
+            agency = .data$agency,
+            type = "Over",
+            price = .data$over_price)
 
 bet365_under <- tibble()
 if ("under_price" %in% names(bet365_sgm)) {
   bet365_under <- bet365_sgm |>
     filter(!is.na(under_price)) |>
-    transmute(match, player_name, line, market_name, agency, type = "Under",
-              price = under_price)
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Under",
+              price = .data$under_price)
 }
 
 bet365_sgm <- bind_rows(bet365_over, bet365_under) |>

@@ -19,9 +19,17 @@ betright_sgm <-
 
 # Build Over/Under rows if available (BetRight CSVs may not include Unders)
 betright_over <- betright_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price,
-            event_id, outcome_name, outcome_id, fixed_market_id)
+  transmute(match = .data$match,
+            player_name = .data$player_name,
+            line = .data$line,
+            market_name = .data$market_name,
+            agency = .data$agency,
+            type = "Over",
+            price = .data$over_price,
+            event_id = .data$event_id,
+            outcome_name = .data$outcome_name,
+            outcome_id = .data$outcome_id,
+            fixed_market_id = .data$fixed_market_id)
 
 betright_sgm <- betright_over |>
   distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)

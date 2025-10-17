@@ -19,23 +19,62 @@ pointsbet_sgm <-
   keep(~nrow(.x) > 0) |>
   bind_rows()
 
-# Build Over/Under rows with appropriate outcome IDs and price
-pointsbet_over <- pointsbet_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price,
-            EventKey, MarketKey, OutcomeKey_sgm = OutcomeKey)
-
-pointsbet_under <- tibble()
-if ("under_price" %in% names(pointsbet_sgm)) {
-  pointsbet_under <- pointsbet_sgm |>
-    filter(!is.na(under_price) | !is.na(OutcomeKey_unders)) |>
-    transmute(match, player_name, line, market_name, agency, type = "Under",
-              price = under_price,
-              EventKey, MarketKey, OutcomeKey_sgm = OutcomeKey_unders)
+# Ensure a `match` column exists; derive from home/away if needed
+if (!("match" %in% names(pointsbet_sgm))) {
+  if (all(c("home_team", "away_team") %in% names(pointsbet_sgm))) {
+    pointsbet_sgm <- pointsbet_sgm |> mutate(match = paste(.data$home_team, " v ", .data$away_team))
+  } else {
+    pointsbet_sgm <- pointsbet_sgm |> mutate(match = NA_character_)
+  }
 }
 
-pointsbet_sgm <- bind_rows(pointsbet_over, pointsbet_under) |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+# Build Over/Under rows with appropriate outcome IDs and price (fail gracefully)
+if (!all(c("over_price","EventKey","MarketKey","OutcomeKey") %in% names(pointsbet_sgm))) {
+  # Return an empty, schema-correct tibble if odds not loaded yet
+  pointsbet_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric(),
+    EventKey = character(),
+    MarketKey = character(),
+    OutcomeKey_sgm = character()
+  )
+} else {
+  pointsbet_over <- pointsbet_sgm |>
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Over",
+              price = .data$over_price,
+              EventKey = .data$EventKey,
+              MarketKey = .data$MarketKey,
+              OutcomeKey_sgm = .data$OutcomeKey)
+
+  pointsbet_under <- tibble()
+  if ("under_price" %in% names(pointsbet_sgm)) {
+    pointsbet_under <- pointsbet_sgm |>
+      filter(!is.na(under_price) | !is.na(OutcomeKey_unders)) |>
+      transmute(match = .data$match,
+                player_name = .data$player_name,
+                line = .data$line,
+                market_name = .data$market_name,
+                agency = .data$agency,
+                type = "Under",
+                price = .data$under_price,
+                EventKey = .data$EventKey,
+                MarketKey = .data$MarketKey,
+                OutcomeKey_sgm = .data$OutcomeKey_unders)
+  }
+
+  pointsbet_sgm <- bind_rows(pointsbet_over, pointsbet_under) |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+}
 
 #===============================================================================
 # Function to get SGM data

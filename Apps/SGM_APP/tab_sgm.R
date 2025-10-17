@@ -20,17 +20,27 @@ tab_sgm <-
 
 # Build Over/Under rows with appropriate proposition IDs and price
 tab_over <- tab_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price,
-            prop_id_sgm = prop_id)
+  transmute(match = .data$match,
+            player_name = .data$player_name,
+            line = .data$line,
+            market_name = .data$market_name,
+            agency = .data$agency,
+            type = "Over",
+            price = .data$over_price,
+            prop_id_sgm = .data$prop_id)
 
 tab_under <- tibble()
 if ("under_price" %in% names(tab_sgm)) {
   tab_under <- tab_sgm |>
     filter(!is.na(under_price) | !is.na(under_prop_id)) |>
-    transmute(match, player_name, line, market_name, agency, type = "Under",
-              price = under_price,
-              prop_id_sgm = under_prop_id)
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Under",
+              price = .data$under_price,
+              prop_id_sgm = .data$under_prop_id)
 }
 
 tab_sgm <- bind_rows(tab_over, tab_under) |>
