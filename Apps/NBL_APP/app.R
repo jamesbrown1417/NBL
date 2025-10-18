@@ -327,12 +327,6 @@ ui <- page_navbar(
                 label = "Second Upper Bound",
                 value = 8.5
               )
-            ),
-            radioButtons(
-              inputId = "combine_logic",
-              label = "Combine Probabilities",
-              choices = c("AND", "OR"),
-              selected = "AND"
             )
           ),
           markdown(mds = c("__Select Minutes Range:__")),
@@ -354,7 +348,7 @@ ui <- page_navbar(
                     id = "stat_tabs",
                     tabPanel(
                       "Plot",
-                      plotOutput(outputId = "plot", height = "800px")
+                      uiOutput(outputId = "plots_container")
                     ),
                     tabPanel(
                       "Table",
@@ -664,8 +658,8 @@ server <- function(input, output) {
     # Build summary
     parts <- c(
       paste0("P(", label_a, ") = ", round(p_a, 2),
-             " | Odds: ", ifelse(is.finite(1/p_a), round(1/p_a, 2), "Inf"),
-             ", Complement Odds: ", ifelse(is.finite(1/(1-p_a)), round(1/(1-p_a), 2), "Inf")),
+             " | Over Odds: ", ifelse(is.finite(1/p_a), round(1/p_a, 2), "Inf"),
+             ", Under Odds: ", ifelse(is.finite(1/(1-p_a)), round(1/(1-p_a), 2), "Inf")),
       paste0("Sample Size: ", n)
     )
 
@@ -685,26 +679,20 @@ server <- function(input, output) {
         }
         p_b <- mean(cond_b, na.rm = TRUE)
 
-        # Combined
-        if (identical(input$combine_logic, "OR")) {
-          cond_combined <- cond_a | cond_b
-          op_symbol <- " ∪ "
-          label_combined <- paste0("(", label_a, ") OR (", label_b, ")")
-        } else {
-          cond_combined <- cond_a & cond_b
-          op_symbol <- " ∩ "
-          label_combined <- paste0("(", label_a, ") AND (", label_b, ")")
-        }
+        # Combined (AND)
+        cond_combined <- cond_a & cond_b
+        op_symbol <- " ∩ "
+        label_combined <- paste0("(", label_a, ") AND (", label_b, ")")
         p_combined <- mean(cond_combined, na.rm = TRUE)
 
         parts <- c(
           parts,
           paste0("P(", label_b, ") = ", round(p_b, 2),
-                 " | Odds: ", ifelse(is.finite(1/p_b), round(1/p_b, 2), "Inf"),
-                 ", Complement Odds: ", ifelse(is.finite(1/(1-p_b)), round(1/(1-p_b), 2), "Inf")),
-          paste0("P", op_symbol, "= ", round(p_combined, 2),
-                 " | Odds: ", ifelse(is.finite(1/p_combined), round(1/p_combined, 2), "Inf"),
-                 ", Complement Odds: ", ifelse(is.finite(1/(1-p_combined)), round(1/(1-p_combined), 2), "Inf"))
+                 " | Over Odds: ", ifelse(is.finite(1/p_b), round(1/p_b, 2), "Inf"),
+                 ", Under Odds: ", ifelse(is.finite(1/(1-p_b)), round(1/(1-p_b), 2), "Inf")),
+          paste0("P(", label_combined, ") = ", round(p_combined, 2),
+                 " | Over Odds: ", ifelse(is.finite(1/p_combined), round(1/p_combined, 2), "Inf"),
+                 ", Under Odds: ", ifelse(is.finite(1/(1-p_combined)), round(1/(1-p_combined), 2), "Inf"))
         )
       }
     }
@@ -716,79 +704,112 @@ server <- function(input, output) {
   # Plot player stats
   #=============================================================================
   
-  output$plot <- renderPlot({
+  output$plots_container <- renderUI({
+    if (isTRUE(input$enable_second_stat)) {
+      tags$div(style = "display:flex; gap: 16px;",
+               tags$div(style = "flex:1;", plotOutput("plot_a", height = "800px")),
+               tags$div(style = "flex:1;", plotOutput("plot_b", height = "800px"))
+      )
+    } else {
+      plotOutput("plot_a", height = "800px")
+    }
+  })
+
+  output$plot_a <- renderPlot({
     df <- filtered_player_stats()
     if (nrow(df) == 0) return(NULL)
 
-    # Build condition A on df for coloring
-    vals_a <- df[[input$stat_input_a]]
+    vals <- df[[input$stat_input_a]]
     if (identical(input$probability_mode_a, "Interval")) {
-      cond_a <- !is.na(vals_a) & vals_a >= input$interval_lower_a & vals_a <= input$interval_upper_a
+      cond <- !is.na(vals) & vals >= input$interval_lower_a & vals <= input$interval_upper_a
     } else {
-      cond_a <- !is.na(vals_a) & vals_a >= input$reference_line
-    }
-
-    # Optional second stat for combined coloring
-    if (isTRUE(input$enable_second_stat)) {
-      vals_b <- df[[input$stat_input_b]]
-      if (identical(input$probability_mode_b, "Interval")) {
-        cond_b <- !is.na(vals_b) & vals_b >= input$interval_lower_b & vals_b <= input$interval_upper_b
-      } else {
-        cond_b <- !is.na(vals_b) & vals_b >= input$reference_line_b
-      }
-      if (identical(input$combine_logic, "OR")) {
-        cond <- cond_a | cond_b
-      } else {
-        cond <- cond_a & cond_b
-      }
-    } else {
-      cond <- cond_a
+      cond <- !is.na(vals) & vals >= input$reference_line
     }
 
     df_with_color <- df %>% mutate(color_condition = ifelse(cond, "limegreen", "red1"))
 
-    # Base plot
     p <- df_with_color %>%
-      ggplot(aes(
-        x = game_number,
-        y = !!sym(input$stat_input_a),
-        color = color_condition
-      )) +
+      ggplot(aes(x = game_number, y = !!sym(input$stat_input_a), color = color_condition)) +
       geom_point(size = 3) +
-      geom_smooth(
-        method = "loess",
-        se = TRUE,
-        inherit.aes = FALSE,
-        mapping = aes(x = game_number, y = !!sym(input$stat_input_a))
-      )
+      geom_smooth(method = "loess", se = TRUE, inherit.aes = FALSE,
+                  mapping = aes(x = game_number, y = !!sym(input$stat_input_a)))
 
-    # Reference lines
     if (identical(input$probability_mode_a, "Interval")) {
       p <- p +
         geom_hline(yintercept = input$interval_lower_a, linetype = "dashed", color = "grey4", size = 0.8) +
         geom_hline(yintercept = input$interval_upper_a, linetype = "dashed", color = "grey4", size = 0.8)
     } else {
-      p <- p +
-        geom_hline(yintercept = input$reference_line, linetype = "dashed", color = "grey4", size = 1)
+      p <- p + geom_hline(yintercept = input$reference_line, linetype = "dashed", color = "grey4", size = 1)
     }
 
-    # Annotation text
     p <- p + annotate(
       geom = "text",
       x = 1,
       y = max(df %>% pull(!!sym(input$stat_input_a)), na.rm = TRUE),
       label = probability_summary(),
-      hjust = 0,
-      vjust = 1,
-      color = "black",
-      size = 5
+      hjust = 0, vjust = 1, color = "black", size = 5
     ) +
       theme_bw() +
-      theme(
-        plot.background = element_rect(fill = "white", colour = "white"),
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12)
-      ) +
+      theme(plot.background = element_rect(fill = "white", colour = "white"),
+            axis.title = element_text(size = 14),
+            axis.text = element_text(size = 12)) +
+      labs(title = "", x = "Game Number") +
+      scale_color_identity() +
+      theme(legend.position = "none")
+
+    print(p)
+  })
+
+  output$plot_b <- renderPlot({
+    req(input$enable_second_stat)
+    df <- filtered_player_stats()
+    if (nrow(df) == 0) return(NULL)
+
+    vals <- df[[input$stat_input_b]]
+    if (identical(input$probability_mode_b, "Interval")) {
+      cond <- !is.na(vals) & vals >= input$interval_lower_b & vals <= input$interval_upper_b
+      label_b <- paste0(input$stat_input_b, " in [", input$interval_lower_b, ", ", input$interval_upper_b, "]")
+    } else {
+      cond <- !is.na(vals) & vals >= input$reference_line_b
+      label_b <- paste0(input$stat_input_b, " >= ", input$reference_line_b)
+    }
+    p_b <- mean(cond, na.rm = TRUE)
+
+    df_with_color <- df %>% mutate(color_condition = ifelse(cond, "limegreen", "red1"))
+
+    p <- df_with_color %>%
+      ggplot(aes(x = game_number, y = !!sym(input$stat_input_b), color = color_condition)) +
+      geom_point(size = 3) +
+      geom_smooth(method = "loess", se = TRUE, inherit.aes = FALSE,
+                  mapping = aes(x = game_number, y = !!sym(input$stat_input_b)))
+
+    if (identical(input$probability_mode_b, "Interval")) {
+      p <- p +
+        geom_hline(yintercept = input$interval_lower_b, linetype = "dashed", color = "grey4", size = 0.8) +
+        geom_hline(yintercept = input$interval_upper_b, linetype = "dashed", color = "grey4", size = 0.8)
+    } else {
+      p <- p + geom_hline(yintercept = input$reference_line_b, linetype = "dashed", color = "grey4", size = 1)
+    }
+
+    # Local annotation for B only
+    annot <- paste0(
+      "P(", label_b, ") = ", round(p_b, 2),
+      " | Over Odds: ", ifelse(is.finite(1/p_b), round(1/p_b, 2), "Inf"),
+      ", Under Odds: ", ifelse(is.finite(1/(1-p_b)), round(1/(1-p_b), 2), "Inf"),
+      "\nSample Size: ", nrow(df)
+    )
+
+    p <- p + annotate(
+      geom = "text",
+      x = 1,
+      y = max(df %>% pull(!!sym(input$stat_input_b)), na.rm = TRUE),
+      label = annot,
+      hjust = 0, vjust = 1, color = "black", size = 5
+    ) +
+      theme_bw() +
+      theme(plot.background = element_rect(fill = "white", colour = "white"),
+            axis.title = element_text(size = 14),
+            axis.text = element_text(size = 12)) +
       labs(title = "", x = "Game Number") +
       scale_color_identity() +
       theme(legend.position = "none")
