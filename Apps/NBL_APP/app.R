@@ -247,6 +247,12 @@ ui <- page_navbar(
             multiple = FALSE,
             selected = "PTS"
           ),
+          radioButtons(
+            inputId = "probability_mode_a",
+            label = "Probability Mode",
+            choices = c("Over/Under", "Interval"),
+            selected = "Over/Under"
+          ),
           checkboxGroupInput(
             inputId = "home_status",
             label = "Home / Away Games",
@@ -259,11 +265,75 @@ ui <- page_navbar(
             label = "Number of Games",
             value = NA
           ),
-          markdown(mds = c("__Select Reference Line:__")),
-          numericInput(
-            inputId = "reference_line",
-            label = "Line Value",
-            value = 19.5
+          markdown(mds = c("__Reference or Interval:__")),
+          conditionalPanel(
+            condition = "input.probability_mode_a == 'Over/Under'",
+            numericInput(
+              inputId = "reference_line",
+              label = "Line Value",
+              value = 19.5
+            )
+          ),
+          conditionalPanel(
+            condition = "input.probability_mode_a == 'Interval'",
+            numericInput(
+              inputId = "interval_lower_a",
+              label = "Lower Bound",
+              value = 15.5
+            ),
+            numericInput(
+              inputId = "interval_upper_a",
+              label = "Upper Bound",
+              value = 25.5
+            )
+          ),
+          checkboxInput(
+            inputId = "enable_second_stat",
+            label = "Add Second Stat",
+            value = FALSE
+          ),
+          conditionalPanel(
+            condition = "input.enable_second_stat",
+            selectInput(
+              inputId = "stat_input_b",
+              label = "Second Statistic:",
+              choices = c("PTS", "REB", "AST", "PRA", "FG3M", "BLK", "STL", "MIN"),
+              multiple = FALSE,
+              selected = "AST"
+            ),
+            radioButtons(
+              inputId = "probability_mode_b",
+              label = "Second Stat Mode",
+              choices = c("Over/Under", "Interval"),
+              selected = "Over/Under"
+            ),
+            conditionalPanel(
+              condition = "input.probability_mode_b == 'Over/Under'",
+              numericInput(
+                inputId = "reference_line_b",
+                label = "Second Line Value",
+                value = 4.5
+              )
+            ),
+            conditionalPanel(
+              condition = "input.probability_mode_b == 'Interval'",
+              numericInput(
+                inputId = "interval_lower_b",
+                label = "Second Lower Bound",
+                value = 3.5
+              ),
+              numericInput(
+                inputId = "interval_upper_b",
+                label = "Second Upper Bound",
+                value = 8.5
+              )
+            ),
+            radioButtons(
+              inputId = "combine_logic",
+              label = "Combine Probabilities",
+              choices = c("AND", "OR"),
+              selected = "AND"
+            )
           ),
           markdown(mds = c("__Select Minutes Range:__")),
           numericInput(
@@ -570,34 +640,76 @@ server <- function(input, output) {
   # Get Proportion above reference line
   #=============================================================================
   
-  proportion_above_reference_line <- reactive({
-    # Get proportion above reference line
-    proportion_above_reference_line <-
-      filtered_player_stats() |>
-      filter(!!sym(input$stat_input_a) >= input$reference_line) |>
-      nrow() / nrow(filtered_player_stats())
-    
-    # Get implied Odds
-    implied_odds <- 1 / proportion_above_reference_line
-    implied_odds_under <- 1 / (1 - proportion_above_reference_line)
-    
-    # Get string to output
-    output_string <- paste0(
-      "Proportion Above Reference Line: ",
-      round(proportion_above_reference_line, 2),
-      "\n",
-      "Implied Odds Over: ",
-      round(implied_odds, 2),
-      "\n",
-      "Implied Odds Under: ",
-      round(implied_odds_under, 2),
-      "\n",
-      "Sample Size: ",
-      nrow(filtered_player_stats())
+  probability_summary <- reactive({
+    df <- filtered_player_stats()
+    n <- nrow(df)
+    if (n == 0) return("No games after filters")
+
+    # Condition A
+    vals_a <- df[[input$stat_input_a]]
+    if (is.null(vals_a)) return("Invalid primary stat selection")
+
+    if (identical(input$probability_mode_a, "Interval")) {
+      lower_a <- input$interval_lower_a
+      upper_a <- input$interval_upper_a
+      cond_a <- !is.na(vals_a) & vals_a >= lower_a & vals_a <= upper_a
+      label_a <- paste0(input$stat_input_a, " in [", lower_a, ", ", upper_a, "]")
+    } else {
+      ref_a <- input$reference_line
+      cond_a <- !is.na(vals_a) & vals_a >= ref_a
+      label_a <- paste0(input$stat_input_a, " >= ", ref_a)
+    }
+    p_a <- mean(cond_a, na.rm = TRUE)
+
+    # Build summary
+    parts <- c(
+      paste0("P(", label_a, ") = ", round(p_a, 2),
+             " | Odds: ", ifelse(is.finite(1/p_a), round(1/p_a, 2), "Inf"),
+             ", Complement Odds: ", ifelse(is.finite(1/(1-p_a)), round(1/(1-p_a), 2), "Inf")),
+      paste0("Sample Size: ", n)
     )
-    
-    return(output_string)
-    
+
+    # Optional second stat
+    if (isTRUE(input$enable_second_stat)) {
+      vals_b <- df[[input$stat_input_b]]
+      if (!is.null(vals_b)) {
+        if (identical(input$probability_mode_b, "Interval")) {
+          lower_b <- input$interval_lower_b
+          upper_b <- input$interval_upper_b
+          cond_b <- !is.na(vals_b) & vals_b >= lower_b & vals_b <= upper_b
+          label_b <- paste0(input$stat_input_b, " in [", lower_b, ", ", upper_b, "]")
+        } else {
+          ref_b <- input$reference_line_b
+          cond_b <- !is.na(vals_b) & vals_b >= ref_b
+          label_b <- paste0(input$stat_input_b, " >= ", ref_b)
+        }
+        p_b <- mean(cond_b, na.rm = TRUE)
+
+        # Combined
+        if (identical(input$combine_logic, "OR")) {
+          cond_combined <- cond_a | cond_b
+          op_symbol <- " ∪ "
+          label_combined <- paste0("(", label_a, ") OR (", label_b, ")")
+        } else {
+          cond_combined <- cond_a & cond_b
+          op_symbol <- " ∩ "
+          label_combined <- paste0("(", label_a, ") AND (", label_b, ")")
+        }
+        p_combined <- mean(cond_combined, na.rm = TRUE)
+
+        parts <- c(
+          parts,
+          paste0("P(", label_b, ") = ", round(p_b, 2),
+                 " | Odds: ", ifelse(is.finite(1/p_b), round(1/p_b, 2), "Inf"),
+                 ", Complement Odds: ", ifelse(is.finite(1/(1-p_b)), round(1/(1-p_b), 2), "Inf")),
+          paste0("P", op_symbol, "= ", round(p_combined, 2),
+                 " | Odds: ", ifelse(is.finite(1/p_combined), round(1/p_combined, 2), "Inf"),
+                 ", Complement Odds: ", ifelse(is.finite(1/(1-p_combined)), round(1/(1-p_combined), 2), "Inf"))
+        )
+      }
+    }
+
+    paste(parts, collapse = "\n")
   })
   
   #=============================================================================
@@ -605,69 +717,82 @@ server <- function(input, output) {
   #=============================================================================
   
   output$plot <- renderPlot({
-    # Create a new variable that checks if the y-value is above the reference line
-    df_with_color <- filtered_player_stats() %>%
-      mutate(color_condition = ifelse(
-        !!sym(input$stat_input_a) >= input$reference_line,
-        "limegreen",
-        "red1"
-      ))
-    
-    # Plot player stats
+    df <- filtered_player_stats()
+    if (nrow(df) == 0) return(NULL)
+
+    # Build condition A on df for coloring
+    vals_a <- df[[input$stat_input_a]]
+    if (identical(input$probability_mode_a, "Interval")) {
+      cond_a <- !is.na(vals_a) & vals_a >= input$interval_lower_a & vals_a <= input$interval_upper_a
+    } else {
+      cond_a <- !is.na(vals_a) & vals_a >= input$reference_line
+    }
+
+    # Optional second stat for combined coloring
+    if (isTRUE(input$enable_second_stat)) {
+      vals_b <- df[[input$stat_input_b]]
+      if (identical(input$probability_mode_b, "Interval")) {
+        cond_b <- !is.na(vals_b) & vals_b >= input$interval_lower_b & vals_b <= input$interval_upper_b
+      } else {
+        cond_b <- !is.na(vals_b) & vals_b >= input$reference_line_b
+      }
+      if (identical(input$combine_logic, "OR")) {
+        cond <- cond_a | cond_b
+      } else {
+        cond <- cond_a & cond_b
+      }
+    } else {
+      cond <- cond_a
+    }
+
+    df_with_color <- df %>% mutate(color_condition = ifelse(cond, "limegreen", "red1"))
+
+    # Base plot
     p <- df_with_color %>%
       ggplot(aes(
         x = game_number,
         y = !!sym(input$stat_input_a),
         color = color_condition
       )) +
-      
-      # Basic Elements
       geom_point(size = 3) +
       geom_smooth(
         method = "loess",
         se = TRUE,
         inherit.aes = FALSE,
         mapping = aes(x = game_number, y = !!sym(input$stat_input_a))
-      ) +
-      geom_hline(
-        yintercept = input$reference_line,
-        linetype = "dashed",
-        color = "grey4",
-        size = 1
-      )+
-      
-      # Add text
-      annotate(
-        geom = "text",
-        x = 1,
-        y = max(filtered_player_stats() %>% pull(!!sym(
-          input$stat_input_a
-        ))),
-        label = proportion_above_reference_line(),
-        hjust = 0,
-        vjust = 1,
-        color = "black",
-        size = 6
-      ) +
-      
-      # Aesthetics
+      )
+
+    # Reference lines
+    if (identical(input$probability_mode_a, "Interval")) {
+      p <- p +
+        geom_hline(yintercept = input$interval_lower_a, linetype = "dashed", color = "grey4", size = 0.8) +
+        geom_hline(yintercept = input$interval_upper_a, linetype = "dashed", color = "grey4", size = 0.8)
+    } else {
+      p <- p +
+        geom_hline(yintercept = input$reference_line, linetype = "dashed", color = "grey4", size = 1)
+    }
+
+    # Annotation text
+    p <- p + annotate(
+      geom = "text",
+      x = 1,
+      y = max(df %>% pull(!!sym(input$stat_input_a)), na.rm = TRUE),
+      label = probability_summary(),
+      hjust = 0,
+      vjust = 1,
+      color = "black",
+      size = 5
+    ) +
       theme_bw() +
       theme(
         plot.background = element_rect(fill = "white", colour = "white"),
         axis.title = element_text(size = 14),
         axis.text = element_text(size = 12)
       ) +
-      
-      # Labels & Titles
-      labs(title = "",
-           x = "Game Number") +
-      
-      # Set manual color scale
+      labs(title = "", x = "Game Number") +
       scale_color_identity() +
-      
-      # Additional
       theme(legend.position = "none")
-    
+
     print(p)
   })
   
