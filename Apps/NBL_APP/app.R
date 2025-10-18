@@ -685,6 +685,19 @@ server <- function(input, output) {
         label_combined <- paste0("(", label_a, ") AND (", label_b, ")")
         p_combined <- mean(cond_combined, na.rm = TRUE)
 
+        # Joint under probability: both are under their respective lines
+        if (identical(input$probability_mode_a, "Interval")) {
+          under_a <- !is.na(vals_a) & vals_a < input$interval_lower_a
+        } else {
+          under_a <- !is.na(vals_a) & vals_a < input$reference_line
+        }
+        if (identical(input$probability_mode_b, "Interval")) {
+          under_b <- !is.na(vals_b) & vals_b < input$interval_lower_b
+        } else {
+          under_b <- !is.na(vals_b) & vals_b < input$reference_line_b
+        }
+        p_both_under <- mean(under_a & under_b, na.rm = TRUE)
+
         parts <- c(
           parts,
           paste0("P(", label_b, ") = ", round(p_b, 2),
@@ -692,7 +705,7 @@ server <- function(input, output) {
                  ", Under Odds: ", ifelse(is.finite(1/(1-p_b)), round(1/(1-p_b), 2), "Inf")),
           paste0("P(", label_combined, ") = ", round(p_combined, 2),
                  " | Over Odds: ", ifelse(is.finite(1/p_combined), round(1/p_combined, 2), "Inf"),
-                 ", Under Odds: ", ifelse(is.finite(1/(1-p_combined)), round(1/(1-p_combined), 2), "Inf"))
+                 ", Under Odds (both): ", ifelse(is.finite(1/p_both_under), round(1/p_both_under, 2), "Inf"))
         )
       }
     }
