@@ -12,7 +12,11 @@ library(readxl)
 #===============================================================================
 
 # Get positions
-positions <- read_excel("Data/Player-Positions.xlsx")
+# positions <- read_excel("Data/Player-Positions.xlsx")
+
+# Supercoach positions
+positions <- read_csv("Data/supercoach-data.csv") |>
+    select(player_name, player_team, position = supercoach_position_1)
 
 # read first row of data to see date updated
 date_updated <-
@@ -32,17 +36,8 @@ combined_stats_table <- read_rds("Data/combined_stats_table.rds")
 #===============================================================================
 
 # Get long form of positions data
-positions_long <-
-positions |> 
-    pivot_longer(cols = c(position_1, position_2), names_to = "position_number", values_to = "position") |> 
-    select(-position_number, -Rating) |> 
-    filter(!is.na(position))
+positions_long <- positions |> filter(!is.na(position))
 
-# Consolidate Wing and Athletic Wing into Wing
-positions_long <-
-positions_long |> 
-    mutate(position = ifelse(position %in% c("Wing", "Athletic Wing"), "Wing", position))
-    
 #===============================================================================
 # Function to get DVP for a position
 #===============================================================================
@@ -52,8 +47,8 @@ get_dvp <- function(team, stat, offset = 0) {
     stats_table <-
     combined_stats_table |> 
         filter(season == "2025-2026") |> 
-        mutate(minutes_played = period_to_seconds(ms(player_minutes)) / 60) |> 
-        filter(minutes_played >= 5) |> 
+        mutate(minutes_played = as.numeric(player_minutes)) |> 
+        filter(minutes_played >= 5) |>
         transmute(player_name = paste(first_name, family_name),
                   player_team = name,
                   opposition = opp_name,
@@ -61,11 +56,13 @@ get_dvp <- function(team, stat, offset = 0) {
                   minutes_played,
                   player_points,
                   player_assists,
+                  player_three_pointers_made,
                   player_rebounds_total) |> 
         left_join(positions_long, by = c("player_name", "player_team"), relationship = "many-to-many") |> 
         filter(!is.na(position)) |>
         mutate(player_points = 36 * (player_points / minutes_played),
                player_assists = 36 * (player_assists / minutes_played),
+               player_three_pointers_made = 36 * (player_three_pointers_made / minutes_played),
                player_rebounds_total = 36 * (player_rebounds_total / minutes_played)) |> 
         arrange(player_name, start_time) |> 
         group_by(player_name) |> 
@@ -80,6 +77,7 @@ get_dvp <- function(team, stat, offset = 0) {
         group_by(player_name, position, player_team, opposition) |> 
         summarise(avg_points_vs = mean(player_points, na.rm = TRUE),
                   avg_assists_vs = mean(player_assists, na.rm = TRUE),
+                  avg_threes_vs = mean(player_three_pointers_made, na.rm = TRUE),
                   avg_rebounds_vs = mean(player_rebounds_total, na.rm = TRUE))
     
     # Get average vs all other teams
@@ -89,6 +87,7 @@ get_dvp <- function(team, stat, offset = 0) {
         group_by(player_name, position, player_team) |> 
         summarise(avg_points_others = mean(player_points, na.rm = TRUE),
                   avg_assists_others = mean(player_assists, na.rm = TRUE),
+                  avg_threes_others = mean(player_three_pointers_made, na.rm = TRUE),
                   avg_rebounds_others = mean(player_rebounds_total, na.rm = TRUE))
     
     # Join Together
@@ -101,6 +100,7 @@ get_dvp <- function(team, stat, offset = 0) {
                   opposition,
                   point_diff = avg_points_vs - avg_points_others,
                   assist_diff = avg_assists_vs - avg_assists_others,
+                  three_diff = avg_threes_vs - avg_threes_others,
                   rebound_diff = avg_rebounds_vs - avg_rebounds_others)
     
     # Get for desired stat
@@ -116,6 +116,13 @@ get_dvp <- function(team, stat, offset = 0) {
             summarise(games = n(),
                       avg_rebounds = mean(rebound_diff, na.rm = TRUE)) |> 
             arrange(desc(avg_rebounds))
+    } else if (stat == "threes") {
+        dvp_data |> 
+            group_by(position, opposition) |>
+            summarise(
+                games = n(),
+                avg_threes = mean(three_diff, na.rm = TRUE)) |> 
+            arrange(desc(avg_threes))
     } else {
         dvp_data |> 
             group_by(position, opposition) |>
@@ -153,6 +160,12 @@ assists_dvp <-
     team_list |> 
     map_df(get_dvp, stat = "assists") |> 
     arrange(position, desc(avg_assists))
+
+# Get Threes DVP
+threes_dvp <-
+    team_list |> 
+    map_df(get_dvp, stat = "threes") |> 
+    arrange(position, desc(avg_threes))
 
 #===============================================================================
 # Create Heatmaps
@@ -196,4 +209,16 @@ assists_heatmap <-
     scale_x_discrete(position = "top") +
     labs(x = NULL, y = NULL, title = "Player Assists") +
     geom_text(aes(label = round(avg_assists, 1)), size = 3)
-    
+
+# Create threes heatmap
+threes_heatmap <-
+    threes_dvp |> 
+    ggplot(aes(x = position, y = opposition, fill = avg_threes)) +
+    geom_tile() +
+    scale_fill_gradient2(low = "red", mid = "white", high = "green", midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    theme(legend.position = "none") +
+    scale_x_discrete(position = "top") +
+    labs(x = NULL, y = NULL, title = "Player Threes") +
+    geom_text(aes(label = round(avg_threes, 1)), size = 3)
