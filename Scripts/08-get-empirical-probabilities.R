@@ -92,7 +92,8 @@ get_empirical_prob <- function(player_name, line, stat, season) {
             combined_stats_2024_2025 |>
             bind_rows(combined_stats_2025_2026) |> 
             filter(PLAYER_NAME == player_name) |>
-            filter(!is.na(player_minutes))
+            filter(!is.na(player_minutes)) |> 
+            arrange(desc(match_time_utc))
     } else {
         stop("Invalid season selected")
     }
