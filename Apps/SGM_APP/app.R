@@ -140,8 +140,8 @@ props_all <- bind_rows(points, rebounds, assists, threes)
 overs <- props_all |>
   mutate(type = "Over",
          price = over_price,
-         prob_2025 = empirical_prob_over_2024_25,
-         diff_2025 = diff_over_2024_25,
+         prob_s2025 = empirical_prob_over_2025_26,
+         diff_2025 = diff_over_2025_26,
          prob_last_10 = empirical_prob_over_last_10,
          diff_last_10 = diff_over_last_10)
 
@@ -149,8 +149,8 @@ unders <- props_all |>
   filter(!is.na(under_price)) |>
   mutate(type = "Under",
          price = under_price,
-         prob_2025 = empirical_prob_under_2024_25,
-         diff_2025 = diff_under_2024_25,
+         prob_2025 = empirical_prob_under_2025_26,
+         diff_2025 = diff_under_2025_26,
          prob_last_10 = empirical_prob_under_last_10,
          diff_last_10 = diff_under_last_10)
 
