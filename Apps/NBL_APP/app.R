@@ -3,6 +3,8 @@ library(bslib)
 library(gridlayout)
 library(DT)
 library(tidyverse)
+library(readr)
+library(lubridate)
 
 # Function to convert time to decimal-------------------------------------------
 convert_time_to_decimal_hms <- function(time_obj) {
@@ -133,6 +135,26 @@ all_player_stats <-
   mutate(PRA = PTS + REB + AST) |> 
   mutate(HOME_TEAM = ifelse(home_away == "home", name, opp_name)) |>
   mutate(AWAY_TEAM = ifelse(home_away == "away", name, opp_name))
+
+# DVP RDS (if available) -------------------------------------------------------
+dvp_results <- tryCatch(
+  read_rds("../../Data/processed_stats/dvp_results.rds"),
+  error = function(e) NULL
+)
+
+dvp_available <- !is.null(dvp_results)
+
+if (dvp_available) {
+  dvp_points   <- dvp_results$points
+  dvp_rebounds <- dvp_results$rebounds
+  dvp_assists  <- dvp_results$assists
+  dvp_threes   <- dvp_results$threes
+} else {
+  dvp_points   <- tibble(position = character(), opposition = character(), games = integer(), avg_points = numeric())
+  dvp_rebounds <- tibble(position = character(), opposition = character(), games = integer(), avg_rebounds = numeric())
+  dvp_assists  <- tibble(position = character(), opposition = character(), games = integer(), avg_assists = numeric())
+  dvp_threes   <- tibble(position = character(), opposition = character(), games = integer(), avg_threes = numeric())
+}
 
 # Conditional logic for if operating system is windows
 # Read Odds Data----------------------------------------------------------------
@@ -448,6 +470,49 @@ ui <- page_navbar(
                           DTOutput(outputId = "scraped_odds_table", height = "1500px")
                         ))
             )),
+  nav_panel(
+    title = "DVP",
+    grid_container(
+      layout = c("dvp_controls dvp_plot"),
+      row_sizes = c("1fr"),
+      col_sizes = c("300px", "1fr"),
+      gap_size = "10px",
+      grid_card(
+        area = "dvp_controls",
+        card_header("Settings"),
+        card_body(
+          if (!dvp_available) {
+            div(
+              style = "color:#b22222;",
+              "DVP data not found. Run Scripts/06-defence-vs-position.R to generate RDS."
+            )
+          },
+          selectInput(
+            inputId = "dvp_stat",
+            label = "Statistic",
+            choices = c("Points", "Rebounds", "Assists", "Threes"),
+            selected = "Points"
+          ),
+          numericInput(
+            inputId = "dvp_min_games",
+            label = "Min players per cell",
+            value = 3, min = 1, step = 1
+          ),
+          checkboxInput(
+            inputId = "dvp_show_labels",
+            label = "Show labels",
+            value = TRUE
+          )
+        )
+      ),
+      grid_card(
+        area = "dvp_plot",
+        card_body(
+          plotOutput("dvp_heatmap", height = "900px")
+        )
+      )
+    )
+  ),
   nav_panel(
     title = "With / Without Teammate",
     grid_container(
@@ -1019,6 +1084,52 @@ server <- function(input, output) {
       
     # Return odds
     return(odds)
+  })
+
+  #=============================================================================
+  # DVP Heatmap
+  #=============================================================================
+
+  dvp_active_df <- reactive({
+    req(input$dvp_stat)
+    df <- switch(
+      input$dvp_stat,
+      "Points"   = dvp_points,
+      "Rebounds" = dvp_rebounds,
+      "Assists"  = dvp_assists,
+      "Threes"   = dvp_threes
+    )
+    if (!is.null(input$dvp_min_games) && !is.na(input$dvp_min_games)) {
+      df <- df |> filter(games >= input$dvp_min_games)
+    }
+    df
+  })
+
+  output$dvp_heatmap <- renderPlot({
+    df <- dvp_active_df()
+    if (nrow(df) == 0) return(NULL)
+
+    # Determine fill column
+    fill_col <- case_when(
+      identical(input$dvp_stat, "Points")   ~ "avg_points",
+      identical(input$dvp_stat, "Rebounds") ~ "avg_rebounds",
+      identical(input$dvp_stat, "Assists")  ~ "avg_assists",
+      TRUE                                   ~ "avg_threes"
+    )
+
+    p <- ggplot(df, aes(x = position, y = opposition, fill = .data[[fill_col]])) +
+      geom_tile() +
+      scale_fill_gradient2(low = "red", mid = "white", high = "green", midpoint = 0) +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_x_discrete(position = "top") +
+      labs(x = NULL, y = NULL, title = paste("DVP:", input$dvp_stat), fill = "Avg Diff")
+
+    if (isTRUE(input$dvp_show_labels)) {
+      p <- p + geom_text(aes(label = round(.data[[fill_col]], 1)), size = 3)
+    }
+
+    p
   })
   
   # Table output

@@ -9,6 +9,13 @@ library(DT)
 library(readxl)  
 `%notin%` <- Negate(`%in%`)
 
+# Helper: normalize team names for safer joins
+normalize_team <- function(x) {
+  x <- tolower(x)
+  x <- gsub("[^a-z0-9]", "", x)
+  x
+}
+
 # AFL-specific DVP and position normalization removed for NBL
 
 # Head to head data (used for match ordering)
@@ -134,6 +141,28 @@ rebounds <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
 assists <- read_rds("../../Data/processed_odds/all_player_assists.rds")
 threes <- read_rds("../../Data/processed_odds/all_player_threes.rds")
 
+# Load DVP bundle and positions (if available)----------------------------------
+dvp_results <- tryCatch(read_rds("../../Data/processed_stats/dvp_results.rds"), error = function(e) NULL)
+positions_sc <- tryCatch(read_csv("../../Data/supercoach-data.csv") |> 
+                           select(player_name, player_team, position = supercoach_position_1) |> 
+                           filter(!is.na(position)), error = function(e) NULL)
+
+if (!is.null(dvp_results)) {
+  dvp_points   <- dvp_results$points |> rename(dvp_value = avg_points, dvp_games = games)
+  dvp_rebounds <- dvp_results$rebounds |> rename(dvp_value = avg_rebounds, dvp_games = games)
+  dvp_assists  <- dvp_results$assists |> rename(dvp_value = avg_assists, dvp_games = games)
+  dvp_threes   <- dvp_results$threes |> rename(dvp_value = avg_threes, dvp_games = games)
+
+  dvp_long <- bind_rows(
+    dvp_points |> mutate(stat_key = "Player Points"),
+    dvp_rebounds |> mutate(stat_key = "Player Rebounds"),
+    dvp_assists |> mutate(stat_key = "Player Assists"),
+    dvp_threes |> mutate(stat_key = "Player Threes")
+  ) |> mutate(oppo_norm = normalize_team(opposition))
+} else {
+  dvp_long <- tibble(position = character(), opposition = character(), dvp_value = numeric(), dvp_games = integer(), stat_key = character(), oppo_norm = character())
+}
+
 # Combine NBL props then expand to Over/Under rows with unified fields
 props_all <- bind_rows(points, rebounds, assists, threes)
 
@@ -155,6 +184,33 @@ unders <- props_all |>
          diff_last_10 = diff_under_last_10)
 
 disposals <- bind_rows(overs, unders)
+
+# Add position and DVP join if available
+if (!is.null(positions_sc) && nrow(dvp_long) > 0) {
+  # Primary: join on name + team
+  disposals <-
+    disposals |>
+    left_join(positions_sc, by = c("player_name", "player_team"))
+
+  # Fallback: if position missing, join on name only
+  missing_pos <- is.na(disposals$position)
+  if (any(missing_pos)) {
+    pos_by_name <- positions_sc |> select(player_name, position) |> distinct()
+    disposals <- disposals |>
+      left_join(pos_by_name, by = c("player_name"), suffix = c("", "_by_name")) |>
+      mutate(position = coalesce(position, position_by_name)) |>
+      select(-position_by_name)
+  }
+
+  # Map stat key from market_name then join DVP
+  disposals <-
+    disposals |>
+    mutate(stat_key = market_name,
+           oppo_norm = normalize_team(opposition_team)) |>
+    left_join(dvp_long, by = c("position", "oppo_norm", "stat_key"))
+} else {
+  disposals <- disposals |> mutate(dvp_value = NA_real_, dvp_games = NA_integer_)
+}
 
 # Create market best
 disposals <-
@@ -204,11 +260,14 @@ disposals_display <-
   arrange(desc(max_player_diff)) |>
   transmute(match,
          player_name,
+         position,
          type,
          market_name,
          line,
          price,
          agency,
+         dvp = round(dvp_value, 2),
+         dvp_games,
          prob_2025 = round(prob_2025, 2),
          diff_2025 = round(diff_2025, 2),
          prob_last_10 = round(prob_last_10, 2),
@@ -251,8 +310,26 @@ ui <- fluidPage(
                     choices = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
                     selected = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
                     multiple = TRUE
-                  ),
+                 ),
                  checkboxInput("best_odds", "Only Show Best Market Odds?", value = FALSE),
+                 hr(),
+                 h4("Matchup Filters (DVP)"),
+                 radioButtons(
+                   "dvp_type",
+                   "Matchup Type",
+                   choices = c("All", "Good (>= 0)", "Bad (<= 0)"),
+                   selected = "All"
+                 ),
+                 sliderInput(
+                   "dvp_range",
+                   "DVP Range",
+                   min = -5, max = 5, value = c(-5, 5), step = 0.1
+                 ),
+                 numericInput(
+                   "dvp_min_games",
+                   "Min DVP sample size",
+                   value = 0, min = 0, step = 1
+                 ),
                  h3("Selections"),
                  DT::dataTableOutput("selected"),
                  h3("SGM Information"),
@@ -323,6 +400,28 @@ server <- function(input, output, session) {
                           disposals_display$agency == input$agency &
                           disposals_display$market_name %in% input$market,]
 
+    # Apply DVP filters
+    # Range filter
+    if (!is.null(input$dvp_range) && length(input$dvp_range) == 2) {
+      filtered_data <- filtered_data |>
+        filter(is.na(dvp) | (dvp >= input$dvp_range[1] & dvp <= input$dvp_range[2]))
+    }
+    # Min games filter
+    if (!is.null(input$dvp_min_games) && input$dvp_min_games > 0) {
+      filtered_data <- filtered_data |>
+        filter(!is.na(dvp_games) & dvp_games >= input$dvp_min_games)
+    }
+    # Type filter
+    if (!is.null(input$dvp_type) && input$dvp_type != "All") {
+      if (input$dvp_type == "Good (>= 0)") {
+        filtered_data <- filtered_data |>
+          filter(!is.na(dvp) & dvp >= 0)
+      } else if (input$dvp_type == "Bad (<= 0)") {
+        filtered_data <- filtered_data |>
+          filter(!is.na(dvp) & dvp <= 0)
+      }
+    }
+
     if (input$best_odds) {
       filtered_data <- filtered_data |>
         filter(market_best) |>
@@ -334,6 +433,17 @@ server <- function(input, output, session) {
     datatable(filtered_data, selection = "multiple", filter = "top")
   }, server = FALSE) # We are setting this as FALSE for client-side processing of the DataTable
   
+  # Update DVP slider range dynamically based on available data
+  observe({
+    dvp_vals <- suppressWarnings(range(disposals_display$dvp, na.rm = TRUE))
+    if (all(is.finite(dvp_vals)) && diff(dvp_vals) >= 0) {
+      updateSliderInput(session, "dvp_range",
+                        min = floor(dvp_vals[1]),
+                        max = ceiling(dvp_vals[2]),
+                        value = c(floor(dvp_vals[1]), ceiling(dvp_vals[2])))
+    }
+  })
+
   
   observeEvent(input$table_rows_selected,{
     output$selected <- renderDT({

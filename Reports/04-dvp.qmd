@@ -1,0 +1,78 @@
+---
+title: "NBL Defence vs Position"
+execute:
+  echo: false
+  message: false
+  warning: false
+author: "James Brown"
+date: "`r lubridate::now()`"
+date-format: "dddd MMM D, YYYY - hh:mmA"
+format:
+  html:
+    df-print: kable
+    theme: cosmo
+    self-contained: true
+    toc: true
+    toc-depth: 3
+    fig-width: 10
+    fig-height: 8
+editor: visual
+---
+
+```{r}
+# Libraries
+library(tidyverse)
+library(readr)
+library(lubridate)
+
+# Try to read bundled DVP results from RDS
+dvp_results <- tryCatch(
+  read_rds("../Data/processed_stats/dvp_results.rds"),
+  error = function(e) NULL
+)
+
+if (is.null(dvp_results)) {
+  stop("DVP results not found. Run Scripts/06-defence-vs-position.R first.")
+}
+
+points_dvp   <- dvp_results$points
+rebounds_dvp <- dvp_results$rebounds
+assists_dvp  <- dvp_results$assists
+threes_dvp   <- dvp_results$threes
+
+plot_dvp_heatmap <- function(df, fill_col, title) {
+  ggplot(df, aes(x = position, y = opposition, fill = .data[[fill_col]])) +
+    geom_tile() +
+    scale_fill_gradient2(low = "red", mid = "white", high = "green", midpoint = 0) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "right") +
+    scale_x_discrete(position = "top") +
+    labs(x = NULL, y = NULL, title = title, fill = "Avg Diff") +
+    geom_text(aes(label = round(.data[[fill_col]], 1)), size = 3)
+}
+```
+
+## Points
+
+```{r}
+plot_dvp_heatmap(points_dvp, "avg_points", "Player Points (DVP)")
+```
+
+## Rebounds
+
+```{r}
+plot_dvp_heatmap(rebounds_dvp, "avg_rebounds", "Player Rebounds (DVP)")
+```
+
+## Assists
+
+```{r}
+plot_dvp_heatmap(assists_dvp, "avg_assists", "Player Assists (DVP)")
+```
+
+## Threes
+
+```{r}
+plot_dvp_heatmap(threes_dvp, "avg_threes", "Player Threes (DVP)")
+```
+
