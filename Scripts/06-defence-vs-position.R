@@ -6,6 +6,7 @@
 
 library(tidyverse)
 library(readxl)
+library(lubridate)
 
 #===============================================================================
 # Read in data
@@ -23,8 +24,8 @@ date_updated <-
     read_excel("Data/combined_stats_table.xlsx", n_max = 1) |>
     pull(date_scraped)
 
-# If date scraped is before todays date, run the script
-if (date_updated < ymd(Sys.Date())) {
+# If date scraped is before today's date, run the script
+if (as.Date(date_updated) < Sys.Date()) {
     source("Scripts/01-get-data.R")
 }
 
@@ -39,105 +40,119 @@ combined_stats_table <- read_rds("Data/combined_stats_table.rds")
 positions_long <- positions |> filter(!is.na(position))
 
 #===============================================================================
+# Parameters and pre-computation
+#===============================================================================
+
+# Target season and normalisation
+season_target <- "2025-2026"        # set to desired season
+per_minutes   <- 36                 # normalise per X minutes
+min_minutes   <- 5                  # exclude very low-minute stints
+offset_n      <- 0                  # drop last n games from each player
+
+# Build stats table once (avoid recomputation inside get_dvp)
+stats_table <-
+    combined_stats_table |>
+    filter(season == season_target) |>
+    mutate(minutes_played = as.numeric(player_minutes)) |>
+    filter(minutes_played >= min_minutes) |>
+    transmute(
+        player_name = paste(first_name, family_name),
+        player_team  = name,
+        opposition   = opp_name,
+        start_time   = match_time_utc,
+        minutes_played,
+        player_points,
+        player_assists,
+        player_three_pointers_made,
+        player_rebounds_total
+    ) |>
+    left_join(positions_long, by = c("player_name", "player_team")) |>
+    filter(!is.na(position)) |>
+    mutate(
+        player_points               = per_minutes * (player_points / minutes_played),
+        player_assists              = per_minutes * (player_assists / minutes_played),
+        player_three_pointers_made  = per_minutes * (player_three_pointers_made / minutes_played),
+        player_rebounds_total       = per_minutes * (player_rebounds_total / minutes_played)
+    ) |>
+    arrange(player_name, start_time) |>
+    group_by(player_name) |>
+    mutate(match_number = dense_rank(start_time)) |>
+    mutate(games_played = max(match_number)) |>
+    filter(match_number <= games_played - offset_n) |>
+    ungroup()
+
+#===============================================================================
 # Function to get DVP for a position
 #===============================================================================
 
-get_dvp <- function(team, stat, offset = 0) {
-    # Stats
-    stats_table <-
-    combined_stats_table |> 
-        filter(season == "2025-2026") |> 
-        mutate(minutes_played = as.numeric(player_minutes)) |> 
-        filter(minutes_played >= 5) |>
-        transmute(player_name = paste(first_name, family_name),
-                  player_team = name,
-                  opposition = opp_name,
-                  start_time = match_time_utc,
-                  minutes_played,
-                  player_points,
-                  player_assists,
-                  player_three_pointers_made,
-                  player_rebounds_total) |> 
-        left_join(positions_long, by = c("player_name", "player_team"), relationship = "many-to-many") |> 
-        filter(!is.na(position)) |>
-        mutate(player_points = 36 * (player_points / minutes_played),
-               player_assists = 36 * (player_assists / minutes_played),
-               player_three_pointers_made = 36 * (player_three_pointers_made / minutes_played),
-               player_rebounds_total = 36 * (player_rebounds_total / minutes_played)) |> 
-        arrange(player_name, start_time) |> 
-        group_by(player_name) |> 
-        mutate(match_number = dense_rank(start_time)) |> 
-        mutate(games_played = max(match_number)) |> 
-        filter(match_number <= games_played - offset)
-    
-    # Get average vs team
+get_dvp <- function(team, stat, stats_table) {
+    # Average vs given team
     avg_vs_team <-
-        stats_table |> 
+        stats_table |>
         filter(opposition == team) |>
-        group_by(player_name, position, player_team, opposition) |> 
-        summarise(avg_points_vs = mean(player_points, na.rm = TRUE),
-                  avg_assists_vs = mean(player_assists, na.rm = TRUE),
-                  avg_threes_vs = mean(player_three_pointers_made, na.rm = TRUE),
-                  avg_rebounds_vs = mean(player_rebounds_total, na.rm = TRUE))
-    
-    # Get average vs all other teams
+        group_by(player_name, position, player_team, opposition) |>
+        summarise(
+            avg_points_vs  = mean(player_points, na.rm = TRUE),
+            avg_assists_vs = mean(player_assists, na.rm = TRUE),
+            avg_threes_vs  = mean(player_three_pointers_made, na.rm = TRUE),
+            avg_rebounds_vs= mean(player_rebounds_total, na.rm = TRUE),
+            .groups = "drop"
+        )
+
+    # Average vs all other teams
     avg_vs_others <-
-        stats_table |> 
+        stats_table |>
         filter(opposition != team) |>
-        group_by(player_name, position, player_team) |> 
-        summarise(avg_points_others = mean(player_points, na.rm = TRUE),
-                  avg_assists_others = mean(player_assists, na.rm = TRUE),
-                  avg_threes_others = mean(player_three_pointers_made, na.rm = TRUE),
-                  avg_rebounds_others = mean(player_rebounds_total, na.rm = TRUE))
-    
-    # Join Together
+        group_by(player_name, position, player_team) |>
+        summarise(
+            avg_points_others   = mean(player_points, na.rm = TRUE),
+            avg_assists_others  = mean(player_assists, na.rm = TRUE),
+            avg_threes_others   = mean(player_three_pointers_made, na.rm = TRUE),
+            avg_rebounds_others = mean(player_rebounds_total, na.rm = TRUE),
+            .groups = "drop"
+        )
+
+    # Join and compute diffs
     dvp_data <-
         avg_vs_team |>
-        left_join(avg_vs_others, by = c("player_name", "position", "player_team")) |> 
-        transmute(player_name,
-                  position,
-                  player_team,
-                  opposition,
-                  point_diff = avg_points_vs - avg_points_others,
-                  assist_diff = avg_assists_vs - avg_assists_others,
-                  three_diff = avg_threes_vs - avg_threes_others,
-                  rebound_diff = avg_rebounds_vs - avg_rebounds_others)
-    
-    # Get for desired stat
+        left_join(avg_vs_others, by = c("player_name", "position", "player_team")) |>
+        transmute(
+            player_name,
+            position,
+            player_team,
+            opposition,
+            point_diff   = avg_points_vs  - avg_points_others,
+            assist_diff  = avg_assists_vs - avg_assists_others,
+            three_diff   = avg_threes_vs  - avg_threes_others,
+            rebound_diff = avg_rebounds_vs- avg_rebounds_others
+        )
+
+    # Summarise for desired stat
     if (stat == "points") {
-        dvp_data |> 
+        dvp_data |>
             group_by(position, opposition) |>
-            summarise(games = n(),
-                      avg_points = mean(point_diff, na.rm = TRUE)) |> 
-            arrange(desc(avg_points))
+            summarise(games = n(), avg_points = mean(point_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_points))
     } else if (stat == "rebounds") {
-        dvp_data |> 
+        dvp_data |>
             group_by(position, opposition) |>
-            summarise(games = n(),
-                      avg_rebounds = mean(rebound_diff, na.rm = TRUE)) |> 
-            arrange(desc(avg_rebounds))
+            summarise(games = n(), avg_rebounds = mean(rebound_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_rebounds))
     } else if (stat == "threes") {
-        dvp_data |> 
+        dvp_data |>
             group_by(position, opposition) |>
-            summarise(
-                games = n(),
-                avg_threes = mean(three_diff, na.rm = TRUE)) |> 
-            arrange(desc(avg_threes))
-    } else {
-        dvp_data |> 
+            summarise(games = n(), avg_threes = mean(three_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_threes))
+    } else { # assists
+        dvp_data |>
             group_by(position, opposition) |>
-            summarise(
-                games = n(),
-                avg_assists = mean(assist_diff, na.rm = TRUE)) |> 
-            arrange(desc(avg_assists))
+            summarise(games = n(), avg_assists = mean(assist_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_assists))
     }
 }
     
-# Get team list
-team_list <-
-    positions |> 
-    pull(player_team) |> 
-    unique()
+# Get team list from data actually present
+team_list <- stats_table |> pull(opposition) |> unique()
 
 #===============================================================================
 # Get DVP for each stat
@@ -145,26 +160,26 @@ team_list <-
 
 # Get points DVP
 points_dvp <-
-    team_list |> 
-    map_df(get_dvp, stat = "points") |> 
+    team_list |>
+    map_df(get_dvp, stat = "points", stats_table = stats_table) |>
     arrange(position, desc(avg_points))
 
 # Get rebounds DVP
 rebounds_dvp <-
-    team_list |> 
-    map_df(get_dvp, stat = "rebounds") |> 
+    team_list |>
+    map_df(get_dvp, stat = "rebounds", stats_table = stats_table) |>
     arrange(position, desc(avg_rebounds))
 
 # Get assists DVP
 assists_dvp <-
-    team_list |> 
-    map_df(get_dvp, stat = "assists") |> 
+    team_list |>
+    map_df(get_dvp, stat = "assists", stats_table = stats_table) |>
     arrange(position, desc(avg_assists))
 
 # Get Threes DVP
 threes_dvp <-
-    team_list |> 
-    map_df(get_dvp, stat = "threes") |> 
+    team_list |>
+    map_df(get_dvp, stat = "threes", stats_table = stats_table) |>
     arrange(position, desc(avg_threes))
 
 #===============================================================================
@@ -222,3 +237,42 @@ threes_heatmap <-
     scale_x_discrete(position = "top") +
     labs(x = NULL, y = NULL, title = "Player Threes") +
     geom_text(aes(label = round(avg_threes, 1)), size = 3)
+
+#===============================================================================
+# Persist outputs as RDS for reuse
+#===============================================================================
+
+invisible(dir.create("Data/processed_stats", recursive = TRUE, showWarnings = FALSE))
+
+# Individual RDS files
+write_rds(points_dvp,   file = file.path("Data/processed_stats", "dvp_points.rds"))
+write_rds(rebounds_dvp, file = file.path("Data/processed_stats", "dvp_rebounds.rds"))
+write_rds(assists_dvp,  file = file.path("Data/processed_stats", "dvp_assists.rds"))
+write_rds(threes_dvp,   file = file.path("Data/processed_stats", "dvp_threes.rds"))
+
+# Combined long-form for quick plotting later
+dvp_all <- bind_rows(
+    points_dvp  |> mutate(stat = "points",   value = avg_points)  |> select(opposition, position, games, stat, value),
+    rebounds_dvp|> mutate(stat = "rebounds", value = avg_rebounds)|> select(opposition, position, games, stat, value),
+    assists_dvp |> mutate(stat = "assists",  value = avg_assists) |> select(opposition, position, games, stat, value),
+    threes_dvp  |> mutate(stat = "threes",   value = avg_threes)  |> select(opposition, position, games, stat, value)
+)
+
+write_rds(dvp_all, file = file.path("Data/processed_stats", "dvp_all.rds"))
+
+# Named list bundle for convenience
+dvp_results <- list(
+    season   = season_target,
+    per      = per_minutes,
+    min_min  = min_minutes,
+    offset   = offset_n,
+    points   = points_dvp,
+    rebounds = rebounds_dvp,
+    assists  = assists_dvp,
+    threes   = threes_dvp,
+    all      = dvp_all
+)
+
+write_rds(dvp_results, file = file.path("Data/processed_stats", "dvp_results.rds"))
+
+message("DVP tables saved to Data/processed_stats as RDS files.")
