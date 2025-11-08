@@ -29,37 +29,36 @@ async def collect_h2h_and_urls(driver):
     await driver.get('https://www.bet365.com.au/#/AC/B18/C21084266/D48/E1453/F10')
     await driver.sleep(2)
 
-    # Try to find the market container first
-    try:
-        elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=10)
-        print("Market container found - already logged in or login not required")
-    except:
-        # Market container not found, attempt login
-        print("Market container not found - attempting login")
-        
-        login_element = await driver.find_element(By.XPATH, "//div[contains(@class, 'hm-MainHeaderRHSLoggedOutWide_Login')]", timeout=10)
-        await login_element.click()
-        await driver.sleep(1)
-        
-        username_field = await driver.find_element(By.XPATH, "//input[@placeholder='Username or email address']", timeout=10)
-        await username_field.clear()
-        await driver.sleep(0.3)
-        await username_field.send_keys(username)
-        print(f"Set username via send_keys: {username}")
-        
-        password_field = await driver.find_element(By.XPATH, "//input[@placeholder='Password']", timeout=10)
-        await password_field.clear()
-        await driver.sleep(0.3)
-        await password_field.send_keys(password)
-        print(f"Set password via send_keys: {password}")
-        
-        login_button = await driver.find_element(By.XPATH, "//div[contains(@class, 'lms-LoginButton ')]", timeout=5)
-        await login_button.click()
-        print("Clicked login button")
-        
-        # Wait for market container after login
-        elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=10)
-        print("Market container found after login")
+# Always perform login each run
+    print("Attempting login...")
+    login_element = await driver.find_element(By.XPATH, "//div[contains(@class, 'hm-MainHeaderRHSLoggedOutWide_Login')]", timeout=10)
+    await login_element.click()
+    await driver.sleep(1)
+
+    username_field = await driver.find_element(By.XPATH, "//input[@placeholder='Username or email address']", timeout=10)
+    await username_field.clear()
+    await driver.sleep(0.3)
+    await username_field.send_keys(username)
+    print("Entered username")
+
+    password_field = await driver.find_element(By.XPATH, "//input[@placeholder='Password']", timeout=10)
+    await password_field.clear()
+    await driver.sleep(0.3)
+    await password_field.send_keys(password)
+    # Avoid logging passwords
+    print("Entered password")
+
+    login_button = await driver.find_element(By.XPATH, "//span[starts-with(@class, 'slm')]", timeout=5)
+    await login_button.click()
+    print("Clicked login button")
+
+    # Wait 2 seconds
+    print("Waiting 2 seconds...")
+    await driver.sleep(2)
+
+    # Wait for market container after login
+    elem = await driver.find_element(By.XPATH, "//div[contains(@class, 'gl-MarketGroup_Wrapper')]", timeout=10)
+    print("Market container found after login")
 
     # Save HTML    
     body_html = await elem.get_attribute('outerHTML')
