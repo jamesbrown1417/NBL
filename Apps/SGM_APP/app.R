@@ -330,6 +330,11 @@ ui <- fluidPage(
                    "Min DVP sample size",
                    value = 0, min = 0, step = 1
                  ),
+                 checkboxInput(
+                   "dvp_good_by_type",
+                   "Good matchup by bet type (Over=+, Under=-)",
+                   value = FALSE
+                 ),
                  h3("Selections"),
                  DT::dataTableOutput("selected"),
                  h3("SGM Information"),
@@ -420,6 +425,12 @@ server <- function(input, output, session) {
         filtered_data <- filtered_data |>
           filter(!is.na(dvp) & dvp <= 0)
       }
+    }
+
+    # Good matchup by bet type: keep Over with positive DVP and Under with negative DVP
+    if (isTRUE(input$dvp_good_by_type)) {
+      filtered_data <- filtered_data |>
+        filter(!is.na(dvp) & ((type == "Over" & dvp >= 0) | (type == "Under" & dvp <= 0)))
     }
 
     if (input$best_odds) {
