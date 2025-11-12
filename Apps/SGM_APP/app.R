@@ -397,6 +397,35 @@ ui <- fluidPage(
 ##%######################################################%##
 
 server <- function(input, output, session) {
+  # Helper to apply DVP-related filters consistently wherever we subset
+  apply_dvp_filters <- function(df) {
+    # Range filter
+    if (!is.null(input$dvp_range) && length(input$dvp_range) == 2) {
+      df <- df |>
+        dplyr::filter(is.na(dvp) | (dvp >= input$dvp_range[1] & dvp <= input$dvp_range[2]))
+    }
+    # Min games filter
+    if (!is.null(input$dvp_min_games) && input$dvp_min_games > 0) {
+      df <- df |>
+        dplyr::filter(!is.na(dvp_games) & dvp_games >= input$dvp_min_games)
+    }
+    # Type filter
+    if (!is.null(input$dvp_type) && input$dvp_type != "All") {
+      if (input$dvp_type == "Good (>= 0)") {
+        df <- df |>
+          dplyr::filter(!is.na(dvp) & dvp >= 0)
+      } else if (input$dvp_type == "Bad (<= 0)") {
+        df <- df |>
+          dplyr::filter(!is.na(dvp) & dvp <= 0)
+      }
+    }
+    # Good matchup by bet type: keep Over with positive DVP and Under with negative DVP
+    if (isTRUE(input$dvp_good_by_type)) {
+      df <- df |>
+        dplyr::filter(!is.na(dvp) & ((type == "Over" & dvp >= 0) | (type == "Under" & dvp <= 0)))
+    }
+    df
+  }
   
   # For the "SGM" panel
   output$table <- renderDT({
@@ -406,32 +435,7 @@ server <- function(input, output, session) {
                           disposals_display$market_name %in% input$market,]
 
     # Apply DVP filters
-    # Range filter
-    if (!is.null(input$dvp_range) && length(input$dvp_range) == 2) {
-      filtered_data <- filtered_data |>
-        filter(is.na(dvp) | (dvp >= input$dvp_range[1] & dvp <= input$dvp_range[2]))
-    }
-    # Min games filter
-    if (!is.null(input$dvp_min_games) && input$dvp_min_games > 0) {
-      filtered_data <- filtered_data |>
-        filter(!is.na(dvp_games) & dvp_games >= input$dvp_min_games)
-    }
-    # Type filter
-    if (!is.null(input$dvp_type) && input$dvp_type != "All") {
-      if (input$dvp_type == "Good (>= 0)") {
-        filtered_data <- filtered_data |>
-          filter(!is.na(dvp) & dvp >= 0)
-      } else if (input$dvp_type == "Bad (<= 0)") {
-        filtered_data <- filtered_data |>
-          filter(!is.na(dvp) & dvp <= 0)
-      }
-    }
-
-    # Good matchup by bet type: keep Over with positive DVP and Under with negative DVP
-    if (isTRUE(input$dvp_good_by_type)) {
-      filtered_data <- filtered_data |>
-        filter(!is.na(dvp) & ((type == "Over" & dvp >= 0) | (type == "Under" & dvp <= 0)))
-    }
+    filtered_data <- apply_dvp_filters(filtered_data)
 
     if (input$best_odds) {
       filtered_data <- filtered_data |>
@@ -463,7 +467,8 @@ server <- function(input, output, session) {
           disposals_display[disposals_display$match == input$match &
                               disposals_display$agency == input$agency &
                               disposals_display$market_name %in% input$market,]
-        
+        # Apply DVP filters to keep row indices aligned with the main table
+        filtered_data <- apply_dvp_filters(filtered_data)
         if (input$best_odds) {filtered_data <- filtered_data |> filter(market_best) |> select(-market_best)}
         selected_data <- filtered_data[input$table_rows_selected, c("player_name", "line", "market_name", "price")]
         datatable(selected_data)
@@ -485,7 +490,8 @@ server <- function(input, output, session) {
     filtered_data <- disposals_display[disposals_display$match == input$match &
                                          disposals_display$agency == input$agency &
                                          disposals_display$market_name %in% input$market,]
-    
+    # Apply DVP filters so SGM comparison uses the same subset
+    filtered_data <- apply_dvp_filters(filtered_data)
     if (input$best_odds) {filtered_data <- filtered_data |> filter(market_best) |> select(-market_best)}
     selected_data <- filtered_data[input$table_rows_selected, c("player_name", "type", "line", "market_name", "price")]
     
@@ -523,7 +529,8 @@ server <- function(input, output, session) {
       filtered_data <- disposals_display[disposals_display$match == input$match &
                                            disposals_display$agency == input$agency &
                                            disposals_display$market_name %in% input$market,]
-      
+      # Apply DVP filters to align summary with selection table
+      filtered_data <- apply_dvp_filters(filtered_data)
       if (input$best_odds) {filtered_data <- filtered_data |> filter(market_best) |> select(-market_best)}
       selected_data <- filtered_data[input$table_rows_selected, ]
       uncorrelated_price <- prod(selected_data$price)

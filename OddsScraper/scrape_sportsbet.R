@@ -307,7 +307,7 @@ player_points_data <-
 player_points_alternate <-
     player_points_data |> 
     filter(str_detect(prop_market_name, "To Score")) |>
-    filter(!str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
+    filter(str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
     mutate(line = str_extract(prop_market_name, "\\d{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     rename(player_name = selection_name_prop) |> 
@@ -339,7 +339,7 @@ player_points_alternate <-
 player_points_over <-
     player_points_data |> 
     filter(str_detect(selection_name_prop, "Over")) |> 
-    filter(!str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
+    filter(str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Over")) |>
     mutate(player_name = fix_player_names(player_name)) |>
@@ -369,7 +369,7 @@ player_points_over <-
 player_points_under <-
     player_points_data |> 
     filter(str_detect(selection_name_prop, "Under")) |> 
-    filter(!str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
+    filter(str_detect(prop_market_name, "Qtr|Quarter", negate = TRUE)) |>
     rename(player_name = selection_name_prop) |> 
     mutate(player_name = str_remove(player_name, " Under")) |>
     mutate(player_name = fix_player_names(player_name)) |>
