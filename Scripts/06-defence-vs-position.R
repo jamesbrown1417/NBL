@@ -53,7 +53,7 @@ offset_n      <- 0                  # drop last n games from each player
 stats_table <-
     combined_stats_table |>
     filter(season == season_target) |>
-    mutate(minutes_played = as.numeric(player_minutes)) |>
+    mutate(minutes_played = as.numeric(ms(player_minutes)) / 60) |>
     filter(minutes_played >= min_minutes) |>
     transmute(
         player_name = paste(first_name, family_name),
@@ -64,7 +64,9 @@ stats_table <-
         player_points,
         player_assists,
         player_three_pointers_made,
-        player_rebounds_total
+        player_rebounds_total,
+        player_steals,
+        player_blocks
     ) |>
     left_join(positions_long, by = c("player_name", "player_team")) |>
     filter(!is.na(position)) |>
@@ -72,7 +74,10 @@ stats_table <-
         player_points               = per_minutes * (player_points / minutes_played),
         player_assists              = per_minutes * (player_assists / minutes_played),
         player_three_pointers_made  = per_minutes * (player_three_pointers_made / minutes_played),
-        player_rebounds_total       = per_minutes * (player_rebounds_total / minutes_played)
+        player_rebounds_total       = per_minutes * (player_rebounds_total / minutes_played),
+        player_steals               = per_minutes * (player_steals / minutes_played),
+        player_blocks               = per_minutes * (player_blocks / minutes_played),
+        player_pras                 = player_points + player_rebounds_total + player_assists
     ) |>
     arrange(player_name, start_time) |>
     group_by(player_name) |>
@@ -96,6 +101,9 @@ get_dvp <- function(team, stat, stats_table) {
             avg_assists_vs = mean(player_assists, na.rm = TRUE),
             avg_threes_vs  = mean(player_three_pointers_made, na.rm = TRUE),
             avg_rebounds_vs= mean(player_rebounds_total, na.rm = TRUE),
+            avg_steals_vs  = mean(player_steals, na.rm = TRUE),
+            avg_blocks_vs  = mean(player_blocks, na.rm = TRUE),
+            avg_pras_vs    = mean(player_pras, na.rm = TRUE),
             .groups = "drop"
         )
 
@@ -109,6 +117,9 @@ get_dvp <- function(team, stat, stats_table) {
             avg_assists_others  = mean(player_assists, na.rm = TRUE),
             avg_threes_others   = mean(player_three_pointers_made, na.rm = TRUE),
             avg_rebounds_others = mean(player_rebounds_total, na.rm = TRUE),
+            avg_steals_others   = mean(player_steals, na.rm = TRUE),
+            avg_blocks_others   = mean(player_blocks, na.rm = TRUE),
+            avg_pras_others     = mean(player_pras, na.rm = TRUE),
             .groups = "drop"
         )
 
@@ -124,7 +135,10 @@ get_dvp <- function(team, stat, stats_table) {
             point_diff   = avg_points_vs  - avg_points_others,
             assist_diff  = avg_assists_vs - avg_assists_others,
             three_diff   = avg_threes_vs  - avg_threes_others,
-            rebound_diff = avg_rebounds_vs- avg_rebounds_others
+            rebound_diff = avg_rebounds_vs- avg_rebounds_others,
+            steal_diff   = avg_steals_vs  - avg_steals_others,
+            block_diff   = avg_blocks_vs  - avg_blocks_others,
+            pra_diff     = avg_pras_vs    - avg_pras_others
         )
 
     # Summarise for desired stat
@@ -143,11 +157,26 @@ get_dvp <- function(team, stat, stats_table) {
             group_by(position, opposition) |>
             summarise(games = n(), avg_threes = mean(three_diff, na.rm = TRUE), .groups = "drop") |>
             arrange(position, desc(avg_threes))
-    } else { # assists
+    } else if (stat == "assists") {
         dvp_data |>
             group_by(position, opposition) |>
             summarise(games = n(), avg_assists = mean(assist_diff, na.rm = TRUE), .groups = "drop") |>
             arrange(position, desc(avg_assists))
+    } else if (stat == "steals") {
+        dvp_data |>
+            group_by(position, opposition) |>
+            summarise(games = n(), avg_steals = mean(steal_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_steals))
+    } else if (stat == "blocks") {
+        dvp_data |>
+            group_by(position, opposition) |>
+            summarise(games = n(), avg_blocks = mean(block_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_blocks))
+    } else { # pras
+        dvp_data |>
+            group_by(position, opposition) |>
+            summarise(games = n(), avg_pras = mean(pra_diff, na.rm = TRUE), .groups = "drop") |>
+            arrange(position, desc(avg_pras))
     }
 }
     
@@ -181,6 +210,24 @@ threes_dvp <-
     team_list |>
     map_df(get_dvp, stat = "threes", stats_table = stats_table) |>
     arrange(position, desc(avg_threes))
+
+# Get Steals DVP
+steals_dvp <-
+    team_list |>
+    map_df(get_dvp, stat = "steals", stats_table = stats_table) |>
+    arrange(position, desc(avg_steals))
+
+# Get Blocks DVP
+blocks_dvp <-
+    team_list |>
+    map_df(get_dvp, stat = "blocks", stats_table = stats_table) |>
+    arrange(position, desc(avg_blocks))
+
+# Get PRAs DVP
+pras_dvp <-
+    team_list |>
+    map_df(get_dvp, stat = "pras", stats_table = stats_table) |>
+    arrange(position, desc(avg_pras))
 
 #===============================================================================
 # Create Heatmaps
@@ -249,13 +296,19 @@ write_rds(points_dvp,   file = file.path("Data/processed_stats", "dvp_points.rds
 write_rds(rebounds_dvp, file = file.path("Data/processed_stats", "dvp_rebounds.rds"))
 write_rds(assists_dvp,  file = file.path("Data/processed_stats", "dvp_assists.rds"))
 write_rds(threes_dvp,   file = file.path("Data/processed_stats", "dvp_threes.rds"))
+write_rds(steals_dvp,   file = file.path("Data/processed_stats", "dvp_steals.rds"))
+write_rds(blocks_dvp,   file = file.path("Data/processed_stats", "dvp_blocks.rds"))
+write_rds(pras_dvp,     file = file.path("Data/processed_stats", "dvp_pras.rds"))
 
 # Combined long-form for quick plotting later
 dvp_all <- bind_rows(
     points_dvp  |> mutate(stat = "points",   value = avg_points)  |> select(opposition, position, games, stat, value),
     rebounds_dvp|> mutate(stat = "rebounds", value = avg_rebounds)|> select(opposition, position, games, stat, value),
     assists_dvp |> mutate(stat = "assists",  value = avg_assists) |> select(opposition, position, games, stat, value),
-    threes_dvp  |> mutate(stat = "threes",   value = avg_threes)  |> select(opposition, position, games, stat, value)
+    threes_dvp  |> mutate(stat = "threes",   value = avg_threes)  |> select(opposition, position, games, stat, value),
+    steals_dvp  |> mutate(stat = "steals",   value = avg_steals)  |> select(opposition, position, games, stat, value),
+    blocks_dvp  |> mutate(stat = "blocks",   value = avg_blocks)  |> select(opposition, position, games, stat, value),
+    pras_dvp    |> mutate(stat = "pras",     value = avg_pras)    |> select(opposition, position, games, stat, value)
 )
 
 write_rds(dvp_all, file = file.path("Data/processed_stats", "dvp_all.rds"))
@@ -270,6 +323,9 @@ dvp_results <- list(
     rebounds = rebounds_dvp,
     assists  = assists_dvp,
     threes   = threes_dvp,
+    steals   = steals_dvp,
+    blocks   = blocks_dvp,
+    pras     = pras_dvp,
     all      = dvp_all
 )
 

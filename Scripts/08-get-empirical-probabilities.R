@@ -243,7 +243,7 @@ get_empirical_prob <- function(player_name, line, stat, season) {
                       empirical_prob = mean(PRA >= line)) |> 
             ungroup()
         
-        if (season == "2023_2024" || season == "2024_2025") {
+        if (season == "2023_2024" || season == "2024_2025" || season == "2025_2026") {
             
             last_10 <- player_stats_last_10 |> 
                 group_by(PLAYER_NAME) |>

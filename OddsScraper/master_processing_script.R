@@ -21,6 +21,13 @@ run_scraping("OddsScraper/scrape_sportsbet.R")
 run_scraping("OddsScraper/TAB/scrape_TAB.R")
 run_scraping("OddsScraper/scrape_dabble.R")
 
+# Generate DVP outputs (safe)
+tryCatch({
+  source("Scripts/06-defence-vs-position.R")
+}, error = function(e) {
+  cat("DVP generation skipped:", conditionMessage(e), "\n")
+})
+
 ##%######################################################%##
 #                                                          #
 ####                    Head to Head                    ####
@@ -333,3 +340,180 @@ all_player_threes |>
     select(-matches("_id_")) |>
     # select(-group_by_header, -outcome_name) |>
     write_rds("Data/processed_odds/all_player_threes.rds")
+
+##%######################################################%##
+#                                                          #
+####                      Player PRAs                   ####
+#                                                          #
+##%######################################################%##
+
+# Get all scraped odds files and combine
+all_player_pras <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_pras") |>
+    map(read_csv) |>
+    # Ignore null elements
+    keep(~nrow(.x) > 0) |>
+    reduce(bind_rows)
+
+# Add empirical probabilities---------------------------------------------------
+
+distinct_pra_combos <-
+    all_player_pras |> 
+    distinct(player_name, line)
+
+player_emp_probs_2025_26 <- 
+    pmap(distinct_pra_combos, get_empirical_prob, "PRA", "2025_2026", .progress = TRUE) |> 
+    bind_rows() |> 
+    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
+
+all_player_pras <-
+    all_player_pras |>
+    mutate(
+        implied_prob_over = 1 / over_price,
+        implied_prob_under = 1 / under_price
+    ) |>
+    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
+    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
+    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
+    mutate(
+        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
+        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
+    ) |>
+    relocate(agency, .after = diff_under_2025_26) |>
+    mutate_if(is.double, round, 2) |>
+    filter(!is.na(opposition_team)) |>
+    group_by(player_name, line) |>
+    mutate(
+        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
+        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
+    ) |>
+    mutate(variation = max_implied_prob - min_implied_prob) |>
+    ungroup() |>
+    select(-min_implied_prob,-max_implied_prob) |>
+    arrange(desc(variation), player_name, desc(over_price), line)
+
+# Write as RDS
+all_player_pras |>
+    select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    select(-outcome_name) |> 
+    write_rds("Data/processed_odds/all_player_pras.rds")
+
+##%######################################################%##
+#                                                          #
+####                    Player Steals                   ####
+#                                                          #
+##%######################################################%##
+
+all_player_steals <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_steals") |>
+    map(read_csv) |>
+    keep(~nrow(.x) > 0) |>
+    reduce(bind_rows)
+
+distinct_steal_combos <-
+    all_player_steals |> 
+    distinct(player_name, line)
+
+player_emp_probs_2025_26 <- 
+    pmap(distinct_steal_combos, get_empirical_prob, "STL", "2025_2026", .progress = TRUE) |> 
+    bind_rows() |> 
+    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
+
+all_player_steals <-
+    all_player_steals |>
+    mutate(
+        implied_prob_over = 1 / over_price,
+        implied_prob_under = 1 / under_price
+    ) |>
+    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
+    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
+    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
+    mutate(
+        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
+        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
+    ) |>
+    relocate(agency, .after = diff_under_2025_26) |>
+    mutate_if(is.double, round, 2) |>
+    filter(!is.na(opposition_team)) |>
+    group_by(player_name, line) |>
+    mutate(
+        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
+        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
+    ) |>
+    mutate(variation = max_implied_prob - min_implied_prob) |>
+    ungroup() |>
+    select(-min_implied_prob,-max_implied_prob) |>
+    arrange(desc(variation), player_name, desc(over_price), line)
+
+all_player_steals |>
+    select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    write_rds("Data/processed_odds/all_player_steals.rds")
+
+##%######################################################%##
+#                                                          #
+####                    Player Blocks                   ####
+#                                                          #
+##%######################################################%##
+
+all_player_blocks <-
+    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_blocks") |>
+    map(read_csv) |>
+    keep(~nrow(.x) > 0) |>
+    reduce(bind_rows)
+
+distinct_blocks_combos <-
+    all_player_blocks |> 
+    distinct(player_name, line)
+
+player_emp_probs_2025_26 <- 
+    pmap(distinct_blocks_combos, get_empirical_prob, "BLK", "2025_2026", .progress = TRUE) |> 
+    bind_rows() |> 
+    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
+
+all_player_blocks <-
+    all_player_blocks |>
+    mutate(
+        implied_prob_over = 1 / over_price,
+        implied_prob_under = 1 / under_price
+    ) |>
+    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
+    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
+           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
+    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
+           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
+    mutate(
+        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
+        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
+        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
+    ) |>
+    relocate(agency, .after = diff_under_2025_26) |>
+    mutate_if(is.double, round, 2) |>
+    filter(!is.na(opposition_team)) |>
+    group_by(player_name, line) |>
+    mutate(
+        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
+        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
+    ) |>
+    mutate(variation = max_implied_prob - min_implied_prob) |>
+    ungroup() |>
+    select(-min_implied_prob,-max_implied_prob) |>
+    arrange(desc(variation), player_name, desc(over_price), line)
+
+all_player_blocks |>
+    select(-matches("_id$")) |> 
+    select(-matches("_key$")) |>
+    select(-matches("_id_")) |>
+    write_rds("Data/processed_odds/all_player_blocks.rds")

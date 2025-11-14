@@ -149,19 +149,38 @@ if (dvp_available) {
   dvp_rebounds <- dvp_results$rebounds
   dvp_assists  <- dvp_results$assists
   dvp_threes   <- dvp_results$threes
+  dvp_steals   <- dvp_results$steals
+  dvp_blocks   <- dvp_results$blocks
+  dvp_pras     <- dvp_results$pras
 } else {
   dvp_points   <- tibble(position = character(), opposition = character(), games = integer(), avg_points = numeric())
   dvp_rebounds <- tibble(position = character(), opposition = character(), games = integer(), avg_rebounds = numeric())
   dvp_assists  <- tibble(position = character(), opposition = character(), games = integer(), avg_assists = numeric())
   dvp_threes   <- tibble(position = character(), opposition = character(), games = integer(), avg_threes = numeric())
+  dvp_steals   <- tibble(position = character(), opposition = character(), games = integer(), avg_steals = numeric())
+  dvp_blocks   <- tibble(position = character(), opposition = character(), games = integer(), avg_blocks = numeric())
+  dvp_pras     <- tibble(position = character(), opposition = character(), games = integer(), avg_pras = numeric())
 }
 
 # Conditional logic for if operating system is windows
 # Read Odds Data----------------------------------------------------------------
-player_points_data <- read_rds("../../Data/processed_odds/all_player_points.rds")
+player_points_data  <- read_rds("../../Data/processed_odds/all_player_points.rds")
 player_assists_data <- read_rds("../../Data/processed_odds/all_player_assists.rds")
-player_rebounds_data <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
-player_threes_data <- read_rds("../../Data/processed_odds/all_player_threes.rds")
+player_rebounds_data<- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
+player_threes_data  <- read_rds("../../Data/processed_odds/all_player_threes.rds")
+
+# New markets
+player_pras_data    <- tryCatch(read_rds("../../Data/processed_odds/all_player_pras.rds"), error = function(e) tibble())
+player_steals_data  <- tryCatch(read_rds("../../Data/processed_odds/all_player_steals.rds"), error = function(e) tibble())
+player_blocks_data  <- tryCatch(read_rds("../../Data/processed_odds/all_player_blocks.rds"), error = function(e) tibble())
+
+# Aggregate choices
+all_agencies <- unique(c(player_points_data$agency, player_assists_data$agency, player_rebounds_data$agency, player_threes_data$agency,
+                         player_pras_data$agency, player_steals_data$agency, player_blocks_data$agency))
+all_agencies <- all_agencies[!is.na(all_agencies)]
+all_matches  <- unique(c(player_points_data$match, player_assists_data$match, player_rebounds_data$match, player_threes_data$match,
+                         player_pras_data$match, player_steals_data$match, player_blocks_data$match))
+all_matches  <- all_matches[!is.na(all_matches)]
 
 # # Add opposition defensive rating-----------------------------------------------
 # 
@@ -397,24 +416,24 @@ ui <- page_navbar(
                           selectInput(
                             inputId = "agency_input",
                             label = "Select Agencies:",
-                            choices = player_points_data$agency |> unique(),
+                            choices = all_agencies,
                             multiple = TRUE,
                             selectize = TRUE,
-                            selected = player_points_data$agency |> unique(),
+                            selected = all_agencies,
                           ),
                           selectInput(
                             inputId = "market_input",
                             label = "Select Market:",
-                            choices = c("Points", "Rebounds", "Assists", "Threes"),
+                            choices = c("Points", "Rebounds", "Assists", "Threes", "PRAs", "Steals", "Blocks"),
                             multiple = FALSE
                           ),
                           selectInput(
                             inputId = "match_input",
                             label = "Select Matches:",
-                            choices = player_points_data$match |> unique(),
+                            choices = all_matches,
                             multiple = TRUE,
                             selectize = FALSE,
-                            selected = player_points_data$match |> unique()
+                            selected = all_matches
                           ),
                           textInput(
                             inputId = "player_name_input_b",
@@ -490,7 +509,7 @@ ui <- page_navbar(
           selectInput(
             inputId = "dvp_stat",
             label = "Statistic",
-            choices = c("Points", "Rebounds", "Assists", "Threes"),
+            choices = c("Points", "Rebounds", "Assists", "Threes", "Steals", "Blocks", "PRAs"),
             selected = "Points"
           ),
           numericInput(
@@ -986,7 +1005,7 @@ server <- function(input, output) {
         filter(match %in% input$match_input) |>
         select(-match)
     }
-    
+
     # Rebounds
     if (input$market_input == "Rebounds") {
       odds <-
@@ -997,7 +1016,7 @@ server <- function(input, output) {
 
         select(-match) 
     }
-    
+
     # Assists
     if (input$market_input == "Assists") {
       odds <-
@@ -1014,6 +1033,36 @@ server <- function(input, output) {
         player_threes_data |> 
         mutate(variation = round(variation, 2)) |>
         filter(agency %in% input$agency_input) |> 
+        filter(match %in% input$match_input) |>
+        select(-match)
+    }
+
+    # PRAs
+    if (input$market_input == "PRAs") {
+      odds <-
+        player_pras_data |>
+        mutate(variation = round(variation, 2)) |>
+        filter(agency %in% input$agency_input) |>
+        filter(match %in% input$match_input) |>
+        select(-match)
+    }
+
+    # Steals
+    if (input$market_input == "Steals") {
+      odds <-
+        player_steals_data |>
+        mutate(variation = round(variation, 2)) |>
+        filter(agency %in% input$agency_input) |>
+        filter(match %in% input$match_input) |>
+        select(-match)
+    }
+
+    # Blocks
+    if (input$market_input == "Blocks") {
+      odds <-
+        player_blocks_data |>
+        mutate(variation = round(variation, 2)) |>
+        filter(agency %in% input$agency_input) |>
         filter(match %in% input$match_input) |>
         select(-match)
     }
@@ -1097,7 +1146,10 @@ server <- function(input, output) {
       "Points"   = dvp_points,
       "Rebounds" = dvp_rebounds,
       "Assists"  = dvp_assists,
-      "Threes"   = dvp_threes
+      "Threes"   = dvp_threes,
+      "Steals"   = dvp_steals,
+      "Blocks"   = dvp_blocks,
+      "PRAs"     = dvp_pras
     )
     if (!is.null(input$dvp_min_games) && !is.na(input$dvp_min_games)) {
       df <- df |> filter(games >= input$dvp_min_games)
@@ -1114,7 +1166,10 @@ server <- function(input, output) {
       identical(input$dvp_stat, "Points")   ~ "avg_points",
       identical(input$dvp_stat, "Rebounds") ~ "avg_rebounds",
       identical(input$dvp_stat, "Assists")  ~ "avg_assists",
-      TRUE                                   ~ "avg_threes"
+      identical(input$dvp_stat, "Threes")   ~ "avg_threes",
+      identical(input$dvp_stat, "Steals")   ~ "avg_steals",
+      identical(input$dvp_stat, "Blocks")   ~ "avg_blocks",
+      TRUE                                   ~ "avg_pras"
     )
 
     p <- ggplot(df, aes(x = position, y = opposition, fill = .data[[fill_col]])) +

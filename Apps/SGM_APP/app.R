@@ -136,10 +136,13 @@ compare_cgm <- function(player_names_cross, lines_cross, market_names_cross, typ
 }
 
 # Read in NBL processed odds datasets (Points/Rebounds/Assists/Threes)---------
-points <- read_rds("../../Data/processed_odds/all_player_points.rds")
-rebounds <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
+points  <- read_rds("../../Data/processed_odds/all_player_points.rds")
+rebounds<- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
 assists <- read_rds("../../Data/processed_odds/all_player_assists.rds")
-threes <- read_rds("../../Data/processed_odds/all_player_threes.rds")
+threes  <- read_rds("../../Data/processed_odds/all_player_threes.rds")
+pras    <- tryCatch(read_rds("../../Data/processed_odds/all_player_pras.rds"), error = function(e) tibble())
+steals  <- tryCatch(read_rds("../../Data/processed_odds/all_player_steals.rds"), error = function(e) tibble())
+blocks  <- tryCatch(read_rds("../../Data/processed_odds/all_player_blocks.rds"), error = function(e) tibble())
 
 # Load DVP bundle and positions (if available)----------------------------------
 dvp_results <- tryCatch(read_rds("../../Data/processed_stats/dvp_results.rds"), error = function(e) NULL)
@@ -152,19 +155,25 @@ if (!is.null(dvp_results)) {
   dvp_rebounds <- dvp_results$rebounds |> rename(dvp_value = avg_rebounds, dvp_games = games)
   dvp_assists  <- dvp_results$assists |> rename(dvp_value = avg_assists, dvp_games = games)
   dvp_threes   <- dvp_results$threes |> rename(dvp_value = avg_threes, dvp_games = games)
+  dvp_steals   <- dvp_results$steals |> rename(dvp_value = avg_steals, dvp_games = games)
+  dvp_blocks   <- dvp_results$blocks |> rename(dvp_value = avg_blocks, dvp_games = games)
+  dvp_pras     <- dvp_results$pras   |> rename(dvp_value = avg_pras,   dvp_games = games)
 
   dvp_long <- bind_rows(
     dvp_points |> mutate(stat_key = "Player Points"),
     dvp_rebounds |> mutate(stat_key = "Player Rebounds"),
     dvp_assists |> mutate(stat_key = "Player Assists"),
-    dvp_threes |> mutate(stat_key = "Player Threes")
+    dvp_threes |> mutate(stat_key = "Player Threes"),
+    dvp_steals |> mutate(stat_key = "Player Steals"),
+    dvp_blocks |> mutate(stat_key = "Player Blocks"),
+    dvp_pras   |> mutate(stat_key = "Player PRAs")
   ) |> mutate(oppo_norm = normalize_team(opposition))
 } else {
   dvp_long <- tibble(position = character(), opposition = character(), dvp_value = numeric(), dvp_games = integer(), stat_key = character(), oppo_norm = character())
 }
 
 # Combine NBL props then expand to Over/Under rows with unified fields
-props_all <- bind_rows(points, rebounds, assists, threes)
+props_all <- bind_rows(points, rebounds, assists, threes, pras, steals, blocks)
 
 overs <- props_all |>
   mutate(type = "Over",
@@ -307,8 +316,8 @@ ui <- fluidPage(
                  selectInput(
                    "market",
                    "Select Market",
-                    choices = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
-                    selected = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
+                    choices = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes", "Player PRAs", "Player Steals", "Player Blocks"),
+                    selected = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes", "Player PRAs", "Player Steals", "Player Blocks"),
                     multiple = TRUE
                  ),
                  checkboxInput("best_odds", "Only Show Best Market Odds?", value = FALSE),
@@ -368,8 +377,8 @@ ui <- fluidPage(
                  selectInput(
                    "market_cross",
                    "Select Market",
-                    choices = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
-                    selected = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes"),
+                    choices = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes", "Player PRAs", "Player Steals", "Player Blocks"),
+                    selected = c("Player Points", "Player Rebounds", "Player Assists", "Player Threes", "Player PRAs", "Player Steals", "Player Blocks"),
                     multiple = TRUE
                   ),
                  checkboxInput("best_odds_cross", "Only Show Best Market Odds?", value = FALSE),
