@@ -72,9 +72,9 @@
         "Illawarra",
         "South East Melb"
       ],
-      "openMarketCount": 100,
+      "openMarketCount": 101,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 100,
+      "nonFutureMarketCount": 101,
       "markets": [
         {
           "id": "125181181",
@@ -566,13 +566,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125289367",
+          "id": "125289366",
           "name": "NBL Ill-SEM LnOUDb",
           "shortName": "NBL Ill-SEM LnOUDb",
           "betOption": "Line/Over Under Double",
           "betOptionSpectrumId": "212",
           "betOptionPriority": 2745,
-          "marketUniqueId": 125289367,
+          "marketUniqueId": 125289366,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -594,54 +594,60 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "639919",
-              "name": "Illawrra -2.5 /Over 189.5",
-              "returnWin": 3.7,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 639919,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "639920",
-              "name": "Illawrra -2.5 /Under 189.5",
-              "returnWin": 3.9,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 639920,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "639921",
-              "name": "SE Melb +2.5 /Over 189.5",
+              "id": "639915",
+              "name": "Illawrra -2.5 /Over 188.5",
               "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639921,
+              "number": 639915,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
-              "id": "639922",
-              "name": "SE Melb +2.5 /Under 189.5",
-              "returnWin": 3.4,
+              "id": "639916",
+              "name": "Illawrra -2.5 /Under 188.5",
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639922,
+              "number": 639916,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 2,
+              "sameGame": true
+            },
+            {
+              "id": "639917",
+              "name": "SE Melb +2.5 /Over 188.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 639917,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
+              "id": "639918",
+              "name": "SE Melb +2.5 /Under 188.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 639918,
+              "isOpen": true,
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "125181210",
@@ -686,7 +692,7 @@
             {
               "id": "582312",
               "name": "Illawrra /Under 189.5",
-              "returnWin": 3.3,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -698,7 +704,7 @@
             {
               "id": "582313",
               "name": "SE Melb /Over 189.5",
-              "returnWin": 4,
+              "returnWin": 3.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -710,7 +716,7 @@
             {
               "id": "582314",
               "name": "SE Melb /Under 189.5",
-              "returnWin": 4,
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -878,13 +884,13 @@
           ]
         },
         {
-          "id": "125181212",
-          "name": "NBL Illawrra-SE Melb TotPtsOU 189.5",
-          "shortName": "NBL Ill-SEM ToPtOU 189.5",
+          "id": "125181194",
+          "name": "NBL Illawrra-SE Melb TotPtsOU 188.5",
+          "shortName": "NBL Ill-SEM ToPtOU 188.5",
           "betOption": "Total Points Over/Under",
           "betOptionSpectrumId": "456",
           "betOptionPriority": 3155,
-          "marketUniqueId": 125181212,
+          "marketUniqueId": 125181194,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -906,27 +912,27 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "582309",
-              "name": "Over 189.5",
-              "returnWin": 1.9,
+              "id": "581991",
+              "name": "Over 188.5",
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 582309,
+              "number": 581991,
               "isOpen": true,
               "sortOrder": 1,
               "sameGame": true
             },
             {
-              "id": "582310",
-              "name": "Under 189.5",
-              "returnWin": 1.9,
+              "id": "581992",
+              "name": "Under 188.5",
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 582310,
+              "number": 581992,
               "isOpen": true,
               "sortOrder": 2,
               "sameGame": true
@@ -966,7 +972,7 @@
             {
               "id": "582011",
               "name": "Illawarra -14.5",
-              "returnWin": 4.75,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -979,7 +985,7 @@
             {
               "id": "582012",
               "name": "South East Melb +14.5",
-              "returnWin": 1.13,
+              "returnWin": 1.12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1148,7 +1154,7 @@
             {
               "id": "582039",
               "name": "Illawarra +2.5",
-              "returnWin": 1.55,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1161,7 +1167,7 @@
             {
               "id": "582040",
               "name": "South East Melb -2.5",
-              "returnWin": 2.25,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1336,7 +1342,7 @@
             {
               "id": "573490",
               "name": "Over 202.5",
-              "returnWin": 3.6,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1349,7 +1355,7 @@
             {
               "id": "573491",
               "name": "Under 202.5",
-              "returnWin": 1.23,
+              "returnWin": 1.21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1388,7 +1394,7 @@
             {
               "id": "573558",
               "name": "Over 196.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1401,7 +1407,7 @@
             {
               "id": "573559",
               "name": "Under 196.5",
-              "returnWin": 1.42,
+              "returnWin": 1.39,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1414,7 +1420,7 @@
             {
               "id": "573560",
               "name": "Over 193.5",
-              "returnWin": 2.25,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1427,7 +1433,7 @@
             {
               "id": "573607",
               "name": "Under 193.5",
-              "returnWin": 1.55,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1440,7 +1446,7 @@
             {
               "id": "573608",
               "name": "Over 190.5",
-              "returnWin": 1.95,
+              "returnWin": 1.97,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1453,7 +1459,7 @@
             {
               "id": "573613",
               "name": "Under 190.5",
-              "returnWin": 1.73,
+              "returnWin": 1.72,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1466,7 +1472,7 @@
             {
               "id": "573614",
               "name": "Over 187.5",
-              "returnWin": 1.7,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1479,7 +1485,7 @@
             {
               "id": "573615",
               "name": "Under 187.5",
-              "returnWin": 2,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1492,7 +1498,7 @@
             {
               "id": "573691",
               "name": "Over 184.5",
-              "returnWin": 1.52,
+              "returnWin": 1.55,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1505,7 +1511,7 @@
             {
               "id": "573692",
               "name": "Under 184.5",
-              "returnWin": 2.3,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1518,7 +1524,7 @@
             {
               "id": "573695",
               "name": "Over 181.5",
-              "returnWin": 1.39,
+              "returnWin": 1.42,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1531,7 +1537,7 @@
             {
               "id": "573696",
               "name": "Under 181.5",
-              "returnWin": 2.7,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1544,7 +1550,7 @@
             {
               "id": "573697",
               "name": "Over 178.5",
-              "returnWin": 1.28,
+              "returnWin": 1.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1557,7 +1563,7 @@
             {
               "id": "573698",
               "name": "Under 178.5",
-              "returnWin": 3.2,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1577,7 +1583,8 @@
               "allowPlace": false,
               "number": 573708,
               "isOpen": true,
-              "sortOrder": 29
+              "sortOrder": 29,
+              "sameGame": true
             },
             {
               "id": "573709",
@@ -1589,7 +1596,8 @@
               "allowPlace": false,
               "number": 573709,
               "isOpen": true,
-              "sortOrder": 30
+              "sortOrder": 30,
+              "sameGame": true
             }
           ],
           "sameGame": true,
@@ -1706,13 +1714,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125289364",
+          "id": "125288238",
           "name": "NBL Ill-SEM 1QtLOU",
           "shortName": "NBL Ill-SEM 1QtLOU",
           "betOption": "1st Quarter Line/OverUnder Double",
           "betOptionSpectrumId": "410",
           "betOptionPriority": 3485,
-          "marketUniqueId": 125289364,
+          "marketUniqueId": 125288238,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -1734,50 +1742,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "639909",
-              "name": "Illawrra -0.5 /Over 47.5",
-              "returnWin": 3.5,
+              "id": "639555",
+              "name": "Illawrra +0.5 /Over 48.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639909,
+              "number": 639555,
               "isOpen": true,
               "sortOrder": 1
             },
             {
-              "id": "639910",
-              "name": "Illawrra -0.5 /Under 47.5",
-              "returnWin": 4,
+              "id": "639556",
+              "name": "Illawrra +0.5 /Under 48.5",
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639910,
+              "number": 639556,
               "isOpen": true,
               "sortOrder": 2
             },
             {
-              "id": "639911",
-              "name": "SE Melb +0.5 /Over 47.5",
-              "returnWin": 3.4,
+              "id": "639557",
+              "name": "SE Melb -0.5 /Over 48.5",
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639911,
+              "number": 639557,
               "isOpen": true,
               "sortOrder": 3
             },
             {
-              "id": "639912",
-              "name": "SE Melb +0.5 /Under 47.5",
-              "returnWin": 3.5,
+              "id": "639558",
+              "name": "SE Melb -0.5 /Under 48.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639912,
+              "number": 639558,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -2943,7 +2951,7 @@
             {
               "id": "621136",
               "name": "J McGee 20+ Pts/Ill Win",
-              "returnWin": 2.1,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3381,7 +3389,7 @@
             {
               "id": "620685",
               "name": "W SL-Buluk 5+ Pts/Ill Win",
-              "returnWin": 2.05,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3526,7 +3534,7 @@
             {
               "id": "582178",
               "name": "Illawarra by 13-16",
-              "returnWin": 10,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3948,7 +3956,7 @@
             {
               "id": "582254",
               "name": "Illawarra by 7",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4247,7 +4255,7 @@
             {
               "id": "582277",
               "name": "South East Melb by 17",
-              "returnWin": 51,
+              "returnWin": 41,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4591,7 +4599,7 @@
             {
               "id": "582170",
               "name": "SEM 7+ / SEM 11+",
-              "returnWin": 6.5,
+              "returnWin": 6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4636,7 +4644,7 @@
             {
               "id": "582099",
               "name": "Ill by 11+ /201 or more",
-              "returnWin": 11,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4744,7 +4752,7 @@
             {
               "id": "582108",
               "name": "SEM by 1-10 /181-200",
-              "returnWin": 7,
+              "returnWin": 7.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4816,7 +4824,7 @@
             {
               "id": "582114",
               "name": "SEM by 11+ /160 or less",
-              "returnWin": 67,
+              "returnWin": 51,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6293,7 +6301,7 @@
             {
               "id": "620906",
               "name": "A Glover Double-Double",
-              "returnWin": 18,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6306,6 +6314,48 @@
           ],
           "sameGame": true,
           "sameGameMultipleSelections": false
+        },
+        {
+          "id": "125290423",
+          "name": "NBL Ill-SEM H Maldnado DblDbl",
+          "shortName": "NBL Ill-SEM H Maldnado DbDb",
+          "betOption": "Double-Double",
+          "betOptionSpectrumId": "1792",
+          "betOptionPriority": 6600,
+          "marketUniqueId": 125290423,
+          "closeTime": "2025-12-04T08:37:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "640035",
+              "name": "H Maldnado Double-Double",
+              "returnWin": 11,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 640035,
+              "isOpen": true,
+              "sortOrder": 1
+            }
+          ]
         },
         {
           "id": "125203598",
@@ -6338,7 +6388,7 @@
             {
               "id": "620735",
               "name": "J Brown Double-Double",
-              "returnWin": 4.5,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6383,7 +6433,7 @@
             {
               "id": "621413",
               "name": "J Hunter Double-Double",
-              "returnWin": 3.8,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6470,7 +6520,7 @@
             {
               "id": "621749",
               "name": "M Peatling Double-Double",
-              "returnWin": 12,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6515,7 +6565,7 @@
             {
               "id": "620645",
               "name": "N Sobey Double-Double",
-              "returnWin": 7,
+              "returnWin": 6.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6560,7 +6610,7 @@
             {
               "id": "621561",
               "name": "QJ Peterson Double-Double",
-              "returnWin": 11,
+              "returnWin": 10,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6602,7 +6652,7 @@
             {
               "id": "621726",
               "name": "T Harvey Double-Double",
-              "returnWin": 14,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6647,7 +6697,7 @@
             {
               "id": "621104",
               "name": "W Hickey Double-Double",
-              "returnWin": 1.55,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6692,7 +6742,7 @@
             {
               "id": "621273",
               "name": "W Iwundu Double-Double",
-              "returnWin": 16,
+              "returnWin": 14,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6734,7 +6784,7 @@
             {
               "id": "621679",
               "name": "N Sobey Triple-Double",
-              "returnWin": 101,
+              "returnWin": 81,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6779,7 +6829,7 @@
             {
               "id": "621372",
               "name": "W Hickey Triple-Double",
-              "returnWin": 3.6,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6863,7 +6913,7 @@
             {
               "id": "582078",
               "name": "181 to 190",
-              "returnWin": 4.2,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6876,7 +6926,7 @@
             {
               "id": "582079",
               "name": "191 to 200",
-              "returnWin": 4.5,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6889,7 +6939,7 @@
             {
               "id": "582080",
               "name": "201 Points or More",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6947,7 +6997,7 @@
             {
               "id": "624008",
               "name": "Illawarra 81 to 90",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6960,7 +7010,7 @@
             {
               "id": "624009",
               "name": "Illawarra 91 to 100",
-              "returnWin": 2.8,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6986,7 +7036,7 @@
             {
               "id": "624011",
               "name": "Illawarra 111+",
-              "returnWin": 7.5,
+              "returnWin": 8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7554,7 +7604,7 @@
             {
               "id": "624028",
               "name": "Illawarra -7.5",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7566,7 +7616,7 @@
             {
               "id": "624029",
               "name": "South East Melb +7.5",
-              "returnWin": 1.24,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7650,7 +7700,7 @@
             {
               "id": "624036",
               "name": "Illawarra -3.5",
-              "returnWin": 2.4,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7662,7 +7712,7 @@
             {
               "id": "624037",
               "name": "South East Melb +3.5",
-              "returnWin": 1.48,
+              "returnWin": 1.45,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7794,7 +7844,7 @@
             {
               "id": "624048",
               "name": "Illawarra +2.5",
-              "returnWin": 1.55,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7806,7 +7856,7 @@
             {
               "id": "624049",
               "name": "South East Melb -2.5",
-              "returnWin": 2.25,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8112,7 +8162,7 @@
             {
               "id": "572809",
               "name": "Over 106.5",
-              "returnWin": 4.75,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8124,7 +8174,7 @@
             {
               "id": "572810",
               "name": "Under 106.5",
-              "returnWin": 1.13,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8400,7 +8450,7 @@
             {
               "id": "572989",
               "name": "Over 94.5",
-              "returnWin": 1.77,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8412,7 +8462,7 @@
             {
               "id": "572990",
               "name": "Under 94.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8448,7 +8498,7 @@
             {
               "id": "573013",
               "name": "Over 92.5",
-              "returnWin": 1.57,
+              "returnWin": 1.55,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8460,7 +8510,7 @@
             {
               "id": "573017",
               "name": "Under 92.5",
-              "returnWin": 2.2,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8568,7 +8618,7 @@
             {
               "id": "573094",
               "name": "Over 87.5",
-              "returnWin": 1.28,
+              "returnWin": 1.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8580,7 +8630,7 @@
             {
               "id": "573095",
               "name": "Under 87.5",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8640,7 +8690,7 @@
             {
               "id": "573200",
               "name": "Over 84.5",
-              "returnWin": 1.17,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -8652,7 +8702,7 @@
             {
               "id": "573201",
               "name": "Under 84.5",
-              "returnWin": 4.25,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9222,7 +9272,7 @@
             {
               "id": "624000",
               "name": "Under 93 Pts",
-              "returnWin": 2.2,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9378,7 +9428,7 @@
             {
               "id": "624002",
               "name": "SE Melbourne 31 to 35",
-              "returnWin": 17,
+              "returnWin": 18,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9414,7 +9464,7 @@
             {
               "id": "624005",
               "name": "SE Melbourne 46 to 50",
-              "returnWin": 3.5,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9492,13 +9542,13 @@
           ]
         },
         {
-          "id": "125289365",
+          "id": "125181199",
           "name": "NBL Illawrra-SE Melb 1stQtrLn",
-          "shortName": "NBL Ill-SEM 1stQtrLn -0.5",
+          "shortName": "NBL Ill-SEM 1stQtrLn +0.5",
           "betOption": "1st Quarter Line",
           "betOptionSpectrumId": "408",
           "betOptionPriority": 11950,
-          "marketUniqueId": 125289365,
+          "marketUniqueId": 125181199,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -9520,39 +9570,39 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "639913",
-              "name": "Illawarra -0.5",
-              "returnWin": 1.95,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 639913,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "639914",
-              "name": "South East Melb +0.5",
+              "id": "582219",
+              "name": "Illawarra +0.5",
               "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 639914,
+              "number": 582219,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "582220",
+              "name": "South East Melb -0.5",
+              "returnWin": 1.95,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 582220,
               "isOpen": true,
               "sortOrder": 2
             }
           ]
         },
         {
-          "id": "125218545",
+          "id": "125290329",
           "name": "NBL Illawrra-SE Melb 1stQHHOU",
           "shortName": "NBL Ill-SEM 1stQHHOU",
           "betOption": "1st Quarter H2H/Over Under Double",
           "betOptionSpectrumId": "880",
           "betOptionPriority": 11970,
-          "marketUniqueId": 125218545,
+          "marketUniqueId": 125290329,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -9574,50 +9624,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "558157",
-              "name": "Illawrra /Over 47.5",
-              "returnWin": 3.3,
+              "id": "640008",
+              "name": "Illawrra /Over 48.5",
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 558157,
+              "number": 640008,
               "isOpen": true,
               "sortOrder": 1
             },
             {
-              "id": "558160",
-              "name": "Illawrra /Under 47.5",
-              "returnWin": 3.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 558160,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "558161",
-              "name": "SE Melb /Over 47.5",
+              "id": "640009",
+              "name": "Illawrra /Under 48.5",
               "returnWin": 3.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 558161,
+              "number": 640009,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 2
             },
             {
-              "id": "558162",
-              "name": "SE Melb /Under 47.5",
+              "id": "640010",
+              "name": "SE Melb /Over 48.5",
               "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 558162,
+              "number": 640010,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "640011",
+              "name": "SE Melb /Under 48.5",
+              "returnWin": 3.3,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 640011,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -9678,7 +9728,7 @@
             {
               "id": "624099",
               "name": "Illawarra -7.5",
-              "returnWin": 4.5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9690,7 +9740,7 @@
             {
               "id": "624100",
               "name": "South East Melb +7.5",
-              "returnWin": 1.15,
+              "returnWin": 1.13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9858,7 +9908,7 @@
             {
               "id": "624114",
               "name": "South East Melb +0.5",
-              "returnWin": 1.8,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -9870,7 +9920,7 @@
             {
               "id": "624115",
               "name": "Illawarra +0.5",
-              "returnWin": 1.73,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10038,7 +10088,7 @@
             {
               "id": "624129",
               "name": "Illawarra +7.5",
-              "returnWin": 1.13,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10050,7 +10100,7 @@
             {
               "id": "624130",
               "name": "South East Melb -7.5",
-              "returnWin": 4.75,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10114,9 +10164,33 @@
           "allowBundle": false,
           "propositions": [
             {
+              "id": "565316",
+              "name": "Over 57.5",
+              "returnWin": 5.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 565316,
+              "isOpen": true,
+              "sortOrder": 11
+            },
+            {
+              "id": "565317",
+              "name": "Under 57.5",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 565317,
+              "isOpen": true,
+              "sortOrder": 12
+            },
+            {
               "id": "565318",
               "name": "Over 56.5",
-              "returnWin": 5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10128,7 +10202,7 @@
             {
               "id": "565319",
               "name": "Under 56.5",
-              "returnWin": 1.12,
+              "returnWin": 1.13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10140,7 +10214,7 @@
             {
               "id": "565320",
               "name": "Over 55.5",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10152,7 +10226,7 @@
             {
               "id": "565321",
               "name": "Under 55.5",
-              "returnWin": 1.15,
+              "returnWin": 1.17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10164,7 +10238,7 @@
             {
               "id": "565322",
               "name": "Over 54.5",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10176,7 +10250,7 @@
             {
               "id": "565323",
               "name": "Under 54.5",
-              "returnWin": 1.21,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10188,7 +10262,7 @@
             {
               "id": "565324",
               "name": "Over 53.5",
-              "returnWin": 3.4,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10200,7 +10274,7 @@
             {
               "id": "565325",
               "name": "Under 53.5",
-              "returnWin": 1.25,
+              "returnWin": 1.28,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10212,7 +10286,7 @@
             {
               "id": "565326",
               "name": "Over 52.5",
-              "returnWin": 3,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10224,7 +10298,7 @@
             {
               "id": "565327",
               "name": "Under 52.5",
-              "returnWin": 1.32,
+              "returnWin": 1.34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10236,7 +10310,7 @@
             {
               "id": "565328",
               "name": "Over 51.5",
-              "returnWin": 2.7,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10248,7 +10322,7 @@
             {
               "id": "565329",
               "name": "Under 51.5",
-              "returnWin": 1.39,
+              "returnWin": 1.42,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10260,7 +10334,7 @@
             {
               "id": "565332",
               "name": "Over 50.5",
-              "returnWin": 2.4,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10272,7 +10346,7 @@
             {
               "id": "565333",
               "name": "Under 50.5",
-              "returnWin": 1.48,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10284,7 +10358,7 @@
             {
               "id": "565334",
               "name": "Over 49.5",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10296,7 +10370,7 @@
             {
               "id": "565335",
               "name": "Under 49.5",
-              "returnWin": 1.6,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10320,7 +10394,7 @@
             {
               "id": "565338",
               "name": "Under 48.5",
-              "returnWin": 1.73,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10332,7 +10406,7 @@
             {
               "id": "565339",
               "name": "Over 47.5",
-              "returnWin": 1.8,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10356,7 +10430,7 @@
             {
               "id": "565341",
               "name": "Over 46.5",
-              "returnWin": 1.62,
+              "returnWin": 1.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10368,7 +10442,7 @@
             {
               "id": "565342",
               "name": "Under 46.5",
-              "returnWin": 2.1,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10380,7 +10454,7 @@
             {
               "id": "565343",
               "name": "Over 45.5",
-              "returnWin": 1.52,
+              "returnWin": 1.48,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10392,7 +10466,7 @@
             {
               "id": "565344",
               "name": "Under 45.5",
-              "returnWin": 2.3,
+              "returnWin": 2.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10404,7 +10478,7 @@
             {
               "id": "565345",
               "name": "Over 44.5",
-              "returnWin": 1.42,
+              "returnWin": 1.39,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10416,7 +10490,7 @@
             {
               "id": "565346",
               "name": "Under 44.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10428,7 +10502,7 @@
             {
               "id": "565347",
               "name": "Over 43.5",
-              "returnWin": 1.34,
+              "returnWin": 1.32,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10440,7 +10514,7 @@
             {
               "id": "565348",
               "name": "Under 43.5",
-              "returnWin": 2.9,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10452,7 +10526,7 @@
             {
               "id": "565349",
               "name": "Over 42.5",
-              "returnWin": 1.28,
+              "returnWin": 1.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10464,7 +10538,7 @@
             {
               "id": "565350",
               "name": "Under 42.5",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10500,7 +10574,7 @@
             {
               "id": "565353",
               "name": "Over 40.5",
-              "returnWin": 1.17,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10512,7 +10586,7 @@
             {
               "id": "565354",
               "name": "Under 40.5",
-              "returnWin": 4.25,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10524,7 +10598,7 @@
             {
               "id": "565355",
               "name": "Over 39.5",
-              "returnWin": 1.13,
+              "returnWin": 1.12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10536,7 +10610,7 @@
             {
               "id": "565356",
               "name": "Under 39.5",
-              "returnWin": 4.75,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10544,30 +10618,6 @@
               "number": 565356,
               "isOpen": true,
               "sortOrder": 48
-            },
-            {
-              "id": "565357",
-              "name": "Over 38.5",
-              "returnWin": 1.1,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 565357,
-              "isOpen": true,
-              "sortOrder": 49
-            },
-            {
-              "id": "565358",
-              "name": "Under 38.5",
-              "returnWin": 5.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 565358,
-              "isOpen": true,
-              "sortOrder": 50
             }
           ]
         },
@@ -10782,7 +10832,7 @@
             {
               "id": "622645",
               "name": "Neither",
-              "returnWin": 15,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10860,7 +10910,7 @@
             {
               "id": "558168",
               "name": "51 to 60",
-              "returnWin": 3,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10884,13 +10934,13 @@
           ]
         },
         {
-          "id": "125208372",
+          "id": "125290328",
           "name": "NBL Illawrra-SE Melb Tot3WyQ1",
           "shortName": "NBL Ill-SEM Tot3WyQ1",
           "betOption": "1st Quarter Total Points 3-Way",
           "betOptionSpectrumId": "391",
           "betOptionPriority": 12210,
-          "marketUniqueId": 125208372,
+          "marketUniqueId": 125290328,
           "closeTime": "2025-12-04T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -10912,38 +10962,38 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "624145",
-              "name": "Over 48 Pts",
-              "returnWin": 1.95,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 624145,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "624146",
-              "name": "47 - 48 Pts",
-              "returnWin": 8.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 624146,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "624147",
-              "name": "Under 47 Pts",
+              "id": "640012",
+              "name": "Over 49 Pts",
               "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 624147,
+              "number": 640012,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "640013",
+              "name": "48 - 49 Pts",
+              "returnWin": 8.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 640013,
+              "isOpen": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "640014",
+              "name": "Under 48 Pts",
+              "returnWin": 1.95,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 640014,
               "isOpen": true,
               "sortOrder": 3
             }
@@ -10980,7 +11030,7 @@
             {
               "id": "622646",
               "name": "Both teams score 20+",
-              "returnWin": 1.6,
+              "returnWin": 1.55,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11016,7 +11066,7 @@
             {
               "id": "622649",
               "name": "Neither Team Score 20+",
-              "returnWin": 8.5,
+              "returnWin": 9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11106,7 +11156,7 @@
             {
               "id": "558152",
               "name": "Illawarra 30+",
-              "returnWin": 5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11148,7 +11198,7 @@
             {
               "id": "558170",
               "name": "South East Melb 0 to 20",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11172,7 +11222,7 @@
             {
               "id": "558175",
               "name": "South East Melb 24 to 26",
-              "returnWin": 4.5,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11184,7 +11234,7 @@
             {
               "id": "558176",
               "name": "South East Melb 27 to 29",
-              "returnWin": 5.5,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11196,7 +11246,7 @@
             {
               "id": "558180",
               "name": "South East Melb 30+",
-              "returnWin": 5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11424,7 +11474,7 @@
             {
               "id": "582081",
               "name": "1st Half",
-              "returnWin": 1.72,
+              "returnWin": 1.68,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11448,7 +11498,7 @@
             {
               "id": "582083",
               "name": "2nd Half",
-              "returnWin": 2.1,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11490,7 +11540,7 @@
             {
               "id": "611865",
               "name": "1st Quarter",
-              "returnWin": 3.2,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11503,7 +11553,7 @@
             {
               "id": "611866",
               "name": "2nd Quarter",
-              "returnWin": 3.4,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11529,7 +11579,7 @@
             {
               "id": "611868",
               "name": "4th Quarter",
-              "returnWin": 3.6,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12477,13 +12527,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125181627",
+          "id": "125181629",
           "name": "NBL Per-Mel LnOUDb",
           "shortName": "NBL Per-Mel LnOUDb",
           "betOption": "Line/Over Under Double",
           "betOptionSpectrumId": "212",
           "betOptionPriority": 2745,
-          "marketUniqueId": 125181627,
+          "marketUniqueId": 125181629,
           "closeTime": "2025-12-04T10:42:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -12505,53 +12555,53 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "586446",
-              "name": "Perth +2.5 /Over 184.5",
-              "returnWin": 3.6,
+              "id": "586454",
+              "name": "Perth +2.5 /Over 183.5",
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 586446,
+              "number": 586454,
               "isOpen": true,
               "sortOrder": 1,
               "sameGame": true
             },
             {
-              "id": "586447",
-              "name": "Perth +2.5 /Under 184.5",
-              "returnWin": 3.6,
+              "id": "586455",
+              "name": "Perth +2.5 /Under 183.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 586447,
+              "number": 586455,
               "isOpen": true,
               "sortOrder": 2,
               "sameGame": true
             },
             {
-              "id": "586448",
-              "name": "Melb Utd -2.5 /Over 184.5",
-              "returnWin": 3.6,
+              "id": "586456",
+              "name": "Melb Utd -2.5 /Over 183.5",
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 586448,
+              "number": 586456,
               "isOpen": true,
               "sortOrder": 3,
               "sameGame": true
             },
             {
-              "id": "586449",
-              "name": "Melb Utd -2.5 /Under 184.5",
-              "returnWin": 3.6,
+              "id": "586457",
+              "name": "Melb Utd -2.5 /Under 183.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 586449,
+              "number": 586457,
               "isOpen": true,
               "sortOrder": 4,
               "sameGame": true
@@ -12591,7 +12641,7 @@
             {
               "id": "586460",
               "name": "Perth /Over 184.5",
-              "returnWin": 4.4,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12603,7 +12653,7 @@
             {
               "id": "586461",
               "name": "Perth /Under 184.5",
-              "returnWin": 4.4,
+              "returnWin": 4.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12615,7 +12665,7 @@
             {
               "id": "586462",
               "name": "Melb Utd /Over 184.5",
-              "returnWin": 3.1,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12627,7 +12677,7 @@
             {
               "id": "586463",
               "name": "Melb Utd /Under 184.5",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12825,7 +12875,7 @@
             {
               "id": "586373",
               "name": "Over 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12838,7 +12888,7 @@
             {
               "id": "586374",
               "name": "Under 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13357,7 +13407,7 @@
             {
               "id": "617122",
               "name": "Over 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13370,7 +13420,7 @@
             {
               "id": "617123",
               "name": "Under 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14529,7 +14579,7 @@
             {
               "id": "621580",
               "name": "B Henshall 5+ Pts/Per Win",
-              "returnWin": 2.5,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14541,7 +14591,7 @@
             {
               "id": "621582",
               "name": "B Henshall 10+ Pts/Per Win",
-              "returnWin": 4,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14595,7 +14645,7 @@
             {
               "id": "621309",
               "name": "C Goulding 15+ Pts/Mel Win",
-              "returnWin": 2.1,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14603,18 +14653,6 @@
               "number": 621309,
               "isOpen": true,
               "sortOrder": 2
-            },
-            {
-              "id": "621311",
-              "name": "C Goulding 20+ Pts/Mel Win",
-              "returnWin": 4.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 621311,
-              "isOpen": true,
-              "sortOrder": 3
             }
           ]
         },
@@ -14673,7 +14711,7 @@
             {
               "id": "621089",
               "name": "D Windler 15+ Pts/Per Win",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14727,7 +14765,7 @@
             {
               "id": "620720",
               "name": "David Duke 10+ Pts/Per Win",
-              "returnWin": 2.4,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14739,7 +14777,7 @@
             {
               "id": "620722",
               "name": "David Duke 15+ Pts/Per Win",
-              "returnWin": 3.5,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14781,7 +14819,7 @@
             {
               "id": "621770",
               "name": "E Pepper 5+ Pts/Per Win",
-              "returnWin": 2.5,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14793,7 +14831,7 @@
             {
               "id": "621771",
               "name": "E Pepper 10+ Pts/Per Win",
-              "returnWin": 4,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14835,7 +14873,7 @@
             {
               "id": "621560",
               "name": "F Delany 5+ Pts/Mel Win",
-              "returnWin": 1.65,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14847,7 +14885,7 @@
             {
               "id": "621562",
               "name": "F Delany 10+ Pts/Mel Win",
-              "returnWin": 2,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14855,18 +14893,6 @@
               "number": 621562,
               "isOpen": true,
               "sortOrder": 2
-            },
-            {
-              "id": "621564",
-              "name": "F Delany 15+ Pts/Mel Win",
-              "returnWin": 4,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 621564,
-              "isOpen": true,
-              "sortOrder": 3
             }
           ]
         },
@@ -14901,7 +14927,7 @@
             {
               "id": "621612",
               "name": "J Edwards 5+ Pts/Mel Win",
-              "returnWin": 1.62,
+              "returnWin": 1.65,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14913,7 +14939,7 @@
             {
               "id": "621614",
               "name": "J Edwards 10+ Pts/Mel Win",
-              "returnWin": 1.8,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14925,7 +14951,7 @@
             {
               "id": "621616",
               "name": "J Edwards 15+ Pts/Mel Win",
-              "returnWin": 2.7,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14979,7 +15005,7 @@
             {
               "id": "621680",
               "name": "K Doolittle 15+ Pts/Per Win",
-              "returnWin": 2.4,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14987,18 +15013,6 @@
               "number": 621680,
               "isOpen": true,
               "sortOrder": 2
-            },
-            {
-              "id": "621682",
-              "name": "K Doolittle 20+ Pts/Per Win",
-              "returnWin": 3.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 621682,
-              "isOpen": true,
-              "sortOrder": 3
             }
           ]
         },
@@ -15045,7 +15059,7 @@
             {
               "id": "620670",
               "name": "Lual-Acuil 15+ Pts/Per Win",
-              "returnWin": 2.4,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15057,7 +15071,7 @@
             {
               "id": "620672",
               "name": "Lual-Acuil 20+ Pts/Per Win",
-              "returnWin": 3.5,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15099,7 +15113,7 @@
             {
               "id": "621471",
               "name": "M Doyle 10+ Pts/Mel Win",
-              "returnWin": 1.65,
+              "returnWin": 1.68,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15111,7 +15125,7 @@
             {
               "id": "621474",
               "name": "M Doyle 15+ Pts/Mel Win",
-              "returnWin": 1.95,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15123,7 +15137,7 @@
             {
               "id": "621476",
               "name": "M Doyle 20+ Pts/Mel Win",
-              "returnWin": 3.6,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15165,7 +15179,7 @@
             {
               "id": "621183",
               "name": "S Dech 5+ Pts/Per Win",
-              "returnWin": 3.5,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15207,7 +15221,7 @@
             {
               "id": "621452",
               "name": "T Krebs 5+ Pts/Mel Win",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15219,7 +15233,7 @@
             {
               "id": "621454",
               "name": "T Krebs 10+ Pts/Mel Win",
-              "returnWin": 3.4,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15285,7 +15299,7 @@
             {
               "id": "620910",
               "name": "Ty Walker 15+ Pts/Mel Win",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -15587,7 +15601,7 @@
             {
               "id": "586337",
               "name": "Melbourne by 33-36",
-              "returnWin": 41,
+              "returnWin": 51,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -17721,6 +17735,19 @@
               "sameGame": true
             },
             {
+              "id": "598574",
+              "name": "Milton Doyle (Mel)",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 598574,
+              "isOpen": true,
+              "sortOrder": 11,
+              "sameGame": true
+            },
+            {
               "id": "598565",
               "name": "David Duke (Per)",
               "returnWin": 1.15,
@@ -17743,19 +17770,6 @@
               "number": 598566,
               "isOpen": true,
               "sortOrder": 3
-            },
-            {
-              "id": "598574",
-              "name": "Milton Doyle (Mel)",
-              "returnWin": 1.15,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 598574,
-              "isOpen": true,
-              "sortOrder": 11,
-              "sameGame": true
             },
             {
               "id": "598564",
@@ -17882,7 +17896,7 @@
             {
               "id": "598590",
               "name": "Milton Doyle (Mel)",
-              "returnWin": 1.8,
+              "returnWin": 1.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -18041,7 +18055,7 @@
             {
               "id": "598606",
               "name": "Milton Doyle (Mel)",
-              "returnWin": 3.5,
+              "returnWin": 2.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -18148,7 +18162,7 @@
             {
               "id": "620704",
               "name": "B Henshall Double-Double",
-              "returnWin": 31,
+              "returnWin": 34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -18319,7 +18333,7 @@
             {
               "id": "620714",
               "name": "F Delany Double-Double",
-              "returnWin": 6.5,
+              "returnWin": 7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -18364,7 +18378,7 @@
             {
               "id": "621180",
               "name": "J Edwards Double-Double",
-              "returnWin": 2,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -18538,7 +18552,7 @@
             {
               "id": "621760",
               "name": "Ty Walker Double-Double",
-              "returnWin": 6.5,
+              "returnWin": 7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -21938,7 +21952,7 @@
             {
               "id": "573729",
               "name": "Over 55.5",
-              "returnWin": 5.5,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -21950,7 +21964,7 @@
             {
               "id": "573730",
               "name": "Under 55.5",
-              "returnWin": 1.1,
+              "returnWin": 1.12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -22034,7 +22048,7 @@
             {
               "id": "573737",
               "name": "Over 51.5",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -22046,7 +22060,7 @@
             {
               "id": "573738",
               "name": "Under 51.5",
-              "returnWin": 1.3,
+              "returnWin": 1.32,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -22928,7 +22942,7 @@
             {
               "id": "585073",
               "name": "Perth 30+",
-              "returnWin": 6.5,
+              "returnWin": 6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -38644,7 +38658,7 @@
     {
       "name": "Double-Double",
       "hasFutureMarket": false,
-      "openMarketCount": 30,
+      "openMarketCount": 31,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Double-Double"
       }
