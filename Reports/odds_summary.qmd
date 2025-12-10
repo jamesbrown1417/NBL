@@ -141,6 +141,77 @@ filtered_list_outliers <- map(all_matches, filter_by_match, df = all_alt_lines_o
 qreport::maketabs(filtered_list_outliers, wide = TRUE)
 ```
 
+## Favourable L10 + DVP
+
+```{r}
+#| results: asis
+
+# Read positions data
+positions <- read_csv("../Data/supercoach-data.csv", show_col_types = FALSE) |>
+    select(player_name, player_team, position = supercoach_position_1)
+
+# Read DVP data
+dvp_all <- read_rds("../Data/processed_stats/dvp_all.rds")
+
+# Map market names to DVP stat names
+market_to_stat <- c(
+    "Player Points" = "points",
+    "Player Assists" = "assists",
+    "Player Rebounds" = "rebounds",
+    "Player Threes" = "threes",
+    "Player PRAs" = "pras",
+    "Player Steals" = "steals",
+    "Player Blocks" = "blocks"
+)
+
+# Add positions to odds data
+all_odds_with_pos <- all_odds |>
+    left_join(positions, by = c("player_name", "player_team")) |>
+    filter(!is.na(position)) |>
+    mutate(stat = market_to_stat[market_name])
+
+# Join with DVP data
+all_odds_with_dvp <- all_odds_with_pos |>
+    left_join(dvp_all |> select(opposition, position, stat, dvp_value = value),
+              by = c("opposition_team" = "opposition", "position", "stat"))
+
+# Filter for favourable overs: positive diff_over_last_10 AND positive DVP
+favourable_overs <- all_odds_with_dvp |>
+    filter(!is.na(over_price)) |>
+    filter(diff_over_last_10 > 0) |>
+    filter(dvp_value > 0) |>
+    select(match, agency, player_name, position, market_name, line, over_price,
+           diff_over_last_10, dvp_value) |>
+    arrange(match, desc(diff_over_last_10))
+
+# Filter for favourable unders: positive diff_under_last_10 AND negative DVP
+favourable_unders <- all_odds_with_dvp |>
+    filter(!is.na(under_price)) |>
+    filter(diff_under_last_10 > 0) |>
+    filter(dvp_value < 0) |>
+    select(match, agency, player_name, position, market_name, line, under_price,
+           diff_under_last_10, dvp_value) |>
+    arrange(match, desc(diff_under_last_10))
+
+# Combine overs and unders
+favourable_combined <- bind_rows(
+    favourable_overs |> mutate(side = "Over", price = over_price, diff_l10 = diff_over_last_10) |>
+        select(match, agency, player_name, position, market_name, line, side, price, diff_l10, dvp_value),
+    favourable_unders |> mutate(side = "Under", price = under_price, diff_l10 = diff_under_last_10) |>
+        select(match, agency, player_name, position, market_name, line, side, price, diff_l10, dvp_value)
+) |>
+    arrange(match, player_name, market_name)
+
+# Get a list where each match is the name of the filtered DF
+filtered_list_favourable <- map(all_matches, filter_by_match, df = favourable_combined) |>
+  set_names(all_matches) |>
+    keep(~ nrow(.x) > 0) |>
+    map(~ datatable(.x))
+
+# Use qreport to make tabset
+qreport::maketabs(filtered_list_favourable, wide = TRUE)
+```
+
 ## Arbs
 
 ```{r}
