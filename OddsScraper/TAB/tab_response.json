@@ -12,1443 +12,6 @@
   },
   "matches": [
     {
-      "id": "CnsvTas",
-      "name": "Cairns v Tasmania",
-      "spectrumId": "CnsvTas",
-      "spectrumUniqueId": 3117946,
-      "competitionSpectrumId": "1003",
-      "round": null,
-      "broadcastChannel": "ESPN",
-      "broadcastChannels": [
-        "ESPN"
-      ],
-      "startTime": "2025-12-13T06:37:00.000Z",
-      "_links": {
-        "self": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/matches/Cairns%20v%20Tasmania?jurisdiction=SA",
-        "selfTemplate": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/matches/Cairns%20v%20Tasmania?jurisdiction={jurisdiction}{&amp;returnPromo,returnOffers,returnMultiOnly,channelType,cashSales,homeState}",
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/matches/Cairns%20v%20Tasmania/markets?jurisdiction=SA"
-      },
-      "contestants": [
-        {
-          "name": "Cairns",
-          "position": "HOME",
-          "isHome": true,
-          "image": [
-            {
-              "size": "svg",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Cairns%20Taipans.svg"
-            },
-            {
-              "size": "xxhdpi",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Cairns%20Taipans_xxhdpi.png"
-            },
-            {
-              "size": "2x",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Cairns%20Taipans%402x.png"
-            }
-          ]
-        },
-        {
-          "name": "Tasmania",
-          "position": "AWAY",
-          "isHome": false,
-          "image": [
-            {
-              "size": "svg",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Tasmania%20JackJumpers.svg"
-            },
-            {
-              "size": "xxhdpi",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Tasmania%20JackJumpers_xxhdpi.png"
-            },
-            {
-              "size": "2x",
-              "url": "https://metadata.beta.tab.com.au/icons/NBL/Tasmania%20JackJumpers%402x.png"
-            }
-          ]
-        }
-      ],
-      "competitors": [
-        "Cairns",
-        "Tasmania"
-      ],
-      "openMarketCount": 18,
-      "futureMarketCount": 0,
-      "nonFutureMarketCount": 18,
-      "markets": [
-        {
-          "id": "125564402",
-          "name": "NBL Cairns-Tasmania Hd to Hd",
-          "shortName": "NBL Cns-Tas Hd to Hd",
-          "betOption": "Head To Head",
-          "betOptionSpectrumId": "72",
-          "betOptionPriority": 450,
-          "marketUniqueId": 125564402,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Enabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "597362",
-              "name": "Cairns",
-              "returnWin": 2,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597362,
-              "isOpen": true,
-              "sortOrder": 1,
-              "position": "HOME"
-            },
-            {
-              "id": "597363",
-              "name": "Tasmania",
-              "returnWin": 1.8,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597363,
-              "isOpen": true,
-              "sortOrder": 2,
-              "position": "AWAY"
-            }
-          ]
-        },
-        {
-          "id": "125630259",
-          "name": "NBL Cns-Tas ExtrLine +3.5",
-          "shortName": "NBL Cns-Tas ExtrLine +3.5",
-          "betOption": "Extra Line",
-          "betOptionSpectrumId": "464",
-          "betOptionPriority": 1385,
-          "marketUniqueId": 125630259,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622373",
-              "name": "Cairns +3.5",
-              "returnWin": 1.52,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622373,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "+3.5"
-            },
-            {
-              "id": "622374",
-              "name": "Tasmania -3.5",
-              "returnWin": 2.35,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622374,
-              "isOpen": true,
-              "sortOrder": 2,
-              "line": "-3.5"
-            }
-          ]
-        },
-        {
-          "id": "125630248",
-          "name": "NBL Cns-Tas ExtrLine +6.5",
-          "shortName": "NBL Cns-Tas ExtrLine +6.5",
-          "betOption": "Extra Line",
-          "betOptionSpectrumId": "464",
-          "betOptionPriority": 1385,
-          "marketUniqueId": 125630248,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622344",
-              "name": "Cairns +6.5",
-              "returnWin": 1.3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622344,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "+6.5"
-            },
-            {
-              "id": "622345",
-              "name": "Tasmania -6.5",
-              "returnWin": 3.2,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622345,
-              "isOpen": true,
-              "sortOrder": 2,
-              "line": "-6.5"
-            }
-          ]
-        },
-        {
-          "id": "125630242",
-          "name": "NBL Cns-Tas ExtrLine -2.5",
-          "shortName": "NBL Cns-Tas ExtrLine -2.5",
-          "betOption": "Extra Line",
-          "betOptionSpectrumId": "464",
-          "betOptionPriority": 1385,
-          "marketUniqueId": 125630242,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622327",
-              "name": "Cairns -2.5",
-              "returnWin": 2.3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622327,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "-2.5"
-            },
-            {
-              "id": "622328",
-              "name": "Tasmania +2.5",
-              "returnWin": 1.55,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622328,
-              "isOpen": true,
-              "sortOrder": 2,
-              "line": "+2.5"
-            }
-          ]
-        },
-        {
-          "id": "125630254",
-          "name": "NBL Cns-Tas ExtrLine -5.5",
-          "shortName": "NBL Cns-Tas ExtrLine -5.5",
-          "betOption": "Extra Line",
-          "betOptionSpectrumId": "464",
-          "betOptionPriority": 1385,
-          "marketUniqueId": 125630254,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622360",
-              "name": "Cairns -5.5",
-              "returnWin": 3.2,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622360,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "-5.5"
-            },
-            {
-              "id": "622361",
-              "name": "Tasmania +5.5",
-              "returnWin": 1.3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622361,
-              "isOpen": true,
-              "sortOrder": 2,
-              "line": "+5.5"
-            }
-          ]
-        },
-        {
-          "id": "125630290",
-          "name": "NBL Cns-Tas ExtrLine -8.5",
-          "shortName": "NBL Cns-Tas ExtrLine -8.5",
-          "betOption": "Extra Line",
-          "betOptionSpectrumId": "464",
-          "betOptionPriority": 1385,
-          "marketUniqueId": 125630290,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622039",
-              "name": "Cairns -8.5",
-              "returnWin": 4.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622039,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "-8.5"
-            },
-            {
-              "id": "622040",
-              "name": "Tasmania +8.5",
-              "returnWin": 1.16,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622040,
-              "isOpen": true,
-              "sortOrder": 2,
-              "line": "+8.5"
-            }
-          ]
-        },
-        {
-          "id": "125564415",
-          "name": "NBL Cairns-Tasmania Margin",
-          "shortName": "NBL Cns-Tas Margin",
-          "betOption": "Margin",
-          "betOptionSpectrumId": "32",
-          "betOptionPriority": 2730,
-          "marketUniqueId": 125564415,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "597372",
-              "name": "Cairns by 11+",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597372,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "597373",
-              "name": "Cairns by 1-10",
-              "returnWin": 2.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597373,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "597374",
-              "name": "Tasmania by 1-10",
-              "returnWin": 2.35,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597374,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "597375",
-              "name": "Tasmania by 11+",
-              "returnWin": 5.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597375,
-              "isOpen": true,
-              "sortOrder": 4
-            }
-          ]
-        },
-        {
-          "id": "125564429",
-          "name": "NBL Cairns-Tasmania Tri Bet",
-          "shortName": "NBL Cns-Tas Tri Bet",
-          "betOption": "Tri Bet",
-          "betOptionSpectrumId": "49",
-          "betOptionPriority": 2735,
-          "marketUniqueId": 125564429,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "597376",
-              "name": "Cairns by 7+",
-              "returnWin": 3.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597376,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "597377",
-              "name": "Either Team By 6 or Less",
-              "returnWin": 1.87,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597377,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "597378",
-              "name": "Tasmania by 7+",
-              "returnWin": 3.25,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597378,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125564425",
-          "name": "NBL Cairns-Tasmania SuperMrg",
-          "shortName": "NBL Cns-Tas SprMrg",
-          "betOption": "Super Margin",
-          "betOptionSpectrumId": "262",
-          "betOptionPriority": 4700,
-          "marketUniqueId": 125564425,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": "Excludes Overtime",
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Enabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "597639",
-              "name": "Cairns by 33-36",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597639,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "597640",
-              "name": "Cairns by 29-32",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597640,
-              "isOpen": true,
-              "sortOrder": 4
-            },
-            {
-              "id": "597641",
-              "name": "Cairns by 25-28",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597641,
-              "isOpen": true,
-              "sortOrder": 5
-            },
-            {
-              "id": "597642",
-              "name": "Cairns by 21-24",
-              "returnWin": 26,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597642,
-              "isOpen": true,
-              "sortOrder": 6
-            },
-            {
-              "id": "597643",
-              "name": "Cairns by 17-20",
-              "returnWin": 21,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597643,
-              "isOpen": true,
-              "sortOrder": 7
-            },
-            {
-              "id": "597644",
-              "name": "Cairns by 13-16",
-              "returnWin": 13,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597644,
-              "isOpen": true,
-              "sortOrder": 8
-            },
-            {
-              "id": "597645",
-              "name": "Cairns by 9-12",
-              "returnWin": 9,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597645,
-              "isOpen": true,
-              "sortOrder": 9
-            },
-            {
-              "id": "597646",
-              "name": "Cairns by 5-8",
-              "returnWin": 6.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597646,
-              "isOpen": true,
-              "sortOrder": 10
-            },
-            {
-              "id": "597647",
-              "name": "Cairns by 1-4",
-              "returnWin": 6.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597647,
-              "isOpen": true,
-              "sortOrder": 11
-            },
-            {
-              "id": "597648",
-              "name": "Draw",
-              "returnWin": 8.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597648,
-              "isOpen": true,
-              "sortOrder": 12
-            },
-            {
-              "id": "597649",
-              "name": "Tasmania by 1-4",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597649,
-              "isOpen": true,
-              "sortOrder": 13
-            },
-            {
-              "id": "597650",
-              "name": "Tasmania by 5-8",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597650,
-              "isOpen": true,
-              "sortOrder": 14
-            },
-            {
-              "id": "597651",
-              "name": "Tasmania by 9-12",
-              "returnWin": 8.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597651,
-              "isOpen": true,
-              "sortOrder": 15
-            },
-            {
-              "id": "597666",
-              "name": "Tasmania by 13-16",
-              "returnWin": 12,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597666,
-              "isOpen": true,
-              "sortOrder": 16
-            },
-            {
-              "id": "597667",
-              "name": "Tasmania by 17-20",
-              "returnWin": 17,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597667,
-              "isOpen": true,
-              "sortOrder": 17
-            },
-            {
-              "id": "597668",
-              "name": "Tasmania by 21-24",
-              "returnWin": 26,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597668,
-              "isOpen": true,
-              "sortOrder": 18
-            },
-            {
-              "id": "597669",
-              "name": "Tasmania by 25-28",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597669,
-              "isOpen": true,
-              "sortOrder": 19
-            },
-            {
-              "id": "597670",
-              "name": "Tasmania by 29-32",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597670,
-              "isOpen": true,
-              "sortOrder": 20
-            },
-            {
-              "id": "597671",
-              "name": "Tasmania by 33-36",
-              "returnWin": 41,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597671,
-              "isOpen": true,
-              "sortOrder": 21
-            }
-          ]
-        },
-        {
-          "id": "125630187",
-          "name": "NBL Cairns-Tasmania Pts3Way",
-          "shortName": "NBL Cns-Tas Pts3Way",
-          "betOption": "Total Points 3-Way",
-          "betOptionSpectrumId": "2101",
-          "betOptionPriority": 10705,
-          "marketUniqueId": 125630187,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622157",
-              "name": "Over 157 Points",
-              "returnWin": 1.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622157,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622158",
-              "name": "147 - 157 inc Points",
-              "returnWin": 3.3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622158,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622159",
-              "name": "Under 147 Points",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622159,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630179",
-          "name": "NBL Cairns-Tasmania Pts3Way",
-          "shortName": "NBL Cns-Tas Pts3Way",
-          "betOption": "Total Points 3-Way",
-          "betOptionSpectrumId": "2101",
-          "betOptionPriority": 10705,
-          "marketUniqueId": 125630179,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622124",
-              "name": "Over 167 Points",
-              "returnWin": 2.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622124,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622125",
-              "name": "157 - 167 inc Points",
-              "returnWin": 2.75,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622125,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622126",
-              "name": "Under 157 Points",
-              "returnWin": 2.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622126,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630273",
-          "name": "NBL Cairns-Tasmania Pts3Way",
-          "shortName": "NBL Cns-Tas Pts3Way",
-          "betOption": "Total Points 3-Way",
-          "betOptionSpectrumId": "2101",
-          "betOptionPriority": 10705,
-          "marketUniqueId": 125630273,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622057",
-              "name": "Over 172 Points",
-              "returnWin": 3.75,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622057,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622058",
-              "name": "162 - 172 inc Points",
-              "returnWin": 3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622058,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622059",
-              "name": "Under 162 Points",
-              "returnWin": 1.87,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622059,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630247",
-          "name": "NBL Cairns-Tasmania Pts3Way",
-          "shortName": "NBL Cns-Tas Pts3Way",
-          "betOption": "Total Points 3-Way",
-          "betOptionSpectrumId": "2101",
-          "betOptionPriority": 10705,
-          "marketUniqueId": 125630247,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622341",
-              "name": "Over 177 Points",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622341,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622342",
-              "name": "167 - 177 inc Points",
-              "returnWin": 3.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622342,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622343",
-              "name": "Under 167 Points",
-              "returnWin": 1.47,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622343,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630206",
-          "name": "NBL Cairns-Tasmania Pts3Way",
-          "shortName": "NBL Cns-Tas Pts3Way",
-          "betOption": "Total Points 3-Way",
-          "betOptionSpectrumId": "2101",
-          "betOptionPriority": 10705,
-          "marketUniqueId": 125630206,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622211",
-              "name": "Over 162 Points",
-              "returnWin": 1.92,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622211,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622212",
-              "name": "152 - 162 inc Points",
-              "returnWin": 2.9,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622212,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622213",
-              "name": "Under 152 Points",
-              "returnWin": 3.75,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622213,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630275",
-          "name": "NBL Cairns-Tasmania H2Result",
-          "shortName": "NBL Cns-Tas H2Result",
-          "betOption": "2nd Half Result",
-          "betOptionSpectrumId": "352",
-          "betOptionPriority": 11485,
-          "marketUniqueId": 125630275,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": "Excludes Overtime",
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622063",
-              "name": "Cairns",
-              "returnWin": 2.35,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622063,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622064",
-              "name": "Tasmania",
-              "returnWin": 1.6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622064,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622065",
-              "name": "Draw",
-              "returnWin": 17,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622065,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125630263",
-          "name": "NBL Cairns-Tasmania 2HWinMgn",
-          "shortName": "NBL Cns-Tas 2HWinMgn",
-          "betOption": "2nd Half Winning Margin",
-          "betOptionSpectrumId": "2607",
-          "betOptionPriority": 11525,
-          "marketUniqueId": 125630263,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622300",
-              "name": "Cairns Over 10",
-              "returnWin": 7.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622300,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622301",
-              "name": "Cairns 6 - 10 inc",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622301,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622302",
-              "name": "Cairns 1 - 5 inc",
-              "returnWin": 4.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622302,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "622303",
-              "name": "Draw",
-              "returnWin": 17,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622303,
-              "isOpen": true,
-              "sortOrder": 4
-            },
-            {
-              "id": "622304",
-              "name": "Tasmania 1 - 5 inc",
-              "returnWin": 3.75,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622304,
-              "isOpen": true,
-              "sortOrder": 5
-            },
-            {
-              "id": "622305",
-              "name": "Tasmania 6 - 10 inc",
-              "returnWin": 4.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622305,
-              "isOpen": true,
-              "sortOrder": 6
-            },
-            {
-              "id": "622306",
-              "name": "Tasmania Over 10",
-              "returnWin": 4,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622306,
-              "isOpen": true,
-              "sortOrder": 7
-            }
-          ]
-        },
-        {
-          "id": "125630265",
-          "name": "NBL Cairns-Tasmania 3QResult",
-          "shortName": "NBL Cns-Tas 3QResult",
-          "betOption": "3rd Quarter Result",
-          "betOptionSpectrumId": "2302",
-          "betOptionPriority": 16100,
-          "marketUniqueId": 125630265,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "622078",
-              "name": "Cairns",
-              "returnWin": 2.2,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622078,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "622079",
-              "name": "Tasmania",
-              "returnWin": 1.67,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622079,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "622080",
-              "name": "Draw",
-              "returnWin": 13,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 622080,
-              "isOpen": true,
-              "sortOrder": 3
-            }
-          ]
-        },
-        {
-          "id": "125564418",
-          "name": "NBL Cairns-Tasmania PointsOE",
-          "shortName": "NBL Cns-Tas PointsOE",
-          "betOption": "Total Points Odd/Even",
-          "betOptionSpectrumId": "998",
-          "betOptionPriority": 20970,
-          "marketUniqueId": 125564418,
-          "closeTime": "2025-12-13T06:37:00.000Z",
-          "bettingStatus": "Open",
-          "message": null,
-          "informationMessage": null,
-          "isFuture": false,
-          "onlineBetting": false,
-          "phoneBettingOnly": true,
-          "inPlay": true,
-          "goingInPlay": false,
-          "allowWin": true,
-          "allowPlace": false,
-          "allowEachWay": false,
-          "allowMulti": true,
-          "allowMultiWin": true,
-          "allowMultiPlace": false,
-          "allowMultiEachWay": false,
-          "numberOfPlaces": 0,
-          "cashOutEligibility": "Disabled",
-          "allowBundle": false,
-          "propositions": [
-            {
-              "id": "597598",
-              "name": "Odd",
-              "returnWin": 1.8,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597598,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "597599",
-              "name": "Even",
-              "returnWin": 2,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 597599,
-              "isOpen": true,
-              "sortOrder": 2
-            }
-          ]
-        }
-      ],
-      "inPlay": true,
-      "goingInPlay": false
-    },
-    {
       "id": "SEMvNZB",
       "name": "South East Melb v New Zealand",
       "spectrumId": "SEMvNZB",
@@ -1604,7 +167,7 @@
             {
               "id": "597732",
               "name": "South East Melb -5.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1618,7 +181,7 @@
             {
               "id": "597733",
               "name": "New Zealand +5.5",
-              "returnWin": 1.9,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1729,7 +292,7 @@
             {
               "id": "597844",
               "name": "SE Melb by 5-8",
-              "returnWin": 6.5,
+              "returnWin": 7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1878,7 +441,7 @@
             {
               "id": "597890",
               "name": "South East Melb by 11+",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1962,7 +525,7 @@
             {
               "id": "597879",
               "name": "South East Melb by 7+",
-              "returnWin": 1.97,
+              "returnWin": 2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2033,7 +596,7 @@
             {
               "id": "597972",
               "name": "SE Melb -5.5 /Over 185.5",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2046,7 +609,7 @@
             {
               "id": "597973",
               "name": "SE Melb -5.5 /Under 185.5",
-              "returnWin": 3.7,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2059,7 +622,7 @@
             {
               "id": "597974",
               "name": "NZ Brkrs +5.5 /Over 185.5",
-              "returnWin": 3.5,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2072,7 +635,7 @@
             {
               "id": "597975",
               "name": "NZ Brkrs +5.5 /Under 185.5",
-              "returnWin": 3.7,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2461,7 +1024,7 @@
             {
               "id": "597910",
               "name": "South East Melb -14.5",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2474,7 +1037,7 @@
             {
               "id": "597911",
               "name": "New Zealand +14.5",
-              "returnWin": 1.24,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2487,7 +1050,7 @@
             {
               "id": "597912",
               "name": "South East Melb -12.5",
-              "returnWin": 3,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2500,7 +1063,7 @@
             {
               "id": "597913",
               "name": "New Zealand +12.5",
-              "returnWin": 1.32,
+              "returnWin": 1.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2513,7 +1076,7 @@
             {
               "id": "597914",
               "name": "South East Melb -10.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2526,7 +1089,7 @@
             {
               "id": "597915",
               "name": "New Zealand +10.5",
-              "returnWin": 1.42,
+              "returnWin": 1.39,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2539,7 +1102,7 @@
             {
               "id": "597916",
               "name": "South East Melb -8.5",
-              "returnWin": 2.25,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2552,7 +1115,7 @@
             {
               "id": "597917",
               "name": "New Zealand +8.5",
-              "returnWin": 1.55,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2565,7 +1128,7 @@
             {
               "id": "597918",
               "name": "South East Melb -6.5",
-              "returnWin": 1.97,
+              "returnWin": 2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2578,7 +1141,7 @@
             {
               "id": "597919",
               "name": "New Zealand +6.5",
-              "returnWin": 1.72,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2591,7 +1154,7 @@
             {
               "id": "597920",
               "name": "South East Melb -4.5",
-              "returnWin": 1.73,
+              "returnWin": 1.77,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2604,7 +1167,7 @@
             {
               "id": "597921",
               "name": "New Zealand +4.5",
-              "returnWin": 1.95,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2617,7 +1180,7 @@
             {
               "id": "597922",
               "name": "South East Melb -2.5",
-              "returnWin": 1.55,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2630,7 +1193,7 @@
             {
               "id": "597923",
               "name": "New Zealand +2.5",
-              "returnWin": 2.25,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2721,7 +1284,7 @@
             {
               "id": "597930",
               "name": "South East Melb +8.5",
-              "returnWin": 1.12,
+              "returnWin": 1.13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2734,7 +1297,7 @@
             {
               "id": "597931",
               "name": "New Zealand -8.5",
-              "returnWin": 5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2909,7 +1472,7 @@
             {
               "id": "575446",
               "name": "Over 183.5",
-              "returnWin": 1.66,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2922,7 +1485,7 @@
             {
               "id": "575447",
               "name": "Under 183.5",
-              "returnWin": 2.05,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3045,7 +1608,7 @@
             {
               "id": "597831",
               "name": "SE Melbourne / SE Melbourne",
-              "returnWin": 1.85,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4744,7 +3307,7 @@
             {
               "id": "611083",
               "name": "I Brockngtn 15+ Pts/NZB Win",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5170,7 +3733,7 @@
             {
               "id": "611111",
               "name": "R TeRangi 5+ Pts/NZB Win",
-              "returnWin": 3.6,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5320,7 +3883,7 @@
             {
               "id": "611141",
               "name": "W Iwundu 10+ Pts/SEM Win",
-              "returnWin": 1.6,
+              "returnWin": 1.62,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5608,7 +4171,7 @@
             {
               "id": "597754",
               "name": "New Zealand by 25-28",
-              "returnWin": 51,
+              "returnWin": 41,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5848,7 +4411,7 @@
             {
               "id": "597798",
               "name": "South East Melb by 10",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6030,7 +4593,7 @@
             {
               "id": "597812",
               "name": "New Zealand by 5",
-              "returnWin": 26,
+              "returnWin": 23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6361,7 +4924,7 @@
             {
               "id": "597767",
               "name": "SEM 1-6 / NZB 1-10",
-              "returnWin": 14,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6452,7 +5015,7 @@
             {
               "id": "597774",
               "name": "NZB 1-6 / SEM 1-10",
-              "returnWin": 11,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6504,7 +5067,7 @@
             {
               "id": "597778",
               "name": "NZB 7+ / SEM 1-10",
-              "returnWin": 16,
+              "returnWin": 17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6575,7 +5138,7 @@
             {
               "id": "597956",
               "name": "SEM by 11+ /201 or more",
-              "returnWin": 10,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6719,7 +5282,7 @@
             {
               "id": "597968",
               "name": "NZB by 11+ /201 or more",
-              "returnWin": 26,
+              "returnWin": 23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -6909,6 +5472,19 @@
               "sameGame": true
             },
             {
+              "id": "599572",
+              "name": "Hunter Maldonado (SEM)",
+              "returnWin": 2,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 599572,
+              "isOpen": true,
+              "sortOrder": 4,
+              "sameGame": true
+            },
+            {
               "id": "599569",
               "name": "Angus Glover (SEM)",
               "returnWin": 2.5,
@@ -6919,19 +5495,6 @@
               "number": 599569,
               "isOpen": true,
               "sortOrder": 1,
-              "sameGame": true
-            },
-            {
-              "id": "599572",
-              "name": "Hunter Maldonado (SEM)",
-              "returnWin": 2.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 599572,
-              "isOpen": true,
-              "sortOrder": 4,
               "sameGame": true
             },
             {
@@ -7295,6 +5858,19 @@
               "sortOrder": 14
             },
             {
+              "id": "599619",
+              "name": "Jordan Hunter (SEM)",
+              "returnWin": 5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 599619,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
               "id": "599626",
               "name": "Karim Lopez (NZB)",
               "returnWin": 5.5,
@@ -7318,19 +5894,6 @@
               "number": 599618,
               "isOpen": true,
               "sortOrder": 2,
-              "sameGame": true
-            },
-            {
-              "id": "599619",
-              "name": "Jordan Hunter (SEM)",
-              "returnWin": 6,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 599619,
-              "isOpen": true,
-              "sortOrder": 3,
               "sameGame": true
             },
             {
@@ -8209,6 +6772,19 @@
               "sameGame": true
             },
             {
+              "id": "599684",
+              "name": "Nathan Sobey (SEM)",
+              "returnWin": 7,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 599684,
+              "isOpen": true,
+              "sortOrder": 4,
+              "sameGame": true
+            },
+            {
               "id": "599681",
               "name": "Hunter Maldonado (SEM)",
               "returnWin": 8,
@@ -8219,19 +6795,6 @@
               "number": 599681,
               "isOpen": true,
               "sortOrder": 1,
-              "sameGame": true
-            },
-            {
-              "id": "599684",
-              "name": "Nathan Sobey (SEM)",
-              "returnWin": 9,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 599684,
-              "isOpen": true,
-              "sortOrder": 4,
               "sameGame": true
             }
           ],
@@ -9964,7 +8527,7 @@
             {
               "id": "597723",
               "name": "SEM leads at end of each Qtr",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10030,7 +8593,7 @@
             {
               "id": "597728",
               "name": "South East Melb",
-              "returnWin": 1.53,
+              "returnWin": 1.55,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10042,7 +8605,7 @@
             {
               "id": "597729",
               "name": "New Zealand",
-              "returnWin": 2.4,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10108,13 +8671,13 @@
           ]
         },
         {
-          "id": "125600642",
+          "id": "125600643",
           "name": "NBL SE Melb-NZ Brkrs 1HlfLnOU",
           "shortName": "NBL SEM-NZB 1HlfLnOU",
           "betOption": "1st Half Line/OverUnder Double",
           "betOptionSpectrumId": "379",
           "betOptionPriority": 10970,
-          "marketUniqueId": 125600642,
+          "marketUniqueId": 125600643,
           "closeTime": "2025-12-13T09:07:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -10136,50 +8699,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "615934",
-              "name": "SE Melb -3.5 /Over 93.5",
-              "returnWin": 3.5,
+              "id": "615938",
+              "name": "SE Melb -3.5 /Over 94.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 615934,
+              "number": 615938,
               "isOpen": true,
               "sortOrder": 1
             },
             {
-              "id": "615935",
-              "name": "SE Melb -3.5 /Under 93.5",
-              "returnWin": 3.9,
+              "id": "615939",
+              "name": "SE Melb -3.5 /Under 94.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 615935,
+              "number": 615939,
               "isOpen": true,
               "sortOrder": 2
             },
             {
-              "id": "615936",
-              "name": "NZ Brkrs +3.5 /Over 93.5",
-              "returnWin": 3.5,
+              "id": "615940",
+              "name": "NZ Brkrs +3.5 /Over 94.5",
+              "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 615936,
+              "number": 615940,
               "isOpen": true,
               "sortOrder": 3
             },
             {
-              "id": "615937",
-              "name": "NZ Brkrs +3.5 /Under 93.5",
-              "returnWin": 3.4,
+              "id": "615941",
+              "name": "NZ Brkrs +3.5 /Under 94.5",
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 615937,
+              "number": 615941,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -10228,7 +8791,7 @@
             {
               "id": "591834",
               "name": "SE Melb /Under 93.5",
-              "returnWin": 2.9,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10240,7 +8803,7 @@
             {
               "id": "591835",
               "name": "NZ Brkrs /Over 93.5",
-              "returnWin": 4.4,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10486,7 +9049,7 @@
             {
               "id": "612211",
               "name": "South East Melb -6.5",
-              "returnWin": 2.4,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10498,7 +9061,7 @@
             {
               "id": "612213",
               "name": "New Zealand +6.5",
-              "returnWin": 1.48,
+              "returnWin": 1.45,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10678,7 +9241,7 @@
             {
               "id": "612229",
               "name": "South East Melb +1.5",
-              "returnWin": 1.39,
+              "returnWin": 1.42,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10690,7 +9253,7 @@
             {
               "id": "612230",
               "name": "New Zealand -1.5",
-              "returnWin": 2.7,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11212,7 +9775,7 @@
             {
               "id": "575595",
               "name": "Over 93.5",
-              "returnWin": 1.85,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11224,7 +9787,7 @@
             {
               "id": "575597",
               "name": "Under 93.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11866,7 +10429,7 @@
             {
               "id": "597715",
               "name": "New Zealand by 13-15",
-              "returnWin": 23,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12112,7 +10675,7 @@
             {
               "id": "612142",
               "name": "South East Melb 41 to 45",
-              "returnWin": 4.5,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12136,7 +10699,7 @@
             {
               "id": "612144",
               "name": "South East Melb 51+",
-              "returnWin": 2.3,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13048,7 +11611,7 @@
             {
               "id": "564817",
               "name": "Over 50.5",
-              "returnWin": 2.6,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13060,7 +11623,7 @@
             {
               "id": "564818",
               "name": "Under 50.5",
-              "returnWin": 1.42,
+              "returnWin": 1.45,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13264,7 +11827,7 @@
             {
               "id": "564848",
               "name": "Over 41.5",
-              "returnWin": 1.25,
+              "returnWin": 1.24,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -13276,7 +11839,7 @@
             {
               "id": "564849",
               "name": "Under 41.5",
-              "returnWin": 3.4,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14362,7 +12925,7 @@
             {
               "id": "597853",
               "name": "SE Melb by 4+",
-              "returnWin": 1.62,
+              "returnWin": 1.66,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14433,7 +12996,7 @@
             {
               "id": "597983",
               "name": "South East Melb by 9+",
-              "returnWin": 2.25,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14446,7 +13009,7 @@
             {
               "id": "597984",
               "name": "Either Team By 8 or Less",
-              "returnWin": 2.2,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -14459,7 +13022,7 @@
             {
               "id": "597985",
               "name": "New Zealand by 9+",
-              "returnWin": 5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -21767,13 +20330,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125629148",
+          "id": "125629152",
           "name": "NBL Bri-Per LnOUDb",
           "shortName": "NBL Bri-Per LnOUDb",
           "betOption": "Line/Over Under Double",
           "betOptionSpectrumId": "212",
           "betOptionPriority": 2745,
-          "marketUniqueId": 125629148,
+          "marketUniqueId": 125629152,
           "closeTime": "2025-12-14T05:30:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -21795,53 +20358,53 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "617444",
-              "name": "Brisbane +3.5 /Over 183.5",
-              "returnWin": 3.8,
+              "id": "617708",
+              "name": "Brisbane +3.5 /Over 184.5",
+              "returnWin": 3.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617444,
+              "number": 617708,
               "isOpen": true,
               "sortOrder": 1,
               "sameGame": true
             },
             {
-              "id": "617445",
-              "name": "Brisbane +3.5 /Under 183.5",
-              "returnWin": 3.8,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617445,
-              "isOpen": true,
-              "sortOrder": 2,
-              "sameGame": true
-            },
-            {
-              "id": "617446",
-              "name": "Perth -3.5 /Over 183.5",
-              "returnWin": 3.3,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617446,
-              "isOpen": true,
-              "sortOrder": 3,
-              "sameGame": true
-            },
-            {
-              "id": "617447",
-              "name": "Perth -3.5 /Under 183.5",
+              "id": "617709",
+              "name": "Brisbane +3.5 /Under 184.5",
               "returnWin": 3.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617447,
+              "number": 617709,
+              "isOpen": true,
+              "sortOrder": 2,
+              "sameGame": true
+            },
+            {
+              "id": "617710",
+              "name": "Perth -3.5 /Over 184.5",
+              "returnWin": 3.4,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 617710,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
+              "id": "617711",
+              "name": "Perth -3.5 /Under 184.5",
+              "returnWin": 3.6,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 617711,
               "isOpen": true,
               "sortOrder": 4,
               "sameGame": true
@@ -21851,13 +20414,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125629144",
+          "id": "125636501",
           "name": "NBL Brisbane-Perth H2H/OvUn",
           "shortName": "NBL Bri-Per H2H/OvUn",
           "betOption": "HDtoHD/OverUnder Double",
           "betOptionSpectrumId": "285",
           "betOptionPriority": 2760,
-          "marketUniqueId": 125629144,
+          "marketUniqueId": 125636501,
           "closeTime": "2025-12-14T05:30:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -21879,50 +20442,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "617516",
-              "name": "Brisbane /Over 183.5",
-              "returnWin": 4.4,
+              "id": "634031",
+              "name": "Brisbane /Over 185.5",
+              "returnWin": 4.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617516,
+              "number": 634031,
               "isOpen": true,
               "sortOrder": 1
             },
             {
-              "id": "617517",
-              "name": "Brisbane /Under 183.5",
-              "returnWin": 4.6,
+              "id": "634032",
+              "name": "Brisbane /Under 185.5",
+              "returnWin": 4.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617517,
+              "number": 634032,
               "isOpen": true,
               "sortOrder": 2
             },
             {
-              "id": "617518",
-              "name": "Perth /Over 183.5",
-              "returnWin": 2.7,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617518,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "617519",
-              "name": "Perth /Under 183.5",
+              "id": "634033",
+              "name": "Perth /Over 185.5",
               "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617519,
+              "number": 634033,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "634034",
+              "name": "Perth /Under 185.5",
+              "returnWin": 2.7,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 634034,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -21959,7 +20522,7 @@
             {
               "id": "617547",
               "name": "Over 184.5",
-              "returnWin": 1.95,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -21972,7 +20535,7 @@
             {
               "id": "617548",
               "name": "Under 184.5",
-              "returnWin": 1.85,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -22467,13 +21030,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "125629165",
+          "id": "125629684",
           "name": "NBL Bri-Per 1QtLOU",
           "shortName": "NBL Bri-Per 1QtLOU",
           "betOption": "1st Quarter Line/OverUnder Double",
           "betOptionSpectrumId": "410",
           "betOptionPriority": 3485,
-          "marketUniqueId": 125629165,
+          "marketUniqueId": 125629684,
           "closeTime": "2025-12-14T05:30:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -22495,50 +21058,50 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "617371",
-              "name": "Brisbane +0.5 /Over 46.5",
+              "id": "621175",
+              "name": "Brisbane +1.5 /Over 46.5",
+              "returnWin": 3.7,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 621175,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "621176",
+              "name": "Brisbane +1.5 /Under 46.5",
+              "returnWin": 3.2,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 621176,
+              "isOpen": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "621177",
+              "name": "Perth -1.5 /Over 46.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 621177,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "621178",
+              "name": "Perth -1.5 /Under 46.5",
               "returnWin": 3.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617371,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "617372",
-              "name": "Brisbane +0.5 /Under 46.5",
-              "returnWin": 3.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617372,
-              "isOpen": true,
-              "sortOrder": 2
-            },
-            {
-              "id": "617373",
-              "name": "Perth -0.5 /Over 46.5",
-              "returnWin": 3.4,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617373,
-              "isOpen": true,
-              "sortOrder": 3
-            },
-            {
-              "id": "617374",
-              "name": "Perth -0.5 /Under 46.5",
-              "returnWin": 3.5,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617374,
+              "number": 621178,
               "isOpen": true,
               "sortOrder": 4
             }
@@ -23776,7 +22339,7 @@
             {
               "id": "617685",
               "name": "Bri by 11+ /201 or more",
-              "returnWin": 26,
+              "returnWin": 23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23800,7 +22363,7 @@
             {
               "id": "617687",
               "name": "Bri by 11+ /161-180",
-              "returnWin": 14,
+              "returnWin": 15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23824,7 +22387,7 @@
             {
               "id": "617689",
               "name": "Bri by 1-10 /201 or more",
-              "returnWin": 17,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23836,7 +22399,7 @@
             {
               "id": "617690",
               "name": "Bri by 1-10 /181-200",
-              "returnWin": 8.5,
+              "returnWin": 8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23860,7 +22423,7 @@
             {
               "id": "617692",
               "name": "Bri by 1-10 /160 or less",
-              "returnWin": 31,
+              "returnWin": 34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23872,7 +22435,7 @@
             {
               "id": "617693",
               "name": "Per by 1-10 /201 or more",
-              "returnWin": 14,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23896,7 +22459,7 @@
             {
               "id": "617695",
               "name": "Per by 1-10 /161-180",
-              "returnWin": 8,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -23998,7 +22561,7 @@
             {
               "id": "617228",
               "name": "160 Points or Less",
-              "returnWin": 8,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24050,7 +22613,7 @@
             {
               "id": "617232",
               "name": "191 to 200",
-              "returnWin": 5,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24063,7 +22626,7 @@
             {
               "id": "617233",
               "name": "201 Points or More",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24294,7 +22857,7 @@
             {
               "id": "617521",
               "name": "Brisbane +1.5 /Under 92.5",
-              "returnWin": 3.7,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24318,7 +22881,7 @@
             {
               "id": "617523",
               "name": "Perth -1.5 /Under 92.5",
-              "returnWin": 3.4,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24372,7 +22935,7 @@
             {
               "id": "617653",
               "name": "Brisbane /Under 92.5",
-              "returnWin": 3.9,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24396,7 +22959,7 @@
             {
               "id": "617655",
               "name": "Perth /Under 92.5",
-              "returnWin": 3,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24846,7 +23409,7 @@
             {
               "id": "617598",
               "name": "Brisbane +7.5",
-              "returnWin": 1.32,
+              "returnWin": 1.34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -24858,7 +23421,7 @@
             {
               "id": "617599",
               "name": "Perth -7.5",
-              "returnWin": 3,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -25590,7 +24153,7 @@
             {
               "id": "617658",
               "name": "Brisbane 36 to 40",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -25794,13 +24357,13 @@
           ]
         },
         {
-          "id": "125629172",
+          "id": "125629685",
           "name": "NBL Brisbane-Perth 1stQtrLn",
-          "shortName": "NBL Bri-Per 1stQtrLn +0.5",
+          "shortName": "NBL Bri-Per 1stQtrLn +1.5",
           "betOption": "1st Quarter Line",
           "betOptionSpectrumId": "408",
           "betOptionPriority": 11950,
-          "marketUniqueId": 125629172,
+          "marketUniqueId": 125629685,
           "closeTime": "2025-12-14T05:30:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -25822,26 +24385,26 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "617255",
-              "name": "Brisbane +0.5",
-              "returnWin": 1.95,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 617255,
-              "isOpen": true,
-              "sortOrder": 1
-            },
-            {
-              "id": "617256",
-              "name": "Perth -0.5",
+              "id": "621179",
+              "name": "Brisbane +1.5",
               "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 617256,
+              "number": 621179,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "621180",
+              "name": "Perth -1.5",
+              "returnWin": 1.95,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 621180,
               "isOpen": true,
               "sortOrder": 2
             }
@@ -26160,7 +24723,7 @@
             {
               "id": "617477",
               "name": "Perth -0.5",
-              "returnWin": 1.8,
+              "returnWin": 1.73,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -26172,7 +24735,7 @@
             {
               "id": "617478",
               "name": "Brisbane +1.5",
-              "returnWin": 1.73,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -26430,7 +24993,7 @@
             {
               "id": "617666",
               "name": "Brisbane by 1-3",
-              "returnWin": 7,
+              "returnWin": 6.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -26442,7 +25005,7 @@
             {
               "id": "617667",
               "name": "Draw",
-              "returnWin": 9,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -26454,7 +25017,7 @@
             {
               "id": "617668",
               "name": "Perth by 1-3",
-              "returnWin": 6.5,
+              "returnWin": 6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -26820,7 +25383,7 @@
             {
               "id": "617528",
               "name": "Per score 20+ only",
-              "returnWin": 4.5,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27102,7 +25665,7 @@
             {
               "id": "617355",
               "name": "Brisbane by 3-4",
-              "returnWin": 10,
+              "returnWin": 9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27114,7 +25677,7 @@
             {
               "id": "617356",
               "name": "Brisbane by 1-2",
-              "returnWin": 9,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27126,7 +25689,7 @@
             {
               "id": "617357",
               "name": "Draw",
-              "returnWin": 9,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27150,7 +25713,7 @@
             {
               "id": "617359",
               "name": "Perth by 3-4",
-              "returnWin": 9,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27162,7 +25725,7 @@
             {
               "id": "617360",
               "name": "Perth by 5-6",
-              "returnWin": 10,
+              "returnWin": 9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27240,7 +25803,7 @@
             {
               "id": "617670",
               "name": "1st Half",
-              "returnWin": 1.7,
+              "returnWin": 1.72,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27264,7 +25827,7 @@
             {
               "id": "617672",
               "name": "2nd Half",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27332,7 +25895,7 @@
             {
               "id": "628102",
               "name": "3rd Quarter",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -27744,7 +26307,6 @@
   "betOptionPriority": [
     "Head To Head",
     "Line",
-    "Extra Line",
     "Winning Margin",
     "Margin",
     "Tri Bet",
@@ -27789,7 +26351,6 @@
     "Home Total Points",
     "Away Total Points",
     "Quarter by Quarter Leader",
-    "Total Points 3-Way",
     "1st Half Head to Head",
     "1st Half Line",
     "1st Half Line/OverUnder Double",
@@ -27803,8 +26364,6 @@
     "1st Half Total 3-Way",
     "1st Half Home Points",
     "1st Half Away Points",
-    "2nd Half Result",
-    "2nd Half Winning Margin",
     "1st Quarter Head to Head",
     "1st Quarter Line",
     "1st Quarter H2H/Over Under Double",
@@ -27819,7 +26378,6 @@
     "1st Quarter Home Points",
     "1st Quarter Away Points",
     "1st Quarter Super Margin",
-    "3rd Quarter Result",
     "Highest Scoring Half",
     "Highest Scoring Quarter",
     "Tri Bet 1-3",
@@ -27833,7 +26391,7 @@
     {
       "name": "Head To Head",
       "hasFutureMarket": false,
-      "openMarketCount": 4,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Head%20To%20Head"
       }
@@ -27847,14 +26405,6 @@
       }
     },
     {
-      "name": "Extra Line",
-      "hasFutureMarket": false,
-      "openMarketCount": 5,
-      "_links": {
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Extra%20Line"
-      }
-    },
-    {
       "name": "Winning Margin",
       "hasFutureMarket": false,
       "openMarketCount": 3,
@@ -27865,7 +26415,7 @@
     {
       "name": "Margin",
       "hasFutureMarket": false,
-      "openMarketCount": 4,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Margin"
       }
@@ -27873,7 +26423,7 @@
     {
       "name": "Tri Bet",
       "hasFutureMarket": false,
-      "openMarketCount": 4,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Tri%20Bet"
       }
@@ -28017,7 +26567,7 @@
     {
       "name": "Super Margin",
       "hasFutureMarket": false,
-      "openMarketCount": 4,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Super%20Margin"
       }
@@ -28207,14 +26757,6 @@
       }
     },
     {
-      "name": "Total Points 3-Way",
-      "hasFutureMarket": false,
-      "openMarketCount": 5,
-      "_links": {
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Total%20Points%203-Way"
-      }
-    },
-    {
       "name": "1st Half Head to Head",
       "hasFutureMarket": false,
       "openMarketCount": 3,
@@ -28316,22 +26858,6 @@
       "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=1st%20Half%20Away%20Points"
-      }
-    },
-    {
-      "name": "2nd Half Result",
-      "hasFutureMarket": false,
-      "openMarketCount": 1,
-      "_links": {
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=2nd%20Half%20Result"
-      }
-    },
-    {
-      "name": "2nd Half Winning Margin",
-      "hasFutureMarket": false,
-      "openMarketCount": 1,
-      "_links": {
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=2nd%20Half%20Winning%20Margin"
       }
     },
     {
@@ -28447,14 +26973,6 @@
       }
     },
     {
-      "name": "3rd Quarter Result",
-      "hasFutureMarket": false,
-      "openMarketCount": 1,
-      "_links": {
-        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=3rd%20Quarter%20Result"
-      }
-    },
-    {
       "name": "Highest Scoring Half",
       "hasFutureMarket": false,
       "openMarketCount": 3,
@@ -28497,7 +27015,7 @@
     {
       "name": "Total Points Odd/Even",
       "hasFutureMarket": false,
-      "openMarketCount": 4,
+      "openMarketCount": 3,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Total%20Points%20Odd%2FEven"
       }
