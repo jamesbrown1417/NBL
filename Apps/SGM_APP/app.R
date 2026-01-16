@@ -19,7 +19,7 @@ normalize_team <- function(x) {
 # AFL-specific DVP and position normalization removed for NBL
 
 # Head to head data (used for match ordering)
-h2h <- read_csv("../../Data/scraped_odds/sportsbet_h2h.csv")
+h2h <- read_csv("../../Data/scraped_odds/tab_h2h.csv")
 
 # Matches in order
 matches_in_order <-
