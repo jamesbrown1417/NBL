@@ -8,6 +8,8 @@ cd ~/Projects/NBL || exit
 
 # Remove .json and .txt files in specific directories
 rm OddsScraper/Bet365/HTML/*.txt
+rm Data/scraped_odds/*.csv
+rm Data/processed_odds/*.rds
 
 # Execute Python and R scripts
 /Users/jamesbrown/.pyenv/versions/3.12.5/bin/python3 OddsScraper/Bet365/01-get_bet365_html.py
