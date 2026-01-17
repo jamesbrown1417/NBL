@@ -284,11 +284,20 @@ all_arbs |>
 
 # Get best under prices across match, market, and line
 best_unders <- all_odds |>
+    filter(market_name != "Total Points") |> 
     filter(!is.na(under_price)) |>
     group_by(match, player_name, market_name, line) |>
     slice_max(under_price, n = 1, with_ties = FALSE) |>
     ungroup() |>
-    select(match, agency, player_name, player_team, market_name, line, under_price, diff_under_last_10) |>
+    # Join with positions data (already loaded above)
+    left_join(positions, by = c("player_name", "player_team")) |>
+    # Add stat column for DVP join
+    mutate(stat = market_to_stat[market_name]) |>
+    # Join with DVP data (already loaded above)
+    left_join(dvp_all |> select(opposition, position, stat, dvp_value = value),
+              by = c("opposition_team" = "opposition", "position", "stat")) |>
+    mutate(dvp_value = round(dvp_value, 2)) |>
+    select(match, agency, player_name, player_team, market_name, line, under_price, diff_under_last_10, dvp_value) |>
     arrange(player_name, desc(line))
 
 # Get unique matches and markets
