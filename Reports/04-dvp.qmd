@@ -35,17 +35,27 @@ if (is.null(dvp_results)) {
   stop("DVP results not found. Run Scripts/06-defence-vs-position.R first.")
 }
 
+# Extract DVP tables
 points_dvp   <- dvp_results$points
 rebounds_dvp <- dvp_results$rebounds
 assists_dvp  <- dvp_results$assists
 threes_dvp   <- dvp_results$threes
+steals_dvp   <- dvp_results$steals
+blocks_dvp   <- dvp_results$blocks
+pras_dvp     <- dvp_results$pras
+
+# Display parameters used
+min_games <- dvp_results$min_games
 
 plot_dvp_heatmap <- function(df, fill_col, title) {
   ggplot(df, aes(x = position, y = opposition, fill = .data[[fill_col]])) +
     geom_tile() +
     scale_fill_gradient2(low = "red", mid = "white", high = "green", midpoint = 0) +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "right") +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 0, vjust = 0),
+      legend.position = "right"
+    ) +
     scale_x_discrete(position = "top") +
     labs(x = NULL, y = NULL, title = title, fill = "Avg Diff") +
     geom_text(aes(label = round(.data[[fill_col]], 1)), size = 3)
@@ -76,3 +86,20 @@ plot_dvp_heatmap(assists_dvp, "avg_assists", "Player Assists (DVP)")
 plot_dvp_heatmap(threes_dvp, "avg_threes", "Player Threes (DVP)")
 ```
 
+## Steals
+
+```{r}
+plot_dvp_heatmap(steals_dvp, "avg_steals", "Player Steals (DVP)")
+```
+
+## Blocks
+
+```{r}
+plot_dvp_heatmap(blocks_dvp, "avg_blocks", "Player Blocks (DVP)")
+```
+
+## Points + Rebounds + Assists
+
+```{r}
+plot_dvp_heatmap(pras_dvp, "avg_pras", "Player PRA (DVP)")
+```
