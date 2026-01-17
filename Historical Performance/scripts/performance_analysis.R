@@ -22,6 +22,9 @@ df <- readr::read_rds(input_path)
 # Ensure prices present
 df <- df %>% filter(!is.na(over_price), !is.na(under_price))
 
+# Optional filter date
+df <- df %>% filter(snapshot_date >= as.Date("2026-01-01"))
+
 # Compute dutching stakes that sum to 100
 arb_df <- df %>%
   mutate(
@@ -55,25 +58,9 @@ arb_df <- df %>%
     total_profit = over_profit + under_profit,
     roi = total_profit / 100
   ) %>%
-  # Also compute stand-alone strategies (bet only over OR only under with stake=100)
-  mutate(
-    over_only_profit = case_when(
-      outcome == "over" ~ 100 * (over_price - 1),
-      outcome == "under" ~ -100,
-      outcome == "push" ~ 0,
-      TRUE ~ NA_real_
-    ),
-    under_only_profit = case_when(
-      outcome == "under" ~ 100 * (under_price - 1),
-      outcome == "over" ~ -100,
-      outcome == "push" ~ 0,
-      TRUE ~ NA_real_
-    )
-  ) %>%
   select(match, snapshot_date, player_name, market_name, line, agency,
          over_price, under_price, stat, outcome,
-         stake_over, stake_under, over_profit, under_profit, total_profit, roi,
-         over_only_profit, under_only_profit)
+         stake_over, stake_under, over_profit, under_profit, total_profit)
 
 # Expose result
 arb_performance <- arb_df
@@ -91,21 +78,15 @@ summarise_block <- function(data) {
       profit_over = sum(over_profit, na.rm = TRUE),
       profit_under = sum(under_profit, na.rm = TRUE),
       total_profit = sum(total_profit, na.rm = TRUE),
-      profit_over_only = sum(over_only_profit, na.rm = TRUE),
-      profit_under_only = sum(under_only_profit, na.rm = TRUE),
-      roi_avg = mean(roi, na.rm = TRUE),
       roi_total = total_profit / stake_total,
-      roi_over_only_total = profit_over_only / stake_total,
-      roi_under_only_total = profit_under_only / stake_total,
+      roi_over_only_total = profit_over / sum(stake_over, na.rm = TRUE),
+      roi_under_only_total = profit_under / sum(stake_under, na.rm = TRUE),
       .groups = "drop"
     ) %>%
     mutate(
       profit_over = round(profit_over, 2),
       profit_under = round(profit_under, 2),
       total_profit = round(total_profit, 2),
-      profit_over_only = round(profit_over_only, 2),
-      profit_under_only = round(profit_under_only, 2),
-      roi_avg = round(roi_avg, 4),
       roi_total = round(roi_total, 4),
       roi_over_only_total = round(roi_over_only_total, 4),
       roi_under_only_total = round(roi_under_only_total, 4)

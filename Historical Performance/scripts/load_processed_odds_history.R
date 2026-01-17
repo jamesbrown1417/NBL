@@ -38,10 +38,10 @@ read_with_ts <- function(path) {
 all_processed_odds <- purrr::map_dfr(rds_files, read_with_ts)
 
 # Keep only the latest snapshot per day for the same
-# match, player_name, line, and market_name.
+# match, player_name, line, agency and market_name.
 # In case of ties on timestamp, keep the first occurrence.
 all_processed_odds_filtered <- all_processed_odds %>%
-  dplyr::group_by(snapshot_date, .data$match, .data$player_name, .data$line, .data$market_name) %>%
+  dplyr::group_by(snapshot_date, .data$match, .data$player_name, .data$line, .data$market_name, .data$agency) %>%
   dplyr::slice_max(order_by = snapshot_datetime, n = 1, with_ties = FALSE) %>%
   dplyr::ungroup()
 
