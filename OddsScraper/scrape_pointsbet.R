@@ -550,10 +550,10 @@ pointsbet_player_rebounds_over_under <-
 
 # Player threes alternative totals----------------------------------------------
 
-# Filter list to player threes
+# Filter list to player threes (matches both "To Get X+ Threes" and "X+ Made Threes" formats)
 pointsbet_player_threes_lines <-
     pointsbet_data_player_props |>
-    filter(str_detect(market, "To Get [0-9]{1,2}\\+ Threes")) |>
+    filter(str_detect(market, "(To (Get|Make|Record) [0-9]{1,2}\\+ (Made )?Threes)|([0-9]{1,2}\\+ Made Threes)")) |>
     mutate(line = str_extract(market, "[0-9]{1,2}")) |>
     mutate(line = as.numeric(line) - 0.5) |>
     mutate(outcome = fix_player_names(outcome)) |>
@@ -577,10 +577,10 @@ pointsbet_player_threes_lines <-
 
 # Player threes over / under----------------------------------------------------
 
-# Filter list to player threes over under
+# Filter list to player threes over under (matches multiple formats)
 pointsbet_player_threes_over_under <-
     pointsbet_data_player_props |>
-    filter(str_detect(market, "Player Threes Over/Under")) |>
+    filter(str_detect(market, "(Player )?(Threes|Made Threes|Three Pointers Made) Over/Under")) |>
     mutate(outcome = fix_player_names(outcome))
 
 # Get Overs
@@ -753,9 +753,6 @@ pointsbet_player_threes_lines |>
     mutate(market_name = "Player Threes") |>
     mutate(agency = "Pointsbet") |> 
     write_csv("Data/scraped_odds/pointsbet_player_threes.csv")
-        
-        
-        
 }
 
 ##%######################################################%##

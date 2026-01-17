@@ -23,7 +23,7 @@ df <- readr::read_rds(input_path)
 df <- df %>% filter(!is.na(over_price), !is.na(under_price))
 
 # Optional filter date
-df <- df %>% filter(snapshot_date >= as.Date("2026-01-01"))
+# df <- df %>% filter(snapshot_date >= as.Date("2025-12-01"))
 
 # Compute dutching stakes that sum to 100
 arb_df <- df %>%

@@ -272,8 +272,64 @@ all_player_pras_arbs <- calculate_player_arbs(all_odds, "Player PRAs")
 # Combining all arbs
 all_arbs <- bind_rows(all_player_points_arbs, all_player_assists_arbs, all_player_rebounds_arbs, all_player_threes_arbs)
 
-all_arbs |> 
-    filter(margin > 0 | (margin > -10 & middle > 0)) |> 
+all_arbs |>
+    filter(margin > 0 | (margin > -10 & middle > 0)) |>
     arrange(desc(margin))
+```
+
+## Unders Strategy
+
+```{r}
+#| results: asis
+
+# Get best under prices across match, market, and line
+best_unders <- all_odds |>
+    filter(!is.na(under_price)) |>
+    group_by(match, player_name, market_name, line) |>
+    slice_max(under_price, n = 1, with_ties = FALSE) |>
+    ungroup() |>
+    select(match, agency, player_name, player_team, market_name, line, under_price, diff_under_last_10) |>
+    arrange(player_name, desc(line))
+
+# Get unique matches and markets
+unique_matches <- best_unders |> distinct(match) |> pull(match)
+unique_markets <- best_unders |> distinct(market_name) |> pull(market_name)
+
+# Create nested list structure for qreport::maketabs
+# Outer level: matches, Inner level: markets
+nested_list <- list()
+
+for (m in unique_matches) {
+    match_data <- best_unders |> filter(match == m)
+
+    market_list <- list()
+    for (mkt in unique_markets) {
+        market_data <- match_data |>
+            filter(market_name == mkt) |>
+            select(-match, -market_name)
+
+        if (nrow(market_data) > 0) {
+            market_list[[mkt]] <- datatable(market_data)
+        }
+    }
+
+    if (length(market_list) > 0) {
+        nested_list[[m]] <- market_list
+    }
+}
+
+# Generate nested tabs
+for (m in names(nested_list)) {
+    cat(paste0("\n### ", m, "\n\n"))
+    cat("::: {.panel-tabset}\n\n")
+
+    for (mkt in names(nested_list[[m]])) {
+        cat(paste0("#### ", mkt, "\n\n"))
+        print(htmltools::tagList(nested_list[[m]][[mkt]]))
+        cat("\n\n")
+    }
+
+    cat(":::\n\n")
+}
 ```
 :::

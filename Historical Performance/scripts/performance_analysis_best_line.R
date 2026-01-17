@@ -22,6 +22,12 @@ stopifnot(file.exists(input_path))
 
 df <- readr::read_rds(input_path)
 
+# Optional: filter to specific date range
+df <- df %>% filter(snapshot_date >= as.Date("2025-09-01"))
+
+# Optional: filter to specific agencies
+# df <- df |> filter(str_detect(agency, "Dabble", negate = TRUE))
+
 # We only need columns relevant for selection and evaluation
 df <- df %>%
   select(snapshot_date, match, player_name, market_name, line, over_price, under_price, stat)
