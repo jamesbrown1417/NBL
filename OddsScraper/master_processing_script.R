@@ -138,7 +138,7 @@ all_player_points |>
     select(-matches("_id$")) |> 
     select(-matches("_key$")) |>
     select(-matches("_id_")) |>
-    select(-outcome_name) |> 
+    select(-matches("outcome_name")) |> 
     write_rds("Data/processed_odds/all_player_points.rds")
 
 ##%######################################################%##
@@ -204,7 +204,7 @@ all_player_assists |>
     select(-matches("_id$")) |> 
     select(-matches("_key$")) |>
     select(-matches("_id_")) |>
-    select(-outcome_name) |> 
+    select(-matches("outcome_name")) |> 
     write_rds("Data/processed_odds/all_player_assists.rds")
 
 ##%######################################################%##
@@ -271,7 +271,7 @@ all_player_rebounds |>
     select(-matches("_id$")) |> 
     select(-matches("_key$")) |>
     select(-matches("_id_")) |>
-    select(-outcome_name) |> 
+    select(-matches("outcome_name")) |> 
     write_rds("Data/processed_odds/all_player_rebounds.rds")
 
 ##%######################################################%##
@@ -401,7 +401,7 @@ all_player_pras |>
     select(-matches("_id$")) |> 
     select(-matches("_key$")) |>
     select(-matches("_id_")) |>
-    select(-outcome_name) |> 
+    select(-matches("outcome_name")) |> 
     write_rds("Data/processed_odds/all_player_pras.rds")
 
 ##%######################################################%##
