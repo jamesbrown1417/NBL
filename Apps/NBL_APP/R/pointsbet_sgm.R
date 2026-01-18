@@ -5,12 +5,21 @@ library(purrr)
 library(tidyverse)
 
 # Pointsbet SGM-----------------------------------------------------------------
+# Safe read function
+safe_read_pointsbet <- function(file) {
+  tryCatch({
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble())
+    df
+  }, error = function(e) tibble())
+}
+
 pointsbet_sgm_list <-
   list(
-    read_csv("../../Data/scraped_odds/pointsbet_player_points.csv"),
-    read_csv("../../Data/scraped_odds/pointsbet_player_rebounds.csv"),
-    read_csv("../../Data/scraped_odds/pointsbet_player_assists.csv"),
-    read_csv("../../Data/scraped_odds/pointsbet_player_threes.csv")
+    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_points.csv"),
+    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_rebounds.csv"),
+    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_assists.csv"),
+    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_threes.csv")
   )
 
 pointsbet_sgm <-

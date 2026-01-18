@@ -5,37 +5,58 @@ library(purrr)
 
 
 # Bet365 SGM-----------------------------------------------------------------
+# Safe read function
+safe_read_bet365 <- function(file) {
+  tryCatch({
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble())
+    df
+  }, error = function(e) tibble())
+}
+
 bet365_sgm <-
-  read_csv("../../Data/scraped_odds/bet365_player_points.csv") |>
-  bind_rows(read_csv("../../Data/scraped_odds/bet365_player_rebounds.csv")) |>
-  bind_rows(read_csv("../../Data/scraped_odds/bet365_player_assists.csv")) |>
-  bind_rows(read_csv("../../Data/scraped_odds/bet365_player_threes.csv"))
+  safe_read_bet365("../../Data/scraped_odds/bet365_player_points.csv") |>
+  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_rebounds.csv")) |>
+  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_assists.csv")) |>
+  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_threes.csv"))
 
-# Build Over/Under rows with price only (no API for Bet365)
-bet365_over <- bet365_sgm |>
-  transmute(match = .data$match,
-            player_name = .data$player_name,
-            line = .data$line,
-            market_name = .data$market_name,
-            agency = .data$agency,
-            type = "Over",
-            price = .data$over_price)
-
-bet365_under <- tibble()
-if ("under_price" %in% names(bet365_sgm)) {
-  bet365_under <- bet365_sgm |>
-    filter(!is.na(under_price)) |>
+if (nrow(bet365_sgm) > 0 && "match" %in% names(bet365_sgm)) {
+  # Build Over/Under rows with price only (no API for Bet365)
+  bet365_over <- bet365_sgm |>
     transmute(match = .data$match,
               player_name = .data$player_name,
               line = .data$line,
               market_name = .data$market_name,
               agency = .data$agency,
-              type = "Under",
-              price = .data$under_price)
-}
+              type = "Over",
+              price = .data$over_price)
 
-bet365_sgm <- bind_rows(bet365_over, bet365_under) |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+  bet365_under <- tibble()
+  if ("under_price" %in% names(bet365_sgm)) {
+    bet365_under <- bet365_sgm |>
+      filter(!is.na(under_price)) |>
+      transmute(match = .data$match,
+                player_name = .data$player_name,
+                line = .data$line,
+                market_name = .data$market_name,
+                agency = .data$agency,
+                type = "Under",
+                price = .data$under_price)
+  }
+
+  bet365_sgm <- bind_rows(bet365_over, bet365_under) |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+} else {
+  bet365_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric()
+  )
+}
 
 
 #===============================================================================

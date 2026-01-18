@@ -4,12 +4,21 @@ library(tidyverse)
 library(purrr)
 
 # TAB SGM-----------------------------------------------------------------------
+# Safe read function
+safe_read_tab <- function(file) {
+  tryCatch({
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble())
+    df
+  }, error = function(e) tibble())
+}
+
 tab_sgm_list <-
   list(
-  read_csv("../../Data/scraped_odds/tab_player_points.csv"),
-  read_csv("../../Data/scraped_odds/tab_player_rebounds.csv"),
-  read_csv("../../Data/scraped_odds/tab_player_assists.csv"),
-  read_csv("../../Data/scraped_odds/tab_player_threes.csv")
+  safe_read_tab("../../Data/scraped_odds/tab_player_points.csv"),
+  safe_read_tab("../../Data/scraped_odds/tab_player_rebounds.csv"),
+  safe_read_tab("../../Data/scraped_odds/tab_player_assists.csv"),
+  safe_read_tab("../../Data/scraped_odds/tab_player_threes.csv")
 )
 
 tab_sgm <-
@@ -17,33 +26,46 @@ tab_sgm <-
   keep(~nrow(.x) > 0) |>
   bind_rows()
 
-# Build Over/Under rows with appropriate proposition IDs and price
-tab_over <- tab_sgm |>
-  transmute(match = .data$match,
-            player_name = .data$player_name,
-            line = .data$line,
-            market_name = .data$market_name,
-            agency = .data$agency,
-            type = "Over",
-            price = .data$over_price,
-            prop_id_sgm = .data$prop_id)
-
-tab_under <- tibble()
-if ("under_price" %in% names(tab_sgm)) {
-  tab_under <- tab_sgm |>
-    filter(!is.na(under_price) | !is.na(under_prop_id)) |>
+if (nrow(tab_sgm) > 0 && "match" %in% names(tab_sgm)) {
+  # Build Over/Under rows with appropriate proposition IDs and price
+  tab_over <- tab_sgm |>
     transmute(match = .data$match,
               player_name = .data$player_name,
               line = .data$line,
               market_name = .data$market_name,
               agency = .data$agency,
-              type = "Under",
-              price = .data$under_price,
-              prop_id_sgm = .data$under_prop_id)
-}
+              type = "Over",
+              price = .data$over_price,
+              prop_id_sgm = .data$prop_id)
 
-tab_sgm <- bind_rows(tab_over, tab_under) |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+  tab_under <- tibble()
+  if ("under_price" %in% names(tab_sgm)) {
+    tab_under <- tab_sgm |>
+      filter(!is.na(under_price) | !is.na(under_prop_id)) |>
+      transmute(match = .data$match,
+                player_name = .data$player_name,
+                line = .data$line,
+                market_name = .data$market_name,
+                agency = .data$agency,
+                type = "Under",
+                price = .data$under_price,
+                prop_id_sgm = .data$under_prop_id)
+  }
+
+  tab_sgm <- bind_rows(tab_over, tab_under) |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+} else {
+  tab_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric(),
+    prop_id_sgm = character()
+  )
+}
 
 #==============================================================================
 # Function to get SGM data

@@ -4,12 +4,21 @@ library(tidyverse)
 library(purrr)
 
 # BetRight SGM------------------------------------------------------------------
+# Safe read function
+safe_read_betright <- function(file) {
+  tryCatch({
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble())
+    df
+  }, error = function(e) tibble())
+}
+
 betright_sgm_list <- list(
-  read_csv("../../Data/scraped_odds/betright_player_points.csv"),
-  read_csv("../../Data/scraped_odds/betright_player_rebounds.csv"),
-  read_csv("../../Data/scraped_odds/betright_player_assists.csv"),
-  read_csv("../../Data/scraped_odds/betright_player_threes.csv"),
-  read_csv("../../Data/scraped_odds/betright_player_pras.csv")
+  safe_read_betright("../../Data/scraped_odds/betright_player_points.csv"),
+  safe_read_betright("../../Data/scraped_odds/betright_player_rebounds.csv"),
+  safe_read_betright("../../Data/scraped_odds/betright_player_assists.csv"),
+  safe_read_betright("../../Data/scraped_odds/betright_player_threes.csv"),
+  safe_read_betright("../../Data/scraped_odds/betright_player_pras.csv")
 )
 
 betright_sgm <-
@@ -18,21 +27,37 @@ betright_sgm <-
   bind_rows()
 
 # Build Over/Under rows if available (BetRight CSVs may not include Unders)
-betright_over <- betright_sgm |>
-  transmute(match = .data$match,
-            player_name = .data$player_name,
-            line = .data$line,
-            market_name = .data$market_name,
-            agency = .data$agency,
-            type = "Over",
-            price = .data$over_price,
-            event_id = .data$event_id,
-            outcome_name = .data$outcome_name,
-            outcome_id = .data$outcome_id,
-            fixed_market_id = .data$fixed_market_id)
+if (nrow(betright_sgm) > 0 && "match" %in% names(betright_sgm)) {
+  betright_over <- betright_sgm |>
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Over",
+              price = .data$over_price,
+              event_id = .data$event_id,
+              outcome_name = .data$outcome_name,
+              outcome_id = .data$outcome_id,
+              fixed_market_id = .data$fixed_market_id)
 
-betright_sgm <- betright_over |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+  betright_sgm <- betright_over |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+} else {
+  betright_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric(),
+    event_id = character(),
+    outcome_name = character(),
+    outcome_id = character(),
+    fixed_market_id = character()
+  )
+}
 
 #===============================================================================
 # Function to get SGM data

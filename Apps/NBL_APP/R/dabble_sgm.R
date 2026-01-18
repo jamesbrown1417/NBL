@@ -7,9 +7,11 @@ library(purrr)
 
 # Helper function to read CSV and return empty tibble if 0 rows
 safe_read <- function(file) {
-  if (!file.exists(file)) return(tibble())
-  df <- read_csv(file, show_col_types = FALSE)
-  if (nrow(df) == 0) return(tibble()) else return(df)
+  tryCatch({
+    if (!file.exists(file)) return(tibble())
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble()) else return(df)
+  }, error = function(e) tibble())
 }
 
 dabble_sgm <-
@@ -19,21 +21,33 @@ dabble_sgm <-
   bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_threes.csv")) |>
   bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_pras.csv"))
 
-# Build Over/Under rows (no API adjustment used)
-dabble_over <- dabble_sgm |>
-  transmute(match, player_name, line, market_name, agency, type = "Over",
-            price = over_price)
+if (nrow(dabble_sgm) > 0 && "match" %in% names(dabble_sgm)) {
+  # Build Over/Under rows (no API adjustment used)
+  dabble_over <- dabble_sgm |>
+    transmute(match, player_name, line, market_name, agency, type = "Over",
+              price = over_price)
 
-dabble_under <- tibble()
-if ("under_price" %in% names(dabble_sgm)) {
-  dabble_under <- dabble_sgm |>
-    filter(!is.na(under_price)) |>
-    transmute(match, player_name, line, market_name, agency, type = "Under",
-              price = under_price)
+  dabble_under <- tibble()
+  if ("under_price" %in% names(dabble_sgm)) {
+    dabble_under <- dabble_sgm |>
+      filter(!is.na(under_price)) |>
+      transmute(match, player_name, line, market_name, agency, type = "Under",
+                price = under_price)
+  }
+
+  dabble_sgm <- bind_rows(dabble_over, dabble_under) |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+} else {
+  dabble_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric()
+  )
 }
-
-dabble_sgm <- bind_rows(dabble_over, dabble_under) |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
 
 #===============================================================================
 # Function to get SGM Price

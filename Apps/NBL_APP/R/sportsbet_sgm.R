@@ -5,55 +5,81 @@ library(purrr)
 library(tidyverse)
 
 # Sportsbet SGM-----------------------------------------------------------------
-sportsbet_sgm <-
-  read_csv("../../Data/scraped_odds/sportsbet_player_points.csv") |>
-  bind_rows(read_csv("../../Data/scraped_odds/sportsbet_player_rebounds.csv")) |>
-  bind_rows(read_csv("../../Data/scraped_odds/sportsbet_player_assists.csv")) |>
-  bind_rows(read_csv("../../Data/scraped_odds/sportsbet_player_threes.csv"))
+# Safe read function
+safe_read_sportsbet <- function(file) {
+  tryCatch({
+    df <- read_csv(file, show_col_types = FALSE)
+    if (nrow(df) == 0) return(tibble())
+    df
+  }, error = function(e) tibble())
+}
 
 sportsbet_sgm <-
-  rename(
-    sportsbet_sgm,
-    eventExternalId = event_external_id ,
-    competitionExternalId = competition_external_id,
-    classExternalId = class_external_id ,
-    marketExternalId = market_id,
-    outcomeExternalId = player_id,
-    outcomeExternalId_unders = player_id_unders
+  safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_points.csv") |>
+  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_rebounds.csv")) |>
+  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_assists.csv")) |>
+  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_threes.csv"))
+
+if (nrow(sportsbet_sgm) > 0 && all(c("event_external_id", "competition_external_id", "class_external_id", "market_id", "player_id") %in% names(sportsbet_sgm))) {
+  sportsbet_sgm <-
+    rename(
+      sportsbet_sgm,
+      eventExternalId = event_external_id ,
+      competitionExternalId = competition_external_id,
+      classExternalId = class_external_id ,
+      marketExternalId = market_id,
+      outcomeExternalId = player_id,
+      outcomeExternalId_unders = player_id_unders
+    )
+
+  # Build Over/Under rows with appropriate outcome IDs and price
+  sportsbet_sgm_over <- sportsbet_sgm |>
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Over",
+              price = .data$over_price,
+              classExternalId = .data$classExternalId,
+              competitionExternalId = .data$competitionExternalId,
+              eventExternalId = .data$eventExternalId,
+              marketExternalId = .data$marketExternalId,
+              outcomeExternalId_sgm = .data$outcomeExternalId)
+
+  sportsbet_sgm_under <- sportsbet_sgm |>
+    filter(!is.na(under_price), !is.na(outcomeExternalId_unders)) |>
+    transmute(match = .data$match,
+              player_name = .data$player_name,
+              line = .data$line,
+              market_name = .data$market_name,
+              agency = .data$agency,
+              type = "Under",
+              price = .data$under_price,
+              classExternalId = .data$classExternalId,
+              competitionExternalId = .data$competitionExternalId,
+              eventExternalId = .data$eventExternalId,
+              marketExternalId = .data$marketExternalId,
+              outcomeExternalId_sgm = .data$outcomeExternalId_unders)
+
+  sportsbet_sgm <- bind_rows(sportsbet_sgm_over, sportsbet_sgm_under) |>
+    distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+} else {
+  sportsbet_sgm <- tibble(
+    match = character(),
+    player_name = character(),
+    line = numeric(),
+    market_name = character(),
+    agency = character(),
+    type = character(),
+    price = numeric(),
+    classExternalId = numeric(),
+    competitionExternalId = numeric(),
+    eventExternalId = numeric(),
+    marketExternalId = numeric(),
+    outcomeExternalId_sgm = numeric()
   )
-
-# Build Over/Under rows with appropriate outcome IDs and price
-sportsbet_sgm_over <- sportsbet_sgm |>
-  transmute(match = .data$match,
-            player_name = .data$player_name,
-            line = .data$line,
-            market_name = .data$market_name,
-            agency = .data$agency,
-            type = "Over",
-            price = .data$over_price,
-            classExternalId = .data$classExternalId,
-            competitionExternalId = .data$competitionExternalId,
-            eventExternalId = .data$eventExternalId,
-            marketExternalId = .data$marketExternalId,
-            outcomeExternalId_sgm = .data$outcomeExternalId)
-
-sportsbet_sgm_under <- sportsbet_sgm |>
-  filter(!is.na(under_price), !is.na(outcomeExternalId_unders)) |>
-  transmute(match = .data$match,
-            player_name = .data$player_name,
-            line = .data$line,
-            market_name = .data$market_name,
-            agency = .data$agency,
-            type = "Under",
-            price = .data$under_price,
-            classExternalId = .data$classExternalId,
-            competitionExternalId = .data$competitionExternalId,
-            eventExternalId = .data$eventExternalId,
-            marketExternalId = .data$marketExternalId,
-            outcomeExternalId_sgm = .data$outcomeExternalId_unders)
-
-sportsbet_sgm <- bind_rows(sportsbet_sgm_over, sportsbet_sgm_under) |>
-  distinct(match, player_name, line, market_name, type, agency, .keep_all = TRUE)
+}
 
 #==============================================================================
 # Function to get SGM data
