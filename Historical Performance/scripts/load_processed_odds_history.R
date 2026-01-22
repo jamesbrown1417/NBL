@@ -49,7 +49,7 @@ all_processed_odds_filtered <- all_processed_odds %>%
 all_processed_odds_lines <-
     all_processed_odds_filtered %>%
     filter(!is.na(under_price)) |> 
-    select(match, snapshot_date, player_name, line, market_name, agency, over_price, under_price)
+    select(match, snapshot_date, player_name, player_team, line, market_name, agency, over_price, under_price)
 
 # Read in box score data
 all_player_stats <-
@@ -96,7 +96,7 @@ all_processed_odds_lines <- all_processed_odds_lines %>%
       TRUE ~ NA_real_
     )
   ) %>%
-  select(match, snapshot_date, player_name, line, market_name, agency, over_price, under_price, stat) %>%
+  select(match, snapshot_date, player_name, player_team, line, market_name, agency, over_price, under_price, stat) %>%
   filter(!is.na(stat))
 
 # Persist filtered odds+stats lines for analysis
