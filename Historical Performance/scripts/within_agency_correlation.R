@@ -69,9 +69,4 @@ arb_performance <- arb_df
 sportsbet_summary <-
 arb_performance |> 
     filter(agency == "Sportsbet") |> 
-    group_by(match, snapshot_date, player_team) |> 
-    summarise(
-        total_bets = n(),
-        over_percentage = mean(outcome == "over", na.rm = TRUE) * 100
-    ) |> 
-    filter(total_bets >= 10)
+    group_by(match, snapshot_date, player_team)
