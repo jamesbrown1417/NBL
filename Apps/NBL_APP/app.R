@@ -690,13 +690,15 @@ ui <- page_navbar(
             inputId = "player_name",
             label = "Select Player:",
             selected = "Bryce Cotton",
-            choices = all_player_stats$PLAYER_NAME |> unique()
+            choices = all_player_stats$PLAYER_NAME |> unique() |> sort(),
+            selectize = TRUE
           ),
           selectInput(
             inputId = "teammate_name",
             label = "Select Teammate:",
             selected = "Keanu Pinder",
-            choices = all_player_stats$PLAYER_NAME |> unique()
+            choices = all_player_stats$PLAYER_NAME |> unique() |> sort(),
+            selectize = TRUE
           ),
           selectInput(
             inputId = "season_input",
@@ -727,7 +729,17 @@ ui <- page_navbar(
       grid_card(
         area = "with_without_plot",
         card_body(
-          plotlyOutput(outputId = "with_without_plot_output", height = "800px", width = "100%")
+          tabsetPanel(
+            id = "with_without_tabs",
+            tabPanel(
+              "Plot",
+              plotlyOutput(outputId = "with_without_plot_output", height = "800px", width = "100%")
+            ),
+            tabPanel(
+              "Table",
+              DTOutput(outputId = "with_without_table_output", width = "100%", height = "800px")
+            )
+          )
         )
       )
     )
@@ -1362,6 +1374,30 @@ server <- function(input, output, session) {
   # With / Without Teammate
   # =============================================================================
 
+  # Reactive to get filtered player data with/without teammate
+  with_without_data <- reactive({
+    req(input$player_name, input$teammate_name, input$season_input)
+
+    # Filter the data for games with the main player
+    df_player <-
+      all_player_stats %>%
+      filter(PLAYER_NAME == input$player_name) %>%
+      filter(SEASON_YEAR %in% input$season_input)
+
+    # Find the game IDs where the teammate also played
+    games_with_teammate <-
+      all_player_stats %>%
+      filter(SEASON_YEAR %in% input$season_input) %>%
+      filter(PLAYER_NAME == input$teammate_name) %>%
+      pull(match_id)
+
+    # Label each game as 'With Teammate' or 'Without Teammate'
+    df_player <- df_player %>%
+      mutate(Teammate = if_else(match_id %in% games_with_teammate, 'With Teammate', 'Without Teammate'))
+
+    return(df_player)
+  })
+
   output$with_without_plot_output <- renderPlotly({
     req(input$player_name, input$teammate_name, input$season_input, input$metric_input)
 
@@ -1374,6 +1410,49 @@ server <- function(input, output, session) {
     )
 
     return(ggplotly(plot))
+  })
+
+  output$with_without_table_output <- renderDT({
+    req(input$player_name, input$teammate_name, input$season_input)
+
+    df_player <- with_without_data()
+
+    # Calculate summary stats for all major stats
+    summary_table <- df_player %>%
+      group_by(Teammate) %>%
+      summarise(
+        Games = n(),
+        MIN = round(mean(MIN, na.rm = TRUE), 1),
+        PTS = round(mean(PTS, na.rm = TRUE), 1),
+        REB = round(mean(REB, na.rm = TRUE), 1),
+        AST = round(mean(AST, na.rm = TRUE), 1),
+        PRA = round(mean(PRA, na.rm = TRUE), 1),
+        STL = round(mean(STL, na.rm = TRUE), 1),
+        BLK = round(mean(BLK, na.rm = TRUE), 1),
+        FGM = round(mean(player_field_goals_made, na.rm = TRUE), 1),
+        FGA = round(mean(player_field_goals_attempted, na.rm = TRUE), 1),
+        `FG%` = round(mean(player_field_goals_percentage, na.rm = TRUE), 1),
+        FG3M = round(mean(player_three_pointers_made, na.rm = TRUE), 1),
+        FG3A = round(mean(player_three_pointers_attempted, na.rm = TRUE), 1),
+        `3P%` = round(mean(player_three_pointers_percentage, na.rm = TRUE), 1),
+        FTM = round(mean(player_free_throws_made, na.rm = TRUE), 1),
+        FTA = round(mean(player_free_throws_attempted, na.rm = TRUE), 1),
+        `FT%` = round(mean(player_free_throws_percentage, na.rm = TRUE), 1),
+        .groups = "drop"
+      ) %>%
+      arrange(desc(Teammate))  # With Teammate first
+
+    datatable(
+      summary_table,
+      options = list(
+        pageLength = 5,
+        autoWidth = TRUE,
+        scrollX = TRUE,
+        dom = 't'  # Only show table, no search/pagination
+      ),
+      rownames = FALSE,
+      width = "100%"
+    )
   })
 
   # =============================================================================
