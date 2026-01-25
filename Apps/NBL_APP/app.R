@@ -738,6 +738,10 @@ ui <- page_navbar(
             tabPanel(
               "Table",
               DTOutput(outputId = "with_without_table_output", width = "100%", height = "800px")
+            ),
+            tabPanel(
+              "Game Log",
+              DTOutput(outputId = "with_without_gamelog_output", width = "100%", height = "800px")
             )
           )
         )
@@ -1452,6 +1456,53 @@ server <- function(input, output, session) {
       ),
       rownames = FALSE,
       width = "100%"
+    )
+  })
+
+  output$with_without_gamelog_output <- renderDT({
+    req(input$player_name, input$teammate_name, input$season_input)
+
+    df_player <- with_without_data()
+
+    gamelog <- df_player %>%
+      filter(Teammate == "Without Teammate") %>%
+      arrange(desc(match_time_utc)) %>%
+      select(
+        Date = match_time_utc,
+        Home = HOME_TEAM,
+        Away = AWAY_TEAM,
+        Teammate,
+        Player = PLAYER_NAME,
+        Team = name,
+        MIN,
+        FGM = player_field_goals_made,
+        FGA = player_field_goals_attempted,
+        `FG%` = player_field_goals_percentage,
+        FG3M = player_three_pointers_made,
+        FG3A = player_three_pointers_attempted,
+        `3P%` = player_three_pointers_percentage,
+        FTM = player_free_throws_made,
+        FTA = player_free_throws_attempted,
+        `FT%` = player_free_throws_percentage,
+        PTS,
+        REB,
+        AST,
+        PRA,
+        STL,
+        BLK
+      )
+
+    datatable(
+      gamelog,
+      options = list(
+        pageLength = 15,
+        autoWidth = TRUE,
+        scrollX = TRUE,
+        scrollY = TRUE
+      ),
+      rownames = FALSE,
+      width = "100%",
+      height = "800px"
     )
   })
 
