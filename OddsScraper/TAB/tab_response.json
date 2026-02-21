@@ -107,7 +107,7 @@
             {
               "id": "609764",
               "name": "Adelaide",
-              "returnWin": 1.36,
+              "returnWin": 1.38,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -115,12 +115,13 @@
               "number": 609764,
               "isOpen": true,
               "sortOrder": 1,
-              "position": "HOME"
+              "position": "HOME",
+              "sameGame": true
             },
             {
               "id": "609765",
               "name": "New Zealand",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -128,18 +129,21 @@
               "number": 609765,
               "isOpen": true,
               "sortOrder": 2,
-              "position": "AWAY"
+              "position": "AWAY",
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
-          "id": "128951158",
-          "name": "NBL Adl-NZB Line -7.5",
-          "shortName": "NBL Adl-NZB Line -7.5",
+          "id": "128951162",
+          "name": "NBL Adl-NZB Line -6.5",
+          "shortName": "NBL Adl-NZB Line -6.5",
           "betOption": "Line",
           "betOptionSpectrumId": "43",
           "betOptionPriority": 1400,
-          "marketUniqueId": 128951158,
+          "marketUniqueId": 128951162,
           "closeTime": "2026-02-22T05:30:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -161,32 +165,36 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "610052",
-              "name": "Adelaide -7.5",
-              "returnWin": 1.9,
+              "id": "609762",
+              "name": "Adelaide -6.5",
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 610052,
+              "number": 609762,
               "isOpen": true,
               "sortOrder": 1,
-              "line": "-7.5"
+              "line": "-6.5",
+              "sameGame": true
             },
             {
-              "id": "610053",
-              "name": "New Zealand +7.5",
-              "returnWin": 1.9,
+              "id": "609763",
+              "name": "New Zealand +6.5",
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 610053,
+              "number": 609763,
               "isOpen": true,
               "sortOrder": 2,
-              "line": "+7.5"
+              "line": "+6.5",
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951188",
@@ -219,26 +227,28 @@
             {
               "id": "610113",
               "name": "Adelaide by 25+",
-              "returnWin": 7,
+              "returnWin": 7.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610113,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "610114",
               "name": "Adelaide by 21-24",
-              "returnWin": 12,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610114,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "610115",
@@ -250,19 +260,21 @@
               "allowPlace": false,
               "number": 610115,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "610116",
               "name": "Adelaide by 13-16",
-              "returnWin": 8,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610116,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "610117",
@@ -274,7 +286,8 @@
               "allowPlace": false,
               "number": 610117,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "610118",
@@ -286,7 +299,8 @@
               "allowPlace": false,
               "number": 610118,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "610119",
@@ -298,19 +312,21 @@
               "allowPlace": false,
               "number": 610119,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "610120",
               "name": "NZ Brkrs by 1-4",
-              "returnWin": 8.5,
+              "returnWin": 8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610120,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "610121",
@@ -322,43 +338,47 @@
               "allowPlace": false,
               "number": 610121,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "610122",
               "name": "NZ Brkrs by 9-12",
-              "returnWin": 14,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610122,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "610123",
               "name": "NZ Brkrs by 13-16",
-              "returnWin": 21,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610123,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "610124",
               "name": "NZ Brkrs by 17-20",
-              "returnWin": 34,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610124,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "610125",
@@ -370,7 +390,8 @@
               "allowPlace": false,
               "number": 610125,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "610126",
@@ -382,9 +403,12 @@
               "allowPlace": false,
               "number": 610126,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951165",
@@ -417,38 +441,41 @@
             {
               "id": "610094",
               "name": "Adelaide by 11+",
-              "returnWin": 2.25,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610094,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "610095",
               "name": "Adelaide by 1-10",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610095,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "610096",
               "name": "New Zealand by 1-10",
-              "returnWin": 4.5,
+              "returnWin": 4.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610096,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "610097",
@@ -460,9 +487,12 @@
               "allowPlace": false,
               "number": 610097,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951186",
@@ -495,40 +525,45 @@
             {
               "id": "609992",
               "name": "Adelaide by 7+",
-              "returnWin": 1.73,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609992,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609993",
               "name": "Either Team By 6 or Less",
-              "returnWin": 3,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609993,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609994",
               "name": "New Zealand by 7+",
-              "returnWin": 4.75,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609994,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951157",
@@ -568,45 +603,51 @@
               "allowPlace": false,
               "number": 609775,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609776",
               "name": "Adelaide -7.5 /Under 184.5",
-              "returnWin": 3.6,
+              "returnWin": 3.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609776,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609777",
               "name": "NZ Brkrs +7.5 /Over 184.5",
-              "returnWin": 3.6,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609777,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609778",
               "name": "NZ Brkrs +7.5 /Under 184.5",
-              "returnWin": 3.6,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609778,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951147",
@@ -651,7 +692,7 @@
             {
               "id": "610066",
               "name": "Adelaide /Under 184.5",
-              "returnWin": 2.6,
+              "returnWin": 2.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -663,7 +704,7 @@
             {
               "id": "610067",
               "name": "NZ Brkrs /Over 184.5",
-              "returnWin": 5.9,
+              "returnWin": 5.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -717,28 +758,32 @@
             {
               "id": "609682",
               "name": "Over 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.85,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609682,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609683",
               "name": "Under 184.5",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609683,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951168",
@@ -771,170 +816,184 @@
             {
               "id": "610010",
               "name": "Adelaide -21.5",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610010,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "610011",
               "name": "New Zealand +21.5",
-              "returnWin": 1.12,
+              "returnWin": 1.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610011,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "610012",
               "name": "Adelaide -19.5",
-              "returnWin": 4.5,
+              "returnWin": 4.75,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610012,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "610013",
               "name": "New Zealand +19.5",
-              "returnWin": 1.15,
+              "returnWin": 1.13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610013,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "610014",
               "name": "Adelaide -17.5",
-              "returnWin": 3.8,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610014,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "610015",
               "name": "New Zealand +17.5",
-              "returnWin": 1.21,
+              "returnWin": 1.19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610015,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "610016",
               "name": "Adelaide -15.5",
-              "returnWin": 3.2,
+              "returnWin": 3.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610016,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "610017",
               "name": "New Zealand +15.5",
-              "returnWin": 1.28,
+              "returnWin": 1.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610017,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             },
             {
               "id": "610018",
               "name": "Adelaide -13.5",
-              "returnWin": 2.8,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610018,
               "isOpen": true,
-              "sortOrder": 21
+              "sortOrder": 21,
+              "sameGame": true
             },
             {
               "id": "610019",
               "name": "New Zealand +13.5",
-              "returnWin": 1.36,
+              "returnWin": 1.34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610019,
               "isOpen": true,
-              "sortOrder": 22
+              "sortOrder": 22,
+              "sameGame": true
             },
             {
               "id": "610020",
               "name": "Adelaide -11.5",
-              "returnWin": 2.4,
+              "returnWin": 2.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610020,
               "isOpen": true,
-              "sortOrder": 23
+              "sortOrder": 23,
+              "sameGame": true
             },
             {
               "id": "610021",
               "name": "New Zealand +11.5",
-              "returnWin": 1.48,
+              "returnWin": 1.45,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610021,
               "isOpen": true,
-              "sortOrder": 24
+              "sortOrder": 24,
+              "sameGame": true
             },
             {
               "id": "610022",
               "name": "Adelaide -9.5",
-              "returnWin": 2.1,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610022,
               "isOpen": true,
-              "sortOrder": 25
+              "sortOrder": 25,
+              "sameGame": true
             },
             {
               "id": "610023",
               "name": "New Zealand +9.5",
-              "returnWin": 1.62,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610023,
               "isOpen": true,
-              "sortOrder": 26
+              "sortOrder": 26,
+              "sameGame": true
             },
             {
               "id": "610024",
@@ -946,141 +1005,181 @@
               "allowPlace": false,
               "number": 610024,
               "isOpen": true,
-              "sortOrder": 27
+              "sortOrder": 27,
+              "sameGame": true
             },
             {
               "id": "610025",
               "name": "New Zealand +7.5",
-              "returnWin": 1.9,
+              "returnWin": 1.77,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610025,
               "isOpen": true,
-              "sortOrder": 28
+              "sortOrder": 28,
+              "sameGame": true
             },
             {
               "id": "610026",
               "name": "Adelaide -5.5",
-              "returnWin": 1.66,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610026,
               "isOpen": true,
-              "sortOrder": 29
+              "sortOrder": 29,
+              "sameGame": true
             },
             {
               "id": "610027",
               "name": "New Zealand +5.5",
-              "returnWin": 2.05,
+              "returnWin": 2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610027,
               "isOpen": true,
-              "sortOrder": 30
+              "sortOrder": 30,
+              "sameGame": true
             },
             {
               "id": "610028",
               "name": "Adelaide -3.5",
-              "returnWin": 1.48,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610028,
               "isOpen": true,
-              "sortOrder": 31
+              "sortOrder": 31,
+              "sameGame": true
             },
             {
               "id": "610029",
               "name": "New Zealand +3.5",
-              "returnWin": 2.4,
+              "returnWin": 2.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610029,
               "isOpen": true,
-              "sortOrder": 32
+              "sortOrder": 32,
+              "sameGame": true
             },
             {
               "id": "610030",
               "name": "Adelaide +2.5",
-              "returnWin": 1.25,
+              "returnWin": 1.28,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610030,
               "isOpen": true,
-              "sortOrder": 33
+              "sortOrder": 33,
+              "sameGame": true
             },
             {
               "id": "610031",
               "name": "New Zealand -2.5",
-              "returnWin": 3.4,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610031,
               "isOpen": true,
-              "sortOrder": 34
+              "sortOrder": 34,
+              "sameGame": true
             },
             {
               "id": "610032",
               "name": "Adelaide +4.5",
-              "returnWin": 1.19,
+              "returnWin": 1.21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610032,
               "isOpen": true,
-              "sortOrder": 35
+              "sortOrder": 35,
+              "sameGame": true
             },
             {
               "id": "610033",
               "name": "New Zealand -4.5",
-              "returnWin": 4,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610033,
               "isOpen": true,
-              "sortOrder": 36
+              "sortOrder": 36,
+              "sameGame": true
             },
             {
               "id": "610034",
               "name": "Adelaide +6.5",
-              "returnWin": 1.13,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610034,
               "isOpen": true,
-              "sortOrder": 37
+              "sortOrder": 37,
+              "sameGame": true
             },
             {
               "id": "610035",
               "name": "New Zealand -6.5",
-              "returnWin": 4.75,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610035,
               "isOpen": true,
-              "sortOrder": 38
+              "sortOrder": 38,
+              "sameGame": true
+            },
+            {
+              "id": "610036",
+              "name": "Adelaide +8.5",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 610036,
+              "isOpen": true,
+              "sortOrder": 39,
+              "sameGame": true
+            },
+            {
+              "id": "610037",
+              "name": "New Zealand -8.5",
+              "returnWin": 5.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 610037,
+              "isOpen": true,
+              "sortOrder": 40,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951151",
@@ -1113,62 +1212,67 @@
             {
               "id": "609676",
               "name": "Adelaide / Adelaide",
-              "returnWin": 1.68,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609676,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609677",
               "name": "Adelaide / New Zealand",
-              "returnWin": 7.5,
+              "returnWin": 7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609677,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609678",
               "name": "New Zealand / New Zealand",
-              "returnWin": 4.2,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609678,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609679",
               "name": "New Zealand / Adelaide",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609679,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "609680",
               "name": "Tie / Adelaide",
-              "returnWin": 26,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609680,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "609681",
@@ -1180,9 +1284,12 @@
               "allowPlace": false,
               "number": 609681,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951173",
@@ -1215,7 +1322,7 @@
             {
               "id": "610104",
               "name": "Adelaide -2.5 /Over 46.5",
-              "returnWin": 3.3,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1239,7 +1346,7 @@
             {
               "id": "610106",
               "name": "NZ Brkrs +2.5 /Over 46.5",
-              "returnWin": 3.8,
+              "returnWin": 3.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1300,7 +1407,8 @@
               "allowPlace": false,
               "number": 609933,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609935",
@@ -1312,7 +1420,8 @@
               "allowPlace": false,
               "number": 609935,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609937",
@@ -1324,7 +1433,8 @@
               "allowPlace": false,
               "number": 609937,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609938",
@@ -1336,19 +1446,21 @@
               "allowPlace": false,
               "number": 609938,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "609939",
               "name": "Adelaide by 25-28",
-              "returnWin": 14,
+              "returnWin": 15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609939,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "609940",
@@ -1360,7 +1472,8 @@
               "allowPlace": false,
               "number": 609940,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "609941",
@@ -1372,31 +1485,34 @@
               "allowPlace": false,
               "number": 609941,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "609943",
               "name": "Adelaide by 13-16",
-              "returnWin": 8,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609943,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "609944",
               "name": "Adelaide by 9-12",
-              "returnWin": 7,
+              "returnWin": 7.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609944,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "609946",
@@ -1408,7 +1524,8 @@
               "allowPlace": false,
               "number": 609946,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "609947",
@@ -1420,7 +1537,8 @@
               "allowPlace": false,
               "number": 609947,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "609948",
@@ -1432,7 +1550,8 @@
               "allowPlace": false,
               "number": 609948,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "609949",
@@ -1444,7 +1563,8 @@
               "allowPlace": false,
               "number": 609949,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "609951",
@@ -1456,7 +1576,8 @@
               "allowPlace": false,
               "number": 609951,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "609952",
@@ -1468,19 +1589,21 @@
               "allowPlace": false,
               "number": 609952,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "609953",
               "name": "New Zealand by 13-16",
-              "returnWin": 17,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609953,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "609955",
@@ -1492,7 +1615,8 @@
               "allowPlace": false,
               "number": 609955,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "609956",
@@ -1504,7 +1628,8 @@
               "allowPlace": false,
               "number": 609956,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "609957",
@@ -1516,7 +1641,8 @@
               "allowPlace": false,
               "number": 609957,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "609958",
@@ -1528,7 +1654,8 @@
               "allowPlace": false,
               "number": 609958,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             },
             {
               "id": "609959",
@@ -1540,7 +1667,8 @@
               "allowPlace": false,
               "number": 609959,
               "isOpen": true,
-              "sortOrder": 21
+              "sortOrder": 21,
+              "sameGame": true
             },
             {
               "id": "609960",
@@ -1552,7 +1680,8 @@
               "allowPlace": false,
               "number": 609960,
               "isOpen": true,
-              "sortOrder": 22
+              "sortOrder": 22,
+              "sameGame": true
             },
             {
               "id": "609961",
@@ -1564,9 +1693,12 @@
               "allowPlace": false,
               "number": 609961,
               "isOpen": true,
-              "sortOrder": 23
+              "sortOrder": 23,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951140",
@@ -1599,26 +1731,28 @@
             {
               "id": "609618",
               "name": "Adelaide by 21+",
-              "returnWin": 4.75,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609618,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609619",
               "name": "Adelaide by 20",
-              "returnWin": 26,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609619,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609620",
@@ -1630,7 +1764,8 @@
               "allowPlace": false,
               "number": 609620,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609621",
@@ -1642,19 +1777,21 @@
               "allowPlace": false,
               "number": 609621,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "609622",
               "name": "Adelaide by 17",
-              "returnWin": 23,
+              "returnWin": 26,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609622,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "609623",
@@ -1666,7 +1803,8 @@
               "allowPlace": false,
               "number": 609623,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "609624",
@@ -1678,19 +1816,21 @@
               "allowPlace": false,
               "number": 609624,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "609625",
               "name": "Adelaide by 14",
-              "returnWin": 21,
+              "returnWin": 23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609625,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "609626",
@@ -1702,7 +1842,8 @@
               "allowPlace": false,
               "number": 609626,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "609627",
@@ -1714,19 +1855,21 @@
               "allowPlace": false,
               "number": 609627,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "609628",
               "name": "Adelaide by 11",
-              "returnWin": 18,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609628,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "609629",
@@ -1738,7 +1881,8 @@
               "allowPlace": false,
               "number": 609629,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "609630",
@@ -1750,7 +1894,8 @@
               "allowPlace": false,
               "number": 609630,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "609631",
@@ -1762,7 +1907,8 @@
               "allowPlace": false,
               "number": 609631,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "609632",
@@ -1774,7 +1920,8 @@
               "allowPlace": false,
               "number": 609632,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "609633",
@@ -1786,7 +1933,8 @@
               "allowPlace": false,
               "number": 609633,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "609634",
@@ -1798,7 +1946,8 @@
               "allowPlace": false,
               "number": 609634,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "609635",
@@ -1810,7 +1959,8 @@
               "allowPlace": false,
               "number": 609635,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "609636",
@@ -1822,7 +1972,8 @@
               "allowPlace": false,
               "number": 609636,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "609637",
@@ -1834,7 +1985,8 @@
               "allowPlace": false,
               "number": 609637,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             },
             {
               "id": "609638",
@@ -1846,7 +1998,8 @@
               "allowPlace": false,
               "number": 609638,
               "isOpen": true,
-              "sortOrder": 21
+              "sortOrder": 21,
+              "sameGame": true
             },
             {
               "id": "609639",
@@ -1858,7 +2011,8 @@
               "allowPlace": false,
               "number": 609639,
               "isOpen": true,
-              "sortOrder": 22
+              "sortOrder": 22,
+              "sameGame": true
             },
             {
               "id": "609640",
@@ -1870,7 +2024,8 @@
               "allowPlace": false,
               "number": 609640,
               "isOpen": true,
-              "sortOrder": 23
+              "sortOrder": 23,
+              "sameGame": true
             },
             {
               "id": "609641",
@@ -1882,7 +2037,8 @@
               "allowPlace": false,
               "number": 609641,
               "isOpen": true,
-              "sortOrder": 24
+              "sortOrder": 24,
+              "sameGame": true
             },
             {
               "id": "609642",
@@ -1894,7 +2050,8 @@
               "allowPlace": false,
               "number": 609642,
               "isOpen": true,
-              "sortOrder": 25
+              "sortOrder": 25,
+              "sameGame": true
             },
             {
               "id": "609643",
@@ -1906,7 +2063,8 @@
               "allowPlace": false,
               "number": 609643,
               "isOpen": true,
-              "sortOrder": 26
+              "sortOrder": 26,
+              "sameGame": true
             },
             {
               "id": "609644",
@@ -1918,7 +2076,8 @@
               "allowPlace": false,
               "number": 609644,
               "isOpen": true,
-              "sortOrder": 27
+              "sortOrder": 27,
+              "sameGame": true
             },
             {
               "id": "609645",
@@ -1930,19 +2089,21 @@
               "allowPlace": false,
               "number": 609645,
               "isOpen": true,
-              "sortOrder": 28
+              "sortOrder": 28,
+              "sameGame": true
             },
             {
               "id": "609646",
               "name": "New Zealand by 8",
-              "returnWin": 31,
+              "returnWin": 26,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609646,
               "isOpen": true,
-              "sortOrder": 29
+              "sortOrder": 29,
+              "sameGame": true
             },
             {
               "id": "609647",
@@ -1954,7 +2115,8 @@
               "allowPlace": false,
               "number": 609647,
               "isOpen": true,
-              "sortOrder": 30
+              "sortOrder": 30,
+              "sameGame": true
             },
             {
               "id": "609648",
@@ -1966,19 +2128,21 @@
               "allowPlace": false,
               "number": 609648,
               "isOpen": true,
-              "sortOrder": 31
+              "sortOrder": 31,
+              "sameGame": true
             },
             {
               "id": "609649",
               "name": "New Zealand by 11",
-              "returnWin": 41,
+              "returnWin": 34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609649,
               "isOpen": true,
-              "sortOrder": 32
+              "sortOrder": 32,
+              "sameGame": true
             },
             {
               "id": "609650",
@@ -1990,7 +2154,8 @@
               "allowPlace": false,
               "number": 609650,
               "isOpen": true,
-              "sortOrder": 33
+              "sortOrder": 33,
+              "sameGame": true
             },
             {
               "id": "609651",
@@ -2002,7 +2167,8 @@
               "allowPlace": false,
               "number": 609651,
               "isOpen": true,
-              "sortOrder": 34
+              "sortOrder": 34,
+              "sameGame": true
             },
             {
               "id": "609652",
@@ -2014,19 +2180,21 @@
               "allowPlace": false,
               "number": 609652,
               "isOpen": true,
-              "sortOrder": 35
+              "sortOrder": 35,
+              "sameGame": true
             },
             {
               "id": "609653",
               "name": "New Zealand by 15",
-              "returnWin": 67,
+              "returnWin": 51,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609653,
               "isOpen": true,
-              "sortOrder": 36
+              "sortOrder": 36,
+              "sameGame": true
             },
             {
               "id": "609654",
@@ -2038,19 +2206,21 @@
               "allowPlace": false,
               "number": 609654,
               "isOpen": true,
-              "sortOrder": 37
+              "sortOrder": 37,
+              "sameGame": true
             },
             {
               "id": "609655",
               "name": "New Zealand by 17",
-              "returnWin": 81,
+              "returnWin": 67,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609655,
               "isOpen": true,
-              "sortOrder": 38
+              "sortOrder": 38,
+              "sameGame": true
             },
             {
               "id": "609656",
@@ -2062,7 +2232,8 @@
               "allowPlace": false,
               "number": 609656,
               "isOpen": true,
-              "sortOrder": 39
+              "sortOrder": 39,
+              "sameGame": true
             },
             {
               "id": "609657",
@@ -2074,7 +2245,8 @@
               "allowPlace": false,
               "number": 609657,
               "isOpen": true,
-              "sortOrder": 40
+              "sortOrder": 40,
+              "sameGame": true
             },
             {
               "id": "609658",
@@ -2086,7 +2258,8 @@
               "allowPlace": false,
               "number": 609658,
               "isOpen": true,
-              "sortOrder": 41
+              "sortOrder": 41,
+              "sameGame": true
             },
             {
               "id": "609659",
@@ -2098,9 +2271,12 @@
               "allowPlace": false,
               "number": 609659,
               "isOpen": true,
-              "sortOrder": 42
+              "sortOrder": 42,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951142",
@@ -2133,38 +2309,41 @@
             {
               "id": "609908",
               "name": "Adl 7+ / Adl 11+",
-              "returnWin": 3,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609908,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609909",
               "name": "Adl 7+ / Adl 1-10",
-              "returnWin": 7,
+              "returnWin": 6.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609909,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609910",
               "name": "Adl 7+ / NZB 1-10",
-              "returnWin": 18,
+              "returnWin": 17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609910,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609911",
@@ -2176,19 +2355,21 @@
               "allowPlace": false,
               "number": 609911,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "609912",
               "name": "Adl 1-6 / Adl 11+",
-              "returnWin": 8.5,
+              "returnWin": 9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609912,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "609913",
@@ -2200,7 +2381,8 @@
               "allowPlace": false,
               "number": 609913,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             },
             {
               "id": "609915",
@@ -2212,7 +2394,8 @@
               "allowPlace": false,
               "number": 609915,
               "isOpen": true,
-              "sortOrder": 7
+              "sortOrder": 7,
+              "sameGame": true
             },
             {
               "id": "609916",
@@ -2224,19 +2407,21 @@
               "allowPlace": false,
               "number": 609916,
               "isOpen": true,
-              "sortOrder": 8
+              "sortOrder": 8,
+              "sameGame": true
             },
             {
               "id": "609917",
               "name": "Tie / Adl 11+",
-              "returnWin": 51,
+              "returnWin": 67,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609917,
               "isOpen": true,
-              "sortOrder": 9
+              "sortOrder": 9,
+              "sameGame": true
             },
             {
               "id": "609918",
@@ -2248,7 +2433,8 @@
               "allowPlace": false,
               "number": 609918,
               "isOpen": true,
-              "sortOrder": 10
+              "sortOrder": 10,
+              "sameGame": true
             },
             {
               "id": "609919",
@@ -2260,7 +2446,8 @@
               "allowPlace": false,
               "number": 609919,
               "isOpen": true,
-              "sortOrder": 11
+              "sortOrder": 11,
+              "sameGame": true
             },
             {
               "id": "609922",
@@ -2272,19 +2459,21 @@
               "allowPlace": false,
               "number": 609922,
               "isOpen": true,
-              "sortOrder": 12
+              "sortOrder": 12,
+              "sameGame": true
             },
             {
               "id": "609923",
               "name": "NZB 1-6 / Adl 11+",
-              "returnWin": 17,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609923,
               "isOpen": true,
-              "sortOrder": 13
+              "sortOrder": 13,
+              "sameGame": true
             },
             {
               "id": "609924",
@@ -2296,31 +2485,34 @@
               "allowPlace": false,
               "number": 609924,
               "isOpen": true,
-              "sortOrder": 14
+              "sortOrder": 14,
+              "sameGame": true
             },
             {
               "id": "609925",
               "name": "NZB 1-6 / NZB 1-10",
-              "returnWin": 13,
+              "returnWin": 12,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609925,
               "isOpen": true,
-              "sortOrder": 15
+              "sortOrder": 15,
+              "sameGame": true
             },
             {
               "id": "609926",
               "name": "NZB 1-6 / NZB 11+",
-              "returnWin": 26,
+              "returnWin": 23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609926,
               "isOpen": true,
-              "sortOrder": 16
+              "sortOrder": 16,
+              "sameGame": true
             },
             {
               "id": "609927",
@@ -2332,19 +2524,21 @@
               "allowPlace": false,
               "number": 609927,
               "isOpen": true,
-              "sortOrder": 17
+              "sortOrder": 17,
+              "sameGame": true
             },
             {
               "id": "609930",
               "name": "NZB 7+ / Adl 1-10",
-              "returnWin": 16,
+              "returnWin": 17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609930,
               "isOpen": true,
-              "sortOrder": 18
+              "sortOrder": 18,
+              "sameGame": true
             },
             {
               "id": "609931",
@@ -2356,7 +2550,8 @@
               "allowPlace": false,
               "number": 609931,
               "isOpen": true,
-              "sortOrder": 19
+              "sortOrder": 19,
+              "sameGame": true
             },
             {
               "id": "609932",
@@ -2368,9 +2563,12 @@
               "allowPlace": false,
               "number": 609932,
               "isOpen": true,
-              "sortOrder": 20
+              "sortOrder": 20,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951164",
@@ -2427,7 +2625,7 @@
             {
               "id": "609864",
               "name": "Adl by 11+ /161-180",
-              "returnWin": 6,
+              "returnWin": 6.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2523,7 +2721,7 @@
             {
               "id": "609872",
               "name": "NZB by 1-10 /161-180",
-              "returnWin": 12,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2547,7 +2745,7 @@
             {
               "id": "609875",
               "name": "NZB by 11+ /201 or more",
-              "returnWin": 34,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2559,7 +2757,7 @@
             {
               "id": "609876",
               "name": "NZB by 11+ /181-200",
-              "returnWin": 17,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2571,7 +2769,7 @@
             {
               "id": "609877",
               "name": "NZB by 11+ /161-180",
-              "returnWin": 21,
+              "returnWin": 19,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2632,7 +2830,8 @@
               "allowPlace": false,
               "number": 609897,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609898",
@@ -2644,57 +2843,64 @@
               "allowPlace": false,
               "number": 609898,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609899",
               "name": "171 to 180",
-              "returnWin": 4.2,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609899,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             },
             {
               "id": "609900",
               "name": "181 to 190",
-              "returnWin": 3.8,
+              "returnWin": 4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609900,
               "isOpen": true,
-              "sortOrder": 4
+              "sortOrder": 4,
+              "sameGame": true
             },
             {
               "id": "609901",
               "name": "191 to 200",
-              "returnWin": 4.5,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609901,
               "isOpen": true,
-              "sortOrder": 5
+              "sortOrder": 5,
+              "sameGame": true
             },
             {
               "id": "609902",
               "name": "201 Points or More",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609902,
               "isOpen": true,
-              "sortOrder": 6
+              "sortOrder": 6,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951178",
@@ -2727,7 +2933,7 @@
             {
               "id": "610108",
               "name": "Adl leads at end of each Qtr",
-              "returnWin": 2.25,
+              "returnWin": 2.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2739,7 +2945,7 @@
             {
               "id": "610109",
               "name": "Any Other Result",
-              "returnWin": 1.85,
+              "returnWin": 1.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2751,7 +2957,7 @@
             {
               "id": "610110",
               "name": "NZB leads at end of each Qtr",
-              "returnWin": 9,
+              "returnWin": 8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3561,7 +3767,7 @@
             {
               "id": "609736",
               "name": "Adelaide +5.5",
-              "returnWin": 1.15,
+              "returnWin": 1.17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3573,7 +3779,7 @@
             {
               "id": "609737",
               "name": "New Zealand -5.5",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3699,7 +3905,7 @@
             {
               "id": "610082",
               "name": "NZ Brkrs by 1-5",
-              "returnWin": 5,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3711,7 +3917,7 @@
             {
               "id": "610083",
               "name": "NZ Brkrs by 6+",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3765,7 +3971,7 @@
             {
               "id": "609793",
               "name": "Adelaide by 1-10",
-              "returnWin": 2.5,
+              "returnWin": 2.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4041,7 +4247,7 @@
             {
               "id": "609979",
               "name": "81 to 90",
-              "returnWin": 3.4,
+              "returnWin": 3.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4389,7 +4595,7 @@
             {
               "id": "610092",
               "name": "Adelaide",
-              "returnWin": 1.5,
+              "returnWin": 1.48,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4401,7 +4607,7 @@
             {
               "id": "610093",
               "name": "New Zealand",
-              "returnWin": 2.35,
+              "returnWin": 2.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4443,7 +4649,7 @@
             {
               "id": "610102",
               "name": "Adelaide -2.5",
-              "returnWin": 1.9,
+              "returnWin": 1.87,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4455,7 +4661,7 @@
             {
               "id": "610103",
               "name": "New Zealand +2.5",
-              "returnWin": 1.85,
+              "returnWin": 1.87,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4521,7 +4727,7 @@
             {
               "id": "610100",
               "name": "NZ Brkrs /Over 46.5",
-              "returnWin": 4.3,
+              "returnWin": 4.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4533,7 +4739,7 @@
             {
               "id": "610101",
               "name": "NZ Brkrs /Under 46.5",
-              "returnWin": 4.3,
+              "returnWin": 4.4,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4647,7 +4853,7 @@
             {
               "id": "609813",
               "name": "Adelaide -7.5",
-              "returnWin": 3.4,
+              "returnWin": 3.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4659,7 +4865,7 @@
             {
               "id": "609814",
               "name": "New Zealand +7.5",
-              "returnWin": 1.25,
+              "returnWin": 1.28,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4767,7 +4973,7 @@
             {
               "id": "609823",
               "name": "Adelaide -2.5",
-              "returnWin": 1.9,
+              "returnWin": 1.87,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4779,7 +4985,7 @@
             {
               "id": "609824",
               "name": "New Zealand +2.5",
-              "returnWin": 1.85,
+              "returnWin": 1.87,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4863,7 +5069,7 @@
             {
               "id": "609831",
               "name": "Adelaide +1.5",
-              "returnWin": 1.36,
+              "returnWin": 1.34,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4875,7 +5081,7 @@
             {
               "id": "609832",
               "name": "New Zealand -1.5",
-              "returnWin": 2.8,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4911,7 +5117,7 @@
             {
               "id": "609835",
               "name": "Adelaide +3.5",
-              "returnWin": 1.23,
+              "returnWin": 1.21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4923,7 +5129,7 @@
             {
               "id": "609836",
               "name": "New Zealand -3.5",
-              "returnWin": 3.6,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5061,7 +5267,7 @@
             {
               "id": "609774",
               "name": "New Zealand by 4+",
-              "returnWin": 3.6,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5115,7 +5321,7 @@
             {
               "id": "610055",
               "name": "New Zealand",
-              "returnWin": 2.2,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5169,7 +5375,7 @@
             {
               "id": "609985",
               "name": "Adelaide",
-              "returnWin": 1.52,
+              "returnWin": 1.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5469,7 +5675,7 @@
             {
               "id": "609879",
               "name": "Adelaide 0 to 20",
-              "returnWin": 3.5,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5517,7 +5723,7 @@
             {
               "id": "609883",
               "name": "Adelaide 30+",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5661,7 +5867,7 @@
             {
               "id": "609780",
               "name": "Adelaide by 9-10",
-              "returnWin": 12,
+              "returnWin": 11,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5757,7 +5963,7 @@
             {
               "id": "609788",
               "name": "New Zealand by 5-6",
-              "returnWin": 12,
+              "returnWin": 13,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5835,7 +6041,7 @@
             {
               "id": "609905",
               "name": "1st Half",
-              "returnWin": 1.68,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5859,7 +6065,7 @@
             {
               "id": "609907",
               "name": "2nd Half",
-              "returnWin": 2.15,
+              "returnWin": 2.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -5901,14 +6107,15 @@
             {
               "id": "609965",
               "name": "Adelaide by 4+",
-              "returnWin": 1.48,
+              "returnWin": 1.52,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609965,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609966",
@@ -5920,21 +6127,25 @@
               "allowPlace": false,
               "number": 609966,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609967",
               "name": "NZ Brkrs by 4+",
-              "returnWin": 3.8,
+              "returnWin": 3.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609967,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951184",
@@ -5967,40 +6178,45 @@
             {
               "id": "609754",
               "name": "Adelaide by 9+",
-              "returnWin": 1.97,
+              "returnWin": 2.05,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609754,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609755",
               "name": "Either Team By 8 or Less",
-              "returnWin": 2.3,
+              "returnWin": 2.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609755,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             },
             {
               "id": "609756",
               "name": "New Zealand by 9+",
-              "returnWin": 6,
+              "returnWin": 5.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 609756,
               "isOpen": true,
-              "sortOrder": 3
+              "sortOrder": 3,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951187",
@@ -6033,14 +6249,15 @@
             {
               "id": "610089",
               "name": "Adelaide",
-              "returnWin": 9,
+              "returnWin": 10,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
               "number": 610089,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "610090",
@@ -6052,9 +6269,12 @@
               "allowPlace": false,
               "number": 610090,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951169",
@@ -6148,7 +6368,8 @@
               "allowPlace": false,
               "number": 609968,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609969",
@@ -6160,9 +6381,12 @@
               "allowPlace": false,
               "number": 609969,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         },
         {
           "id": "128951139",
@@ -6202,7 +6426,8 @@
               "allowPlace": false,
               "number": 609666,
               "isOpen": true,
-              "sortOrder": 1
+              "sortOrder": 1,
+              "sameGame": true
             },
             {
               "id": "609667",
@@ -6214,13 +6439,17 @@
               "allowPlace": false,
               "number": 609667,
               "isOpen": true,
-              "sortOrder": 2
+              "sortOrder": 2,
+              "sameGame": true
             }
-          ]
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
         }
       ],
       "inPlay": false,
-      "goingInPlay": true
+      "goingInPlay": true,
+      "sameGame": true
     }
   ],
   "tournaments": [],
@@ -7680,5 +7909,6 @@
       ]
     }
   ],
-  "hasFuturePredictions": false
+  "hasFuturePredictions": false,
+  "sameGame": true
 }
