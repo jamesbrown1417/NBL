@@ -72,9 +72,9 @@
         "South East Melb",
         "Perth"
       ],
-      "openMarketCount": 66,
+      "openMarketCount": 67,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 66,
+      "nonFutureMarketCount": 67,
       "markets": [
         {
           "id": "129086971",
@@ -1264,6 +1264,138 @@
           ],
           "sameGame": true,
           "sameGameMultipleSelections": false
+        },
+        {
+          "id": "129186410",
+          "name": "NBL SEM-Per 5+Pts 04/03",
+          "shortName": "NBL SEM-Per 5+Pts",
+          "betOption": "5+ Points",
+          "betOptionSpectrumId": "1270",
+          "betOptionPriority": 3555,
+          "marketUniqueId": 129186410,
+          "closeTime": "2026-03-04T08:37:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "Enabled",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "723087",
+              "name": "David Duke (Per)",
+              "returnWin": 1.05,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723087,
+              "isOpen": true,
+              "sortOrder": 10
+            },
+            {
+              "id": "723080",
+              "name": "John Brown III (SEM)",
+              "returnWin": 1.05,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723080,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
+              "id": "723081",
+              "name": "Jordan Hunter (SEM)",
+              "returnWin": 1.05,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723081,
+              "isOpen": true,
+              "sortOrder": 4,
+              "sameGame": true
+            },
+            {
+              "id": "723078",
+              "name": "Angus Glover (SEM)",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723078,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "723086",
+              "name": "Ben Henshall (Per)",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723086,
+              "isOpen": true,
+              "sortOrder": 9,
+              "sameGame": true
+            },
+            {
+              "id": "723084",
+              "name": "Owen Foxwell (SEM)",
+              "returnWin": 1.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723084,
+              "isOpen": true,
+              "sortOrder": 7,
+              "sameGame": true
+            },
+            {
+              "id": "723082",
+              "name": "Malique Lewis (SEM)",
+              "returnWin": 1.15,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723082,
+              "isOpen": true,
+              "sortOrder": 5
+            },
+            {
+              "id": "723090",
+              "name": "Sunday Dech (Per)",
+              "returnWin": 1.6,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 723090,
+              "isOpen": true,
+              "sortOrder": 13
+            }
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": true
         },
         {
           "id": "129255443",
@@ -11704,6 +11836,7 @@
     "Total Points Over/Under",
     "Pick Your Own Line",
     "Half/Full Double",
+    "5+ Points",
     "To Score and Win",
     "Super Margin",
     "Exact Winning Margin",
@@ -11811,6 +11944,14 @@
       "openMarketCount": 2,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Half%2FFull%20Double"
+      }
+    },
+    {
+      "name": "5+ Points",
+      "hasFutureMarket": false,
+      "openMarketCount": 1,
+      "_links": {
+        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=5%2B%20Points"
       }
     },
     {
