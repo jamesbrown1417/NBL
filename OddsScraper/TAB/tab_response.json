@@ -72,9 +72,9 @@
         "Melbourne",
         "Tasmania"
       ],
-      "openMarketCount": 101,
+      "openMarketCount": 103,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 101,
+      "nonFutureMarketCount": 103,
       "markets": [
         {
           "id": "129086841",
@@ -137,13 +137,13 @@
           "sameGameMultipleSelections": false
         },
         {
-          "id": "129086842",
-          "name": "NBL Mel-Tas Line -7.5",
-          "shortName": "NBL Mel-Tas Line -7.5",
+          "id": "129555928",
+          "name": "NBL Mel-Tas Line -8.5",
+          "shortName": "NBL Mel-Tas Line -8.5",
           "betOption": "Line",
           "betOptionSpectrumId": "43",
           "betOptionPriority": 1400,
-          "marketUniqueId": 129086842,
+          "marketUniqueId": 129555928,
           "closeTime": "2026-03-05T08:37:00.000Z",
           "bettingStatus": "Open",
           "message": null,
@@ -165,36 +165,32 @@
           "allowBundle": false,
           "propositions": [
             {
-              "id": "633939",
-              "name": "Melbourne -7.5",
-              "returnWin": 1.85,
-              "returnPlace": 0,
-              "differential": null,
-              "bettingStatus": "Open",
-              "allowPlace": false,
-              "number": 633939,
-              "isOpen": true,
-              "sortOrder": 1,
-              "line": "-7.5",
-              "sameGame": true
-            },
-            {
-              "id": "633941",
-              "name": "Tasmania +7.5",
+              "id": "665982",
+              "name": "Melbourne -8.5",
               "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
               "allowPlace": false,
-              "number": 633941,
+              "number": 665982,
+              "isOpen": true,
+              "sortOrder": 1,
+              "line": "-8.5"
+            },
+            {
+              "id": "665983",
+              "name": "Tasmania +8.5",
+              "returnWin": 1.85,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 665983,
               "isOpen": true,
               "sortOrder": 2,
-              "line": "+7.5",
-              "sameGame": true
+              "line": "+8.5"
             }
-          ],
-          "sameGame": true,
-          "sameGameMultipleSelections": false
+          ]
         },
         {
           "id": "129199536",
@@ -227,7 +223,7 @@
             {
               "id": "582852",
               "name": "Melb Utd by 25+",
-              "returnWin": 7,
+              "returnWin": 6.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -344,7 +340,7 @@
             {
               "id": "582946",
               "name": "Tasmania by 9-12",
-              "returnWin": 15,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -357,7 +353,7 @@
             {
               "id": "582947",
               "name": "Tasmania by 13-16",
-              "returnWin": 23,
+              "returnWin": 26,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -441,7 +437,7 @@
             {
               "id": "633989",
               "name": "Melbourne by 11+",
-              "returnWin": 2.2,
+              "returnWin": 2.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -467,7 +463,7 @@
             {
               "id": "633992",
               "name": "Tasmania by 1-10",
-              "returnWin": 4.5,
+              "returnWin": 4.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -525,7 +521,7 @@
             {
               "id": "633983",
               "name": "Melbourne by 7+",
-              "returnWin": 1.7,
+              "returnWin": 1.66,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -559,6 +555,90 @@
               "number": 633985,
               "isOpen": true,
               "sortOrder": 3,
+              "sameGame": true
+            }
+          ],
+          "sameGame": true,
+          "sameGameMultipleSelections": false
+        },
+        {
+          "id": "129609402",
+          "name": "NBL Mel-Tas LnOUDb",
+          "shortName": "NBL Mel-Tas LnOUDb",
+          "betOption": "Line/Over Under Double",
+          "betOptionSpectrumId": "212",
+          "betOptionPriority": 2770,
+          "marketUniqueId": 129609402,
+          "closeTime": "2026-03-05T08:37:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "700063",
+              "name": "Melb Utd -8.5 /Over 172.5",
+              "returnWin": 3.7,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 700063,
+              "isOpen": true,
+              "sortOrder": 1,
+              "sameGame": true
+            },
+            {
+              "id": "700064",
+              "name": "Melb Utd -8.5 /Under 172.5",
+              "returnWin": 3.7,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 700064,
+              "isOpen": true,
+              "sortOrder": 2,
+              "sameGame": true
+            },
+            {
+              "id": "700065",
+              "name": "Tasmania +8.5 /Over 172.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 700065,
+              "isOpen": true,
+              "sortOrder": 3,
+              "sameGame": true
+            },
+            {
+              "id": "700066",
+              "name": "Tasmania +8.5 /Under 172.5",
+              "returnWin": 3.5,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 700066,
+              "isOpen": true,
+              "sortOrder": 4,
               "sameGame": true
             }
           ],
@@ -914,7 +994,7 @@
             {
               "id": "582769",
               "name": "Melbourne -19.5",
-              "returnWin": 4.5,
+              "returnWin": 4.25,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -927,7 +1007,7 @@
             {
               "id": "582770",
               "name": "Tasmania +19.5",
-              "returnWin": 1.15,
+              "returnWin": 1.17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -940,7 +1020,7 @@
             {
               "id": "582771",
               "name": "Melbourne -17.5",
-              "returnWin": 3.8,
+              "returnWin": 3.6,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -953,7 +1033,7 @@
             {
               "id": "582772",
               "name": "Tasmania +17.5",
-              "returnWin": 1.21,
+              "returnWin": 1.23,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -966,7 +1046,7 @@
             {
               "id": "582773",
               "name": "Melbourne -15.5",
-              "returnWin": 3.2,
+              "returnWin": 3.1,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -979,7 +1059,7 @@
             {
               "id": "582774",
               "name": "Tasmania +15.5",
-              "returnWin": 1.28,
+              "returnWin": 1.3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1018,7 +1098,7 @@
             {
               "id": "582787",
               "name": "Melbourne -11.5",
-              "returnWin": 2.4,
+              "returnWin": 2.35,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1031,7 +1111,7 @@
             {
               "id": "582788",
               "name": "Tasmania +11.5",
-              "returnWin": 1.48,
+              "returnWin": 1.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1044,7 +1124,7 @@
             {
               "id": "582789",
               "name": "Melbourne -9.5",
-              "returnWin": 2.05,
+              "returnWin": 2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1057,7 +1137,7 @@
             {
               "id": "582790",
               "name": "Tasmania +9.5",
-              "returnWin": 1.66,
+              "returnWin": 1.7,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1070,7 +1150,7 @@
             {
               "id": "582820",
               "name": "Melbourne -7.5",
-              "returnWin": 1.85,
+              "returnWin": 1.77,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1083,7 +1163,7 @@
             {
               "id": "582821",
               "name": "Tasmania +7.5",
-              "returnWin": 1.95,
+              "returnWin": 1.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1096,7 +1176,7 @@
             {
               "id": "582822",
               "name": "Melbourne -5.5",
-              "returnWin": 1.6,
+              "returnWin": 1.57,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1109,7 +1189,7 @@
             {
               "id": "582823",
               "name": "Tasmania +5.5",
-              "returnWin": 2.15,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1148,7 +1228,7 @@
             {
               "id": "582826",
               "name": "Melbourne +2.5",
-              "returnWin": 1.23,
+              "returnWin": 1.21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1161,7 +1241,7 @@
             {
               "id": "582827",
               "name": "Tasmania -2.5",
-              "returnWin": 3.6,
+              "returnWin": 3.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1174,7 +1254,7 @@
             {
               "id": "582828",
               "name": "Melbourne +4.5",
-              "returnWin": 1.17,
+              "returnWin": 1.15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -1187,7 +1267,7 @@
             {
               "id": "582829",
               "name": "Tasmania -4.5",
-              "returnWin": 4.25,
+              "returnWin": 4.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2980,6 +3060,48 @@
           ]
         },
         {
+          "id": "129609403",
+          "name": "NBL Mel-Tas Kyle Bowen ScrWin",
+          "shortName": "NBL Mel-Tas Kyle Bowen ScWn",
+          "betOption": "To Score and Win",
+          "betOptionSpectrumId": "716",
+          "betOptionPriority": 3705,
+          "marketUniqueId": 129609403,
+          "closeTime": "2026-03-05T08:37:00.000Z",
+          "bettingStatus": "Open",
+          "message": null,
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": false,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "700067",
+              "name": "Kyle Bowen 5+ Pts/Mel Win",
+              "returnWin": 2.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 700067,
+              "isOpen": true,
+              "sortOrder": 1
+            }
+          ]
+        },
+        {
           "id": "129257027",
           "name": "NBL Mel-Tas M Deng ScrWin",
           "shortName": "NBL Mel-Tas M Deng ScWn",
@@ -3594,7 +3716,7 @@
             {
               "id": "633926",
               "name": "Tasmania by 9-12",
-              "returnWin": 13,
+              "returnWin": 14,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -3886,7 +4008,7 @@
             {
               "id": "633873",
               "name": "Melbourne by 10",
-              "returnWin": 19,
+              "returnWin": 18,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4172,7 +4294,7 @@
             {
               "id": "633899",
               "name": "Tasmania by 13",
-              "returnWin": 51,
+              "returnWin": 67,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4347,7 +4469,7 @@
             {
               "id": "633945",
               "name": "Mel 7+ / Tas 1-10",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4373,7 +4495,7 @@
             {
               "id": "633948",
               "name": "Mel 1-6 / Mel 11+",
-              "returnWin": 8.5,
+              "returnWin": 8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4477,7 +4599,7 @@
             {
               "id": "633960",
               "name": "Tas 1-6 / Mel 11+",
-              "returnWin": 18,
+              "returnWin": 17,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4516,7 +4638,7 @@
             {
               "id": "633966",
               "name": "Tas 1-6 / Tas 11+",
-              "returnWin": 26,
+              "returnWin": 31,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4568,7 +4690,7 @@
             {
               "id": "633970",
               "name": "Tas 7+ / Tas 11+",
-              "returnWin": 14,
+              "returnWin": 15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4661,7 +4783,7 @@
             {
               "id": "792606",
               "name": "Mel by 1-10 /191 or more",
-              "returnWin": 15,
+              "returnWin": 16,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4769,7 +4891,7 @@
             {
               "id": "792615",
               "name": "Tas by 11+ /171-190",
-              "returnWin": 19,
+              "returnWin": 21,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4793,7 +4915,7 @@
             {
               "id": "792617",
               "name": "Tas by 11+ /150 or less",
-              "returnWin": 67,
+              "returnWin": 81,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7319,7 +7441,7 @@
             {
               "id": "596601",
               "name": "Melbourne 81 to 90",
-              "returnWin": 2.8,
+              "returnWin": 2.9,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7416,7 +7538,7 @@
             {
               "id": "596682",
               "name": "Tasmania 71 to 80",
-              "returnWin": 3.1,
+              "returnWin": 3,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7442,7 +7564,7 @@
             {
               "id": "596684",
               "name": "Tasmania 91 to 100",
-              "returnWin": 4.8,
+              "returnWin": 5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7500,7 +7622,7 @@
             {
               "id": "633979",
               "name": "Mel leads at end of each Qtr",
-              "returnWin": 2.25,
+              "returnWin": 2.2,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -7524,7 +7646,7 @@
             {
               "id": "633982",
               "name": "Tas leads at end of each Qtr",
-              "returnWin": 9,
+              "returnWin": 10,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11891,7 +12013,7 @@
             {
               "id": "633995",
               "name": "Melbourne by 9+",
-              "returnWin": 1.9,
+              "returnWin": 1.95,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -11962,7 +12084,7 @@
             {
               "id": "625219",
               "name": "Melbourne",
-              "returnWin": 9,
+              "returnWin": 8.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -12173,6 +12295,7 @@
     "Winning Margin",
     "Margin",
     "Tri Bet",
+    "Line/Over Under Double",
     "HDtoHD/OverUnder Double",
     "Line/Total Double $2",
     "Line/Total Double $7",
@@ -12286,6 +12409,14 @@
       "openMarketCount": 1,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Tri%20Bet"
+      }
+    },
+    {
+      "name": "Line/Over Under Double",
+      "hasFutureMarket": false,
+      "openMarketCount": 1,
+      "_links": {
+        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Line%2FOver%20Under%20Double"
       }
     },
     {
@@ -12403,7 +12534,7 @@
     {
       "name": "To Score and Win",
       "hasFutureMarket": false,
-      "openMarketCount": 14,
+      "openMarketCount": 15,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=To%20Score%20and%20Win"
       }
