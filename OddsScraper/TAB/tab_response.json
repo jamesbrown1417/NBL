@@ -72,9 +72,9 @@
         "Sydney",
         "Adelaide"
       ],
-      "openMarketCount": 104,
+      "openMarketCount": 105,
       "futureMarketCount": 0,
-      "nonFutureMarketCount": 104,
+      "nonFutureMarketCount": 105,
       "markets": [
         {
           "id": "130328703",
@@ -1225,7 +1225,7 @@
             {
               "id": "665964",
               "name": "Sydney / Adelaide",
-              "returnWin": 8,
+              "returnWin": 7.5,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -2907,7 +2907,7 @@
             {
               "id": "668442",
               "name": "Ken Davis 30+ Pts/Syd Win",
-              "returnWin": 2.7,
+              "returnWin": 2.8,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -4439,7 +4439,7 @@
             {
               "id": "665937",
               "name": "Adl 7+ / Syd 1-10",
-              "returnWin": 14,
+              "returnWin": 15,
               "returnPlace": 0,
               "differential": null,
               "bettingStatus": "Open",
@@ -10722,6 +10722,84 @@
           ]
         },
         {
+          "id": "130452949",
+          "name": "NBL Sydney-Adelaide HiScrQtr",
+          "shortName": "NBL Syd-Adl HiScrQtr",
+          "betOption": "Highest Scoring Quarter",
+          "betOptionSpectrumId": "236",
+          "betOptionPriority": 16925,
+          "marketUniqueId": 130452949,
+          "closeTime": "2026-03-21T08:00:00.000Z",
+          "bettingStatus": "Open",
+          "message": "Excludes Overtime",
+          "informationMessage": null,
+          "isFuture": false,
+          "onlineBetting": true,
+          "phoneBettingOnly": false,
+          "inPlay": false,
+          "goingInPlay": true,
+          "allowWin": true,
+          "allowPlace": false,
+          "allowEachWay": false,
+          "allowMulti": true,
+          "allowMultiWin": true,
+          "allowMultiPlace": false,
+          "allowMultiEachWay": false,
+          "numberOfPlaces": 0,
+          "cashOutEligibility": "PreMatch",
+          "allowBundle": false,
+          "propositions": [
+            {
+              "id": "858028",
+              "name": "1st Quarter",
+              "returnWin": 3.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 858028,
+              "isOpen": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "858029",
+              "name": "2nd Quarter",
+              "returnWin": 3.1,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 858029,
+              "isOpen": true,
+              "sortOrder": 2
+            },
+            {
+              "id": "858030",
+              "name": "3rd Quarter",
+              "returnWin": 4,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 858030,
+              "isOpen": true,
+              "sortOrder": 3
+            },
+            {
+              "id": "858031",
+              "name": "4th Quarter",
+              "returnWin": 4,
+              "returnPlace": 0,
+              "differential": null,
+              "bettingStatus": "Open",
+              "allowPlace": false,
+              "number": 858031,
+              "isOpen": true,
+              "sortOrder": 4
+            }
+          ]
+        },
+        {
           "id": "130328711",
           "name": "NBL Sydney-Adelaide TriBet3",
           "shortName": "NBL Syd-Adl TriBet3",
@@ -11167,6 +11245,7 @@
     "1st Quarter Away Points",
     "1st Quarter Super Margin",
     "Highest Scoring Half",
+    "Highest Scoring Quarter",
     "Tri Bet 1-3",
     "Tri Bet 1-8",
     "To Win Every Quarter",
@@ -11709,6 +11788,14 @@
       "openMarketCount": 1,
       "_links": {
         "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Highest%20Scoring%20Half"
+      }
+    },
+    {
+      "name": "Highest Scoring Quarter",
+      "hasFutureMarket": false,
+      "openMarketCount": 1,
+      "_links": {
+        "markets": "https://api.beta.tab.com.au/v1/tab-info-service/sports/Basketball/competitions/NBL/markets?jurisdiction=SA&amp;betOptionName=Highest%20Scoring%20Quarter"
       }
     },
     {
