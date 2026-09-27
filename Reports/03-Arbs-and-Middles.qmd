@@ -24,15 +24,15 @@ editor: visual
 #===============================================================================
 
 library(tidyverse)
+source("../Scripts/00-config.R")
+source("../Scripts/odds-schema.R")
 `%notin%` <- Negate(`%in%`)
 
 # Read in Data
-list_of_files <- list.files("../Data/processed_odds", full.names = TRUE)
+list_of_files <- list.files(data_paths$processed_odds, full.names = TRUE, pattern = "^all_player_.*[.]rds$")
 
 # Read in all data
-all_odds <- 
-  list_of_files |> 
-  map_dfr(read_rds)
+all_odds <- read_processed_player_odds(list_of_files)
 ```
 
 # Arbs

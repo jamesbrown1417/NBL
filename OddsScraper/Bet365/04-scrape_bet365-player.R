@@ -10,14 +10,14 @@ source("Scripts/04-helper-functions.R")
 
 # Get player name and team data
 player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |>
+    read_csv(data_file("raw_stats", "supercoach-data.csv")) |>
     mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
     select(player_first_name, first_initial, player_last_name, player_team) |>
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |>
     mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
 
 # Read scraped HTML files by category
-html_folder <- "OddsScraper/Bet365/HTML"
+html_folder <- data_file("raw_odds_responses", "bet365")
 
 files_points   <- list.files(html_folder, full.names = TRUE, pattern = "players_match_\\d+_points\\.txt$")
 files_threes   <- list.files(html_folder, full.names = TRUE, pattern = "players_match_\\d+_threes\\.txt$")
@@ -779,7 +779,7 @@ player_assists       <- all_player_props |> filter(market_name == "Player Assist
 player_threes        <- all_player_props |> filter(market_name == "Player Threes Made") |> mutate(market_name = "Player Threes")
 
 # Write out
-write_csv(player_points, "Data/scraped_odds/bet365_player_points.csv")
-write_csv(player_rebounds, "Data/scraped_odds/bet365_player_rebounds.csv")
-write_csv(player_assists, "Data/scraped_odds/bet365_player_assists.csv")
-write_csv(player_threes, "Data/scraped_odds/bet365_player_threes.csv")
+write_csv(player_points, data_file("raw_odds", "bet365_player_points.csv"))
+write_csv(player_rebounds, data_file("raw_odds", "bet365_player_rebounds.csv"))
+write_csv(player_assists, data_file("raw_odds", "bet365_player_assists.csv"))
+write_csv(player_threes, data_file("raw_odds", "bet365_player_threes.csv"))

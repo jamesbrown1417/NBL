@@ -12,13 +12,18 @@ from selenium_driverless.types.by import By
 from datetime import datetime
 import asyncio
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables: try default .env, then fallback to 'env'
-load_dotenv()
-# Fallback to a non-dotted 'env' file present in the repo
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# Load credentials from the project without depending on the current directory.
+load_dotenv(PROJECT_ROOT / ".env")
 if os.getenv('BET365USER') is None or os.getenv('BET365PW') is None:
-    load_dotenv('/Users/jamesbrown/Projects/NBL/env')
+    load_dotenv(PROJECT_ROOT / "env")
+
+HTML_OUTPUT_DIR = PROJECT_ROOT / "Data" / "raw" / "odds" / "responses" / "bet365"
+HTML_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Read credentials after loading
 username = os.getenv('BET365USER')
@@ -98,7 +103,7 @@ async def collect_h2h_and_urls(driver):
     # Save HTML
     body_html = await elem.get_attribute('outerHTML')
 
-    with open("OddsScraper/Bet365/HTML/h2h_html.txt", 'w') as f:
+    with (HTML_OUTPUT_DIR / "h2h_html.txt").open("w", encoding="utf-8") as f:
         f.write(body_html)
 
     print("Waiting 2 seconds...")
@@ -235,8 +240,8 @@ async def scrape_player_pages(driver, match_data):
                 )
                 body_html_players = await elem.get_attribute('outerHTML')
 
-                filename = f"OddsScraper/Bet365/HTML/body_html_players_match_{match_index}_{category_name.lower()}.txt"
-                with open(filename, 'w') as f:
+                filename = HTML_OUTPUT_DIR / f"body_html_players_match_{match_index}_{category_name.lower()}.txt"
+                with filename.open("w", encoding="utf-8") as f:
                     f.write(body_html_players)
                 print(f"  Saved: {filename}")
 

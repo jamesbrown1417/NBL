@@ -8,6 +8,8 @@ library(lubridate)
 library(plotly)
 library(httr)
 library(jsonlite)
+source("../../Scripts/00-config.R")
+source("../../Scripts/odds-schema.R")
 
 # Helper functions
 `%notin%` <- Negate(`%in%`)
@@ -24,9 +26,13 @@ normalize_team <- function(x) {
 # ===============================================================================
 
 all_player_stats <-
-  read_rds("../../Data/combined_stats_table.rds") |>
+  read_rds(data_file("processed_stats", "combined_stats_table.rds")) |>
   mutate(PLAYER_NAME = paste(first_name, family_name)) |>
-  mutate(minutes_played = ifelse(str_detect(player_minutes, "\\:"), period_to_seconds(ms(player_minutes)) / 60, player_minutes)) |>
+  mutate(minutes_played = ifelse(
+    str_detect(player_minutes, "\\:"),
+    period_to_seconds(suppressWarnings(ms(player_minutes))) / 60,
+    player_minutes
+  )) |>
   mutate(minutes_played = as.numeric(minutes_played)) |>
   rename(
     PTS = player_points,
@@ -42,9 +48,16 @@ all_player_stats <-
   mutate(HOME_TEAM = ifelse(home_away == "home", name, opp_name)) |>
   mutate(AWAY_TEAM = ifelse(home_away == "away", name, opp_name))
 
+available_seasons <- sort(unique(all_player_stats$SEASON_YEAR), decreasing = TRUE)
+default_season <- if (nbl_config$active_season %in% available_seasons) {
+  nbl_config$active_season
+} else {
+  first(available_seasons)
+}
+
 # DVP RDS (if available) -------------------------------------------------------
 dvp_results <- tryCatch(
-  read_rds("../../Data/processed_stats/dvp_results.rds"),
+  read_rds(data_file("processed_stats", "dvp_results.rds")),
   error = function(e) NULL
 )
 
@@ -69,15 +82,25 @@ if (dvp_available) {
 }
 
 # Read Odds Data----------------------------------------------------------------
-player_points_data <- read_rds("../../Data/processed_odds/all_player_points.rds")
-player_assists_data <- read_rds("../../Data/processed_odds/all_player_assists.rds")
-player_rebounds_data <- read_rds("../../Data/processed_odds/all_player_rebounds.rds")
-player_threes_data <- read_rds("../../Data/processed_odds/all_player_threes.rds")
+read_player_odds <- function(market) {
+  path <- data_file("processed_odds", paste0("all_player_", market, ".rds"))
+  if (!file.exists(path)) {
+    return(empty_player_odds())
+  }
 
-# New markets
-player_pras_data <- tryCatch(read_rds("../../Data/processed_odds/all_player_pras.rds"), error = function(e) tibble())
-player_steals_data <- tryCatch(read_rds("../../Data/processed_odds/all_player_steals.rds"), error = function(e) tibble())
-player_blocks_data <- tryCatch(read_rds("../../Data/processed_odds/all_player_blocks.rds"), error = function(e) tibble())
+  tryCatch(
+    read_processed_player_odds(path),
+    error = function(e) empty_player_odds()
+  )
+}
+
+player_points_data <- read_player_odds("points")
+player_assists_data <- read_player_odds("assists")
+player_rebounds_data <- read_player_odds("rebounds")
+player_threes_data <- read_player_odds("threes")
+player_pras_data <- read_player_odds("pras")
+player_steals_data <- read_player_odds("steals")
+player_blocks_data <- read_player_odds("blocks")
 
 # Aggregate choices
 all_agencies <- unique(c(
@@ -104,7 +127,7 @@ source("R/bet365_sgm.R")
 source("R/dabble_sgm.R")
 
 # Head to head data (used for match ordering)
-h2h <- tryCatch(read_csv("../../Data/scraped_odds/tab_h2h.csv"), error = function(e) tibble(match = character()))
+h2h <- tryCatch(read_csv(data_file("raw_odds", "tab_h2h.csv")), error = function(e) tibble(match = character()))
 
 # Matches in order
 matches_in_order <-
@@ -212,7 +235,7 @@ compare_cgm <- function(player_names_cross, lines_cross, market_names_cross, typ
 # ===============================================================================
 
 # Load DVP bundle and positions (if available)
-positions_sc <- tryCatch(read_csv("../../Data/supercoach-data.csv") |>
+positions_sc <- tryCatch(read_csv(data_file("raw_stats", "supercoach-data.csv")) |>
                            select(player_name, player_team, position = supercoach_position_1) |>
                            filter(!is.na(position)), error = function(e) NULL)
 
@@ -244,8 +267,8 @@ props_all <- bind_rows(player_points_data, player_rebounds_data, player_assists_
 overs <- props_all |>
   mutate(type = "Over",
          price = over_price,
-         prob_s2025 = empirical_prob_over_2025_26,
-         diff_2025 = diff_over_2025_26,
+         prob_current = empirical_prob_over_current,
+         diff_current = diff_over_current,
          prob_last_10 = empirical_prob_over_last_10,
          diff_last_10 = diff_over_last_10)
 
@@ -253,8 +276,8 @@ unders <- props_all |>
   filter(!is.na(under_price)) |>
   mutate(type = "Under",
          price = under_price,
-         prob_2025 = empirical_prob_under_2025_26,
-         diff_2025 = diff_under_2025_26,
+         prob_current = empirical_prob_under_current,
+         diff_current = diff_under_current,
          prob_last_10 = empirical_prob_under_last_10,
          diff_last_10 = diff_under_last_10)
 
@@ -293,7 +316,7 @@ disposals <-
   group_by(match, player_name, market_name, line, type) |>
   arrange(desc(price), .by_group = TRUE) |>
   mutate(
-    max_player_diff = max(diff_last_10, na.rm = TRUE),
+    max_player_diff = if (all(is.na(diff_last_10))) NA_real_ else max(diff_last_10, na.rm = TRUE),
     second_best_price = if_else(n() >= 2, nth(price, 2), NA_real_),
     market_best = row_number() == 1
   ) |>
@@ -343,8 +366,8 @@ disposals_display <-
          agency,
          dvp = round(dvp_value, 2),
          dvp_games,
-         prob_2025 = round(prob_2025, 2),
-         diff_2025 = round(diff_2025, 2),
+         prob_current = round(prob_current, 2),
+         diff_current = round(diff_current, 2),
          prob_last_10 = round(prob_last_10, 2),
          diff_last_10 = round(diff_last_10, 2),
          next_best_diff = round(100 * next_best_diff, 1),
@@ -390,19 +413,10 @@ ui <- page_navbar(
           selectInput(
             inputId = "season_input_a",
             label = "Select Season:",
-            choices = all_player_stats$SEASON_YEAR |> unique(),
+            choices = available_seasons,
             multiple = TRUE,
             selectize = TRUE,
-            selected = intersect(
-              c(
-                "2021-2022",
-                "2022-2023",
-                "2023-2024",
-                "2024-2025",
-                "2025-2026"
-              ),
-              all_player_stats$SEASON_YEAR |> unique()
-            )
+            selected = default_season
           ),
           selectInput(
             inputId = "stat_input_a",
@@ -600,25 +614,25 @@ ui <- page_navbar(
             label = "Max Odds",
             value = NA
           ),
-          markdown(mds = c("__Select Difference Range 2024:__")),
+          markdown(mds = c(paste0("__Select Difference Range ", nbl_config$active_season_label, ":__"))),
           numericInput(
-            inputId = "diff_minimum_24",
+            inputId = "diff_minimum_current",
             label = "Min Diff",
             value = NA
           ),
           numericInput(
-            inputId = "diff_maximum_24",
+            inputId = "diff_maximum_current",
             label = "Max Diff",
             value = NA
           ),
-          markdown(mds = c("__Select Difference Range 2023:__")),
+          markdown(mds = c("__Select Last-10 Difference Range:__")),
           numericInput(
-            inputId = "diff_minimum_23",
+            inputId = "diff_minimum_last_10",
             label = "Min Diff",
             value = NA
           ),
           numericInput(
-            inputId = "diff_maximum_23",
+            inputId = "diff_maximum_last_10",
             label = "Max Diff",
             value = NA
           )
@@ -703,19 +717,10 @@ ui <- page_navbar(
           selectInput(
             inputId = "season_input",
             label = "Select Season:",
-            choices = all_player_stats$SEASON_YEAR |> unique(),
+            choices = available_seasons,
             multiple = TRUE,
             selectize = TRUE,
-            selected = intersect(
-              c(
-                "2021-2022",
-                "2022-2023",
-                "2023-2024",
-                "2024-2025",
-                "2025-2026"
-              ),
-              all_player_stats$SEASON_YEAR |> unique()
-            )
+            selected = default_season
           ),
           selectInput(
             inputId = "metric_input",
@@ -788,19 +793,10 @@ ui <- page_navbar(
           selectInput(
             inputId = "season_input_corr",
             label = "Select Season:",
-            choices = all_player_stats$SEASON_YEAR |> unique(),
+            choices = available_seasons,
             multiple = TRUE,
             selectize = TRUE,
-            selected = intersect(
-              c(
-                "2021-2022",
-                "2022-2023",
-                "2023-2024",
-                "2024-2025",
-                "2025-2026"
-              ),
-              all_player_stats$SEASON_YEAR |> unique()
-            )
+            selected = default_season
           )
         )
       ),
@@ -1251,28 +1247,28 @@ server <- function(input, output, session) {
     }
 
     # Min and max differences
-    if (!is.na(input$diff_minimum_23)) {
+    if (!is.na(input$diff_minimum_last_10)) {
       odds <-
         odds |>
-        filter(diff_over_2023_24 >= input$diff_minimum_23)
+        filter(diff_over_last_10 >= input$diff_minimum_last_10)
     }
 
-    if (!is.na(input$diff_maximum_23)) {
+    if (!is.na(input$diff_maximum_last_10)) {
       odds <-
         odds |>
-        filter(diff_over_2023_24 <= input$diff_maximum_23)
+        filter(diff_over_last_10 <= input$diff_maximum_last_10)
     }
 
-    if (!is.na(input$diff_minimum_24)) {
+    if (!is.na(input$diff_minimum_current)) {
       odds <-
         odds |>
-        filter(diff_over_2024_25 >= input$diff_minimum_24)
+        filter(diff_over_current >= input$diff_minimum_current)
     }
 
-    if (!is.na(input$diff_maximum_24)) {
+    if (!is.na(input$diff_maximum_current)) {
       odds <-
         odds |>
-        filter(diff_over_2024_25 <= input$diff_maximum_24)
+        filter(diff_over_current <= input$diff_maximum_current)
     }
 
     # Odds Range
@@ -1736,14 +1732,14 @@ server <- function(input, output, session) {
 
       selected_data_cross <- filtered_data_cross[input$cgm_table_rows_selected, ]
       uncorrelated_price_cross <- prod(selected_data_cross$price)
-      empirical_price_cross <- 1 / prod(selected_data_cross$prob_2025)
+      empirical_price_cross <- 1 / prod(selected_data_cross$prob_current)
       empirical_price_cross_l10 <- 1 / prod(selected_data_cross$prob_last_10)
       diff = 1/empirical_price_cross - 1/uncorrelated_price_cross
       diff_l10 = 1/empirical_price_cross_l10 - 1/uncorrelated_price_cross
       HTML(paste0("<strong>Multi Price:</strong>", " $", round(uncorrelated_price_cross, 2), "<br/>",
                   " <strong>Theoretical Multi Price:</strong>", " $", round(empirical_price_cross, 2), "<br/>",
                   " <strong>Edge L10:</strong>", " ", round(100*diff_l10, 3), "%"), "<br/>",
-                  " <strong>Edge 2025:</strong>", " ", round(100*diff, 3), "%")
+                  " <strong>Edge ", nbl_config$active_season_label, ":</strong> ", round(100*diff, 3), "%")
     }
   })
 }

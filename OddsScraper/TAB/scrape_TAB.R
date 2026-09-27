@@ -8,69 +8,81 @@ library(jsonlite)
 # Load user functions
 source("Scripts/04-helper-functions.R")
 
-# Get player name and team data
-player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |> 
-    mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
-    select(player_first_name, first_initial, player_last_name, player_team) |> 
-    mutate(player_name_initials = paste(first_initial, player_last_name, sep = " "))
-
-main_tab <- function() {
-
-# Get response body
-tab_response <- fromJSON("OddsScraper/TAB/tab_response.json")
-
-# Function to extract market info from response---------------------------------
-get_market_info <- function(markets) {
-    
-    # Market info
-    markets_name = markets$betOption
-    market_propositions = markets$propositions
-    
-    # Output Tibble
-    tibble(market = markets_name,
-           propositions = market_propositions)
+# Keep parsing callable without reading files or launching a scrape.
+tab_market_rows <- function(response) {
+    if (!is.list(response) || !("matches" %in% names(response)) || !is.list(response$matches)) {
+        stop("TAB: expected a competition response with a matches list.")
+    }
+    rows <- tibble(match = character(), start_time = character(), market_name = character(),
+                   prop_id = character(), prop_name = character(), price = numeric(),
+                   position = character())
+    for (event in response$matches) {
+        if (is.null(event$name) || is.null(event$startTime) || is.null(event$markets)) {
+            stop("TAB: incomplete match record.")
+        }
+        for (market in event$markets) {
+            if (!identical(market$bettingStatus, "Open") || identical(market$onlineBetting, FALSE)) next
+            for (prop in market$propositions) {
+                if (!identical(prop$bettingStatus, "Open") || identical(prop$isOpen, FALSE)) next
+                if (is.null(prop$returnWin) || !is.finite(prop$returnWin) || prop$returnWin <= 1) next
+                if (is.null(prop$id) || is.null(prop$name) || is.null(market$betOption)) {
+                    stop("TAB: incomplete open proposition.")
+                }
+                rows <- bind_rows(rows, tibble(match = event$name, start_time = event$startTime,
+                    market_name = market$betOption, prop_id = as.character(prop$id),
+                    prop_name = prop$name, price = as.numeric(prop$returnWin),
+                    position = prop$position %||% NA_character_))
+            }
+        }
+    }
+    rows
 }
 
-# Function to extract match info from response----------------------------------
-get_match_info <- function(matches) {
-    # Match info
-    match_name = matches$name
-    match_round = matches$round
-    match_start_time = matches$startTime
-    
-    # Market info
-    market_info = map(matches$markets, get_market_info) |> bind_rows()
-    
-    # Output Tibble
-    tibble(
-        match = match_name,
-        round = match_round,
-        start_time = match_start_time,
-        market_name = market_info$market,
-        propositions = market_info$propositions
-    )
+tab_name_key <- function(name) {
+    name |> str_replace_all("\\bJ-Cartwright\\b", "Jackson-Cartwright") |>
+        fix_player_names() |> str_replace_all("Jr(?:\\s+Jr)+", "Jr") |>
+        str_to_lower() |> str_replace_all("[^\\p{L}0-9]", "")
 }
 
-# List of matches
-matches <- map(1:nrow(tab_response$matches), ~ tab_response$matches[., ])
-    
-# Map functions to data
-all_tab_markets <-
-    map(matches, get_match_info) |> bind_rows()
+resolve_tab_players <- function(data, roster) {
+    full_names <- fix_player_names(paste(roster$player_first_name, roster$player_last_name))
+    initials <- paste(str_sub(roster$player_first_name, 1, 1), roster$player_last_name)
+    keys <- list(tab_name_key(full_names), tab_name_key(initials), tab_name_key(roster$player_last_name))
+    data$player_team <- rep(NA_character_, nrow(data))
+    for (i in seq_len(nrow(data))) {
+        key <- tab_name_key(data$player_name[i])
+        eligible <- roster$player_team %in% c(data$home_team[i], data$away_team[i])
+        # Prefer exact full names, then initials, then an unambiguous surname.
+        for (pool in keys) {
+            hit <- which(eligible & !is.na(key) & pool == key)
+            if (length(hit) == 1L) {
+                data$player_name[i] <- full_names[hit]
+                data$player_team[i] <- roster$player_team[hit]
+                break
+            }
+            if (length(hit) > 1L) break
+        }
+    }
+    if (anyNA(data$player_team)) {
+        warning("TAB roster names unresolved: ", paste(unique(data$player_name[is.na(data$player_team)]), collapse = ", "), call. = FALSE)
+    }
+    data |> mutate(opposition_team = case_when(
+        player_team == home_team ~ away_team,
+        player_team == away_team ~ home_team,
+        TRUE ~ NA_character_)) |> relocate(player_name, player_team, .after = market_name)
+}
 
-# Expand list col into multiple cols
-all_tab_markets <-
-  all_tab_markets |>
-  unnest(cols = c(propositions)) |> 
-  select(any_of(c("match",
-                  "round",
-                  "start_time",
-                  "market_name")),
-         prop_id = id,
-         prop_name = name,
-         price = returnWin)
-    
+main_tab <- function(response_path = data_file("raw_odds", "responses/tab/tab_response.json"),
+                     output_dir = data_paths$raw_odds,
+                     roster = read_csv(data_file("raw_stats", "supercoach-data.csv"), show_col_types = FALSE),
+                     max_age_seconds = 1800) {
+    age <- as.numeric(difftime(Sys.time(), file.info(response_path)$mtime, units = "secs"))
+    if (is.na(age) || age > max_age_seconds) {
+        stop("TAB: response file is missing or stale; run get-TAB-response.py first.")
+    }
+    tab_response <- fromJSON(response_path, simplifyVector = FALSE)
+    all_tab_markets <- tab_market_rows(tab_response)
+
 #===============================================================================
 # Head to head markets
 #===============================================================================
@@ -80,8 +92,7 @@ home_teams <-
     all_tab_markets |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
     filter(market_name == "Head To Head") |> 
-    group_by(match) |> 
-    filter(row_number() == 1) |> 
+    filter(fix_team_names(prop_name) == fix_team_names(home_team)) |>
     rename(home_win = price) |> 
     select(-prop_name) |> 
     rename(home_prop_id = prop_id)
@@ -91,8 +102,7 @@ away_teams <-
     all_tab_markets |>
     separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
     filter(market_name == "Head To Head") |> 
-    group_by(match) |> 
-    filter(row_number() == 2) |> 
+    filter(fix_team_names(prop_name) == fix_team_names(away_team)) |>
     rename(away_win = price) |> 
     select(-prop_name) |> 
     rename(away_prop_id = prop_id)
@@ -113,7 +123,7 @@ tab_head_to_head_markets <-
     mutate(match = paste(home_team, "v", away_team))
 
 # Write to csv
-write_csv(tab_head_to_head_markets, "Data/scraped_odds/tab_h2h.csv")
+
 
 #===============================================================================
 # Total line markets
@@ -124,7 +134,7 @@ under_lines <-
     all_tab_markets |>
     filter(market_name == "Total Points Over/Under") |> 
     filter(str_detect(prop_name, "Under")) |> 
-    mutate(line = as.numeric(str_extract(prop_name, "\\d+\\.\\d+"))) |>
+    mutate(line = as.numeric(str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?"))) |>
     select(match, start_time, market_name, line, under_price = price, under_prop_id = prop_id)
 
 # Over lines
@@ -132,13 +142,13 @@ over_lines <-
     all_tab_markets |>
     filter(market_name == "Total Points Over/Under") |> 
     filter(str_detect(prop_name, "Over")) |> 
-    mutate(line = as.numeric(str_extract(prop_name, "\\d+\\.\\d+"))) |>
+    mutate(line = as.numeric(str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?"))) |>
     select(match, start_time, market_name, line, over_price = price, prop_id)
 
 # Combine
 tab_total_line_markets <-
     under_lines |>
-    left_join(over_lines) |> 
+    left_join(over_lines, by = c("match", "start_time", "market_name", "line")) |>
     select(match, start_time, market_name, line, under_price, over_price) |> 
     mutate(margin = round((1/under_price + 1/over_price), digits = 3)) |> 
     mutate(agency = "TAB")
@@ -153,7 +163,7 @@ tab_total_line_markets <-
     mutate(market = "Total Match Points")
 
 # Write to csv
-write_csv(tab_total_line_markets, "Data/scraped_odds/tab_total_points.csv")
+
 
 #===============================================================================
 # Player Points
@@ -172,14 +182,14 @@ player_points_markets <-
     mutate(prop_name = if_else(str_detect(market_name, "\\d+\\+ Points"), str_replace(prop_name, "Points", "Pts") , prop_name)) |> 
     mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
     mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
-    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?")) |>
     mutate(line = as.numeric(line)) |>
     mutate(type = str_detect(prop_name, "Over|\\+")) |> 
     mutate(type = ifelse(type, "Over", "Under")) |> 
     mutate(line = if_else(market_name == "Alternate Player Points", line - 0.5, line)) |> 
     mutate(line = if_else(str_detect(market_name, "\\d+\\+ Points"), line - 0.5, line)) |> 
     arrange(prop_name, market_name, line) |> 
-    group_by(prop_name) |> 
+    group_by(match, prop_name) |>
     slice_head(n = 1) |> 
     ungroup()
 
@@ -200,7 +210,7 @@ under_lines <-
 # Combine
 tab_player_points_markets <-
     over_lines |>
-    full_join(under_lines) |> 
+    full_join(under_lines, by = c("match", "market_name", "player_name", "line")) |>
     select(match, market_name, player_name, line, over_price, under_price, prop_id, under_prop_id) |> 
     mutate(agency = "TAB")
 
@@ -212,27 +222,7 @@ tab_player_points_markets <-
     mutate(away_team = fix_team_names(away_team)) |>
     mutate(match = paste(home_team, "v", away_team))
 
-# Add first initial for players who were not given one
-tab_player_points_markets <-
-    tab_player_points_markets |> 
-    mutate(player_name = fix_player_initials(player_name))
-
-# Separate player name into first and last name
-tab_player_points_markets <-
-    tab_player_points_markets |> 
-    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
-    mutate(first_initial = substr(first_name, 1, 1)) |> 
-    mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
-    mutate(player_name = paste(player_first_name, player_last_name)) |>
-    select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
-    relocate(player_name, player_team, .after = market_name)
-
-# Create opposition team variable
-tab_player_points_markets <-
-    tab_player_points_markets |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+tab_player_points_markets <- resolve_tab_players(tab_player_points_markets, roster)
 
 #===============================================================================
 # Player Assists
@@ -251,14 +241,14 @@ player_assists_markets <-
     mutate(prop_name = if_else(str_detect(market_name, "\\d+\\+ Assists"), str_replace(prop_name, "Assists", "Ast") , prop_name)) |> 
     mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
     mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
-    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?")) |>
     mutate(line = as.numeric(line)) |>
     mutate(type = str_detect(prop_name, "Over|\\+")) |> 
     mutate(type = ifelse(type, "Over", "Under")) |> 
     mutate(line = if_else(market_name == "Alternate Player Assists", line - 0.5, line)) |> 
     mutate(line = if_else(str_detect(market_name, "\\d+\\+ Assists"), line - 0.5, line)) |> 
     arrange(prop_name, market_name, line) |> 
-    group_by(prop_name) |> 
+    group_by(match, prop_name) |>
     slice_head(n = 1) |> 
     ungroup()
 
@@ -279,7 +269,7 @@ under_lines <-
 # Combine
 tab_player_assists_markets <-
     over_lines |>
-    full_join(under_lines) |> 
+    full_join(under_lines, by = c("match", "market_name", "player_name", "line")) |>
     select(match, market_name, player_name, line, over_price, under_price, prop_id, under_prop_id) |> 
     mutate(agency = "TAB")
 
@@ -291,27 +281,7 @@ tab_player_assists_markets <-
     mutate(away_team = fix_team_names(away_team)) |>
     mutate(match = paste(home_team, "v", away_team))
 
-# Add first initial for players who were not given one
-tab_player_assists_markets <-
-    tab_player_assists_markets |> 
-    mutate(player_name = fix_player_initials(player_name))
-
-# Separate player name into first and last name
-tab_player_assists_markets <-
-    tab_player_assists_markets |> 
-    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
-    mutate(first_initial = substr(first_name, 1, 1)) |> 
-    mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
-    mutate(player_name = paste(player_first_name, player_last_name)) |>
-    select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
-    relocate(player_name, player_team, .after = market_name)
-
-# Create opposition team variable
-tab_player_assists_markets <-
-    tab_player_assists_markets |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+tab_player_assists_markets <- resolve_tab_players(tab_player_assists_markets, roster)
 
 #===============================================================================
 # Player Rebounds
@@ -330,14 +300,14 @@ player_rebounds_markets <-
     mutate(prop_name = if_else(str_detect(market_name, "\\d+\\+ Rebounds"), str_replace(prop_name, "Rebounds", "Reb") , prop_name)) |> 
     mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
     mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
-    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?")) |>
     mutate(line = as.numeric(line)) |>
     mutate(type = str_detect(prop_name, "Over|\\+")) |> 
     mutate(type = ifelse(type, "Over", "Under")) |> 
     mutate(line = if_else(market_name == "Alternate Player Rebounds", line - 0.5, line)) |> 
     mutate(line = if_else(str_detect(market_name, "\\d+\\+ Rebounds"), line - 0.5, line)) |> 
     arrange(prop_name, market_name, line) |> 
-    group_by(prop_name) |> 
+    group_by(match, prop_name) |>
     slice_head(n = 1) |> 
     ungroup()
 
@@ -358,7 +328,7 @@ under_lines <-
 # Combine
 tab_player_rebounds_markets <-
     over_lines |>
-    full_join(under_lines) |> 
+    full_join(under_lines, by = c("match", "market_name", "player_name", "line")) |>
     select(match, market_name, player_name, line, over_price, under_price, prop_id, under_prop_id) |> 
     mutate(agency = "TAB")
 
@@ -370,27 +340,7 @@ tab_player_rebounds_markets <-
     mutate(away_team = fix_team_names(away_team)) |>
     mutate(match = paste(home_team, "v", away_team))
 
-# Add first initial for players who were not given one
-tab_player_rebounds_markets <-
-    tab_player_rebounds_markets |> 
-    mutate(player_name = fix_player_initials(player_name))
-
-# Separate player name into first and last name
-tab_player_rebounds_markets <-
-    tab_player_rebounds_markets |> 
-    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
-    mutate(first_initial = substr(first_name, 1, 1)) |> 
-    mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
-    mutate(player_name = paste(player_first_name, player_last_name)) |>
-    select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
-    relocate(player_name, player_team, .after = market_name)
-
-# Create opposition team variable
-tab_player_rebounds_markets <-
-    tab_player_rebounds_markets |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team))
+tab_player_rebounds_markets <- resolve_tab_players(tab_player_rebounds_markets, roster)
 
 #===============================================================================
 # Player Threes
@@ -408,14 +358,14 @@ player_threes_markets <-
     mutate(prop_name = if_else(str_detect(market_name, "\\d+\\+ Threes"),paste(prop_name, market_name) , prop_name)) |> 
     mutate(player_name = str_extract(prop_name, "^.*(?=\\s(\\d+))")) |> 
     mutate(player_name = str_remove_all(player_name, "( Over)|( Under)")) |> 
-    mutate(line = str_extract(prop_name, "[0-9\\.]{1,4}")) |> 
+    mutate(line = str_extract(prop_name, "[0-9]+(?:\\.[0-9]+)?")) |>
     mutate(line = as.numeric(line)) |>
     mutate(type = str_detect(prop_name, "Over|\\+")) |> 
     mutate(type = ifelse(type, "Over", "Under")) |> 
     mutate(line = if_else(market_name == "Alternate Player Threes", line - 0.5, line)) |> 
     mutate(line = if_else(str_detect(market_name, "\\d+\\+ Threes"), line - 0.5, line)) |> 
     arrange(prop_name, market_name, line) |> 
-    group_by(prop_name) |> 
+    group_by(match, prop_name) |>
     slice_head(n = 1) |> 
     ungroup()
 
@@ -436,7 +386,7 @@ under_lines <-
 # Combine
 tab_player_threes_markets <-
     over_lines |>
-    full_join(under_lines) |> 
+    full_join(under_lines, by = c("match", "market_name", "player_name", "line")) |>
     select(match, market_name, player_name, line, over_price, under_price, prop_id, under_prop_id) |> 
     mutate(agency = "TAB")
 
@@ -448,42 +398,22 @@ tab_player_threes_markets <-
     mutate(away_team = fix_team_names(away_team)) |>
     mutate(match = paste(home_team, "v", away_team))
 
-# Add first initial for players who were not given one
-tab_player_threes_markets <-
-    tab_player_threes_markets |> 
-    mutate(player_name = fix_player_initials(player_name))
-
-# Separate player name into first and last name
-tab_player_threes_markets <-
-    tab_player_threes_markets |> 
-    separate(player_name, into = c("first_name", "last_name"), sep = " ") |>
-    mutate(first_initial = substr(first_name, 1, 1)) |> 
-    mutate(player_name = paste(first_initial, last_name)) |> 
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[,c("player_name_initials", "player_first_name", "player_last_name", "player_team")], by = c("player_name" = "player_name_initials")) |> 
-    mutate(player_name = paste(player_first_name, player_last_name)) |>
-    select(-first_initial, -first_name, -last_name, -player_first_name, -player_last_name) |>
-    relocate(player_name, player_team, .after = market_name)
-
-# Create opposition team variable
-tab_player_threes_markets <-
-    tab_player_threes_markets |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |> 
-    distinct(player_name, line, over_price, .keep_all = TRUE)
+tab_player_threes_markets <- resolve_tab_players(tab_player_threes_markets, roster)
 
 #===============================================================================
 # Write to CSV------------------------------------------------------------------
 #===============================================================================
 
-tab_player_points_markets |> write_csv("Data/scraped_odds/tab_player_points.csv")
-tab_player_assists_markets |> write_csv("Data/scraped_odds/tab_player_assists.csv")
-tab_player_rebounds_markets |> write_csv("Data/scraped_odds/tab_player_rebounds.csv")
-tab_player_threes_markets |> write_csv("Data/scraped_odds/tab_player_threes.csv")
+outputs <- list(tab_h2h = tab_head_to_head_markets,
+                tab_total_points = tab_total_line_markets,
+                tab_player_points = tab_player_points_markets,
+                tab_player_assists = tab_player_assists_markets,
+                tab_player_rebounds = tab_player_rebounds_markets,
+                tab_player_threes = tab_player_threes_markets)
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+iwalk(outputs, ~ write_csv(.x, file.path(output_dir, paste0(.y, ".csv"))))
+message("TAB: wrote ", sum(map_int(outputs, nrow)), " rows across ", length(outputs), " files.")
+invisible(outputs)
 }
 
-#===============================================================================
-# Run safe function
-#===============================================================================
-
-safe_main_tab <- safely(main_tab)
-safe_main_tab()
+if (!isTRUE(getOption("nbl.tab.skip_run", FALSE))) main_tab()

@@ -15,10 +15,10 @@ safe_read_bet365 <- function(file) {
 }
 
 bet365_sgm <-
-  safe_read_bet365("../../Data/scraped_odds/bet365_player_points.csv") |>
-  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_rebounds.csv")) |>
-  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_assists.csv")) |>
-  bind_rows(safe_read_bet365("../../Data/scraped_odds/bet365_player_threes.csv"))
+  safe_read_bet365(data_file("raw_odds", "bet365_player_points.csv")) |>
+  bind_rows(safe_read_bet365(data_file("raw_odds", "bet365_player_rebounds.csv"))) |>
+  bind_rows(safe_read_bet365(data_file("raw_odds", "bet365_player_assists.csv"))) |>
+  bind_rows(safe_read_bet365(data_file("raw_odds", "bet365_player_threes.csv")))
 
 if (nrow(bet365_sgm) > 0 && "match" %in% names(bet365_sgm)) {
   # Build Over/Under rows with price only (no API for Bet365)

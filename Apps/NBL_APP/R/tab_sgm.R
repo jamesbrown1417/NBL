@@ -15,10 +15,10 @@ safe_read_tab <- function(file) {
 
 tab_sgm_list <-
   list(
-  safe_read_tab("../../Data/scraped_odds/tab_player_points.csv"),
-  safe_read_tab("../../Data/scraped_odds/tab_player_rebounds.csv"),
-  safe_read_tab("../../Data/scraped_odds/tab_player_assists.csv"),
-  safe_read_tab("../../Data/scraped_odds/tab_player_threes.csv")
+  safe_read_tab(data_file("raw_odds", "tab_player_points.csv")),
+  safe_read_tab(data_file("raw_odds", "tab_player_rebounds.csv")),
+  safe_read_tab(data_file("raw_odds", "tab_player_assists.csv")),
+  safe_read_tab(data_file("raw_odds", "tab_player_threes.csv"))
 )
 
 tab_sgm <-

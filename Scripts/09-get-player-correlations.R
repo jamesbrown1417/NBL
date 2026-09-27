@@ -6,6 +6,7 @@
 
 library(tidyverse)
 library(readxl)
+source("Scripts/00-config.R")
 
 #===============================================================================
 # Read in data
@@ -13,7 +14,7 @@ library(readxl)
 
 # read first row of data to see date updated
 date_updated <-
-    read_excel("Data/combined_stats_table.xlsx", n_max = 1) |>
+    read_excel(data_file("processed_stats", "combined_stats_table.xlsx"), n_max = 1) |>
     pull(date_scraped)
 
 # If date scraped is before todays date, run the script
@@ -22,7 +23,7 @@ if (date_updated < ymd(Sys.Date())) {
 }
 
 # Read in the full RDS dataset
-combined_stats_table <- read_rds("Data/combined_stats_table.rds")
+combined_stats_table <- read_rds(data_file("processed_stats", "combined_stats_table.rds"))
 
 # Get in right format
 all_player_stats <-
@@ -92,7 +93,7 @@ get_player_correlation <- function(seasons = NULL, name_a, name_b, metric_a, met
 #===============================================================================
 
 # Get all player combinations for a given team----------------------------------
-get_all_player_combinations <- function(team_name, seasons = c("2025-2026")) {
+get_all_player_combinations <- function(team_name, seasons = nbl_config$active_season) {
     # Preparing team_players data frame
     team_players <- 
         all_player_stats %>% 
@@ -129,7 +130,11 @@ safe_get_player_correlation <- safely(get_player_correlation, otherwise = c(NULL
 player_correlations_sem <- 
     get_all_player_combinations("South East Melbourne Phoenix") |> 
     select(-seasons) |> 
-    pmap(safe_get_player_correlation, .progress = TRUE, seasons = c("2024-2025", "2025-2026"))
+    pmap(
+      safe_get_player_correlation,
+      .progress = TRUE,
+      seasons = c(nbl_config$previous_season, nbl_config$active_season)
+    )
 
 # Filter out NULL values
 player_correlations_sem <- 

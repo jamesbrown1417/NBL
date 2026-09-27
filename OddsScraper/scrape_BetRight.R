@@ -1,433 +1,133 @@
-# Libraries
+# BetRight NBL odds. The six CSV schemas and SGM identifiers are preserved.
 library(tidyverse)
-library(rvest)
 library(httr2)
-library(glue)
-
-# Load user functions
 source("Scripts/04-helper-functions.R")
 
-# Get player name and team data
-player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |> 
-    mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
-    select(player_first_name, first_initial, player_last_name, player_team) |> 
-    mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
-    mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
-
-# URL to get responses
-betright_url = "https://next-api.betright.com.au/Sports/Category?categoryId=110"
-
-# Make request and get response
-betright_response <-
-    request(betright_url) |>
-    req_perform() |> 
-    resp_body_json()
-
-# Get events list
-events_list <- betright_response$masterCategories[[1]]$categories[[1]]$masterEvents
-
-# Get only elements of list with masterEventClassName = "Matches"
-events_list <- map(events_list, function(x) if (x$masterEventClassName == "Matches") x else NULL) |> compact()
-
-# Function to extract market info from response---------------------------------
-get_market_info <- function(markets) {
-    
-    # Market info
-    markets_name = markets$eventName
-    market_propositions = markets$outcomeName
-    market_prices = markets$price
-    
-    # Output Tibble
-    tibble(market = markets_name,
-           propositions = market_propositions,
-           prices = market_prices)
+betright_get_json <- function(url) {
+    request(url) |> req_timeout(30) |> req_perform() |> resp_body_json()
 }
 
-
-# Function to extract match info from response----------------------------------
-get_match_info <- function(matches) {
-    # Match info
-    match_name = matches$masterEventName
-    match_start_time = matches$minAdvertisedStartTimeUtc
-    match_id = matches$masterEventId
-    
-    # Market info
-    market_info = map(matches$markets, get_market_info) |> bind_rows()
-
-    # Output Tibble
-    tibble(
-        match = match_name,
-        match_id = match_id,
-        start_time = match_start_time,
-        market_name = market_info$market,
-        propositions = market_info$propositions,
-        prices = market_info$prices
-    )
-}
-
-# Map functions to data
-all_betright_markets <-
-    map(events_list, get_match_info) |> bind_rows()
-
-#===============================================================================
-# Head to head markets
-#===============================================================================
-
-# Home teams
-home_teams <-
-    all_betright_markets |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
-    filter(market_name == "Money Line") |> 
-    mutate(market_name = "Head To Head") |> 
-    group_by(match) |> 
-    filter(row_number() == 1) |> 
-    rename(home_win = prices) |> 
-    select(-propositions)
-
-# Away teams
-away_teams <-
-    all_betright_markets |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |>
-    filter(market_name == "Money Line") |> 
-    mutate(market_name = "Head To Head") |>
-    group_by(match) |> 
-    filter(row_number() == 2) |> 
-    rename(away_win = prices) |> 
-    select(-propositions)
-
-# Combine
-betright_head_to_head_markets <-
-    home_teams |>
-    left_join(away_teams) |> 
-    select(match, start_time, market_name, home_team, home_win, away_team, away_win) |> 
-    mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
-    mutate(agency = "BetRight")
-
-# Fix team names
-betright_head_to_head_markets <-
-    betright_head_to_head_markets |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(match = paste(home_team, "v", away_team))
-
-# Write to csv
-write_csv(betright_head_to_head_markets, "Data/scraped_odds/betright_h2h.csv")
-
-#===============================================================================
-# Player Props
-#===============================================================================
-
-# Get API URL for each market type----------------------------------------------
-
-# Player Stats
-all_links <-
-    glue("https://next-api.betright.com.au/Sports/MasterEventEvents?masterEventId={unique(all_betright_markets$match_id)}")
-
-# Function to extract prop data from links--------------------------------------
-
-get_prop_data <- function(link) {
-    
-    # Get response
-    response <-
-        request(link) |>
-        req_perform() |> 
-        resp_body_json()
-    
-    # Empty vectors to append to
-    event_name <- c()
-    event_id <- c()
-    outcome_title <- c()
-    outcome_name <- c()
-    outcome_id <- c()
-    group_by_header <- c()
-    fixed_market_id <- c()
-    price <- c()
-    
-    for (event in response$events) {
-        for (outcome in event$outcomes) {
-            event_name <- c(event_name, event$eventName)
-            event_id <- c(event_id, event$eventId)
-            outcome_title <- c(outcome_title, outcome$eventName)
-            outcome_name <- c(outcome_name, outcome$outcomeName)
-            outcome_id <- c(outcome_id, outcome$outcomeId)
-            group_by_header <- c(group_by_header, outcome$groupByHeader)
-            fixed_market_id <- c(fixed_market_id, outcome$fixedMarketId)
-            price <- c(price, outcome$price)
+betright_matches <- function(response) {
+    if (!is.list(response) || !is.list(response$masterCategories)) {
+        stop("BetRight: expected masterCategories in category response.")
+    }
+    result <- tibble(match_id = character(), match = character(), start_time = character(),
+                     home_team = character(), away_team = character())
+    for (master in response$masterCategories) {
+        if (!is.list(master$categories)) stop("BetRight: missing categories.")
+        for (category in master$categories) {
+            if (!identical(as.character(category$categoryId), "110")) next
+            if (!is.list(category$masterEvents)) stop("BetRight: missing masterEvents.")
+            for (event in category$masterEvents) {
+                if (!identical(event$masterEventClassName, "Matches")) next
+                if (is.null(event$masterEventId) || is.null(event$masterEventName) ||
+                    is.null(event$minAdvertisedStartTimeUtc)) stop("BetRight: incomplete fixture.")
+                teams <- str_split(event$masterEventName, fixed(" v "))[[1]]
+                if (length(teams) != 2L) stop("BetRight: unrecognised fixture: ", event$masterEventName)
+                home <- fix_team_names(teams[1])
+                away <- fix_team_names(teams[2])
+                result <- bind_rows(result, tibble(
+                    match_id = as.character(event$masterEventId), match = paste(home, "v", away),
+                    start_time = event$minAdvertisedStartTimeUtc, home_team = home, away_team = away))
+            }
         }
     }
-    
-    # Output Tibble
-    tibble(
-        event_name = event_name,
-        event_id = event_id,
-        outcome_title = outcome_title,
-        outcome_name = outcome_name,
-        outcome_id = outcome_id,
-        group_by_header = group_by_header,
-        fixed_market_id = fixed_market_id,
-        price = price,
-        link
-    )
+    distinct(result, match_id, .keep_all = TRUE)
 }
 
-# Safe version of function
-safe_get_prop_data <- safely(get_prop_data)
+betright_empty_rows <- function() {
+    tibble(match_id = character(), event_name = character(), event_class = character(),
+           event_id = character(), outcome_name = character(), outcome_id = character(),
+           fixed_market_id = character(), price = numeric())
+}
 
-#===============================================================================
-# Player Points
-#===============================================================================
+parse_betright_event <- function(response, match_id) {
+    if (!is.list(response) || !is.list(response$events) ||
+        !identical(as.character(response$masterEvent$masterEventId), as.character(match_id))) {
+        stop("BetRight: invalid event response or fixture ID mismatch.")
+    }
+    rows <- betright_empty_rows()
+    for (event in response$events) {
+        if (is.null(event$eventName) || is.null(event$eventId) || !is.list(event$outcomes)) {
+            stop("BetRight: incomplete market response.")
+        }
+        for (outcome in event$outcomes) {
+            if (is.null(outcome$price) || !is.finite(outcome$price) || outcome$price <= 1) next
+            if (!identical(outcome$marketTypeCode, "WIN")) next
+            if (is.null(outcome$outcomeName) || is.null(outcome$outcomeId) || is.null(outcome$fixedMarketId)) {
+                stop("BetRight: priced selection is missing its name or SGM identifiers.")
+            }
+            rows <- bind_rows(rows, tibble(
+                match_id = as.character(match_id), event_name = event$eventName,
+                event_class = event$eventClass %||% NA_character_, event_id = as.character(event$eventId),
+                outcome_name = outcome$outcomeName, outcome_id = as.character(outcome$outcomeId),
+                fixed_market_id = as.character(outcome$fixedMarketId), price = as.numeric(outcome$price)))
+        }
+    }
+    rows
+}
 
-# Match names to join
-match_names <-
-    all_betright_markets |>
-    distinct(match, match_id)
+betright_player_market <- function(rows, stat, roster) {
+    patterns <- c(points = "^Player Points - ", rebounds = "^Player Rebounds - ",
+                  assists = "^Player Assists - ",
+                  pras = "^Player Points (?:&|\\+) Assists (?:&|\\+) Rebounds - ",
+                  threes = "^(?:Player Three Pointers|Threes Made|Player Threes) - ")
+    labels <- c(points = "Player Points", rebounds = "Player Rebounds", assists = "Player Assists",
+                pras = "Player PRAs", threes = "Player Threes")
+    data <- rows |> filter(str_detect(event_name, patterns[[stat]])) |>
+        mutate(player_name = str_remove(event_name, patterns[[stat]]) |>
+                   str_remove("\\s+\\([^)]*\\)$") |> str_squish() |> fix_player_names(),
+               # Match the trailing threshold, not digits that might occur in a name.
+               line = as.numeric(str_match(outcome_name, "([0-9]+)\\+\\s*$")[, 2]) - 0.5)
+    if (anyNA(data$line)) stop("BetRight: unsupported player threshold in ", labels[[stat]])
+    data <- data |> mutate(player_key = str_to_lower(player_name)) |>
+        left_join(roster |> transmute(player_key = str_to_lower(player_name),
+                                     canonical_name = player_name, player_team),
+                  by = "player_key", relationship = "many-to-one") |>
+        mutate(player_name = coalesce(canonical_name, player_name))
+    invalid <- is.na(data$player_team) |
+        !(data$player_team == data$home_team | data$player_team == data$away_team)
+    if (any(invalid)) {
+        warning("BetRight roster names unresolved: ", paste(unique(data$player_name[invalid]), collapse = ", "), call. = FALSE)
+        data$player_team[invalid] <- NA_character_
+    }
+    data |> transmute(match, home_team, away_team, market_name = labels[[stat]], player_name,
+                      player_team, line, over_price = price, agency = "BetRight", event_id,
+                      outcome_name, outcome_id, fixed_market_id,
+                      opposition_team = case_when(player_team == home_team ~ away_team,
+                                                  player_team == away_team ~ home_team,
+                                                  TRUE ~ NA_character_))
+}
 
-# Get all player points
-betright_player_points <-
-    map(all_links, safe_get_prop_data) |> 
-    map("result") |>
-    bind_rows() |>
-    rename(match_id = link) |> 
-    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
-    left_join(match_names) |> 
-    filter(!is.na(outcome_name)) |> 
-    filter(str_detect(event_name, "^Player Points \\-")) |>
-    separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
-    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
-    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-    mutate(agency = "BetRight") |>
-    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
-    mutate(line = as.numeric(line) - 0.5) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price" = "price",
-        "agency",
-        "event_id",
-        "outcome_name",
-        "outcome_id",
-        "fixed_market_id",
-        "opposition_team"
-    ) |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(player_team = fix_team_names(player_team)) |>
-    mutate(opposition_team = fix_team_names(opposition_team)) |> 
-    mutate(match = paste(home_team, away_team, sep = " v "))
+main_betright <- function(fetch = betright_get_json, output_dir = data_paths$raw_odds,
+                          roster = read_csv(data_file("raw_stats", "supercoach-data.csv"), show_col_types = FALSE)) {
+    roster <- roster |> transmute(player_name = fix_player_names(paste(player_first_name, player_last_name)),
+                                  player_team = fix_team_names(player_team)) |> distinct()
+    if (anyDuplicated(str_to_lower(roster$player_name))) stop("BetRight: ambiguous roster names.")
+    matches <- betright_matches(fetch("https://next-api.betright.com.au/Sports/Category?categoryId=110"))
+    rows <- betright_empty_rows()
+    for (id in matches$match_id) {
+        response <- fetch(paste0("https://next-api.betright.com.au/Sports/MasterEventEvents?masterEventId=", id))
+        rows <- bind_rows(rows, parse_betright_event(response, id))
+    }
+    rows <- rows |> left_join(matches, by = "match_id", relationship = "many-to-one")
+    h2h <- rows |> filter(event_name == "Money Line") |> mutate(team = fix_team_names(outcome_name))
+    home <- h2h |> filter(team == home_team) |>
+        select(match_id, match, start_time, home_team, away_team, home_win = price)
+    away <- h2h |> filter(team == away_team) |> select(match_id, away_win = price)
+    head_to_head <- inner_join(home, away, by = "match_id", relationship = "one-to-one") |>
+        transmute(match, start_time, market_name = "Head To Head", home_team, home_win, away_team,
+                  away_win, margin = round(1 / home_win + 1 / away_win, 3), agency = "BetRight")
+    outputs <- list(betright_h2h = head_to_head)
+    for (stat in c("points", "rebounds", "assists", "pras", "threes")) {
+        outputs[[paste0("betright_player_", stat)]] <- betright_player_market(rows, stat, roster)
+    }
+    # Complete every fetch and parse before replacing existing CSVs.
+    dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+    iwalk(outputs, ~ write_csv(.x, file.path(output_dir, paste0(.y, ".csv"))))
+    message("BetRight: refreshed ", nrow(head_to_head), " matches and ",
+            sum(map_int(outputs[-1], nrow)), " player-prop rows.")
+    invisible(outputs)
+}
 
-#===============================================================================
-# Player Rebounds
-#===============================================================================
-
-# Get all player rebounds
-betright_player_rebounds <-
-    map(all_links, safe_get_prop_data) |> 
-    map("result") |>
-    bind_rows() |>
-    rename(match_id = link) |> 
-    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
-    left_join(match_names) |> 
-    filter(!is.na(outcome_name)) |> 
-    filter(str_detect(event_name, "^Player Rebounds \\-")) |>
-    separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
-    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
-    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-    mutate(agency = "BetRight") |>
-    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
-    mutate(line = as.numeric(line) - 0.5) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price" = "price",
-        "agency",
-        "event_id",
-        "outcome_name",
-        "outcome_id",
-        "fixed_market_id",
-        "opposition_team"
-    ) |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(player_team = fix_team_names(player_team)) |>
-    mutate(opposition_team = fix_team_names(opposition_team)) |> 
-    mutate(match = paste(home_team, away_team, sep = " v "))
-
-#===============================================================================
-# Player Assists
-#===============================================================================
-
-# Get all player assists
-betright_player_assists <-
-    map(all_links, safe_get_prop_data) |> 
-    map("result") |>
-    bind_rows() |>
-    rename(match_id = link) |> 
-    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
-    left_join(match_names) |> 
-    filter(!is.na(outcome_name)) |> 
-    filter(str_detect(event_name, "^Player Assists \\-")) |>
-    separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
-    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
-    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-    mutate(agency = "BetRight") |>
-    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
-    mutate(line = as.numeric(line) - 0.5) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price" = "price",
-        "agency",
-        "event_id",
-        "outcome_name",
-        "outcome_id",
-        "fixed_market_id",
-        "opposition_team"
-    ) |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(player_team = fix_team_names(player_team)) |>
-    mutate(opposition_team = fix_team_names(opposition_team)) |> 
-    mutate(match = paste(home_team, away_team, sep = " v "))
-
-#===============================================================================
-# Player PRAs
-#===============================================================================
-
-# Get all player PRAs
-betright_player_pras <-
-    map(all_links, safe_get_prop_data) |> 
-    map("result") |>
-    bind_rows() |>
-    rename(match_id = link) |> 
-    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
-    left_join(match_names) |> 
-    filter(!is.na(outcome_name)) |> 
-    filter(str_detect(event_name, "Points \\& Assists \\& Rebounds")) |>
-    filter(!str_detect(event_name, "(?i)Quarter")) |>
-    separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
-    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
-    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-    mutate(agency = "BetRight") |>
-    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
-    mutate(line = as.numeric(line) - 0.5) |>
-    mutate(market_name = "Player PRAs") |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price" = "price",
-        "agency",
-        "event_id",
-        "outcome_name",
-        "outcome_id",
-        "fixed_market_id",
-        "opposition_team"
-    ) |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(player_team = fix_team_names(player_team)) |>
-    mutate(opposition_team = fix_team_names(opposition_team)) |> 
-    mutate(match = paste(home_team, away_team, sep = " v "))
-
-#===============================================================================
-# Player Threes
-#===============================================================================
-
-# Get all player threes
-betright_player_threes <-
-    map(all_links, safe_get_prop_data) |> 
-    map("result") |>
-    bind_rows() |>
-    rename(match_id = link) |> 
-    mutate(match_id = as.integer(str_extract(match_id, "[0-9]{4,7}"))) |> 
-    left_join(match_names) |> 
-    filter(!is.na(outcome_name)) |> 
-    filter(str_detect(event_name, "(Threes Made)|(Player Threes)")) |>
-    separate(event_name, into = c("market_name", "player_name"), sep = " - ") |>
-    mutate(player_name = str_remove_all(player_name, " \\(.*\\)")) |>
-    mutate(player_name = str_replace_all(player_name, "  ", " ")) |>  
-    mutate(player_name = fix_player_names(player_name)) |>
-    left_join(player_names_teams[, c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
-    separate(match, into = c("home_team", "away_team"), sep = " v ", remove = FALSE) |> 
-    mutate(opposition_team = if_else(home_team == player_team, away_team, home_team)) |>
-    mutate(agency = "BetRight") |>
-    mutate(line = str_extract(outcome_name, "\\d+\\.?\\d*")) |>
-    mutate(line = as.numeric(line) - 0.5) |>
-    mutate(market_name = "Player Threes") |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price" = "price",
-        "agency",
-        "event_id",
-        "outcome_name",
-        "outcome_id",
-        "fixed_market_id",
-        "opposition_team"
-    ) |> 
-    mutate(home_team = fix_team_names(home_team)) |>
-    mutate(away_team = fix_team_names(away_team)) |>
-    mutate(player_team = fix_team_names(player_team)) |>
-    mutate(opposition_team = fix_team_names(opposition_team)) |> 
-    mutate(match = paste(home_team, away_team, sep = " v "))
-
-# Get player points data--------------------------------------------------------
-betright_player_points |> 
-    write_csv("Data/scraped_odds/betright_player_points.csv")
-
-# Get player rebounds data------------------------------------------------------
-betright_player_rebounds |>
-    write_csv("Data/scraped_odds/betright_player_rebounds.csv")
-
-# Get player assists data-------------------------------------------------------
-betright_player_assists |>
-    write_csv("Data/scraped_odds/betright_player_assists.csv")
-
-# Get player PRAs data---------------------------------------------------------
-betright_player_pras |>
-    write_csv("Data/scraped_odds/betright_player_pras.csv")
-
-# Get player threes data--------------------------------------------------------
-betright_player_threes |>
-    write_csv("Data/scraped_odds/betright_player_threes.csv")
+if (!isTRUE(getOption("nbl.betright.skip_run", FALSE))) main_betright()

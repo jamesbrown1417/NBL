@@ -10,154 +10,69 @@ source("Scripts/04-helper-functions.R")
 
 # Get player name and team data
 player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |> 
+    read_csv(data_file("raw_stats", "supercoach-data.csv")) |>
     mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
     select(player_first_name, first_initial, player_last_name, player_team) |> 
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
-    mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
+    mutate(player_full_name = fix_player_names(paste(player_first_name, player_last_name, sep = " "))) |>
+    distinct(player_full_name, player_team, .keep_all = TRUE)
 
 # URL of website
 sportsbet_url = "https://www.sportsbet.com.au/betting/basketball-aus-other/australian-nbl"
 
-#===============================================================================
-# Use rvest to get main market information-------------------------------------#
-#===============================================================================
-
-main_markets_function <- function() {
-
-# Get data from main market page
-matches <-
-    sportsbet_url |> 
-    read_html_live() |>
-    html_nodes(".White_fqa53j6")
-    
-# Function to get team names
-get_team_names <- function(match) {
-    team_names <-
-        match |>
-        html_nodes(".caption_f4zed5e") |>
-        html_text()
-    
-    # Home team and Away Team
-    home_team <- team_names[1]
-    away_team <- team_names[2]
-    
-    # Output
-    tibble(home_team, away_team)
+# Parse each event as a unit: Sportsbet displays away @ home for NBL games.
+parse_sportsbet_matches <- function(page) {
+    cards <- html_elements(page, '[data-automation-id$="-competition-event-card"]')
+    if (!length(cards)) stop("Sportsbet: no event cards found; check page access/markup.")
+    map_dfr(cards, function(card) {
+        link <- html_attr(html_element(card, 'a[href*="/australian-nbl/"]'), "href")
+        parts <- str_match(link, "/australian-nbl/(.+)-(at|vs|v)-(.+)-([0-9]+)$")
+        if (is.na(parts[1, 1])) stop("Sportsbet: unrecognised event link: ", link)
+        teams <- html_elements(card, '[data-automation-id$="-two-outcome-captioned-label"]') |> html_text2()
+        prices <- html_elements(card, '[data-automation-id$="-two-outcome-captioned-text"]') |> html_text2() |> as.numeric()
+        if (length(teams) != 2L || length(prices) != 2L || anyNA(prices) || any(prices <= 1)) {
+            stop("Sportsbet: missing or invalid head-to-head prices for ", link)
+        }
+        home <- if (parts[1, 3] == "at") 2L else 1L
+        away <- 3L - home
+        tibble(match_id = as.numeric(parts[1, 5]),
+               home_team = fix_team_names(teams[home]),
+               away_team = fix_team_names(teams[away]),
+               home_win = prices[home], away_win = prices[away])
+    }) |>
+        distinct(match_id, .keep_all = TRUE) |>
+        mutate(match = paste(home_team, "v", away_team))
 }
 
-# Function to get odds
-get_odds <- function(match) {
-    odds <-
-        match |>
-        html_nodes(".priceTextSize_frw9zm9") |>
-        html_text() |>
-        as.numeric()
-    
-    # Home team
-    home_win <- odds[1]
-    away_win <- odds[2]
-    
-    # Output
-    tibble(home_win, away_win)
+main_markets_function <- function(matches) {
+    sportsbet_h2h <- matches |>
+        transmute(match, market_name = "Head To Head", home_team, home_win,
+                  away_team, away_win,
+                  margin = round(1 / home_win + 1 / away_win, 3), agency = "Sportsbet")
+    write_csv(sportsbet_h2h, data_file("raw_odds", "sportsbet_h2h.csv"))
 }
 
-# Function to get start time
-get_start_time <- function(match) {
-    start_time <-
-        match |>
-        html_nodes(".oneLine_f15ay66x") |>
-        html_text()
-    
-    # Output
-    tibble(start_time)
+# Do not carry a previous-season team into a new fixture.
+validate_sportsbet_roster <- function(data) {
+    invalid <- is.na(data$player_team) |
+        !(data$player_team == data$home_team | data$player_team == data$away_team)
+    if (any(invalid)) {
+        warning("Sportsbet roster needs updating: ",
+                paste(sort(unique(data$player_name[invalid])), collapse = ", "),
+                call. = FALSE)
+        data$player_team[invalid] <- NA_character_
+        data$opposition_team[invalid] <- NA_character_
+    }
+    data
 }
 
-# Map functions to each match and combine together
-all_main_market_data <-
-    bind_cols(
-        map(matches, get_team_names) |> bind_rows() |> filter(!is.na(home_team)),
-        map(matches, get_odds) |> bind_rows() |> filter(!is.na(home_win)),
-        map(matches, get_start_time) |> bind_rows() |> filter(!is.na(start_time))
-    )
-
-#===============================================================================
-# Head to Head markets---------------------------------------------------------#
-#===============================================================================
-
-sportsbet_h2h <-
-all_main_market_data |>
-    mutate(home_team = fix_team_names(home_team),
-           away_team = fix_team_names(away_team)) |>
-    mutate(match = paste(home_team, "v", away_team)) |>
-    mutate(market_name = "Head To Head") |>
-    mutate(home_win = as.numeric(home_win)) |>
-    mutate(away_win = as.numeric(away_win)) |>
-    select(match,
-           market_name,
-           home_team,
-           home_win,
-           away_team,
-           away_win) |>
-    mutate(margin = round((1 / home_win + 1 / away_win), digits = 3)) |>
-    mutate(agency = "Sportsbet")
-
-# Write to csv
-write_csv(sportsbet_h2h, "Data/scraped_odds/sportsbet_h2h.csv")
-
+write_sportsbet_props <- function(data, file) {
+    write_csv(validate_sportsbet_roster(data), file)
 }
 
-##%######################################################%##
-#                                                          #
-####                    Player Props                    ####
-#                                                          #
-##%######################################################%##
-
-player_props_function <- function() {
-
-# Get match links
-match_links <-
-sportsbet_url |> 
-    read_html_live() |>
-    html_nodes(".link_ft4u1lp") |> 
-    html_attr("href")
-
-# Get match IDs from links
-match_ids <-
-match_links |>
-    str_extract("\\d{4,10}$") |>
-    as.numeric()
-
-# Get Match Names from links
-match_names <-
-    match_links |>
-    str_remove_all("/betting/basketball-aus-other/australian-nbl/") |>
-    str_remove_all("-\\d{4,10}$") |>
-    str_replace_all("-", " ") |>
-    str_to_title()
-
-# Table with match names and IDs
-match_table_home <-
-    tibble(match_names, match_ids) |> 
-    mutate(match_names = str_replace(match_names, " V ", " Vs ")) |>
-    filter(str_detect(match_names, " Vs ")) |>
-    separate(match_names, into = c("home_team", "away_team"), sep = " V[s]? ", remove = TRUE) |> 
-    mutate(home_team = fix_team_names(home_team),
-           away_team = fix_team_names(away_team)) |> 
-    mutate(match = paste(home_team, "v", away_team)) |> 
-    select(match, home_team, away_team, match_id = match_ids)
-
-match_table_away <-
-    tibble(match_names, match_ids) |> 
-    filter(str_detect(match_names, " At ")) |>
-    separate(match_names, into = c("home_team", "away_team"), sep = " At ", remove = TRUE) |> 
-    mutate(home_team = fix_team_names(home_team),
-           away_team = fix_team_names(away_team)) |> 
-    mutate(match = paste(home_team, "v", away_team)) |> 
-    select(match, home_team, away_team, match_id = match_ids)
-
-match_table <-
-    bind_rows(match_table_home, match_table_away)
+player_props_function <- function(matches) {
+match_table <- matches |> select(match, home_team, away_team, match_id)
+match_ids <- match_table$match_id
 
 # Match info links
 match_info_links <- glue("https://www.sportsbet.com.au/apigw/sportsbook-sports/Sportsbook/Sports/Events/{match_ids}/SportCard?displayWinnersPriceMkt=true&includeLiveMarketGroupings=true&includeCollection=true")
@@ -181,6 +96,7 @@ player_pra_links <- glue("https://www.sportsbet.com.au/apigw/sportsbook-sports/S
 player_defensive_links <- glue("https://www.sportsbet.com.au/apigw/sportsbook-sports/Sportsbook/Sports/Events/{match_ids}/MarketGroupings/1097/Markets")
 
 # Get IDs needed for SGM engine-------------------------------------------------
+available_prop_urls <- character()
 read_prop_url_metadata <- function(url) {
     
     # Make request and get response
@@ -188,9 +104,15 @@ read_prop_url_metadata <- function(url) {
         request(url) |>
         req_user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36") |> 
         req_headers("Referer" = "https://www.sportsbet.com.au") |>
+        req_timeout(30) |>
         req_perform() |> 
         resp_body_json()
     
+    event_id <- str_match(url, "/Events/([0-9]+)/")[, 2]
+    available_prop_urls <<- c(available_prop_urls, vapply(sb_response$marketGrouping,
+        function(group) paste0("https://www.sportsbet.com.au/apigw/sportsbook-sports/Sportsbook/Sports/Events/",
+                               event_id, "/MarketGroupings/", group$id, "/Markets"), character(1)))
+
     # Empty vectors to append to
     class_external_id = c()
     competition_external_id = c()
@@ -206,13 +128,13 @@ read_prop_url_metadata <- function(url) {
            competition_external_id,
            event_external_id,
            url) |> 
-        mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |> 
+        mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
         rename(match_id = url) |> 
         mutate(match_id = as.numeric(match_id))
 }
 
-# Safe version that just returns NULL if there is an error
-safe_read_prop_metadata <- safely(read_prop_url_metadata, otherwise = NULL)
+# Propagate request errors so a partial scrape cannot appear successful
+safe_read_prop_metadata <- function(url) list(result = read_prop_url_metadata(url))
 
 # Map function to player points urls
 player_prop_metadata <-
@@ -228,26 +150,33 @@ player_prop_metadata <-
 
 read_prop_url <- function(url) {
     
-    # Make request and get response
-    sb_response <-
-        request(url) |>
-        req_user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36") |> 
-        req_headers("Referer" = "https://www.sportsbet.com.au") |>
-        req_perform() |> 
-        resp_body_json()
-    
+    # An unadvertised group is unavailable, not a failed HTTP request.
+    sb_response <- list()
+    if (url %in% available_prop_urls) {
+        sb_response <- request(url) |>
+            req_user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36") |>
+            req_headers("Referer" = "https://www.sportsbet.com.au") |>
+            req_timeout(30) |>
+            req_perform() |>
+            resp_body_json()
+    } else {
+        message("Sportsbet: market group not offered: ", url)
+    }
+
     # Empty vectors to append to
-    prop_market_name = c()
-    selection_name_prop = c()
-    prop_market_selection = c()
-    prop_market_price = c()
-    player_id = c()
-    market_id = c()
-    handicap = c()
+    prop_market_name = character()
+    selection_name_prop = character()
+    prop_market_selection = character()
+    prop_market_price = numeric()
+    player_id = numeric()
+    market_id = numeric()
+    handicap = numeric()
     
     # Loop through each market
     for (market in sb_response) {
+        if (!identical(market$statusCode, "A")) next
         for (selection in market$selections) {
+            if (!identical(selection$statusCode, "A") || is.null(selection$price$winPrice)) next
             
             # Append to vectors
             prop_market_name = c(prop_market_name, market$name)
@@ -274,11 +203,11 @@ read_prop_url <- function(url) {
            player_id,
            market_id,
            handicap,
-           url)
+           url = rep(url, length(prop_market_name)))
 }
 
-# Safe version that just returns NULL if there is an error
-safe_read_prop_url <- safely(read_prop_url, otherwise = NULL)
+# Propagate request errors so a partial scrape cannot appear successful
+safe_read_prop_url <- function(url) list(result = read_prop_url(url))
 
 #===============================================================================
 # Player Points
@@ -298,7 +227,7 @@ player_points_data <-
 player_points_data <-
     player_points_data |>
     mutate(market_name = "Player Points") |> 
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |> 
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |> 
     mutate(match_id = as.numeric(match_id)) |> 
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -319,7 +248,9 @@ player_points_alternate <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -351,7 +282,9 @@ player_points_over <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -381,7 +314,9 @@ player_points_under <-
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     left_join(match_table) |>
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -423,7 +358,7 @@ player_assists_data <-
 player_assists_data <-
     player_assists_data |>
     mutate(market_name = "Player Assists") |> 
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |> 
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |> 
     mutate(match_id = as.numeric(match_id)) |> 
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -442,7 +377,9 @@ player_assists_alternate <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -473,7 +410,9 @@ player_assists_over <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -502,7 +441,9 @@ player_assists_under <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -544,7 +485,7 @@ player_rebounds_data <-
 player_rebounds_data <-
     player_rebounds_data |>
     mutate(market_name = "Player Rebounds") |> 
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |> 
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |> 
     mutate(match_id = as.numeric(match_id)) |> 
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -563,7 +504,9 @@ player_rebounds_alternate <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -594,7 +537,9 @@ player_rebounds_over <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -623,7 +568,9 @@ player_rebounds_under <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -665,7 +612,7 @@ player_threes_data <-
 player_threes_data <-
     player_threes_data |>
     mutate(market_name = "Player Threes") |> 
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |> 
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |> 
     mutate(match_id = as.numeric(match_id)) |> 
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -684,7 +631,9 @@ player_threes_alternate <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -715,7 +664,9 @@ player_threes_over <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -744,7 +695,9 @@ player_threes_under <-
     left_join(match_table) |> 
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |> 
     relocate(match, .before = player_name) |> 
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -786,7 +739,7 @@ player_pras_data <-
 player_pras_data <-
     player_pras_data |>
     mutate(market_name = "Player PRAs") |>
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |>
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |>
     mutate(match_id = as.numeric(match_id)) |>
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -805,7 +758,9 @@ player_pras_alternate <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -835,7 +790,9 @@ player_pras_over <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -864,7 +821,9 @@ player_pras_under <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -905,7 +864,7 @@ player_steals_data <-
 # Add market name and join metadata
 player_steals_data <-
     player_steals_data |>
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |>
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |>
     mutate(match_id = as.numeric(match_id)) |>
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -929,7 +888,9 @@ player_steals_alternate <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -959,7 +920,9 @@ player_steals_over <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -988,7 +951,9 @@ player_steals_under <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -1025,7 +990,7 @@ player_blocks_data <-
 # Add market name and join metadata
 player_blocks_data <-
     player_blocks_data |>
-    mutate(url = str_extract(as.character(url), "[0-9]{6,8}")) |>
+    mutate(url = str_match(as.character(url), "/Events/([0-9]+)/")[, 2]) |>
     rename(match_id = url) |>
     mutate(match_id = as.numeric(match_id)) |>
     mutate(prop_market_name = fix_player_names(prop_market_name)) |>
@@ -1049,7 +1014,9 @@ player_blocks_alternate <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -1079,7 +1046,9 @@ player_blocks_over <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -1108,7 +1077,9 @@ player_blocks_under <-
     left_join(match_table) |>
     left_join(player_names_teams[,c("player_full_name", "player_team")], by = c("player_name" = "player_full_name")) |>
     relocate(match, .before = player_name) |>
-    mutate(opposition_team = if_else(player_team == home_team, away_team, home_team)) |>
+    mutate(opposition_team = case_when(player_team == home_team ~ away_team,
+                                              player_team == away_team ~ home_team,
+                                              TRUE ~ NA_character_)) |>
     transmute(
         match,
         home_team,
@@ -1160,7 +1131,7 @@ player_points_alternate |>
     ) |>
     mutate(market_name = "Player Points") |>
     mutate(agency = "Sportsbet") |> 
-    write_csv("Data/scraped_odds/sportsbet_player_points.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_points.csv"))
 
 # Rebounds
 player_rebounds_alternate |>
@@ -1186,7 +1157,7 @@ player_rebounds_alternate |>
     ) |>
     mutate(market_name = "Player Rebounds") |>
     mutate(agency = "Sportsbet") |> 
-    write_csv("Data/scraped_odds/sportsbet_player_rebounds.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_rebounds.csv"))
 
 # Assists
 player_assists_alternate |>
@@ -1212,7 +1183,7 @@ player_assists_alternate |>
     ) |>
     mutate(market_name = "Player Assists") |>
     mutate(agency = "Sportsbet") |> 
-    write_csv("Data/scraped_odds/sportsbet_player_assists.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_assists.csv"))
 
 # Threes
 player_threes_alternate |>
@@ -1238,7 +1209,7 @@ player_threes_alternate |>
     ) |>
     mutate(market_name = "Player Threes") |>
     mutate(agency = "Sportsbet") |> 
-    write_csv("Data/scraped_odds/sportsbet_player_threes.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_threes.csv"))
 
 # PRAs
 player_pras_alternate |>
@@ -1264,7 +1235,7 @@ player_pras_alternate |>
     ) |>
     mutate(market_name = "Player PRAs") |>
     mutate(agency = "Sportsbet") |>
-    write_csv("Data/scraped_odds/sportsbet_player_pras.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_pras.csv"))
 
 # Steals
 player_steals_alternate |>
@@ -1290,7 +1261,7 @@ player_steals_alternate |>
     ) |>
     mutate(market_name = "Player Steals") |>
     mutate(agency = "Sportsbet") |>
-    write_csv("Data/scraped_odds/sportsbet_player_steals.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_steals.csv"))
 
 # Blocks
 player_blocks_alternate |>
@@ -1316,58 +1287,8 @@ player_blocks_alternate |>
     ) |>
     mutate(market_name = "Player Blocks") |>
     mutate(agency = "Sportsbet") |>
-    write_csv("Data/scraped_odds/sportsbet_player_blocks.csv")
-# PRAs
-player_pras_alternate |>
-    bind_rows(player_pras_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "class_external_id",
-        "competition_external_id",
-        "event_external_id",
-        "market_id",
-        "player_id",
-        "player_id_unders"
-    ) |>
-    mutate(market_name = "Player PRAs") |>
-    mutate(agency = "Sportsbet") |>
-    write_csv("Data/scraped_odds/sportsbet_player_pras.csv")
+    write_sportsbet_props(data_file("raw_odds", "sportsbet_player_blocks.csv"))
 
-# Steals
-player_steals_alternate |>
-    bind_rows(player_steals_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "class_external_id",
-        "competition_external_id",
-        "event_external_id",
-        "market_id",
-        "player_id",
-        "player_id_unders"
-    ) |>
-    mutate(market_name = "Player Steals") |>
-    mutate(agency = "Sportsbet") |>
-    write_csv("Data/scraped_odds/sportsbet_player_steals.csv")
 }
 
 ##%######################################################%##
@@ -1376,8 +1297,11 @@ player_steals_alternate |>
 #                                                          #
 ##%######################################################%##
 
-safe_main_markets <- safely(main_markets_function, otherwise = NULL)
-safe_player_props <- safely(player_props_function, otherwise = NULL)
-
-safe_main_markets()
-safe_player_props()
+# A single page snapshot keeps head-to-head and prop match orientation aligned.
+# Tests can load the parsers without making requests or writing odds.
+if (!isTRUE(getOption("nbl.sportsbet.skip_run", FALSE))) {
+    sportsbet_matches <- parse_sportsbet_matches(read_html_live(sportsbet_url))
+    player_props_function(sportsbet_matches)
+    main_markets_function(sportsbet_matches)
+    message("Sportsbet: refreshed ", nrow(sportsbet_matches), " matches.")
+}

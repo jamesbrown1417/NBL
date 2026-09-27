@@ -5,7 +5,8 @@ execute:
     message: false
     warning: false
 author: "James Brown"
-date: "2023-07-03"
+date: "`r lubridate::now()`"
+date-format: "dddd MMM D, YYYY - hh:mmA"
 format:
     html:
         df-print: paged
@@ -22,12 +23,13 @@ editor: visual
 # Libraries
 library(tidyverse)
 library(qreport)
+source("../Scripts/00-config.R")
 
 # Read in data
-combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
+combined_stats_table <- read_rds(data_file("processed_stats", "combined_stats_table.rds"))
 ```
 
-# Season 2022-2023
+# Season `r nbl_config$active_season_label`
 
 ```{r}
 #| results: asis
@@ -35,7 +37,7 @@ combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
 # Top Point Scorers
 top_point_scorers <-
     combined_stats_table |> 
-    filter(season == "2022-2023") |> 
+    filter(season == nbl_config$active_season) |>
     filter(round_number |> str_detect("^[0-9]")) |> 
     distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
     group_by(name, first_name, family_name) |> 
@@ -48,7 +50,7 @@ top_point_scorers <-
 # Top Assists
 top_assists <-
     combined_stats_table |> 
-    filter(season == "2022-2023") |> 
+    filter(season == nbl_config$active_season) |>
     filter(round_number |> str_detect("^[0-9]")) |> 
     distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
     group_by(name, first_name, family_name) |> 
@@ -62,7 +64,7 @@ top_assists <-
 # Top Rebounds
 top_rebounds <-
     combined_stats_table |> 
-    filter(season == "2022-2023") |> 
+    filter(season == nbl_config$active_season) |>
     filter(round_number |> str_detect("^[0-9]")) |> 
     distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
     group_by(name, first_name, family_name) |> 
@@ -76,7 +78,7 @@ top_rebounds <-
 # Three Points Made
 three_pointers <-
     combined_stats_table |> 
-    filter(season == "2022-2023") |> 
+    filter(season == nbl_config$active_season) |>
     filter(round_number |> str_detect("^[0-9]")) |> 
     distinct(match_id, first_name, family_name, .keep_all = TRUE) |> 
     group_by(name, first_name, family_name) |> 

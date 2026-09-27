@@ -14,7 +14,11 @@ source("Scripts/04-helper-functions.R")
 get_head_to_head <- function() {
 
 # Read scraped HTML from the BET365_HTML Folder
-scraped_file <- list.files("OddsScraper/Bet365/HTML", full.names = TRUE, pattern = "h2h")
+scraped_file <- list.files(
+  data_file("raw_odds_responses", "bet365"),
+  full.names = TRUE,
+  pattern = "h2h"
+)
 
 # Get Teams
 bet365_teams <-
@@ -59,7 +63,7 @@ bet365_h2h <-
     mutate(agency = "Bet365")
 
 # Write to csv
-write_csv(bet365_h2h, "Data/scraped_odds/bet365_h2h.csv")
+write_csv(bet365_h2h, data_file("raw_odds", "bet365_h2h.csv"))
 }
 
 get_head_to_head()

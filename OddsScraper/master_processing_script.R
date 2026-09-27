@@ -1,519 +1,166 @@
-# Libraries and functions-------------------------------------------------------
 library(tidyverse)
 
-# Empirical Probabilities Script
+source("Scripts/00-config.R")
 source("Scripts/08-get-empirical-probabilities.R")
+source("Scripts/odds-schema.R")
+ensure_data_directories()
 
-# # Run all odds scraping scripts-----------------------------------------------
 run_scraping <- function(script_name) {
-    tryCatch({
-        source(script_name, echo = FALSE)
-    }, error = function(e) {
-        cat("Odds not released yet for:", script_name, "\n")
-    })
+  message("Running ", script_name)
+  source(script_name, echo = FALSE)
 }
 
-# Run all odds scraping scripts-------------------------------------------------
-run_scraping("OddsScraper/scrape_betr.R")
-run_scraping("OddsScraper/scrape_BetRight.R")
-run_scraping("OddsScraper/scrape_pointsbet.R")
-run_scraping("OddsScraper/scrape_sportsbet.R")
-run_scraping("OddsScraper/TAB/scrape_TAB.R")
-run_scraping("OddsScraper/scrape_dabble.R")
+# Only agencies checked for the 2026-27 season feed this run.
+active_agencies <- c("betright", "pointsbet", "sportsbet", "tab")
 
-# Generate DVP outputs (safe)
-tryCatch({
-  source("Scripts/06-defence-vs-position.R")
-}, error = function(e) {
-  cat("DVP generation skipped:", conditionMessage(e), "\n")
-})
+if (Sys.getenv("NBL_SKIP_SCRAPING") != "true") {
+  c(
+    "OddsScraper/scrape_BetRight.R",
+    "OddsScraper/scrape_pointsbet.R",
+    "OddsScraper/scrape_sportsbet.R",
+    "OddsScraper/TAB/scrape_TAB.R"
+  ) |>
+    walk(run_scraping)
+}
 
-##%######################################################%##
-#                                                          #
-####                    Head to Head                    ####
-#                                                          #
-##%######################################################%##
+if (Sys.getenv("NBL_SKIP_DVP") != "true") {
+  tryCatch(
+    source("Scripts/06-defence-vs-position.R"),
+    error = function(e) message("DVP generation skipped: ", conditionMessage(e))
+  )
+}
 
-# Get all scraped odds files and combine
-all_odds_files <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "h2h") |>
-    map(read_csv) |>
-    keep(~ nrow(.) > 0) |>
-    reduce(bind_rows)
+read_odds_group <- function(pattern) {
+  files <- list.files(data_paths$raw_odds,
+    full.names = TRUE, pattern = pattern,
+    recursive = FALSE
+  )
+  files <- files[tolower(sub("_.*$", "", basename(files))) %in% active_agencies]
 
-# Select cols
-all_h2h <-
-    all_odds_files |> 
-    select(match, market_name, agency, home_team, away_team, home_win, away_win)
+  if (!length(files)) {
+    return(tibble())
+  }
 
-# Write as RDS
-write_rds(all_h2h, "Data/processed_odds/head_to_head.rds")
+  files |>
+    map(~ suppressMessages(read_csv(.x, show_col_types = FALSE))) |>
+    keep(~ nrow(.x) > 0L) |>
+    bind_rows()
+}
 
-##%######################################################%##
-#                                                          #
-####                    Total Points                    ####
-#                                                          #
-##%######################################################%##
+write_match_markets <- function() {
+  h2h <- read_odds_group("h2h\\.csv$")
+  if (nrow(h2h)) {
+    h2h <- h2h |>
+      select(match, market_name, agency, home_team, away_team, home_win, away_win)
+  } else {
+    h2h <- tibble(
+      match = character(), market_name = character(), agency = character(),
+      home_team = character(), away_team = character(),
+      home_win = numeric(), away_win = numeric()
+    )
+  }
+  write_rds(h2h, data_file("processed_odds", "head_to_head.rds"))
 
-# Get all scraped odds files and combine
-all_totals_files <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "total") |>
-    map(read_csv) |>
-    # Map a mutate across dfs to convert line to numeric
-    map(~mutate(.x, line = as.numeric(line),
-                under_price = as.numeric(under_price),
-                over_price = as.numeric(over_price))) |>
-    reduce(bind_rows) |> 
-    mutate(market_name = "Total Points")
+  totals <- read_odds_group("total.*\\.csv$")
+  if (nrow(totals)) {
+    totals <- totals |>
+      mutate(
+        line = as.numeric(line),
+        under_price = as.numeric(under_price),
+        over_price = as.numeric(over_price),
+        market_name = "Total Points"
+      ) |>
+      arrange(match, line, desc(under_price)) |>
+      select(match, market_name, home_team, away_team, line, over_price, under_price, agency)
+  } else {
+    totals <- tibble(
+      match = character(), market_name = character(), home_team = character(),
+      away_team = character(), line = numeric(), over_price = numeric(),
+      under_price = numeric(), agency = character()
+    )
+  }
+  write_rds(totals, data_file("processed_odds", "total_match_points.rds"))
+}
 
-# For each match, get all unders
-all_totals <-
-    all_totals_files |>
-    arrange(match, line, desc(under_price)) |>
-    select(match, market_name, home_team, away_team, line, over_price, under_price, agency)
+process_player_market <- function(file_key, stat) {
+  odds <- read_odds_group(paste0("player_", file_key, "\\.csv$"))
+  output_path <- data_file("processed_odds", paste0("all_player_", file_key, ".rds"))
 
-# Write as RDS
-write_rds(all_totals, "Data/processed_odds/total_match_points.rds")
+  if (!nrow(odds)) {
+    write_rds(empty_player_odds(), output_path)
+    return(invisible(NULL))
+  }
 
-##%######################################################%##
-#                                                          #
-####                   Player Points                    ####
-#                                                          #
-##%######################################################%##
+  if (!"under_price" %in% names(odds)) {
+    odds$under_price <- NA_real_
+  }
 
-# Get all scraped odds files and combine
-all_player_points <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_points") |>
-    map(read_csv) |>
-    # Ignore null elements
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows) |> 
-    arrange(player_name, line, desc(over_price))
-
-
-# Add empirical probabilities---------------------------------------------------
-
-# Points
-distinct_point_combos <-
-    all_player_points |> 
+  combos <- odds |>
     distinct(player_name, line)
 
-player_emp_probs_2025_26 <- 
-    pmap(distinct_point_combos, get_empirical_prob, "PTS", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
+  probabilities <- pmap_dfr(
+    combos,
+    function(player_name, line) {
+      get_empirical_prob(player_name, line, stat, nbl_config$active_season)
+    },
+    .progress = TRUE
+  ) |>
+    select(player_name, line, games_played, empirical_prob, empirical_prob_last_10)
 
-all_player_points <-
-    all_player_points |>
+  processed <- odds |>
     mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
+      over_price = as.numeric(over_price),
+      under_price = as.numeric(under_price),
+      implied_prob_over = 1 / over_price,
+      implied_prob_under = 1 / under_price
     ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-# Write as RDS
-all_player_points |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    select(-matches("outcome_name")) |> 
-    write_rds("Data/processed_odds/all_player_points.rds")
-
-##%######################################################%##
-#                                                          #
-####                   Player Assists                   ####
-#                                                          #
-##%######################################################%##
-
-# Get all scraped odds files and combine
-all_player_assists <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_assists") |>
-    map(read_csv) |>
-    # Ignore null elements
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
-
-# Add empirical probabilities---------------------------------------------------
-
-# Assists
-distinct_assist_combos <-
-    all_player_assists |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_assist_combos, get_empirical_prob, "AST", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_assists <-
-    all_player_assists |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
+    left_join(probabilities, by = c("player_name", "line")) |>
     rename(
-           empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(
-           empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
+      games_played_current = games_played,
+      empirical_prob_over_current = empirical_prob,
+      empirical_prob_over_last_10 = empirical_prob_last_10
     ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
+    mutate(
+      empirical_prob_under_current = 1 - empirical_prob_over_current,
+      empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10,
+      diff_over_current = empirical_prob_over_current - implied_prob_over,
+      diff_under_current = empirical_prob_under_current - implied_prob_under,
+      diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
+      diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under,
+      model_season = nbl_config$active_season
+    ) |>
     filter(!is.na(opposition_team)) |>
     group_by(player_name, line) |>
     mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
+      variation = if (all(is.na(implied_prob_over))) {
+        NA_real_
+      } else {
+        max(implied_prob_over, na.rm = TRUE) - min(implied_prob_over, na.rm = TRUE)
+      }
     ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
     ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
+    mutate(across(where(is.double), ~ round(.x, 2))) |>
+    arrange(desc(variation), player_name, desc(over_price), line) |>
+    select(
+      -matches("_id$"), -matches("_key$"), -matches("_id_"),
+      -any_of("outcome_name")
+    )
 
-# Write as RDS
-all_player_assists |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    select(-matches("outcome_name")) |> 
-    write_rds("Data/processed_odds/all_player_assists.rds")
+  write_rds(processed, output_path)
+  invisible(NULL)
+}
 
-##%######################################################%##
-#                                                          #
-####                  Player Rebounds                   ####
-#                                                          #
-##%######################################################%##
+write_match_markets()
 
-# Get all scraped odds files and combine
-all_player_rebounds <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_rebounds") |>
-    map(read_csv) |>
-    # Ignore null elements
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
+player_markets <- tribble(
+  ~file_key, ~stat,
+  "points", "PTS",
+  "assists", "AST",
+  "rebounds", "REB",
+  "threes", "Threes",
+  "pras", "PRA",
+  "steals", "STL",
+  "blocks", "BLK"
+)
 
-
-# Add empirical probabilities---------------------------------------------------
-
-# Rebounds
-distinct_rebound_combos <-
-    all_player_rebounds |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_rebound_combos, get_empirical_prob, "REB", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_rebounds <-
-    all_player_rebounds |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(
-           empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(
-           empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-# Write as RDS
-all_player_rebounds |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    select(-matches("outcome_name")) |> 
-    write_rds("Data/processed_odds/all_player_rebounds.rds")
-
-##%######################################################%##
-#                                                          #
-####                   Player Threes                    ####
-#                                                          #
-##%######################################################%##
-
-# Get all scraped odds files and combine
-all_player_threes <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_threes") |>
-    map(read_csv) |>
-    # Ignore null elements
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
-
-# Add empirical probabilities---------------------------------------------------
-
-# Player Threes
-distinct_threes_combos <-
-    all_player_threes |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_threes_combos, get_empirical_prob, "Threes", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_threes <-
-    all_player_threes |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(
-           empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(
-           empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-# Write as RDS
-all_player_threes |>
-    select(-matches("_id$")) |> 
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    # select(-group_by_header, -outcome_name) |>
-    write_rds("Data/processed_odds/all_player_threes.rds")
-
-##%######################################################%##
-#                                                          #
-####                      Player PRAs                   ####
-#                                                          #
-##%######################################################%##
-
-# Get all scraped odds files and combine
-all_player_pras <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_pras") |>
-    map(read_csv) |>
-    # Ignore null elements
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
-
-# Add empirical probabilities---------------------------------------------------
-
-distinct_pra_combos <-
-    all_player_pras |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_pra_combos, get_empirical_prob, "PRA", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_pras <-
-    all_player_pras |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-# Write as RDS
-all_player_pras |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    select(-matches("outcome_name")) |> 
-    write_rds("Data/processed_odds/all_player_pras.rds")
-
-##%######################################################%##
-#                                                          #
-####                    Player Steals                   ####
-#                                                          #
-##%######################################################%##
-
-all_player_steals <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_steals") |>
-    map(read_csv) |>
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
-
-distinct_steal_combos <-
-    all_player_steals |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_steal_combos, get_empirical_prob, "STL", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_steals <-
-    all_player_steals |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-all_player_steals |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    write_rds("Data/processed_odds/all_player_steals.rds")
-
-##%######################################################%##
-#                                                          #
-####                    Player Blocks                   ####
-#                                                          #
-##%######################################################%##
-
-all_player_blocks <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_blocks") |>
-    map(read_csv) |>
-    keep(~nrow(.x) > 0) |>
-    reduce(bind_rows)
-
-distinct_blocks_combos <-
-    all_player_blocks |> 
-    distinct(player_name, line)
-
-player_emp_probs_2025_26 <- 
-    pmap(distinct_blocks_combos, get_empirical_prob, "BLK", "2025_2026", .progress = TRUE) |> 
-    bind_rows() |> 
-    select(player_name, line, games_played_2025_2026 = games_played, empirical_prob_2025_2026, empirical_prob_last_10)
-
-all_player_blocks <-
-    all_player_blocks |>
-    mutate(
-        implied_prob_over = 1 / over_price,
-        implied_prob_under = 1 / under_price
-    ) |>
-    left_join(player_emp_probs_2025_26, by = c("player_name", "line")) |>
-    rename(empirical_prob_over_2025_26 = empirical_prob_2025_2026,
-           empirical_prob_over_last_10 = empirical_prob_last_10 ) |>
-    mutate(empirical_prob_under_2025_26 = 1 - empirical_prob_over_2025_26,
-           empirical_prob_under_last_10 = 1 - empirical_prob_over_last_10) |>
-    mutate(
-        diff_over_2025_26 = empirical_prob_over_2025_26 - implied_prob_over,
-        diff_under_2025_26 = empirical_prob_under_2025_26 - implied_prob_under,
-        diff_over_last_10 = empirical_prob_over_last_10 - implied_prob_over,
-        diff_under_last_10 = empirical_prob_under_last_10 - implied_prob_under
-    ) |>
-    relocate(agency, .after = diff_under_2025_26) |>
-    mutate_if(is.double, round, 2) |>
-    filter(!is.na(opposition_team)) |>
-    group_by(player_name, line) |>
-    mutate(
-        min_implied_prob = min(implied_prob_over, na.rm = TRUE),
-        max_implied_prob = max(implied_prob_over, na.rm = TRUE)
-    ) |>
-    mutate(variation = max_implied_prob - min_implied_prob) |>
-    ungroup() |>
-    select(-min_implied_prob,-max_implied_prob) |>
-    arrange(desc(variation), player_name, desc(over_price), line)
-
-all_player_blocks |>
-    select(-matches("_id$")) |> 
-    select(-matches("_key$")) |>
-    select(-matches("_id_")) |>
-    write_rds("Data/processed_odds/all_player_blocks.rds")
+pwalk(player_markets, process_player_market)

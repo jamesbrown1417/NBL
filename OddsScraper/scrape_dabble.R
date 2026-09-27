@@ -12,7 +12,7 @@ source("Scripts/04-helper-functions.R")
 
 # Get player name and team data
 player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |> 
+    read_csv(data_file("raw_stats", "supercoach-data.csv")) |>
     mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
     select(player_first_name, first_initial, player_last_name, player_team) |> 
     mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
@@ -108,7 +108,7 @@ dabble_head_to_head_markets <-
     mutate(agency = "Dabble")
 
 # Write to csv
-write_csv(dabble_head_to_head_markets, "Data/scraped_odds/dabble_h2h.csv")
+write_csv(dabble_head_to_head_markets, data_file("raw_odds", "dabble_h2h.csv"))
 
 #===============================================================================
 # Get Fixture Details
@@ -632,11 +632,11 @@ dabble_player_threes_markets <-
 # Write to CSV------------------------------------------------------------------
 #===============================================================================
 
-dabble_player_points_markets |> write_csv("Data/scraped_odds/dabble_player_points.csv")
-dabble_player_assists_markets |> write_csv("Data/scraped_odds/dabble_player_assists.csv")
-dabble_player_rebounds_markets |> write_csv("Data/scraped_odds/dabble_player_rebounds.csv")
-dabble_player_pras_markets |> write_csv("Data/scraped_odds/dabble_player_pras.csv")
-dabble_player_threes_markets |> write_csv("Data/scraped_odds/dabble_player_threes.csv")
+dabble_player_points_markets |> write_csv(data_file("raw_odds", "dabble_player_points.csv"))
+dabble_player_assists_markets |> write_csv(data_file("raw_odds", "dabble_player_assists.csv"))
+dabble_player_rebounds_markets |> write_csv(data_file("raw_odds", "dabble_player_rebounds.csv"))
+dabble_player_pras_markets |> write_csv(data_file("raw_odds", "dabble_player_pras.csv"))
+dabble_player_threes_markets |> write_csv(data_file("raw_odds", "dabble_player_threes.csv"))
 
 
 #==============================================================================#
@@ -851,8 +851,8 @@ player_pras_pickem <-
 # Write to CSV
 #===============================================================================
 
-player_points_pickem |> write_csv("Data/scraped_odds/dabble_pickem_player_points.csv")
-player_rebounds_pickem |> write_csv("Data/scraped_odds/dabble_pickem_player_rebounds.csv")
-player_assists_pickem |> write_csv("Data/scraped_odds/dabble_pickem_player_assists.csv")
-player_threes_pickem |> write_csv("Data/scraped_odds/dabble_pickem_player_threes.csv")
-player_pras_pickem |> write_csv("Data/scraped_odds/dabble_pickem_player_pras.csv")
+player_points_pickem |> write_csv(data_file("raw_odds", "dabble_pickem_player_points.csv"))
+player_rebounds_pickem |> write_csv(data_file("raw_odds", "dabble_pickem_player_rebounds.csv"))
+player_assists_pickem |> write_csv(data_file("raw_odds", "dabble_pickem_player_assists.csv"))
+player_threes_pickem |> write_csv(data_file("raw_odds", "dabble_pickem_player_threes.csv"))
+player_pras_pickem |> write_csv(data_file("raw_odds", "dabble_pickem_player_pras.csv"))

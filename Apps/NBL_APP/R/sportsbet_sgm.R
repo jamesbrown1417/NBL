@@ -15,10 +15,10 @@ safe_read_sportsbet <- function(file) {
 }
 
 sportsbet_sgm <-
-  safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_points.csv") |>
-  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_rebounds.csv")) |>
-  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_assists.csv")) |>
-  bind_rows(safe_read_sportsbet("../../Data/scraped_odds/sportsbet_player_threes.csv"))
+  safe_read_sportsbet(data_file("raw_odds", "sportsbet_player_points.csv")) |>
+  bind_rows(safe_read_sportsbet(data_file("raw_odds", "sportsbet_player_rebounds.csv"))) |>
+  bind_rows(safe_read_sportsbet(data_file("raw_odds", "sportsbet_player_assists.csv"))) |>
+  bind_rows(safe_read_sportsbet(data_file("raw_odds", "sportsbet_player_threes.csv")))
 
 if (nrow(sportsbet_sgm) > 0 && all(c("event_external_id", "competition_external_id", "class_external_id", "market_id", "player_id") %in% names(sportsbet_sgm))) {
   sportsbet_sgm <-

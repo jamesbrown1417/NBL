@@ -8,7 +8,7 @@ source("Scripts/04-helper-functions.R")
 
 # Get player name and team data
 player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |>
+    read_csv(data_file("raw_stats", "supercoach-data.csv")) |>
     mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
     select(player_first_name,
            first_initial,
@@ -127,7 +127,7 @@ bluebet_head_to_head_markets <-
 
 # Write to csv
 write_csv(bluebet_head_to_head_markets,
-          "Data/scraped_odds/bluebet_h2h.csv")
+          data_file("raw_odds", "bluebet_h2h.csv"))
 
 #===============================================================================
 # Player Props
@@ -335,6 +335,6 @@ if (nrow(bluebet_player_rebounds) != 0) {
 # Write to CSV
 #===============================================================================
 
-bluebet_player_points |> write_csv("Data/scraped_odds/betr_player_points.csv")
-bluebet_player_assists |> write_csv("Data/scraped_odds/betr_player_assists.csv")
-bluebet_player_rebounds |> write_csv("Data/scraped_odds/betr_player_rebounds.csv")
+bluebet_player_points |> write_csv(data_file("raw_odds", "betr_player_points.csv"))
+bluebet_player_assists |> write_csv(data_file("raw_odds", "betr_player_assists.csv"))
+bluebet_player_rebounds |> write_csv(data_file("raw_odds", "betr_player_rebounds.csv"))

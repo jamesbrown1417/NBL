@@ -16,10 +16,10 @@ safe_read_pointsbet <- function(file) {
 
 pointsbet_sgm_list <-
   list(
-    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_points.csv"),
-    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_rebounds.csv"),
-    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_assists.csv"),
-    safe_read_pointsbet("../../Data/scraped_odds/pointsbet_player_threes.csv")
+    safe_read_pointsbet(data_file("raw_odds", "pointsbet_player_points.csv")),
+    safe_read_pointsbet(data_file("raw_odds", "pointsbet_player_rebounds.csv")),
+    safe_read_pointsbet(data_file("raw_odds", "pointsbet_player_assists.csv")),
+    safe_read_pointsbet(data_file("raw_odds", "pointsbet_player_threes.csv"))
   )
 
 pointsbet_sgm <-

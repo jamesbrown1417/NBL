@@ -3,6 +3,7 @@
 #===============================================================================
 
 library(tidyverse)
+source("Scripts/00-config.R")
 `%notin%` <- Negate(`%in%`)
 
 #===============================================================================
@@ -10,8 +11,8 @@ library(tidyverse)
 #===============================================================================
 
 combined_stats_table <-
-    read_rds("Data/combined_stats_table.rds") |> 
-    filter(season == "2025-2026")
+    read_rds(data_file("processed_stats", "combined_stats_table.rds")) |>
+    filter(season == nbl_config$active_season)
 
 #===============================================================================
 # Get opposition team data
@@ -320,4 +321,4 @@ combined_data <-
         "Opposition Metrics" = opposition_metrics
     )
 
-write_rds(combined_data, "Data/nbl_analytics_data.rds")
+write_rds(combined_data, data_file("processed_stats", "nbl_analytics_data.rds"))

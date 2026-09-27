@@ -5,6 +5,7 @@
 # Data and libraries
 library(tidyverse)
 library(furrr)
+source("Scripts/00-config.R")
 
 # Set up parallel processing
 plan(multisession)
@@ -15,7 +16,7 @@ all_pbp_data <- nblR::nbl_pbp()
 # Get only the data for the current season
 current_season_pbp <-
     all_pbp_data |>
-    filter(season == "2025-2026")
+    filter(season == nbl_config$active_season)
 
 calculate_offensive_pace <- function(match_id) {
     #===============================================================================
@@ -170,10 +171,10 @@ calculate_offensive_pace <- function(match_id) {
 # Map function to each match this season
 #===============================================================================
 
-# Get all match IDs from the 2025/2026 season
+# Get all match IDs from the active season
 match_ids <- all_pbp_data %>%
     filter(!is.na(match_id)) %>%
-    filter(season == "2025-2026") %>%
+    filter(season == nbl_config$active_season) %>%
     pull(match_id) %>%
     unique()
 

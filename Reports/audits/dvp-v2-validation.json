@@ -1,0 +1,545 @@
+{
+  "version": "2.0.0",
+  "rules": {
+    "minMinutes": 5,
+    "minTargetGames": 2,
+    "minBaselineGames": 5,
+    "minTargetMinutesPerPlayer": 20,
+    "minBaselineMinutesPerPlayer": 60,
+    "minDistinctGames": 5,
+    "minPlayers": 3,
+    "minEffectivePlayers": 3,
+    "minTotalTargetMinutes": 120,
+    "minTotalBaselineMinutes": 360
+  },
+  "method": "Date-cutoff, same-team/position other-opponent pooled player baseline. Begin after 60 training matches. Seven stats. Rates per36 conditioned on observed target minutes >=5. Same observations for all four models. Prior position only. Shrinkage uses training cells only. Calibrated coefficient fit on earlier scored dates within each season; constrained to [0,1].",
+  "limitations": [
+    "Conditional-rate diagnostic, not a pregame prop forecast or profitability test.",
+    "No significance testing or prediction interval calibration.",
+    "Position and minutes availability gates select a subset of appearances.",
+    "Current historical source revisions are used; point-in-time source revision archives are unavailable.",
+    "Thresholds are provisional operational gates, not tuned or certified by this report.",
+    "Results do not activate a projection adjustment."
+  ],
+  "reports": [
+    {
+      "season": "2023-2024",
+      "stats": {
+        "points": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.7869093745278979,
+          "models": {
+            "baseline": {
+              "mae": 6.5989161807323535,
+              "rmse": 8.393986852543602
+            },
+            "raw": {
+              "mae": 6.638200925615905,
+              "rmse": 8.421597061104158
+            },
+            "regularized": {
+              "mae": 6.592581344339883,
+              "rmse": 8.38071542986043
+            },
+            "calibrated": {
+              "mae": 6.593597123458033,
+              "rmse": 8.383088705116151
+            }
+          }
+        },
+        "rebounds": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0,
+          "models": {
+            "baseline": {
+              "mae": 3.051236470986043,
+              "rmse": 4.101919063932071
+            },
+            "raw": {
+              "mae": 3.084079339024975,
+              "rmse": 4.150371934503658
+            },
+            "regularized": {
+              "mae": 3.0558273824999076,
+              "rmse": 4.109161814774109
+            },
+            "calibrated": {
+              "mae": 3.052138837358408,
+              "rmse": 4.102854171343643
+            }
+          }
+        },
+        "assists": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.5309211880979793,
+          "models": {
+            "baseline": {
+              "mae": 1.9068328922473925,
+              "rmse": 2.525010921261028
+            },
+            "raw": {
+              "mae": 1.9175352866110371,
+              "rmse": 2.5369825622631494
+            },
+            "regularized": {
+              "mae": 1.9057835301241322,
+              "rmse": 2.524368208603027
+            },
+            "calibrated": {
+              "mae": 1.9050819719908414,
+              "rmse": 2.524431484663545
+            }
+          }
+        },
+        "threes": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.7852100459012471,
+          "models": {
+            "baseline": {
+              "mae": 1.3259726330384842,
+              "rmse": 1.8097243217417174
+            },
+            "raw": {
+              "mae": 1.337077984770358,
+              "rmse": 1.8149831294006278
+            },
+            "regularized": {
+              "mae": 1.3244076150827182,
+              "rmse": 1.8068718159790562
+            },
+            "calibrated": {
+              "mae": 1.3245237165753665,
+              "rmse": 1.807843016407245
+            }
+          }
+        },
+        "steals": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.37598555182263926,
+          "models": {
+            "baseline": {
+              "mae": 1.214745062992135,
+              "rmse": 1.6277975754038863
+            },
+            "raw": {
+              "mae": 1.2137650013702102,
+              "rmse": 1.6367885817183079
+            },
+            "regularized": {
+              "mae": 1.2102688871450704,
+              "rmse": 1.6289371172804867
+            },
+            "calibrated": {
+              "mae": 1.2143880655277048,
+              "rmse": 1.6285627976530124
+            }
+          }
+        },
+        "blocks": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.14453149260139242,
+          "models": {
+            "baseline": {
+              "mae": 0.7803813398670127,
+              "rmse": 1.2889095032143865
+            },
+            "raw": {
+              "mae": 0.7996478359998862,
+              "rmse": 1.3043771131405348
+            },
+            "regularized": {
+              "mae": 0.7817680662141906,
+              "rmse": 1.290020382312152
+            },
+            "calibrated": {
+              "mae": 0.780882588264264,
+              "rmse": 1.2894249628020007
+            }
+          }
+        },
+        "pra": {
+          "n": 1656,
+          "eligible": 1677,
+          "skippedNoEstimate": 21,
+          "finalCoefficient": 0.6832589625782781,
+          "models": {
+            "baseline": {
+              "mae": 7.8063906872936535,
+              "rmse": 9.927469306081932
+            },
+            "raw": {
+              "mae": 7.8628029337107135,
+              "rmse": 9.984292008134005
+            },
+            "regularized": {
+              "mae": 7.7985434132682,
+              "rmse": 9.910991658629928
+            },
+            "calibrated": {
+              "mae": 7.796687762603514,
+              "rmse": 9.914546955040203
+            }
+          }
+        }
+      }
+    },
+    {
+      "season": "2024-2025",
+      "stats": {
+        "points": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.6369670391474498,
+          "models": {
+            "baseline": {
+              "mae": 6.771703753011193,
+              "rmse": 8.592441346751675
+            },
+            "raw": {
+              "mae": 6.842397216710438,
+              "rmse": 8.62233994910838
+            },
+            "regularized": {
+              "mae": 6.7870344769377535,
+              "rmse": 8.577807848353356
+            },
+            "calibrated": {
+              "mae": 6.781830786627341,
+              "rmse": 8.578957528572655
+            }
+          }
+        },
+        "rebounds": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 1,
+          "models": {
+            "baseline": {
+              "mae": 2.9006777414475997,
+              "rmse": 3.8283356281151804
+            },
+            "raw": {
+              "mae": 2.8990217725454177,
+              "rmse": 3.7943697137627046
+            },
+            "regularized": {
+              "mae": 2.8837872167833334,
+              "rmse": 3.7976012025166512
+            },
+            "calibrated": {
+              "mae": 2.883781621201353,
+              "rmse": 3.798104488927138
+            }
+          }
+        },
+        "assists": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.7373376271872106,
+          "models": {
+            "baseline": {
+              "mae": 1.9291133226443573,
+              "rmse": 2.535859722218629
+            },
+            "raw": {
+              "mae": 1.9421520071131635,
+              "rmse": 2.5472876340562673
+            },
+            "regularized": {
+              "mae": 1.9280996633957193,
+              "rmse": 2.53254471336788
+            },
+            "calibrated": {
+              "mae": 1.9289285275195989,
+              "rmse": 2.534659669059151
+            }
+          }
+        },
+        "threes": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.6845179523670842,
+          "models": {
+            "baseline": {
+              "mae": 1.4080008378145565,
+              "rmse": 1.8917673100105996
+            },
+            "raw": {
+              "mae": 1.4322554518980426,
+              "rmse": 1.8992038675229406
+            },
+            "regularized": {
+              "mae": 1.408985746171169,
+              "rmse": 1.887714723526977
+            },
+            "calibrated": {
+              "mae": 1.407461896920245,
+              "rmse": 1.8873447994083057
+            }
+          }
+        },
+        "steals": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.669657384359577,
+          "models": {
+            "baseline": {
+              "mae": 1.1566273494350847,
+              "rmse": 1.4951515995959561
+            },
+            "raw": {
+              "mae": 1.161706854391071,
+              "rmse": 1.5011181240399523
+            },
+            "regularized": {
+              "mae": 1.156438067365996,
+              "rmse": 1.4941750704127388
+            },
+            "calibrated": {
+              "mae": 1.156536267013721,
+              "rmse": 1.4944081112870085
+            }
+          }
+        },
+        "blocks": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.5413872574634689,
+          "models": {
+            "baseline": {
+              "mae": 0.8262094090840674,
+              "rmse": 1.2280958511199813
+            },
+            "raw": {
+              "mae": 0.8414993550180775,
+              "rmse": 1.237707525045746
+            },
+            "regularized": {
+              "mae": 0.8246786010994689,
+              "rmse": 1.2279656927202969
+            },
+            "calibrated": {
+              "mae": 0.8249937187251349,
+              "rmse": 1.2281583475438698
+            }
+          }
+        },
+        "pra": {
+          "n": 1682,
+          "eligible": 1730,
+          "skippedNoEstimate": 48,
+          "finalCoefficient": 0.6840903422035465,
+          "models": {
+            "baseline": {
+              "mae": 7.798238180151645,
+              "rmse": 10.00429130620784
+            },
+            "raw": {
+              "mae": 7.8264409490524445,
+              "rmse": 10.01386131170045
+            },
+            "regularized": {
+              "mae": 7.7999719377045,
+              "rmse": 9.985438074726796
+            },
+            "calibrated": {
+              "mae": 7.796698491870715,
+              "rmse": 9.985184937428713
+            }
+          }
+        }
+      }
+    },
+    {
+      "season": "2025-2026",
+      "stats": {
+        "points": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 1,
+          "models": {
+            "baseline": {
+              "mae": 6.722481481799556,
+              "rmse": 8.70996934221699
+            },
+            "raw": {
+              "mae": 6.726086064283231,
+              "rmse": 8.712758120529308
+            },
+            "regularized": {
+              "mae": 6.718122470225754,
+              "rmse": 8.702013409632748
+            },
+            "calibrated": {
+              "mae": 6.716969067592986,
+              "rmse": 8.703637385146163
+            }
+          }
+        },
+        "rebounds": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 0.35897401086453196,
+          "models": {
+            "baseline": {
+              "mae": 2.843554212658019,
+              "rmse": 3.764953177760187
+            },
+            "raw": {
+              "mae": 2.9014318516288937,
+              "rmse": 3.8299876057192503
+            },
+            "regularized": {
+              "mae": 2.8492679441414164,
+              "rmse": 3.7669834828114754
+            },
+            "calibrated": {
+              "mae": 2.848051329072739,
+              "rmse": 3.766102715742104
+            }
+          }
+        },
+        "assists": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 0.8400336342990375,
+          "models": {
+            "baseline": {
+              "mae": 2.04465104750224,
+              "rmse": 2.6560227371170058
+            },
+            "raw": {
+              "mae": 2.047589293030722,
+              "rmse": 2.6550150761040814
+            },
+            "regularized": {
+              "mae": 2.0428066422785793,
+              "rmse": 2.6486537340339087
+            },
+            "calibrated": {
+              "mae": 2.0440881566008424,
+              "rmse": 2.649937016758135
+            }
+          }
+        },
+        "threes": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 0.8053363432377946,
+          "models": {
+            "baseline": {
+              "mae": 1.389836424937684,
+              "rmse": 1.9621790556430372
+            },
+            "raw": {
+              "mae": 1.4074335849900874,
+              "rmse": 1.970158325827883
+            },
+            "regularized": {
+              "mae": 1.3894668964640817,
+              "rmse": 1.960843043188374
+            },
+            "calibrated": {
+              "mae": 1.3900511411320853,
+              "rmse": 1.9625964545175776
+            }
+          }
+        },
+        "steals": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 0.6729027505567381,
+          "models": {
+            "baseline": {
+              "mae": 1.2255690023886279,
+              "rmse": 1.567757840653632
+            },
+            "raw": {
+              "mae": 1.214828937991714,
+              "rmse": 1.571900260342276
+            },
+            "regularized": {
+              "mae": 1.2132690502708787,
+              "rmse": 1.5615654180080947
+            },
+            "calibrated": {
+              "mae": 1.2165620089227291,
+              "rmse": 1.5617543253718924
+            }
+          }
+        },
+        "blocks": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 0.6863922287624655,
+          "models": {
+            "baseline": {
+              "mae": 0.7643222451436216,
+              "rmse": 1.1988978004606756
+            },
+            "raw": {
+              "mae": 0.7837313404897063,
+              "rmse": 1.2062770237269924
+            },
+            "regularized": {
+              "mae": 0.7677506557458597,
+              "rmse": 1.1968887215840789
+            },
+            "calibrated": {
+              "mae": 0.7667754341494091,
+              "rmse": 1.1982454081065514
+            }
+          }
+        },
+        "pra": {
+          "n": 1532,
+          "eligible": 1598,
+          "skippedNoEstimate": 66,
+          "finalCoefficient": 1,
+          "models": {
+            "baseline": {
+              "mae": 7.752297073330755,
+              "rmse": 9.961761871440276
+            },
+            "raw": {
+              "mae": 7.726703806146558,
+              "rmse": 9.952926451840838
+            },
+            "regularized": {
+              "mae": 7.713246395288575,
+              "rmse": 9.923351615105402
+            },
+            "calibrated": {
+              "mae": 7.727305524647836,
+              "rmse": 9.93151021105148
+            }
+          }
+        }
+      }
+    }
+  ]
+}

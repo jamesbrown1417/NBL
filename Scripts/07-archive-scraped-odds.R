@@ -3,6 +3,8 @@ library(tidyverse)
 library(googlesheets4)
 library(googledrive)
 library(glue)
+source("Scripts/00-config.R")
+ensure_data_directories()
 
 ##%######################################################%##
 #                                                          #
@@ -12,7 +14,7 @@ library(glue)
 
 # Get all scraped odds files and combine
 all_odds_files <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "h2h") |>
+    list.files(data_paths$raw_odds, full.names = TRUE, pattern = "h2h") |>
     map(read_csv) |>
     reduce(bind_rows)
 
@@ -48,7 +50,7 @@ all_odds_h2h <-
 
 # Get all scraped odds files and combine
 all_totals_files <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "total") |>
+    list.files(data_paths$raw_odds, full.names = TRUE, pattern = "total") |>
     map(read_csv) |>
     reduce(bind_rows) |> 
     mutate(market_name = "Total Points")
@@ -81,7 +83,7 @@ all_odds_totals <-
 
 # Get all scraped odds files and combine
 all_player_points <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_points") |>
+    list.files(data_paths$raw_odds, full.names = TRUE, pattern = "player_points") |>
     map(read_csv) |>
     # Ignore null elements
     keep(~nrow(.x) > 0) |>
@@ -96,7 +98,7 @@ all_player_points <-
 
 # Get all scraped odds files and combine
 all_player_assists <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_assists") |>
+    list.files(data_paths$raw_odds, full.names = TRUE, pattern = "player_assists") |>
     map(read_csv) |>
     # Ignore null elements
     keep(~nrow(.x) > 0) |>
@@ -110,7 +112,7 @@ all_player_assists <-
 
 # Get all scraped odds files and combine
 all_player_rebounds <-
-    list.files("Data/scraped_odds", full.names = TRUE, pattern = "player_rebounds") |>
+    list.files(data_paths$raw_odds, full.names = TRUE, pattern = "player_rebounds") |>
     map(read_csv) |>
     # Ignore null elements
     keep(~nrow(.x) > 0) |>
@@ -126,4 +128,4 @@ all_player_rebounds <-
 all_odds <- bind_rows(all_player_points, all_player_assists, all_player_rebounds)
 
 # Write out
-all_odds |> write_csv(glue("Data/Odds_Archive/combined_odds_{Sys.Date()}.csv"))
+all_odds |> write_csv(data_file("odds_archive", glue("combined_odds_{Sys.Date()}.csv")))

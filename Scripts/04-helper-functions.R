@@ -2,6 +2,8 @@
 # Helper functions
 #==============================================================================#
 
+source("Scripts/00-config.R")
+
 c(
     "Adelaide 36ers",
     "Brisbane Bullets",

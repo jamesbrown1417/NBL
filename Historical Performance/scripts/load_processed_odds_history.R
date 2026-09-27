@@ -13,6 +13,7 @@ suppressPackageStartupMessages({
   library(tibble)
   library(lubridate)
 })
+source("Scripts/00-config.R")
 
 datasets_dir <- "Historical Performance/datasets"
 rds_files <- list.files(datasets_dir, pattern = "\\.rds$", full.names = TRUE)
@@ -53,7 +54,7 @@ all_processed_odds_lines <-
 
 # Read in box score data
 all_player_stats <-
-    read_rds("Data/combined_stats_table.rds") |>
+    read_rds(data_file("processed_stats", "combined_stats_table.rds")) |>
     mutate(PLAYER_NAME = paste(first_name, family_name)) |>
     mutate(minutes_played = ifelse(str_detect(player_minutes, "\\:"), period_to_seconds(ms(player_minutes)) / 60, player_minutes)) |>
     mutate(minutes_played = as.numeric(minutes_played)) |>

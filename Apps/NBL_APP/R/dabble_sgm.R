@@ -15,11 +15,11 @@ safe_read <- function(file) {
 }
 
 dabble_sgm <-
-  safe_read("../../Data/scraped_odds/dabble_pickem_player_points.csv") |>
-  bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_rebounds.csv")) |>
-  bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_assists.csv")) |>
-  bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_threes.csv")) |>
-  bind_rows(safe_read("../../Data/scraped_odds/dabble_pickem_player_pras.csv"))
+  safe_read(data_file("raw_odds", "dabble_pickem_player_points.csv")) |>
+  bind_rows(safe_read(data_file("raw_odds", "dabble_pickem_player_rebounds.csv"))) |>
+  bind_rows(safe_read(data_file("raw_odds", "dabble_pickem_player_assists.csv"))) |>
+  bind_rows(safe_read(data_file("raw_odds", "dabble_pickem_player_threes.csv"))) |>
+  bind_rows(safe_read(data_file("raw_odds", "dabble_pickem_player_pras.csv")))
 
 if (nrow(dabble_sgm) > 0 && "match" %in% names(dabble_sgm)) {
   # Build Over/Under rows (no API adjustment used)

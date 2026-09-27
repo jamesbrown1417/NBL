@@ -14,11 +14,11 @@ safe_read_betright <- function(file) {
 }
 
 betright_sgm_list <- list(
-  safe_read_betright("../../Data/scraped_odds/betright_player_points.csv"),
-  safe_read_betright("../../Data/scraped_odds/betright_player_rebounds.csv"),
-  safe_read_betright("../../Data/scraped_odds/betright_player_assists.csv"),
-  safe_read_betright("../../Data/scraped_odds/betright_player_threes.csv"),
-  safe_read_betright("../../Data/scraped_odds/betright_player_pras.csv")
+  safe_read_betright(data_file("raw_odds", "betright_player_points.csv")),
+  safe_read_betright(data_file("raw_odds", "betright_player_rebounds.csv")),
+  safe_read_betright(data_file("raw_odds", "betright_player_assists.csv")),
+  safe_read_betright(data_file("raw_odds", "betright_player_threes.csv")),
+  safe_read_betright(data_file("raw_odds", "betright_player_pras.csv"))
 )
 
 betright_sgm <-

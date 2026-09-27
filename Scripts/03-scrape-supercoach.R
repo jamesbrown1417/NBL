@@ -6,6 +6,8 @@ library(tidyverse)
 library(httr2)
 library(googlesheets4)
 library(googledrive)
+source("Scripts/00-config.R")
+ensure_data_directories()
 
 `%notin%` <- Negate(`%in%`)
 
@@ -18,16 +20,27 @@ safe_subscript <- function(x, index) {
 }
 
 # Supercoach API URL
-url = "https://supercoach.dailytelegraph.com.au/2025/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round=19&xredir=1"
+url <- glue::glue(
+    "https://www.supercoach.com.au/{nbl_config$supercoach_year}/api/nbl/classic/v1/players-cf?embed=notes%2Codds%2Cplayer_stats%2Cpositions&round={nbl_config$supercoach_round}&xredir=1"
+)
 
 # Make request
-req <- request(url)
+req <- request(url) |>
+    req_user_agent("Mozilla/5.0") |>
+    req_headers(Referer = "https://www.supercoach.com.au/", Accept = "application/json") |>
+    req_timeout(30)
 
 # Get response
 resp <- req_perform(req)
 
 # Process response
 all_data <- resp |> resp_body_json()
+if (!length(all_data) || !all(vapply(all_data, function(player) {
+    all(c("id", "first_name", "last_name", "team", "player_stats") %in% names(player)) &&
+        length(player$team$name) == 1L && length(player$player_stats) > 0L
+}, logical(1)))) {
+    stop("SuperCoach returned an empty or unexpected player pool; existing roster was not replaced.")
+}
 
 # Create a function to extract the data from the json list for each player
 get_supercoach_data <- function(player_data) {
@@ -72,4 +85,12 @@ extracted_data <-
     mutate(player_name = str_replace_all(player_name, "^Jordon", "Jordan"))
 
 # Write out to csv
-write_csv(extracted_data, "Data/supercoach-data.csv")
+if (nrow(extracted_data) != length(all_data) ||
+    anyDuplicated(extracted_data$player_id) ||
+    anyNA(extracted_data$player_team) ||
+    n_distinct(extracted_data$player_team) != 10L) {
+    stop("SuperCoach roster validation failed; existing roster was not replaced.")
+}
+write_csv(extracted_data, data_file("raw_stats", "supercoach-data.csv"))
+message("SuperCoach: refreshed ", nrow(extracted_data), " players across ",
+        n_distinct(extracted_data$player_team), " teams.")

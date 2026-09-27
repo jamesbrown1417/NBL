@@ -5,7 +5,8 @@ execute:
     message: false
     warning: false
 author: "James Brown"
-date: "2023-07-03"
+date: "`r lubridate::now()`"
+date-format: "dddd MMM D, YYYY - hh:mmA"
 format:
     html:
         df-print: paged
@@ -22,17 +23,19 @@ editor: visual
 # Libraries
 library(tidyverse)
 library(qreport)
+source("../Scripts/00-config.R")
 
 # Read in data
-combined_stats_table <- read_rds("../Data/combined_stats_table.rds")
+combined_stats_table <- read_rds(data_file("processed_stats", "combined_stats_table.rds"))
 ```
 
-# Season 2022-2023
+# Season `r nbl_config$active_season_label`
 
 ```{r}
 # Get each teams season averages
 points_by_team <-
 combined_stats_table |>
+    filter(season == nbl_config$active_season) |>
     filter(!is.na(score)) |> 
     distinct(match_id, name, .keep_all = TRUE) |> 
         group_by(name) |>

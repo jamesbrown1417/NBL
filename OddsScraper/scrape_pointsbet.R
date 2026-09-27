@@ -1,217 +1,102 @@
-# Libraries
+# PointsBet NBL odds. Keep the existing output and SGM key contracts.
 library(tidyverse)
-library(rvest)
 library(httr2)
-library(jsonlite)
-library(tidyjson)
-
-# Load user functions
 source("Scripts/04-helper-functions.R")
 
-# Get player name and team data
-player_names_teams <-
-    read_csv("Data/supercoach-data.csv") |> 
-    mutate(first_initial = str_sub(player_first_name, 1, 1)) |>
-    select(player_first_name, first_initial, player_last_name, player_team) |> 
-    mutate(player_name_initials = paste(first_initial, player_last_name, sep = " ")) |> 
-    mutate(player_full_name = paste(player_first_name, player_last_name, sep = " "))
-
-pointsbet_h2h_main <- function() {
-
-# URL of website
-pointsbet_url = "https://api.au.pointsbet.com/api/v2/competitions/7172/events/featured?includeLive=false"
-
-# Make request and get response
-pointsbet_response <-
-    request(pointsbet_url) |>
-    req_perform() |> 
-    resp_body_json()
-
-# List of matches and data
-events <- pointsbet_response$events
-
-# Loop through to get all data--------------------------------------------------
-
-# Create empty vectors
-match_names <- c()
-match_starts_at <- c()
-home_teams <- c()
-away_teams <- c()
-event_names <- c()
-outcome_names <- c()
-outcome_prices <- c()
-keys <- c()
-
-# Loop through events
-for (match in events) {
-    for (market in match$specialFixedOddsMarkets) {
-        for (outcome in market$outcomes) {
-            # Append data to vectors
-            match_names <- c(match_names, match$name)
-            match_starts_at <- c(match_starts_at, match$startsAt)
-            home_teams <- c(home_teams, match$homeTeam)
-            away_teams <- c(away_teams, match$awayTeam)
-            event_names <- c(event_names, market$eventName)
-            outcome_names <- c(outcome_names, outcome$name)
-            outcome_prices <- c(outcome_prices, outcome$price)
-            keys <- c(keys, match$key)
-        }
-    }
+pointsbet_get_json <- function(url) {
+    request(url) |> req_timeout(30) |> req_perform() |> resp_body_json()
 }
 
-# Output tibble
-pointsbet_data <-
-    tibble(
-        match = match_names,
-        start_time = match_starts_at,
-        home_team = home_teams,
-        away_team = away_teams,
-        event = event_names,
-        outcome = outcome_names,
-        price = outcome_prices
-    ) |> 
-    mutate(home_team = fix_team_names(home_team),
-           away_team = fix_team_names(away_team)) |>
-    mutate(match = paste(home_team, "v", away_team)) |>
-    relocate(match, .before = start_time)
-
-
-#===============================================================================
-# Head to head markets
-#===============================================================================
-
-# Filter to head to head markets
-pointsbet_data_h2h <-
-    pointsbet_data |> 
-    filter(event == "Head to Head") |> 
-    mutate(outcome = fix_team_names(outcome))
-               
-# Home Teams
-pointsbet_data_h2h_home <-
-    pointsbet_data_h2h |> 
-    filter(home_team == outcome) |>
-    select(match, start_time, market = event, home_team, home_win = price)
-
-# Away Teams
-pointsbet_data_h2h_away <-
-    pointsbet_data_h2h |> 
-    filter(away_team == outcome) |>
-    select(match, start_time, market = event, away_team, away_win = price)
-
-# Combine
-pointsbet_h2h <-
-    full_join(pointsbet_data_h2h_home, pointsbet_data_h2h_away, by = c("match", "start_time", "market")) |> 
-    mutate(market = "Head To Head") |>
-    select(match, start_time, market_name = market, home_team, home_win, away_team, away_win) |> 
-    mutate(margin = round((1/home_win + 1/away_win), digits = 3)) |> 
-    mutate(agency = "Pointsbet")
-
-# Write to csv
-write_csv(pointsbet_h2h, "Data/scraped_odds/pointsbet_h2h.csv")
-
-#===============================================================================
-# Player Props
-#===============================================================================
-
-# Get unique keys
-keys <- unique(keys)
-
-# Get each match's api page
-match_urls <- paste0("https://api.au.pointsbet.com/api/mes/v3/events/", keys)
-
-# Create a function that gets the player props from each URL
-get_player_props <- function(url) {
-    # Make request and get response
-    pointsbet_response <-
-        request(url) |>
-        req_perform() |>
-        resp_body_json()
-    
-    # Match info
-    home_team <- fix_team_names(pointsbet_response$homeTeam)
-    away_team <- fix_team_names(pointsbet_response$awayTeam)
-    match <- paste(home_team, "v", away_team)
-    
-    
-    # Loop through to get prop data---------------------------------------------
-    
-    # Create empty vectors
-
-    market_names <- c()
-    outcome_names <- c()
-    outcome_types <- c()
-    outcome_prices <- c()
-    event_key <- c()
-    market_key <- c()
-    outcome_key <- c()
-    
-    # Loop through events
-    for (market in pointsbet_response$fixedOddsMarkets) {
-        for (outcome in market$outcomes) {
-            # Append data to vectors
-            
-            if (!is.null(market$name)) {
-                market_names <- c(market_names, market$name)
-            } else {
-                market_names <- c(market_names, NA)
-            }
-            
-            if (!is.null(outcome$name)) {
-                outcome_names <- c(outcome_names, outcome$name)
-            } else {
-                outcome_names <- c(outcome_names, NA)
-            }
-
-            if (!is.null(outcome$outcomeType)) {
-                outcome_types <- c(outcome_types, outcome$outcomeType)
-            } else {
-                outcome_types <- c(outcome_types, NA)
-            }
-            
-            if (!is.null(outcome$price)) {
-                outcome_prices <- c(outcome_prices, outcome$price)
-            } else {
-                outcome_prices <- c(outcome_prices, NA)
-            }
-            
-            event_key <- c(event_key, pointsbet_response$key)
-            
-            if (!is.null(market$key)) {
-                market_key <- c(market_key, market$key)
-            } else {
-                market_key <- c(market_key, NA)
-            }
-            
-            if (!is.null(outcome$key)) {
-                outcome_key <- c(outcome_key, outcome$key)
-            } else {
-                outcome_key <- c(outcome_key, NA)
-            }
-        }
-    }
-    
-    # Output tibble
-        tibble(
-            match = match,
-            home_team = home_team,
-            away_team = away_team,
-            market = market_names,
-            outcome = outcome_names,
-            outcome_type = outcome_types,
-            price = outcome_prices,
-            EventKey = event_key,
-            MarketKey = market_key,
-            OutcomeKey = outcome_key
-        )
+pointsbet_empty_rows <- function() {
+    tibble(match = character(), start_time = character(), home_team = character(),
+           away_team = character(), event = character(), market = character(),
+           outcome = character(), outcome_type = character(), price = numeric(),
+           EventKey = character(), MarketKey = character(), OutcomeKey = character())
 }
 
-# Map function to each URL
-pointsbet_data_player_props <- map_df(match_urls, get_player_props)
+parse_pointsbet_event <- function(event) {
+    required <- c("key", "homeTeam", "awayTeam", "startsAt", "fixedOddsMarkets")
+    if (!is.list(event) || !all(required %in% names(event)) ||
+        !is.list(event$fixedOddsMarkets) ||
+        any(vapply(event[c("key", "homeTeam", "awayTeam", "startsAt")],
+                   function(x) length(x) != 1L || is.na(x), logical(1)))) {
+        stop("PointsBet: incomplete event response.")
+    }
+    rows <- pointsbet_empty_rows()
+    if (isTRUE(event$isLive)) return(rows)
+    home <- fix_team_names(event$homeTeam)
+    away <- fix_team_names(event$awayTeam)
+    for (market_record in event$fixedOddsMarkets) {
+        if (!isTRUE(market_record$isOpenForBetting)) next
+        # These exports are full-game markets only.
+        if (!is.null(market_record$period) && market_record$period != "FT") next
+        for (selection in market_record$outcomes) {
+            if (!isTRUE(selection$isOpenForBetting) || isTRUE(selection$isHidden) ||
+                is.null(selection$price) || !is.finite(selection$price) || selection$price <= 1) next
+            if (is.null(market_record$key) || is.null(selection$key) || is.null(market_record$name) || is.null(selection$name)) {
+                stop("PointsBet: open selection is missing its name or SGM keys.")
+            }
+            rows <- bind_rows(rows, tibble(
+                match = paste(home, "v", away), start_time = event$startsAt,
+                home_team = home, away_team = away,
+                EventKey = as.character(event$key),
+                event = market_record$eventName %||% NA_character_, market = market_record$name,
+                outcome = fix_player_names(selection$name),
+                outcome_type = selection$outcomeType %||% NA_character_,
+                price = as.numeric(selection$price),
+                MarketKey = as.character(market_record$key), OutcomeKey = as.character(selection$key)))
+        }
+    }
+    rows
+}
 
-# Fix player names
-pointsbet_data_player_props <-
-    pointsbet_data_player_props |>
-    mutate(outcome = fix_player_names(outcome))
+validate_pointsbet_roster <- function(data) {
+    invalid <- is.na(data$player_team) |
+        !(data$player_team == data$home_team | data$player_team == data$away_team)
+    if (any(invalid)) {
+        warning("PointsBet roster names unresolved: ", paste(unique(data$player_name[invalid]), collapse = ", "), call. = FALSE)
+        data$player_team[invalid] <- NA_character_
+        data$opposition_team[invalid] <- NA_character_
+    }
+    data
+}
+
+pointsbet_h2h_main <- function(fetch = pointsbet_get_json, output_dir = data_paths$raw_odds,
+                               roster = read_csv(data_file("raw_stats", "supercoach-data.csv"), show_col_types = FALSE)) {
+    player_names_teams <- roster |>
+        transmute(player_full_name = fix_player_names(paste(player_first_name, player_last_name)), player_team) |>
+        distinct()
+    if (anyDuplicated(player_names_teams$player_full_name)) {
+        stop("PointsBet: ambiguous player names in roster.")
+    }
+    url <- "https://api.au.pointsbet.com/api/v2/competitions/7172/events/featured?includeLive=false"
+    discovery <- fetch(url)
+    if (!is.list(discovery) || !("events" %in% names(discovery)) || !is.list(discovery$events)) {
+        stop("PointsBet: expected a competition events list.")
+    }
+    if (!is.null(discovery$nextPage) && !identical(discovery$nextPage, "")) {
+        stop("PointsBet: competition response is paginated; refusing an incomplete refresh.")
+    }
+    events <- keep(discovery$events, ~ !isTRUE(.x$isLive))
+    keys <- unique(map_chr(events, function(event) {
+        if (is.null(event$key) || length(event$key) != 1) stop("PointsBet: event key is missing.")
+        as.character(event$key)
+    }))
+    # Fetch events even when featured markets are empty; props may still be available.
+    pointsbet_data_player_props <- pointsbet_empty_rows()
+    for (key in keys) {
+        event <- fetch(paste0("https://api.au.pointsbet.com/api/mes/v3/events/", key))
+        if (!identical(as.character(event$key), key)) stop("PointsBet: event key mismatch.")
+        pointsbet_data_player_props <- bind_rows(pointsbet_data_player_props, parse_pointsbet_event(event))
+    }
+    h2h <- pointsbet_data_player_props |> filter(event == "Head to Head") |>
+        mutate(outcome = fix_team_names(outcome))
+    home <- h2h |> filter(outcome == home_team) |>
+        select(EventKey, match, start_time, home_team, away_team, home_win = price)
+    away <- h2h |> filter(outcome == away_team) |> select(EventKey, away_win = price)
+    pointsbet_h2h <- inner_join(home, away, by = "EventKey", relationship = "one-to-one") |>
+        transmute(match, start_time, market_name = "Head To Head", home_team, home_win,
+                  away_team, away_win, margin = round(1 / home_win + 1 / away_win, 3), agency = "Pointsbet")
 
 #===============================================================================
 # Player Points
@@ -307,7 +192,7 @@ pointsbet_player_points_under <-
 # Combine overs and unders
 pointsbet_player_points_over_under <-
     pointsbet_player_points_over |>
-    left_join(pointsbet_player_points_under) |>
+    full_join(pointsbet_player_points_under, by = c("match", "home_team", "away_team", "market_name", "player_name", "player_team", "opposition_team", "line", "agency", "EventKey", "MarketKey")) |>
     select(
         match,
         home_team,
@@ -417,7 +302,7 @@ pointsbet_player_assists_under <-
 # Combine overs and unders
 pointsbet_player_assists_over_under <-
     pointsbet_player_assists_over |>
-    left_join(pointsbet_player_assists_under) |>
+    full_join(pointsbet_player_assists_under, by = c("match", "home_team", "away_team", "market_name", "player_name", "player_team", "opposition_team", "line", "agency", "EventKey", "MarketKey")) |>
     select(
         match,
         home_team,
@@ -528,7 +413,7 @@ pointsbet_player_rebounds_under <-
 # Combine overs and unders
 pointsbet_player_rebounds_over_under <-
     pointsbet_player_rebounds_over |>
-    left_join(pointsbet_player_rebounds_under) |>
+    full_join(pointsbet_player_rebounds_under, by = c("match", "home_team", "away_team", "market_name", "player_name", "player_team", "opposition_team", "line", "agency", "EventKey", "MarketKey")) |>
     select(
         match,
         home_team,
@@ -638,7 +523,7 @@ pointsbet_player_threes_under <-
 # Combine overs and unders
 pointsbet_player_threes_over_under <-
     pointsbet_player_threes_over |>
-    left_join(pointsbet_player_threes_under) |>
+    full_join(pointsbet_player_threes_under, by = c("match", "home_team", "away_team", "market_name", "player_name", "player_team", "opposition_team", "line", "agency", "EventKey", "MarketKey")) |>
     select(
         match,
         home_team,
@@ -654,115 +539,25 @@ pointsbet_player_threes_over_under <-
         contains("Key")
     )
 
-#===============================================================================
-# Write to CSV
-#===============================================================================
-
-# Points
-pointsbet_player_points_lines |>
-    bind_rows(pointsbet_player_points_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "EventKey",
-        "MarketKey",
-        "OutcomeKey",
-        "OutcomeKey_unders"
-    ) |>
-    mutate(market_name = "Player Points") |>
-    mutate(agency = "Pointsbet") |> 
-    write_csv("Data/scraped_odds/pointsbet_player_points.csv")
-
-# Rebounds
-pointsbet_player_rebounds_lines |>
-    bind_rows(pointsbet_player_rebounds_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "EventKey",
-        "MarketKey",
-        "OutcomeKey",
-        "OutcomeKey_unders"
-    ) |>
-    mutate(market_name = "Player Rebounds") |>
-    mutate(agency = "Pointsbet") |> 
-    write_csv("Data/scraped_odds/pointsbet_player_rebounds.csv")
-
-# Assists
-pointsbet_player_assists_lines |>
-    bind_rows(pointsbet_player_assists_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "EventKey",
-        "MarketKey",
-        "OutcomeKey",
-        "OutcomeKey_unders"
-    ) |>
-    mutate(market_name = "Player Assists") |>
-    mutate(agency = "Pointsbet") |> 
-    write_csv("Data/scraped_odds/pointsbet_player_assists.csv")
-
-# Threes
-pointsbet_player_threes_lines |>
-    bind_rows(pointsbet_player_threes_over_under) |>
-    select(
-        "match",
-        "home_team",
-        "away_team",
-        "market_name",
-        "player_name",
-        "player_team",
-        "line",
-        "over_price",
-        "under_price",
-        "agency",
-        "opposition_team",
-        "EventKey",
-        "MarketKey",
-        "OutcomeKey",
-        "OutcomeKey_unders"
-    ) |>
-    mutate(market_name = "Player Threes") |>
-    mutate(agency = "Pointsbet") |> 
-    write_csv("Data/scraped_odds/pointsbet_player_threes.csv")
+# Build and validate all outputs before writing any files.
+outputs <- list(pointsbet_h2h = pointsbet_h2h,
+                pointsbet_player_points = bind_rows(pointsbet_player_points_lines, pointsbet_player_points_over_under),
+                pointsbet_player_rebounds = bind_rows(pointsbet_player_rebounds_lines, pointsbet_player_rebounds_over_under),
+                pointsbet_player_assists = bind_rows(pointsbet_player_assists_lines, pointsbet_player_assists_over_under),
+                pointsbet_player_threes = bind_rows(pointsbet_player_threes_lines, pointsbet_player_threes_over_under))
+for (name in names(outputs)[-1]) {
+    outputs[[name]] <- validate_pointsbet_roster(outputs[[name]]) |>
+        select(match, home_team, away_team, market_name, player_name, player_team,
+               line, over_price, under_price, agency, opposition_team,
+               EventKey, MarketKey, OutcomeKey, OutcomeKey_unders)
+    if (anyNA(outputs[[name]]$line)) stop("PointsBet: could not parse a player line in ", name)
+}
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+iwalk(outputs, ~ write_csv(.x, file.path(output_dir, paste0(.y, ".csv"))))
+message("PointsBet: refreshed ", nrow(pointsbet_h2h), " head-to-head matches and ",
+        sum(map_int(outputs[-1], nrow)), " player-prop rows.")
+if (!sum(map_int(outputs[-1], nrow))) message("PointsBet: no supported player-prop markets are currently offered.")
+invisible(outputs)
 }
 
-##%######################################################%##
-#                                                          #
-####                   Run functions                    ####
-#                                                          #
-##%######################################################%##
-
-# This runs both the props and head to head as they use same info
-h2h_safe_pointsbet <- safely(pointsbet_h2h_main)
-
-# Run functions
-h2h_safe_pointsbet()
+if (!isTRUE(getOption("nbl.pointsbet.skip_run", FALSE))) pointsbet_h2h_main()

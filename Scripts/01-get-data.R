@@ -9,6 +9,8 @@ library(nblR)
 library(openxlsx)
 library(googlesheets4)
 library(googledrive)
+source("Scripts/00-config.R")
+ensure_data_directories()
 
 #==============================================================================
 # Get Data
@@ -209,7 +211,7 @@ team_box_scores |>
 #==============================================================================
 
 # RDS----------------------------------------------------------------
-write_rds(combined_stats_table, "Data/combined_stats_table.rds")
+write_rds(combined_stats_table, data_file("processed_stats", "combined_stats_table.rds"))
 
 # Excel--------------------------------------------------------------
 
@@ -235,5 +237,4 @@ style <- createStyle(textDecoration = "bold", fgFill = "#4F81BD", halign = "cent
 addStyle(wb, "Combined Stats Table", style = style, rows = 1, cols = 1:ncol(combined_stats_table), gridExpand = TRUE)
 
 # Save workbook to Excel file
-saveWorkbook(wb, "Data/combined_stats_table.xlsx", overwrite = TRUE)
-
+saveWorkbook(wb, data_file("processed_stats", "combined_stats_table.xlsx"), overwrite = TRUE)

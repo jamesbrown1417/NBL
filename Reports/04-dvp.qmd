@@ -22,12 +22,13 @@ editor: visual
 ```{r}
 # Libraries
 library(tidyverse)
+source("../Scripts/00-config.R")
 library(readr)
 library(lubridate)
 
 # Try to read bundled DVP results from RDS
 dvp_results <- tryCatch(
-  read_rds("../Data/processed_stats/dvp_results.rds"),
+  read_rds(data_file("processed_stats", "dvp_results.rds")),
   error = function(e) NULL
 )
 

@@ -26,6 +26,8 @@ editor: visual
 
 library(tidyverse)
 library(DT)
+source("../Scripts/00-config.R")
+source("../Scripts/odds-schema.R")
 `%notin%` <- Negate(`%in%`)
 
 #===============================================================================
@@ -34,14 +36,12 @@ library(DT)
 
 # Read in Data
 list_of_files_props <-
-    list.files("../Data/processed_odds", full.names = TRUE, pattern = "all")
+    list.files(data_paths$processed_odds, full.names = TRUE, pattern = "all")
 
-head_to_head <- read_rds("../Data/processed_odds/head_to_head.rds")
+head_to_head <- read_rds(data_file("processed_odds", "head_to_head.rds"))
 
 # Read in all data - player props
-all_odds <- 
-  list_of_files_props |> 
-  map_dfr(read_rds)
+all_odds <- read_processed_player_odds(list_of_files_props)
 
 # Distinct Matches
 all_matches <- 
@@ -85,7 +85,11 @@ filtered_list <- map(all_matches, filter_by_match, df = all_lines) |>
     map(~ datatable(.x))
 
 # Use qreport to make tabset
-qreport::maketabs(filtered_list, wide = TRUE)
+if (length(filtered_list)) {
+  qreport::maketabs(filtered_list, wide = TRUE)
+} else {
+  cat("No player lines are currently available.")
+}
 ```
 
 ## Alternative Lines (diff)
@@ -115,7 +119,11 @@ filtered_list_alt <- map(all_matches, filter_by_match, df = all_alt_lines_diff) 
     map(~ datatable(.x))
 
 # Use qreport to make tabset
-qreport::maketabs(filtered_list_alt, wide = TRUE)
+if (length(filtered_list_alt)) {
+  qreport::maketabs(filtered_list_alt, wide = TRUE)
+} else {
+  cat("No alternative lines are currently available.")
+}
 ```
 
 ## Alternative Lines (outliers)
@@ -138,7 +146,11 @@ filtered_list_outliers <- map(all_matches, filter_by_match, df = all_alt_lines_o
     map(~ datatable(.x))
 
 # Use qreport to make tabset
-qreport::maketabs(filtered_list_outliers, wide = TRUE)
+if (length(filtered_list_outliers)) {
+  qreport::maketabs(filtered_list_outliers, wide = TRUE)
+} else {
+  cat("No line outliers are currently available.")
+}
 ```
 
 ## Favourable L10 + DVP
@@ -147,11 +159,11 @@ qreport::maketabs(filtered_list_outliers, wide = TRUE)
 #| results: asis
 
 # Read positions data
-positions <- read_csv("../Data/supercoach-data.csv", show_col_types = FALSE) |>
+positions <- read_csv(data_file("raw_stats", "supercoach-data.csv"), show_col_types = FALSE) |>
     select(player_name, player_team, position = supercoach_position_1)
 
 # Read DVP data
-dvp_all <- read_rds("../Data/processed_stats/dvp_all.rds")
+dvp_all <- read_rds(data_file("processed_stats", "dvp_all.rds"))
 
 # Map market names to DVP stat names
 market_to_stat <- c(
@@ -209,7 +221,11 @@ filtered_list_favourable <- map(all_matches, filter_by_match, df = favourable_co
     map(~ datatable(.x))
 
 # Use qreport to make tabset
-qreport::maketabs(filtered_list_favourable, wide = TRUE)
+if (length(filtered_list_favourable)) {
+  qreport::maketabs(filtered_list_favourable, wide = TRUE)
+} else {
+  cat("No favourable DVP markets are currently available.")
+}
 ```
 
 ## Arbs
@@ -223,12 +239,10 @@ library(tidyverse)
 `%notin%` <- Negate(`%in%`)
 
 # Read in Data
-list_of_files <- list.files("../Data/processed_odds", full.names = TRUE)
+list_of_files <- list.files(data_paths$processed_odds, full.names = TRUE, pattern = "^all_player_.*[.]rds$")
 
 # Read in all data
-all_odds <- 
-  list_of_files |> 
-  map_dfr(read_rds)
+all_odds <- read_processed_player_odds(list_of_files)
 ```
 
 ```{r}
